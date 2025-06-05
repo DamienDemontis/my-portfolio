@@ -2,6 +2,7 @@ import FakeChat from '@/components/FakeChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import ExperienceList from '@/components/ExperienceList';
 import ProjectList from '@/components/ProjectList';
+import VideoList from '@/components/VideoList';
 
 export default function Page() {
   const messages = [
@@ -20,6 +21,10 @@ export default function Page() {
       <section>
         <h2 className="text-xl font-bold mt-4">Projets</h2>
         <ProjectList />
+      </section>
+      <section>
+        <h2 className="text-xl font-bold mt-4">Vidéos</h2>
+        <VideoList />
       </section>
     </main>
   );

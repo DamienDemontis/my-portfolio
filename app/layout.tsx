@@ -1,6 +1,7 @@
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { ThemeProvider } from 'next-themes';
+import { DefaultSeo } from 'next-seo';
 import i18n from '@/lib/i18n';
 import type { ReactNode } from 'react';
 
@@ -16,6 +17,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body className="bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <DefaultSeo title="Damien Demontis | Portfolio" description="Full-stack developer dreaming of Asia" />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>

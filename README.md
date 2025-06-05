@@ -31,3 +31,10 @@ pnpm test
 ## Deployment
 
 Deploy the project on Vercel. The repository is ready for CI with GitHub Actions and a husky pre-commit hook running lint and tests.
+
+### Features
+
+- Fake chat landing with typing effect
+- Video gallery powered by YouTube embeds
+- PDF export of the CV via `/api/cv/pdf`
+- Offline support with PWA setup

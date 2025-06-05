@@ -8,19 +8,37 @@ interface FakeChatProps {
 
 export default function FakeChat({ messages }: FakeChatProps) {
   const [index, setIndex] = useState(0);
+  const [current, setCurrent] = useState('');
+
   useEffect(() => {
-    if (index < messages.length - 1) {
-      const id = setTimeout(() => setIndex(index + 1), 2000);
-      return () => clearTimeout(id);
-    }
-  }, [index, messages.length]);
+    const text = messages[index];
+    let i = 0;
+    const id = setInterval(() => {
+      setCurrent(text.slice(0, i + 1));
+      i += 1;
+      if (i === text.length) {
+        clearInterval(id);
+        if (index < messages.length - 1) {
+          setTimeout(() => {
+            setIndex(index + 1);
+            setCurrent('');
+          }, 800);
+        }
+      }
+    }, 50);
+    return () => clearInterval(id);
+  }, [index, messages]);
+
   return (
     <div className="space-y-2">
-      {messages.slice(0, index + 1).map((msg, i) => (
+      {messages.slice(0, index).map((msg, i) => (
         <motion.p key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {msg}
         </motion.p>
       ))}
+      <motion.p key={index} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        {current}
+      </motion.p>
     </div>
   );
 }
