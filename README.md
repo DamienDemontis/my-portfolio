@@ -11,8 +11,9 @@ pnpm dev
 
 ## Adding Data
 
-- Update `data/cv.json` with your experiences.
-- Update `data/projects.ts` with your projects and images in `public/images`.
+- Update `data/cv.json` with your experiences and education.
+- Edit `data/projects.ts` to list your projects. Images live in `public/images`.
+- Translations are stored in `messages/*.json`.
 - Environment variables are defined in `.env.local`:
 
 ```
