@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "title": "Damien Demontis - Full-Stack Developer",
+    "description": "Portfolio of Damien Demontis, a 22-year-old full-stack developer specialized in modern technologies. Expert in React, Vue.js, Python, and passionate about Asia.",
+    "keywords": "full-stack developer, JavaScript, TypeScript, Python, React, Vue.js, portfolio"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "ask-ai": "Ask AI"
+  },
+  "hero": {
+    "greeting": "Who is Damien Demontis?",
+    "typing": "Typing...",
+    "scroll-hint": "Scroll to learn more"
+  },
+  "chat": {
+    "welcome": "Hi! I'm **DamienGPT**, an AI representing Damien Demontis. 👋",
+    "intro": "I can answer all your questions about his background, skills, and projects!",
+    "placeholder": "Ask me a question about Damien...",
+    "send": "Send",
+    "typing": "DamienGPT is typing...",
+    "error": "Sorry, an error occurred. Please try again.",
+    "thinking": "Thinking...",
+    "ask-ai": "Ask AI"
+  },
+  "about": {
+    "title": "Full-Stack Developer & Technology Enthusiast",
+    "description": "Expert in Information Technology at Epitech, with international experience in South Korea. Currently Pedagogical Advisor for MSc students, specialized in modern web development, DevOps, and artificial intelligence.",
+    "dream": "Dreams of living in Asia and contributing to global technological innovation.",
+    "age": "22 years old",
+    "location": "Nancy, France",
+    "status": "Available for full-time position from September 2025"
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "current": "Current",
+    "responsibilities": "Responsibilities",
+    "achievements": "Achievements",
+    "technologies": "Technologies"
+  },
+  "education": {
+    "title": "Education",
+    "activities": "Activities and associations",
+    "specializations": "Specializations"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "view-more": "View more",
+    "view-project": "View project",
+    "view-video": "Watch video",
+    "visit-website": "Visit website",
+    "view-github": "View on GitHub",
+    "role": "Role",
+    "team-size": "Team",
+    "duration": "Duration",
+    "highlights": "Highlights",
+    "categories": {
+      "all": "All",
+      "web": "Web",
+      "mobile": "Mobile",
+      "ai": "AI",
+      "game": "Games",
+      "tool": "Tools"
+    }
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "programming": "Programming",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "gamedev": "Game Development",
+    "devops": "DevOps",
+    "ai": "Artificial Intelligence",
+    "other": "Other"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "description": "Interested in my profile? Feel free to reach out!",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "social": "Social media",
+    "download-cv": "Download CV",
+    "availability": "Available for full-time position from September 2025"
+  },
+  "footer": {
+    "made-with": "Made with",
+    "by": "by",
+    "source": "Source code",
+    "theme": "Theme"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Toggle theme"
+  },
+  "languages": {
+    "title": "Languages",
+    "french": "French",
+    "english": "English",
+    "korean": "Korean",
+    "switch": "Switch language"
+  },
+  "videos": {
+    "title": "Videos",
+    "korea-experience": "South Korea Experience",
+    "projects-demo": "Projects Demo"
+  },
+  "certifications": {
+    "title": "Certifications",
+    "management": "Management",
+    "communication": "Communication",
+    "methodology": "Methodology"
+  },
+  "interests": {
+    "title": "Interests"
+  },
+  "fake-questions": {
+    "experience": "Tell me about your professional experience",
+    "skills": "What are your technical skills?",
+    "projects": "Show me your most interesting projects",
+    "contact": "How can we contact you?"
+  },
+  "fake-responses": {
+    "who-is-damien": "I'm **Damien Demontis**, a 22-year-old full-stack developer passionate about technology and innovation. 🚀\n\nCurrently pursuing my **Expert in Information Technology** degree at Epitech Nancy (class of 2025), I'm also a **Pedagogical Advisor** for MSc students, training them in modern technologies like Nuxt, Docker, and Kubernetes.\n\nMy journey took me to **South Korea** for an exchange year at Keimyung University, where I was an Epitech ambassador and specialized in AI, VR/AR, and game development. This experience reinforced my **dream of living in Asia**! 🌏\n\nI master numerous technologies: JavaScript/TypeScript, Python, C/C++, as well as modern frameworks like React, Vue.js, and Django. My flagship project, **Leon'Art**, is a student startup I co-founded to revolutionize the digital art market.",
+    "experience": "My professional experience is rich and diverse! 💼\n\n**Currently** (March 2025):\n• **MSc Pedagogical Advisor** at Epitech\n• Mentoring students on advanced technologies\n• Developing a facial recognition system with OpenCV and Torch\n• Introducing modern frameworks (Nuxt, Pinia, Deno) to the curriculum\n\n**Previous experiences**:\n• **+Simple** (2023): Complete Django → Nuxt.js migration, 50% loading time reduction\n• **Epitech Assistant** (2022-2025): 3 consecutive years, unique record on my campus!\n• **ACORIS Mutuelles** (2021): Complete WordPress intranet development\n\nEach mission has brought me new skills and confirmed my passion for full-stack development.",
+    "skills": "My technical skills cover the entire modern stack! ⚡\n\n**Mastered languages**:\n• JavaScript/TypeScript, Python, C/C++, Java, PHP, C#\n• Haskell (functional programming), Assembly\n\n**Frontend & UI**:\n• React, Vue.js/Nuxt.js, HTML/CSS, Tailwind CSS\n• Pinia (state management), i18n (internationalization)\n\n**Backend & Databases**:\n• Node.js, Django, Express.js\n• MongoDB, SQL, Mongoose, OAuth 2, Swagger\n\n**DevOps & Cloud**:\n• Docker, Kubernetes, Jenkins, CI/CD, GitLab, Linux\n\n**Specializations**:\n• AI/ML: OpenCV, Torch, Computer Vision\n• Mobile: React Native, Firebase, Firestore\n• Game Dev: Unity, SFML, CSFML\n\nI always prioritize **best practices**: testing, documentation, code review, and Agile methodologies.",
+    "projects": "My projects reflect my passion for innovation! 🎯\n\n**Leon'Art** (Flagship project):\n• Student startup - Digital art platform\n• Stack: Node.js, MongoDB, React Native, Stripe\n• Role: Project Manager & Back-end Developer\n• Features: Recommendation algorithm, secure payments, real-time messaging\n\n**Facial Recognition System**:\n• Automated attendance tracking at Epitech\n• Technologies: Python, PyQt6, OpenCV, Torch, Firestore\n• Impact: Significant reduction in administrative overhead\n\n**+Simple Migration**:\n• Django monolithic → Modern architecture transformation\n• Nuxt.js + Django, 50% performance improvement\n• Test coverage increased by 30%\n\n**South Korea Projects**:\n• VR/AR games with Unity\n• AI applied to video games projects\n• International collaboration\n\nEvery project teaches me something new!",
+    "contact": "Ready to connect? I'm always open to opportunities! 📬\n\n**Contact details**:\n• 📧 damien.demontis@epitech.eu\n• 📱 +33 7 81 69 92 18\n• 📍 Nancy, France (mobile for Asia! 🌏)\n\n**Social media**:\n• LinkedIn: damien-demontis\n• GitHub: DamienDemontis\n• YouTube: @elswift54 (my Korean adventures!)\n• Instagram: @damien.demontis\n\n**Availability**:\nI'm looking for a **full-time position** for September 2025, ideally in an innovative company that shares my passion for technology. My dream? Working in Asia or for a company with international projects!\n\nFeel free to contact me to discuss opportunities or simply chat about tech! 🚀"
+  }
+} 

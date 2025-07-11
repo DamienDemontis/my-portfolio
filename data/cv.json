@@ -1,0 +1,347 @@
+{
+  "personalInfo": {
+    "name": "Damien Demontis",
+    "title": "Expert en Technologies de l'Information",
+    "dateOfBirth": "2002-11-07",
+    "age": 22,
+    "location": "3 allée de Picardie, 54390 Frouard, France",
+    "phone": "+33 7 81 69 92 18",
+    "email": "damien.demontis@epitech.eu",
+    "linkedIn": "https://www.linkedin.com/in/damien-demontis/",
+    "github": "https://github.com/DamienDemontis",
+    "youtube": "https://www.youtube.com/@elswift54",
+    "instagram": "https://www.instagram.com/damien.demontis",
+    "portfolio": "https://www.leon-arts.fr/",
+    "driverLicense": "Category B",
+    "careerObjective": "Full-stack developer seeking a full-time IT position for September 2025. Passionate about modern technologies and dreaming of living in Asia."
+  },
+  "languages": [
+    {
+      "name": "French",
+      "level": "Native",
+      "code": "fr"
+    },
+    {
+      "name": "English",
+      "level": "C1",
+      "score": "945/990 TEpitech (equivalent to TOEIC)",
+      "code": "en"
+    },
+    {
+      "name": "Korean",
+      "level": "B1",
+      "description": "Studied during exchange year in South Korea",
+      "code": "ko"
+    }
+  ],
+  "education": [
+    {
+      "institution": "Epitech - L'école de l'excellence informatique",
+      "degree": "Expert en Technologies de l'Information",
+      "field": "Technologies de l'information",
+      "startDate": "2020",
+      "endDate": "2025",
+      "location": "Nancy, France",
+      "gpa": "3.7/4",
+      "status": "Major of Nancy campus",
+      "description": "Project-oriented learning focused on advanced programming, leadership in associations, teaching assistant role, and startup project development.",
+      "activities": [
+        "Leadership in CodingClub: Organized workshops for high school students",
+        "Academic Excellence: Major of Nancy campus with GPA 3.7/4",
+        "Teaching Assistant: Supervising and mentoring students",
+        "Startup Project Leon'Art: Project Manager and Back-end Developer",
+        "Study Abroad: Exchange year at Keimyung University, South Korea"
+      ]
+    },
+    {
+      "institution": "계명대학교 (Keimyung University)",
+      "degree": "Année d'étude à l'étranger",
+      "field": "Gestion de projet / Jeu vidéo / IA / Coréen",
+      "startDate": "2023-09",
+      "endDate": "2024-07",
+      "location": "Daegu, South Korea",
+      "description": "Exchange year focusing on video game development, AI, VR/AR, and Korean language learning. Ambassador for Epitech International.",
+      "specializations": ["Video Game Development (Unity)", "Artificial Intelligence", "VR/AR", "Project Management", "Korean Language", "Taekwondo"]
+    },
+    {
+      "institution": "Lycée Henri Poincaré",
+      "degree": "Baccalauréat scientifique",
+      "field": "Technologies de l'information",
+      "startDate": "2017",
+      "endDate": "2020",
+      "location": "Nancy, France",
+      "honors": "Mention Très Bien",
+      "specialization": "Computer Science & Digital Science"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Epitech - L'école de l'excellence informatique",
+      "position": "Accompagnateur Pédagogique | Cursus MSc",
+      "type": "Full-time",
+      "startDate": "2025-03",
+      "endDate": "Present",
+      "location": "Nancy, Grand Est, France",
+      "description": "Mentorship of Master of Science students, overseeing advanced web development, DevOps, and software engineering best practices.",
+      "responsibilities": [
+        "Provide dedicated mentorship to MSc students on advanced topics (Nuxt, Pinia, Deno, Docker, Kubernetes, Jenkins)",
+        "Develop custom systems including cloud-based facial recognition attendance platform",
+        "Design educational modules and project topics",
+        "Foster campus dynamic through tech meetups and inter-promotion communication",
+        "Collaborate with pedagogical coordinators to maintain quality standards"
+      ],
+      "achievements": [
+        "Implemented facial recognition system reducing administrative overhead",
+        "Introduced modern frameworks (Nuxt, Pinia, Deno) into MSc curriculum",
+        "Improved cross-promotion communication through tech events",
+        "Modernized project deployment pipeline with Docker, Kubernetes, Jenkins"
+      ],
+      "technologies": ["Nuxt", "Pinia", "Deno", "Docker", "Kubernetes", "Jenkins", "Firestore", "PyQt6", "OpenCV", "Torch", "DevOps", "Cloud"]
+    },
+    {
+      "company": "Epitech - L'école de l'excellence informatique",
+      "position": "Assistant Epitech Région | Cursus MSC",
+      "type": "Internship",
+      "startDate": "2024-09",
+      "endDate": "Present",
+      "location": "Nancy, Grand Est, France",
+      "description": "Support and guidance to pre-Master of Science students in various programming languages and DevOps practices.",
+      "responsibilities": [
+        "Support pre-MSc students in Python, Java, PHP, DevOps",
+        "Coordinate educational activities aligned with academic standards",
+        "Facilitate project presentations and code reviews",
+        "Provide constructive feedback for student improvement"
+      ],
+      "achievements": [
+        "Developed dynamic learning environment boosting student motivation",
+        "Implemented training modules improving coding proficiency",
+        "Measurable impact on students' academic progress"
+      ],
+      "technologies": ["PHP", "Java", "Docker", "Kubernetes", "CI/CD", "Node.js", "JavaScript", "Python"]
+    },
+    {
+      "company": "+Simple",
+      "position": "Développeur web",
+      "type": "Internship",
+      "startDate": "2023-04",
+      "endDate": "2023-08",
+      "location": "Nancy, Grand Est, France",
+      "description": "Led comprehensive migration of internal bill tracking system from Django monolithic to modern Nuxt.js frontend with Django backend.",
+      "responsibilities": [
+        "Led migration from Django monolithic to Nuxt.js + Django architecture",
+        "Worked with backend teams for seamless integration",
+        "Designed and implemented new Nuxt.js features",
+        "Conducted extensive testing and debugging"
+      ],
+      "achievements": [
+        "Completed migration within timeline reducing page load times by 50%",
+        "Improved code modularity and maintainability",
+        "Enhanced system scalability for future growth",
+        "Achieved 30% increase in test coverage post-migration"
+      ],
+      "technologies": ["Python", "Django", "Nuxt.js", "Vue 3", "SQL", "Pinia", "CI/CD", "GitLab", "OAuth 2", "i18n"]
+    },
+    {
+      "company": "Epitech - L'école de l'excellence informatique",
+      "position": "Assistant Epitech Région",
+      "type": "Internship",
+      "startDate": "2022-02",
+      "endDate": "2023-04",
+      "location": "Nancy, Grand Est, France",
+      "description": "Mentorship and technical guidance to students across multiple years, recognized as top-performing teaching assistant.",
+      "responsibilities": [
+        "Mentorship and technical guidance to students",
+        "Supervised educational activities aligned with curriculum",
+        "Led project presentations and provided critical feedback",
+        "Helped students refine their software projects"
+      ],
+      "achievements": [
+        "Improved student engagement and success rates through innovative teaching",
+        "Recognized as top-performing teaching assistant",
+        "Uniquely offered assistant position for three consecutive years"
+      ],
+      "technologies": ["C", "CSFML", "C++", "SFML", "Assembly", "JavaScript", "Haskell"]
+    },
+    {
+      "company": "ACORIS Mutuelles",
+      "position": "Développeur Web",
+      "type": "Internship",
+      "startDate": "2021-07",
+      "endDate": "2021-12",
+      "location": "Nancy, Grand Est, France",
+      "description": "Developed comprehensive intranet solution and collaborated across departments for feature specifications.",
+      "responsibilities": [
+        "Collaborated with all departments for specification sheets",
+        "Developed robust WordPress intranet solution",
+        "Applied Agile methodologies for project management",
+        "Created custom PHP modules"
+      ],
+      "achievements": [
+        "Delivered functional intranet improving company-wide communication",
+        "Developed custom PHP module integrating with existing systems",
+        "Successfully managed project timelines with Agile methods"
+      ],
+      "technologies": ["PHP", "WordPress", "HTML", "CSS", "JavaScript"],
+      "videoUrl": "https://youtu.be/fSEylEdaZiM"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Leon'Art",
+      "type": "Student Startup / Final-year project (EIP)",
+      "role": "Project Manager & Back-end Developer",
+      "description": "iOS, Android & web platform for buying/selling art between individuals with advanced social features including preference algorithm, order management, messaging, and collections.",
+      "url": "https://www.leon-arts.fr/",
+      "technologies": ["Node.js", "MongoDB", "Mongoose", "Swagger", "Stripe", "Firebase", "Firestore"],
+      "features": [
+        "Cross-platform mobile and web application",
+        "Advanced social layer with preference algorithm",
+        "Secure payment processing with Stripe",
+        "Real-time messaging system",
+        "Collection management",
+        "Order tracking and management"
+      ]
+    },
+    {
+      "name": "Facial Recognition Attendance System",
+      "type": "Internal Tool",
+      "role": "Developer",
+      "description": "Cloud-based facial recognition platform for streamlined attendance tracking, reducing administrative overhead.",
+      "technologies": ["Firestore", "PyQt6", "OpenCV", "Torch", "Python"],
+      "achievements": [
+        "Significantly reduced administrative overhead",
+        "Improved accuracy of attendance tracking",
+        "Cloud-based solution for scalability"
+      ]
+    }
+  ],
+  "skills": {
+    "programming": [
+      "JavaScript/TypeScript",
+      "Python",
+      "C/C++",
+      "Java",
+      "PHP",
+      "C#",
+      "Haskell",
+      "Assembly"
+    ],
+    "frontend": [
+      "React",
+      "Vue.js/Nuxt.js",
+      "HTML/CSS",
+      "Tailwind CSS",
+      "Pinia",
+      "i18n"
+    ],
+    "backend": [
+      "Node.js",
+      "Django",
+      "Express.js",
+      "MongoDB",
+      "SQL",
+      "Mongoose",
+      "OAuth 2",
+      "Swagger"
+    ],
+    "mobile": [
+      "React Native",
+      "Firebase",
+      "Firestore"
+    ],
+    "gamedev": [
+      "Unity",
+      "C#",
+      "SFML",
+      "CSFML"
+    ],
+    "devops": [
+      "Docker",
+      "Kubernetes",
+      "Jenkins",
+      "CI/CD",
+      "GitLab",
+      "Linux"
+    ],
+    "ai": [
+      "Machine Learning",
+      "OpenCV",
+      "Torch",
+      "Computer Vision"
+    ],
+    "other": [
+      "Git",
+      "Agile",
+      "Project Management",
+      "Code Review",
+      "Technical Documentation",
+      "Stripe Integration"
+    ]
+  },
+  "certifications": [
+    {
+      "name": "IT Project Management",
+      "issuer": "Ionis X",
+      "category": "Management"
+    },
+    {
+      "name": "Team / Operational Management",
+      "issuer": "Ionis X",
+      "category": "Management"
+    },
+    {
+      "name": "Crisis Communication",
+      "issuer": "Ionis X",
+      "category": "Communication"
+    },
+    {
+      "name": "Agile Coaching",
+      "issuer": "Ionis X",
+      "category": "Methodology"
+    }
+  ],
+  "interests": [
+    "Asian Culture & Languages",
+    "Artificial Intelligence & VR/AR",
+    "Geopolitics & Society",
+    "Ecology & Sustainability",
+    "Science Fiction Literature",
+    "Video Game Development",
+    "Technological Innovation",
+    "Taekwondo"
+  ],
+  "videos": [
+    {
+      "title": "Korea Exchange Experience Compilation",
+      "url": "https://youtu.be/s0AG0_PY93I",
+      "description": "Compilation of moments during exchange year in South Korea as Epitech ambassador"
+    },
+    {
+      "title": "ACORIS Mutuelles Intranet Project",
+      "url": "https://youtu.be/fSEylEdaZiM",
+      "description": "Demonstration of WordPress intranet solution developed during internship"
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/damien-demontis/",
+      "username": "damien-demontis"
+    },
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/DamienDemontis",
+      "username": "DamienDemontis"
+    },
+    {
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/@elswift54",
+      "username": "@elswift54"
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/damien.demontis",
+      "username": "damien.demontis"
+    }
+  ]
+} 

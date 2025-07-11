@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "title": "Damien Demontis - Développeur Full-Stack",
+    "description": "Portfolio de Damien Demontis, développeur full-stack de 22 ans spécialisé en technologies modernes. Expert en React, Vue.js, Python, et passionné par l'Asie.",
+    "keywords": "développeur full-stack, JavaScript, TypeScript, Python, React, Vue.js, portfolio"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "contact": "Contact",
+    "ask-ai": "Demander à l'IA"
+  },
+  "hero": {
+    "greeting": "Qui est Damien Demontis ?",
+    "typing": "En train d'écrire...",
+    "scroll-hint": "Faites défiler pour en savoir plus"
+  },
+  "chat": {
+    "welcome": "Salut ! Je suis **DamienGPT**, une IA qui représente Damien Demontis. 👋",
+    "intro": "Je peux répondre à toutes vos questions sur son parcours, ses compétences, et ses projets !",
+    "placeholder": "Posez-moi une question sur Damien...",
+    "send": "Envoyer",
+    "typing": "DamienGPT écrit...",
+    "error": "Désolé, une erreur s'est produite. Veuillez réessayer.",
+    "thinking": "Réflexion en cours...",
+    "ask-ai": "Demander à l'IA"
+  },
+  "about": {
+    "title": "Développeur Full-Stack & Passionné de Technologie",
+    "description": "Expert en Technologies de l'Information chez Epitech, avec une expérience internationale en Corée du Sud. Actuellement Accompagnateur Pédagogique pour les étudiants MSc, spécialisé en développement web moderne, DevOps, et intelligence artificielle.",
+    "dream": "Rêve de vivre en Asie et de contribuer à l'innovation technologique mondiale.",
+    "age": "22 ans",
+    "location": "Nancy, France",
+    "status": "Disponible pour un poste à temps plein dès septembre 2025"
+  },
+  "experience": {
+    "title": "Expérience Professionnelle",
+    "current": "Actuel",
+    "responsibilities": "Responsabilités",
+    "achievements": "Réalisations",
+    "technologies": "Technologies"
+  },
+  "education": {
+    "title": "Formation",
+    "activities": "Activités et associations",
+    "specializations": "Spécialisations"
+  },
+  "projects": {
+    "title": "Projets Phares",
+    "view-more": "Voir plus",
+    "view-project": "Voir le projet",
+    "view-video": "Voir la vidéo",
+    "visit-website": "Visiter le site",
+    "view-github": "Voir sur GitHub",
+    "role": "Rôle",
+    "team-size": "Équipe",
+    "duration": "Durée",
+    "highlights": "Points forts",
+    "categories": {
+      "all": "Tous",
+      "web": "Web",
+      "mobile": "Mobile",
+      "ai": "IA",
+      "game": "Jeux",
+      "tool": "Outils"
+    }
+  },
+  "skills": {
+    "title": "Compétences Techniques",
+    "programming": "Programmation",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "gamedev": "Jeux Vidéo",
+    "devops": "DevOps",
+    "ai": "Intelligence Artificielle",
+    "other": "Autres"
+  },
+  "contact": {
+    "title": "Contactez-moi",
+    "description": "Intéressé par mon profil ? N'hésitez pas à me contacter !",
+    "email": "Email",
+    "phone": "Téléphone",
+    "location": "Localisation",
+    "social": "Réseaux sociaux",
+    "download-cv": "Télécharger le CV",
+    "availability": "Disponible pour un poste à temps plein dès septembre 2025"
+  },
+  "footer": {
+    "made-with": "Fait avec",
+    "by": "par",
+    "source": "Code source",
+    "theme": "Thème"
+  },
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre",
+    "toggle": "Changer de thème"
+  },
+  "languages": {
+    "title": "Langues",
+    "french": "Français",
+    "english": "Anglais",
+    "korean": "Coréen",
+    "switch": "Changer de langue"
+  },
+  "videos": {
+    "title": "Vidéos",
+    "korea-experience": "Expérience en Corée du Sud",
+    "projects-demo": "Démonstration de projets"
+  },
+  "certifications": {
+    "title": "Certifications",
+    "management": "Gestion",
+    "communication": "Communication",
+    "methodology": "Méthodologie"
+  },
+  "interests": {
+    "title": "Centres d'intérêt"
+  },
+  "fake-questions": {
+    "experience": "Parle-moi de ton expérience professionnelle",
+    "skills": "Quelles sont tes compétences techniques ?",
+    "projects": "Montre-moi tes projets les plus intéressants",
+    "contact": "Comment peut-on te contacter ?"
+  },
+  "fake-responses": {
+    "who-is-damien": "Je suis **Damien Demontis**, un développeur full-stack de 22 ans passionné par la technologie et l'innovation. 🚀\n\nActuellement **Expert en Technologies de l'Information** à Epitech Nancy (promotion 2025), je suis également **Accompagnateur Pédagogique** pour les étudiants MSc, où je les forme aux technologies modernes comme Nuxt, Docker, et Kubernetes.\n\nMon parcours m'a mené en **Corée du Sud** pour une année d'échange à Keimyung University, où j'ai été ambassadeur Epitech et me suis spécialisé en IA, VR/AR, et développement de jeux vidéo. Cette expérience a renforcé mon **rêve de vivre en Asie** ! 🌏\n\nJe maîtrise de nombreuses technologies : JavaScript/TypeScript, Python, C/C++, ainsi que des frameworks modernes comme React, Vue.js, et Django. Mon projet phare, **Leon'Art**, est une startup étudiante que j'ai co-fondée pour révolutionner le marché de l'art numérique.",
+    "experience": "Mon expérience professionnelle est riche et diversifiée ! 💼\n\n**Actuellement** (mars 2025) :\n• **Accompagnateur Pédagogique MSc** chez Epitech\n• Mentorat d'étudiants sur les technologies avancées\n• Développement d'un système de reconnaissance faciale avec OpenCV et Torch\n• Introduction de frameworks modernes (Nuxt, Pinia, Deno) dans le curriculum\n\n**Expériences précédentes** :\n• **+Simple** (2023) : Migration complète Django → Nuxt.js, réduction de 50% des temps de chargement\n• **Assistant Epitech** (2022-2025) : 3 années consécutives, record unique sur mon campus !\n• **ACORIS Mutuelles** (2021) : Développement d'un intranet WordPress complet\n\nChaque mission m'a apporté de nouvelles compétences et confirmé ma passion pour le développement full-stack.",
+    "skills": "Mes compétences techniques couvrent l'ensemble de la stack moderne ! ⚡\n\n**Langages maîtrisés** :\n• JavaScript/TypeScript, Python, C/C++, Java, PHP, C#\n• Haskell (programmation fonctionnelle), Assembly\n\n**Frontend & UI** :\n• React, Vue.js/Nuxt.js, HTML/CSS, Tailwind CSS\n• Pinia (state management), i18n (internationalisation)\n\n**Backend & Databases** :\n• Node.js, Django, Express.js\n• MongoDB, SQL, Mongoose, OAuth 2, Swagger\n\n**DevOps & Cloud** :\n• Docker, Kubernetes, Jenkins, CI/CD, GitLab, Linux\n\n**Spécialisations** :\n• IA/ML : OpenCV, Torch, Computer Vision\n• Mobile : React Native, Firebase, Firestore\n• Game Dev : Unity, SFML, CSFML\n\nJe privilégie toujours les **bonnes pratiques** : tests, documentation, code review, et méthodologies Agile.",
+    "projects": "Mes projets reflètent ma passion pour l'innovation ! 🎯\n\n**Leon'Art** (Projet phare) :\n• Startup étudiante - Plateforme d'art numérique\n• Stack : Node.js, MongoDB, React Native, Stripe\n• Rôle : Project Manager & Back-end Developer\n• Fonctionnalités : Algorithme de recommandation, paiements sécurisés, messagerie temps réel\n\n**Système de Reconnaissance Faciale** :\n• Automatisation du suivi des présences à Epitech\n• Technologies : Python, PyQt6, OpenCV, Torch, Firestore\n• Impact : Réduction significative de la charge administrative\n\n**Migration +Simple** :\n• Transformation Django monolithique → Architecture moderne\n• Nuxt.js + Django, amélioration de 50% des performances\n• Couverture de tests augmentée de 30%\n\n**Projets Corée du Sud** :\n• Jeux VR/AR avec Unity\n• Projets d'IA appliquée aux jeux vidéo\n• Collaboration internationale\n\nChaque projet m'apprend quelque chose de nouveau !",
+    "contact": "Prêt à échanger ? Je suis toujours ouvert aux opportunités ! 📬\n\n**Coordonnées** :\n• 📧 damien.demontis@epitech.eu\n• 📱 +33 7 81 69 92 18\n• 📍 Nancy, France (mobile pour l'Asie ! 🌏)\n\n**Réseaux sociaux** :\n• LinkedIn : damien-demontis\n• GitHub : DamienDemontis\n• YouTube : @elswift54 (mes aventures en Corée !)\n• Instagram : @damien.demontis\n\n**Disponibilité** :\nJe recherche un **poste full-time** pour septembre 2025, idéalement dans une entreprise innovante qui partage ma passion pour la technologie. Mon rêve ? Travailler en Asie ou pour une entreprise avec des projets internationaux !\n\nN'hésitez pas à me contacter pour discuter d'opportunités ou simplement échanger sur la tech ! 🚀"
+  }
+} 
