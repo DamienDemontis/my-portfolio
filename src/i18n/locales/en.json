@@ -5,6 +5,7 @@
     "experience": "Experience",
     "skills": "Skills",
     "education": "Education",
+    "journey": "Journey",
     "projects": "Projects",
     "certifications": "Certifications",
     "interests": "Interests",
@@ -132,6 +133,8 @@
         "degree": "Study Abroad - Game Development & AI",
         "period": "September 2023 - July 2024",
         "location": "Daegu, South Korea",
+        "video": "https://youtu.be/s0AG0_PY93I",
+        "videoTitle": "My International Year in Korea",
         "highlights": [
           "Video game development focus",
           "Artificial Intelligence studies",
@@ -179,6 +182,14 @@
         "description": "Unity-based game with AI characters and advanced gameplay mechanics",
         "technologies": ["Unity", "C#", "AI/ML", "Game Development"],
         "features": ["AI-driven NPCs", "Advanced physics", "Procedural generation"]
+      },
+      "tank_game": {
+        "title": "Tank Battle - Unity Recreation",
+        "description": "Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics",
+        "technologies": ["Unity", "C#", "Game Physics", "3D Graphics"],
+        "features": ["Classic tank gameplay", "Enhanced visuals", "Smooth controls"],
+        "video": "https://youtu.be/jWfFh3oCJ2I",
+        "videoTitle": "Tank Game Demo"
       }
     }
   },

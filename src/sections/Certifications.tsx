@@ -67,8 +67,12 @@ export const Certifications = () => {
               >
                 {/* Header */}
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-600 p-3 mr-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Award className="w-full h-full text-white" />
+                  <div className="w-16 h-16 rounded-xl bg-white dark:bg-gray-700 p-2 mr-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-600">
+                    <img 
+                      src="/IONISX_logo.jpg"
+                      alt="Ionis X logo"
+                      className="w-full h-full object-contain rounded"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">

@@ -5,6 +5,7 @@ import { About } from './sections/About'
 import { Experience } from './sections/Experience'
 import { Skills } from './sections/Skills'
 import { Education } from './sections/Education'
+import { JourneyMap } from './sections/JourneyMap'
 import { Projects } from './sections/Projects'
 import { Certifications } from './sections/Certifications'
 import { Interests } from './sections/Interests'
@@ -23,6 +24,7 @@ function App() {
           <Experience />
           <Skills />
           <Education />
+          <JourneyMap />
           <Projects />
           <Certifications />
           <Interests />

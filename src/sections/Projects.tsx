@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { ExternalLink, Github, Eye, Cpu, Palette, Building } from 'lucide-react'
+import { ExternalLink, Github, Eye, Cpu, Palette, Building, Gamepad2 } from 'lucide-react'
 
 export const Projects = () => {
   const { t } = useTranslation()
@@ -32,6 +32,16 @@ export const Projects = () => {
       featured: true
     },
     {
+      key: 'tank_game',
+      icon: Gamepad2,
+      color: 'from-green-500 to-emerald-600',
+      bgColor: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
+      borderColor: 'border-green-200 dark:border-green-800',
+      github: null,
+      demo: 'https://youtu.be/jWfFh3oCJ2I',
+      featured: true
+    },
+    {
       key: 'intranet',
       icon: Building,
       color: 'from-blue-500 to-cyan-600',
@@ -39,6 +49,16 @@ export const Projects = () => {
       borderColor: 'border-blue-200 dark:border-blue-800',
       github: null,
       demo: 'https://youtu.be/fSEylEdaZiM',
+      featured: false
+    },
+    {
+      key: 'inept_intruder',
+      icon: Cpu,
+      color: 'from-orange-500 to-red-600',
+      bgColor: 'from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20',
+      borderColor: 'border-orange-200 dark:border-orange-800',
+      github: 'https://github.com/damiendemontis/inept-intruder',
+      demo: null,
       featured: false
     }
   ]
@@ -161,6 +181,26 @@ export const Projects = () => {
                     </ul>
                   </div>
 
+                  {/* Video for tank_game */}
+                  {project.key === 'tank_game' && (
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm flex items-center gap-2">
+                        <Eye className="w-4 h-4 text-red-500" />
+                        Game Demo
+                      </h4>
+                      <div className="relative overflow-hidden rounded-lg border border-green-200 dark:border-green-800">
+                        <iframe
+                          src="https://www.youtube.com/embed/jWfFh3oCJ2I"
+                          title="Tank Game Demo"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-48"
+                        ></iframe>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Action buttons */}
                   <div className="flex gap-3">
                     {project.github && (
@@ -174,7 +214,7 @@ export const Projects = () => {
                         Code
                       </a>
                     )}
-                    {project.demo && (
+                    {project.demo && project.key !== 'tank_game' && (
                       <a
                         href={project.demo}
                         target="_blank"

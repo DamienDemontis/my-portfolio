@@ -12,13 +12,14 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "framer-motion": "^10.16.16",
+    "i18next": "^23.7.13",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "lucide-react": "^0.303.0",
+    "ogl": "^1.0.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.5.0",
-    "i18next": "^23.7.13",
-    "i18next-browser-languagedetector": "^7.2.0",
-    "framer-motion": "^10.16.16",
-    "lucide-react": "^0.303.0",
     "react-intersection-observer": "^9.5.3"
   },
   "devDependencies": {
@@ -36,4 +37,4 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }
-} 
+}

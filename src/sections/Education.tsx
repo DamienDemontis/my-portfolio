@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { GraduationCap, MapPin, Calendar, Award, Star } from 'lucide-react'
+import { GraduationCap, MapPin, Calendar, Award, Star, Play } from 'lucide-react'
 
 export const Education = () => {
   const { t } = useTranslation()
@@ -66,12 +66,21 @@ export const Education = () => {
                 <div className="flex items-start mb-6">
                   <div className={`w-16 h-16 rounded-xl ${
                     institution === 'epitech' 
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700' 
+                      ? 'bg-white dark:bg-gray-700' 
                       : institution === 'keimyung'
-                      ? 'bg-gradient-to-r from-red-600 to-red-700'
-                      : 'bg-gradient-to-r from-green-600 to-green-700'
-                  } p-3 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
-                    <GraduationCap className="w-full h-full text-white" />
+                      ? 'bg-white dark:bg-gray-700'
+                      : 'bg-white dark:bg-gray-700'
+                  } p-2 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-600`}>
+                    <img 
+                      src={
+                        institution === 'epitech' ? '/Epitech_Official_Logo.png' :
+                        institution === 'keimyung' ? '/keimyung_logo.png' :
+                        institution === 'henri_poincare' ? '/Henri_poincaré_logo.png' :
+                        ''
+                      }
+                      alt={`${t(`education.institutions.${institution}.name`)} logo`}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -134,6 +143,26 @@ export const Education = () => {
                     </motion.div>
                   ))}
                 </div>
+
+                {/* Video section for Keimyung */}
+                {institution === 'keimyung' && t(`education.institutions.${institution}.video`) && (
+                  <div className="mt-6">
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
+                      <Play className="w-4 h-4 text-red-500" />
+                      {t(`education.institutions.${institution}.videoTitle`)}
+                    </h4>
+                    <div className="relative overflow-hidden rounded-lg border border-purple-200 dark:border-purple-800">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${t(`education.institutions.${institution}.video`).split('/').pop()}`}
+                        title={t(`education.institutions.${institution}.videoTitle`)}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-48 md:h-56"
+                      ></iframe>
+                    </div>
+                  </div>
+                )}
 
                 {/* Special badge for international experience */}
                 {institution === 'keimyung' && (

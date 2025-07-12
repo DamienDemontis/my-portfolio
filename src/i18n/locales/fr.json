@@ -5,6 +5,7 @@
     "experience": "Expérience",
     "skills": "Compétences",
     "education": "Formation",
+    "journey": "Parcours",
     "projects": "Projets",
     "certifications": "Certifications",
     "interests": "Centres d'Intérêt",
@@ -132,6 +133,8 @@
         "degree": "Année d'Échange - Développement Jeux & IA",
         "period": "Septembre 2023 - Juillet 2024",
         "location": "Daegu, Corée du Sud",
+        "video": "https://youtu.be/s0AG0_PY93I",
+        "videoTitle": "Mon Année Internationale en Corée",
         "highlights": [
           "Focus sur le développement de jeux vidéo",
           "Études en Intelligence Artificielle",
@@ -179,6 +182,14 @@
         "description": "Jeu basé sur Unity avec personnages IA et mécaniques de gameplay avancées",
         "technologies": ["Unity", "C#", "IA/ML", "Développement de Jeux"],
         "features": ["PNJ pilotés par IA", "Physique avancée", "Génération procédurale"]
+      },
+      "tank_game": {
+        "title": "Tank Battle - Recréation Unity",
+        "description": "Recréation du jeu Tank classique de Wii Play avec graphismes et mécaniques améliorés",
+        "technologies": ["Unity", "C#", "Physique de Jeu", "Graphismes 3D"],
+        "features": ["Gameplay tank classique", "Visuels améliorés", "Contrôles fluides"],
+        "video": "https://youtu.be/jWfFh3oCJ2I",
+        "videoTitle": "Démo Jeu de Tank"
       }
     }
   },

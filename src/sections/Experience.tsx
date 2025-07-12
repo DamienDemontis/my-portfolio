@@ -95,7 +95,20 @@ export const Experience = () => {
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />
-                        <span>{t(`experience.positions.${exp}.company`)}</span>
+                        <div className="flex items-center gap-2">
+                          {/* Company logo */}
+                          <img 
+                            src={
+                              exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
+                              exp === 'simple' ? '/Logo-plus-simple.png' :
+                              exp === 'acoris' ? '/acoris_logo.jpg' :
+                              ''
+                            }
+                            alt={`${t(`experience.positions.${exp}.company`)} logo`}
+                            className="w-6 h-6 object-contain rounded"
+                          />
+                          <span>{t(`experience.positions.${exp}.company`)}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
