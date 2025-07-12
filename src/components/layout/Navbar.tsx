@@ -114,13 +114,23 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-2xl'
-          : 'bg-transparent'
+          ? 'bg-white/20 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/30 shadow-2xl'
+          : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/10 dark:border-gray-700/20'
       }`}
+      style={{
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: isScrolled 
+          ? '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)' 
+          : '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+        borderRadius: '2rem',
+        width: 'fit-content',
+        maxWidth: 'calc(100vw - 2rem)'
+      }}
     >
-      <div className="max-w-7xl mx-auto container-padding">
+      <div className="px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo with animated plane */}
           <motion.div 
@@ -132,12 +142,12 @@ export const Navbar = () => {
               className="flex items-center space-x-3 group"
             >
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/20">
                   <span className="text-white text-xl font-bold">D²</span>
                 </div>
                 {/* Flying plane indicator */}
                 <motion.div
-                  className="absolute -top-2 -right-2 text-xl"
+                  className="absolute -top-2 -right-2 text-xl filter drop-shadow-lg"
                   animate={{ rotate: getPlaneRotation() }}
                   transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
@@ -145,21 +155,29 @@ export const Navbar = () => {
                 </motion.div>
               </div>
               <div className="hidden sm:block">
-                <div className="text-xl font-bold gradient-text">Damien Demontis</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Full-Stack Developer</div>
+                <div className={`text-xl font-bold drop-shadow-lg ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>
+                  Damien Demontis
+                </div>
+                <div className={`text-sm drop-shadow-md ${isScrolled ? 'text-gray-700 dark:text-white/80' : 'text-white/80'}`}>
+                  Full-Stack Developer
+                </div>
               </div>
             </button>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-2 ml-8">
             {navGroups.map((group) => (
               <div key={group.key} className="relative">
                 {group.items.length === 1 ? (
                   /* Single item - direct link */
                   <motion.button
                     onClick={() => scrollToSection(group.items[0].href)}
-                    className="flex items-center space-x-2 px-4 py-3 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 font-medium"
+                    className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border ${
+                      isScrolled 
+                        ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
+                        : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
+                    }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -171,7 +189,11 @@ export const Navbar = () => {
                   <div>
                     <motion.button
                       onClick={() => handleDropdownToggle(group.key)}
-                      className="flex items-center space-x-2 px-4 py-3 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 font-medium"
+                      className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border ${
+                        isScrolled 
+                          ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
+                          : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
+                      }`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -189,17 +211,29 @@ export const Navbar = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+                          className={`absolute top-full left-0 mt-2 w-56 backdrop-blur-xl rounded-2xl shadow-2xl border overflow-hidden ${
+                            isScrolled 
+                              ? 'bg-white/30 dark:bg-black/20 border-gray-300/30 dark:border-white/20' 
+                              : 'bg-white/10 dark:bg-black/10 border-white/20 dark:border-gray-700/30'
+                          }`}
+                          style={{
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)',
+                          }}
                         >
                           {group.items.map((item) => (
                             <motion.button
                               key={item.key}
                               onClick={() => scrollToSection(item.href)}
-                              className="w-full flex items-center space-x-3 px-4 py-3 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+                              className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-colors duration-200 border-b last:border-b-0 ${
+                                isScrolled 
+                                  ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5' 
+                                  : 'text-white/90 hover:text-white hover:bg-white/10 border-white/5'
+                              }`}
                               whileHover={{ x: 5 }}
                             >
-                              <span className="text-lg">{item.icon}</span>
-                              <span className="font-medium">{t(`nav.${item.key}`)}</span>
+                              <span className="text-lg drop-shadow-md">{item.icon}</span>
+                              <span className="font-medium drop-shadow-md">{t(`nav.${item.key}`)}</span>
                             </motion.button>
                           ))}
                         </motion.div>
@@ -212,14 +246,30 @@ export const Navbar = () => {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center space-x-3">
-            <ThemeToggle />
-            <LanguageSwitcher />
+          <div className="flex items-center space-x-3 ml-8">
+            <div className={`p-2 rounded-xl backdrop-blur-sm border ${
+              isScrolled 
+                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20' 
+                : 'bg-white/10 border-white/20'
+            }`}>
+              <ThemeToggle />
+            </div>
+            <div className={`p-2 rounded-xl backdrop-blur-sm border ${
+              isScrolled 
+                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20' 
+                : 'bg-white/10 border-white/20'
+            }`}>
+              <LanguageSwitcher />
+            </div>
             
             {/* Mobile menu button */}
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-3 rounded-2xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 shadow-lg"
+              className={`lg:hidden p-3 rounded-2xl backdrop-blur-sm border transition-all duration-200 shadow-lg ${
+                isScrolled 
+                  ? 'bg-gray-100/20 dark:bg-white/10 text-gray-800 dark:text-white border-gray-300/20 dark:border-white/20 hover:bg-gray-200/30 dark:hover:bg-white/20' 
+                  : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
+              }`}
               aria-label="Toggle menu"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -241,26 +291,42 @@ export const Navbar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-700 shadow-2xl rounded-b-3xl overflow-hidden"
+              className={`lg:hidden mt-4 backdrop-blur-xl border-t shadow-2xl rounded-2xl overflow-hidden ${
+                isScrolled 
+                  ? 'bg-white/30 dark:bg-black/20 border-gray-300/30 dark:border-white/20' 
+                  : 'bg-white/10 dark:bg-black/10 border-white/20 dark:border-gray-700/30'
+              }`}
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
             >
-              <div className="container-padding py-6">
+              <div className="p-6">
                 {navGroups.map((group) => (
                   <div key={group.key} className="mb-4">
                     <div className="flex items-center space-x-2 mb-3 px-2">
                       {group.icon}
-                      <span className="font-bold text-gray-900 dark:text-gray-100">{group.label}</span>
+                      <span className={`font-bold drop-shadow-lg ${
+                        isScrolled ? 'text-gray-800 dark:text-white' : 'text-white'
+                      }`}>
+                        {group.label}
+                      </span>
                     </div>
                     <div className="space-y-2 ml-6">
                       {group.items.map((item) => (
                         <motion.button
                           key={item.key}
                           onClick={() => scrollToSection(item.href)}
-                          className="flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 font-medium"
+                          className={`flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-200 font-medium border ${
+                            isScrolled 
+                              ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5 hover:border-gray-400/20 dark:hover:border-white/20' 
+                              : 'text-white/90 hover:text-white hover:bg-white/10 border-white/5 hover:border-white/20'
+                          }`}
                           whileHover={{ x: 5 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <span className="text-lg">{item.icon}</span>
-                          <span>{t(`nav.${item.key}`)}</span>
+                          <span className="text-lg drop-shadow-md">{item.icon}</span>
+                          <span className="drop-shadow-md">{t(`nav.${item.key}`)}</span>
                         </motion.button>
                       ))}
                     </div>

@@ -106,169 +106,181 @@ export const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content Section */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-          {/* Greeting */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <p className="text-lg md:text-xl text-gray-100 dark:text-gray-200 font-medium drop-shadow-lg">
-              {t('hero.greeting')}
-            </p>
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
-          >
-            <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent drop-shadow-2xl">
-              {t('hero.name')}
-            </span>
-          </motion.h1>
-
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-100 dark:text-gray-200 mb-6 drop-shadow-lg"
-          >
-            {t('hero.title')}
-          </motion.h2>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-lg md:text-xl text-gray-200 dark:text-gray-300 mb-8 max-w-3xl mx-auto drop-shadow-lg"
-          >
-            {t('hero.subtitle')}
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-base md:text-lg text-gray-200 dark:text-gray-300 mb-12 max-w-4xl mx-auto text-balance drop-shadow-lg"
-          >
-            {t('hero.description')}
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-          >
-            <button
-              onClick={scrollToContact}
-              className="btn-primary flex items-center gap-2 group shadow-2xl"
-            >
-              <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
-              {t('hero.cta.contact')}
-            </button>
-            <button
-              onClick={handleResumeDownload}
-              className="btn-secondary flex items-center gap-2 group shadow-2xl"
-            >
-              <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
-              {t('hero.cta.resume')}
-            </button>
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex flex-col items-center lg:justify-start"
-          >
-            <button
-              onClick={scrollToAbout}
-              className="text-gray-300 dark:text-gray-300 hover:text-white dark:hover:text-white transition-colors duration-200 group drop-shadow-lg"
-              aria-label="Scroll to about section"
-            >
-              <ArrowDown className="w-6 h-6 animate-bounce group-hover:scale-110 transition-transform duration-200" />
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Photo Section */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="order-1 lg:order-2 flex justify-center"
-        >
-          <div className="relative">
-            {/* Photo placeholder with artistic design */}
-            <div className="w-80 h-80 md:w-96 md:h-96 relative">
-              {/* Main photo container */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-700">
-                {/* Actual photo */}
-                <img 
-                  src="/Damien.jpg" 
-                  alt="Damien Demontis in traditional Korean robe in Seoul"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Floating elements around photo */}
+            {/* Glass container for text content */}
+            <div className="backdrop-blur-xl bg-white/5 dark:bg-black/5 rounded-3xl p-8 lg:p-12 border border-white/10 shadow-2xl" 
+                 style={{
+                   backdropFilter: 'blur(20px)',
+                   WebkitBackdropFilter: 'blur(20px)',
+                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                 }}>
+              {/* Greeting */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="mb-6"
               >
-                D²
+                <p className="text-lg md:text-xl text-white font-medium drop-shadow-lg">
+                  {t('hero.greeting')}
+                </p>
               </motion.div>
 
-              <motion.div
-                animate={{ 
-                  y: [0, -10, 0],
-                  rotate: [0, 5, 0]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute -bottom-6 -left-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-gray-200 dark:border-gray-700"
+              {/* Name */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">🚀</span>
-                  <div className="text-xs">
-                    <div className="font-semibold text-gray-900 dark:text-gray-100">Next Stop</div>
-                    <div className="text-gray-600 dark:text-gray-400">Asia 2025</div>
-                  </div>
-                </div>
+                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
+                  {t('hero.name')}
+                </span>
+              </motion.h1>
+
+              {/* Title */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 drop-shadow-lg"
+              >
+                {t('hero.title')}
+              </motion.h2>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-lg"
+              >
+                {t('hero.subtitle')}
+              </motion.p>
+
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="text-base md:text-lg text-white/80 mb-12 max-w-4xl mx-auto text-balance drop-shadow-lg"
+              >
+                {t('hero.description')}
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+              >
+                <button
+                  onClick={scrollToContact}
+                  className="btn-primary flex items-center gap-2 group shadow-2xl backdrop-blur-sm bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border border-white/20 hover:border-white/40 transition-all duration-300"
+                >
+                  <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  {t('hero.cta.contact')}
+                </button>
+                <button
+                  onClick={handleResumeDownload}
+                  className="btn-secondary flex items-center gap-2 group shadow-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 transition-all duration-300"
+                >
+                  <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  {t('hero.cta.resume')}
+                </button>
               </motion.div>
 
+              {/* Scroll indicator */}
               <motion.div
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  opacity: [0.8, 1, 0.8]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1
-                }}
-                className="absolute top-1/2 -right-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full p-2 shadow-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+                className="flex flex-col items-center lg:justify-start"
               >
-                <span className="text-xl">🌏</span>
+                <button
+                  onClick={scrollToAbout}
+                  className="text-white/80 hover:text-white transition-colors duration-200 group drop-shadow-lg"
+                  aria-label="Scroll to about section"
+                >
+                  <ArrowDown className="w-6 h-6 animate-bounce group-hover:scale-110 transition-transform duration-200" />
+                </button>
               </motion.div>
             </div>
           </div>
-        </motion.div>
-      </div>
+
+          {/* Photo Section */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="order-1 lg:order-2 flex justify-center"
+          >
+            <div className="relative">
+              {/* Photo placeholder with artistic design */}
+              <div className="w-80 h-80 md:w-96 md:h-96 relative">
+                {/* Main photo container */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-700 border border-white/20">
+                  {/* Actual photo */}
+                  <img 
+                    src="/Damien.jpg" 
+                    alt="Damien Demontis in traditional Korean robe in Seoul"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Floating elements around photo */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg border border-white/20"
+                >
+                  D²
+                </motion.div>
+
+                <motion.div
+                  animate={{ 
+                    y: [0, -10, 0],
+                    rotate: [0, 5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl rounded-xl p-3 shadow-lg border border-white/20"
+                  style={{
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">🚀</span>
+                    <div className="text-xs">
+                      <div className="font-semibold text-white drop-shadow-lg">Next Stop</div>
+                      <div className="text-white/80 drop-shadow-md">Asia 2025</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    opacity: [0.8, 1, 0.8]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                  className="absolute top-1/2 -right-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full p-2 shadow-lg border border-white/20"
+                >
+                  <span className="text-xl">🌏</span>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
