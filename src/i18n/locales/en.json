@@ -1,0 +1,296 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "education": "Education",
+    "projects": "Projects",
+    "certifications": "Certifications",
+    "interests": "Interests",
+    "languages": "Languages",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi 👋, I'm",
+    "name": "Damien Demontis",
+    "title": "Full Stack Developer & IT Specialist",
+    "subtitle": "Passionate about modern technologies and innovation",
+    "description": "Based in France, relocating to Asia in 2025. 5th year student at EPITECH with expertise in web development, DevOps, and pedagogical mentorship.",
+    "cta": {
+      "contact": "Get In Touch",
+      "resume": "Download Resume"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "Passionate Full Stack Developer with a Vision for Innovation",
+    "description": "As a determined final-year student at EPITECH, I've dedicated my studies to mastering advanced technologies and software development. My academic and hands-on experiences have sharpened my skills in project management, team leadership, and crisis communication, preparing me for challenging IT roles.",
+    "aspiration": "I'm actively seeking a full-time IT position from September 2025, aiming to merge technical expertise with my passion for Asian culture and technological innovations.",
+    "stats": {
+      "experience": "3+ Years Experience",
+      "projects": "20+ Projects Completed",
+      "technologies": "15+ Technologies",
+      "mentoring": "100+ Students Mentored"
+    }
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "current": "Current",
+    "positions": {
+      "epitech_mentor": {
+        "title": "Pedagogical Mentor | MSc Curriculum",
+        "company": "EPITECH",
+        "period": "March 2025 - Present",
+        "description": "Provide dedicated mentorship to Master of Science students, overseeing advanced topics in web development and DevOps.",
+        "achievements": [
+          "Successfully implemented facial recognition attendance system",
+          "Introduced modern frameworks (Nuxt, Pinia, Deno) into MSc curriculum",
+          "Improved cross-promotion communication through tech events",
+          "Modernized project deployment pipeline with Docker and Kubernetes"
+        ]
+      },
+      "epitech_assistant": {
+        "title": "Regional Assistant | MSc Curriculum",
+        "company": "EPITECH",
+        "period": "September 2024 - Present",
+        "description": "Support and guidance to pre-Master students in Python, Java, PHP, and DevOps.",
+        "achievements": [
+          "Contributed to dynamic learning environment boosting student motivation",
+          "Implemented training modules improving coding proficiency",
+          "Facilitated project presentations and code reviews"
+        ]
+      },
+      "simple": {
+        "title": "Web Developer Intern",
+        "company": "+Simple",
+        "period": "April 2023 - August 2023",
+        "description": "Led migration from Django monolithic architecture to modern Nuxt.js frontend.",
+        "achievements": [
+          "Reduced page load times by 50%",
+          "Improved code modularity and maintainability",
+          "Enhanced system scalability for future growth",
+          "Achieved 30% increase in test coverage"
+        ]
+      },
+      "acoris": {
+        "title": "Web Developer Intern",
+        "company": "ACORIS Mutuelles",
+        "period": "July 2021 - December 2021",
+        "description": "Developed robust intranet solution using WordPress and PHP.",
+        "achievements": [
+          "Delivered fully functional intranet improving communication efficiency",
+          "Led development of custom PHP module",
+          "Applied Agile methodologies for project management"
+        ]
+      }
+    }
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "categories": {
+      "frontend": {
+        "title": "Frontend Development",
+        "technologies": ["React", "Vue.js", "Nuxt.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS"]
+      },
+      "backend": {
+        "title": "Backend Development",
+        "technologies": ["Node.js", "Python", "Django", "PHP", "Java", "REST APIs", "GraphQL"]
+      },
+      "devops": {
+        "title": "DevOps & Cloud",
+        "technologies": ["Docker", "Kubernetes", "Jenkins", "GitLab CI/CD", "Firebase", "Linux"]
+      },
+      "databases": {
+        "title": "Databases",
+        "technologies": ["PostgreSQL", "MongoDB", "Firestore", "MySQL", "Redis"]
+      },
+      "tools": {
+        "title": "Tools & Others",
+        "technologies": ["Git", "Figma", "Unity", "OpenCV", "PyQt6", "Blender"]
+      }
+    }
+  },
+  "education": {
+    "title": "Education",
+    "institutions": {
+      "epitech": {
+        "name": "EPITECH - European Institute of Technology",
+        "degree": "Expert in Information Technology",
+        "period": "2020 - 2025",
+        "location": "Nancy, France",
+        "gpa": "GPA: 3.7/4",
+        "highlights": [
+          "Major of Nancy campus",
+          "Teaching Assistant for 3 consecutive years",
+          "Active member of CodingClub",
+          "Startup Project Manager for Leon'Art"
+        ]
+      },
+      "keimyung": {
+        "name": "Keimyung University",
+        "degree": "Study Abroad - Game Development & AI",
+        "period": "September 2023 - July 2024",
+        "location": "Daegu, South Korea",
+        "highlights": [
+          "Video game development focus",
+          "Artificial Intelligence studies",
+          "VR/AR technologies",
+          "Korean language learning"
+        ]
+      },
+      "henri_poincare": {
+        "name": "Henri Poincaré High School",
+        "degree": "Scientific Baccalaureate | High Honors",
+        "period": "2017 - 2020",
+        "location": "Nancy, France",
+        "highlights": [
+          "Specialization in Computer Science and Digital Science",
+          "High Honors graduation",
+          "Strong foundation in mathematics and sciences",
+          "Early exposure to programming concepts"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "items": {
+      "facial_recognition": {
+        "title": "AI Facial Recognition Attendance System",
+        "description": "Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and Torch",
+        "technologies": ["Python", "OpenCV", "PyQt6", "Firestore", "AI/ML"],
+        "features": ["Real-time facial recognition", "Cloud database integration", "Automated reporting"]
+      },
+      "leonart": {
+        "title": "Leon'Art - Art Marketplace",
+        "description": "Mobile and web application for buying and selling art with social features",
+        "technologies": ["React Native", "Node.js", "MongoDB", "Express"],
+        "features": ["Art marketplace", "Social networking", "Payment integration"]
+      },
+      "intranet": {
+        "title": "Corporate Intranet Solution",
+        "description": "WordPress-based intranet improving company-wide communication",
+        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
+        "features": ["Internal communication", "Document management", "User authentication"]
+      },
+      "inept_intruder": {
+        "title": "Inept-Intruder - AI Unity Game",
+        "description": "Unity-based game with AI characters and advanced gameplay mechanics",
+        "technologies": ["Unity", "C#", "AI/ML", "Game Development"],
+        "features": ["AI-driven NPCs", "Advanced physics", "Procedural generation"]
+      }
+    }
+  },
+  "certifications": {
+    "title": "Certifications",
+    "subtitle": "Professional credentials and continuous learning",
+    "items": {
+      "ionis": {
+        "name": "Ionis X Certifications",
+        "provider": "Ionis Education Group",
+        "topics": ["IT Project Management", "Team & Organizational Management", "Crisis Communication", "Agile Coaching"],
+        "year": "2024"
+      }
+    }
+  },
+  "interests": {
+    "title": "Interests & Passions",
+    "subtitle": "What drives me beyond coding",
+    "categories": {
+      "technology": {
+        "title": "Technology & Innovation",
+        "items": ["Artificial Intelligence & VR/AR", "LLM Development", "Technological Watch", "Open Source Contributions"]
+      },
+      "world": {
+        "title": "Global Perspective",
+        "items": ["Geopolitics & Society", "Asian Culture", "Ecology & Sustainability", "Cross-cultural Communication"]
+      },
+      "creativity": {
+        "title": "Creative Pursuits",
+        "items": ["Science Fiction Novels", "Video Game Development", "Digital Art & Design", "Korean Language Learning"]
+      },
+      "community": {
+        "title": "Community & Teaching",
+        "items": ["Mentoring Students", "Organizing Tech Meetups", "Workshop Development", "Educational Innovation"]
+      }
+    }
+  },
+  "languages": {
+    "title": "Languages",
+    "items": {
+      "french": {
+        "name": "French",
+        "level": "C1 Level",
+        "description": "Native proficiency"
+      },
+      "english": {
+        "name": "English",
+        "level": "B1 Level",
+        "description": "Professional working proficiency equivalent to TOEIC 945/990"
+      },
+      "korean": {
+        "name": "Korean",
+        "level": "A2 Level",
+        "description": "Elementary proficiency, learned during exchange year"
+      }
+    }
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Ready to bring your ideas to life",
+    "description": "I'm always open to discussing new opportunities, innovative projects, or just having a chat about technology and development.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you for your message! I will get back to you soon.",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your.email@example.com",
+      "subjectPlaceholder": "What's this about?",
+      "messagePlaceholder": "Tell me about your project, idea, or just say hello!"
+    },
+    "info": {
+      "email": "damien.demontis@epitech.eu",
+      "location": "Frouard, Grand Est, France",
+      "availability": "Available from September 2025",
+      "contactInfo": "Contact Information"
+    },
+    "social": {
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "email": "Email",
+      "connect": "Connect with me"
+    },
+    "resume": {
+      "download": "Download Resume",
+      "view": "View Resume",
+      "english": "Resume (English)",
+      "french": "CV (Français)",
+      "englishDesc": "PDF • Professional Format",
+      "frenchDesc": "PDF • Format Professionnel"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "close": "Close",
+    "open": "Open",
+    "more": "Learn More",
+    "less": "Show Less"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "toggle": "Toggle Theme"
+  },
+  "language": {
+    "english": "English",
+    "french": "Français",
+    "toggle": "Switch Language"
+  }
+} 

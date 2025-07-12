@@ -1,39 +1,30 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import { Languages } from 'lucide-react'
 
-const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+export const LanguageSwitcher = () => {
+  const { i18n, t } = useTranslation()
 
-  const changeLanguage = (lng: 'en' | 'fr') => {
-    i18n.changeLanguage(lng);
-  };
+  const toggleLanguage = () => {
+    const currentLanguage = i18n.language
+    const newLanguage = currentLanguage === 'en' ? 'fr' : 'en'
+    i18n.changeLanguage(newLanguage)
+  }
+
+  const getCurrentLanguageLabel = () => {
+    return i18n.language === 'en' ? 'FR' : 'EN'
+  }
 
   return (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-        <span className="text-xl">{i18n.language === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
-      </div>
-      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-32">
-        <li>
-          <button 
-            onClick={() => changeLanguage('en')} 
-            className={`w-full text-left ${i18n.language === 'en' ? 'font-bold' : ''}`}
-            aria-current={i18n.language === 'en'}
-          >
-            🇬🇧 English
-          </button>
-        </li>
-        <li>
-          <button 
-            onClick={() => changeLanguage('fr')} 
-            className={`w-full text-left ${i18n.language === 'fr' ? 'font-bold' : ''}`}
-            aria-current={i18n.language === 'fr'}
-          >
-            🇫🇷 Français
-          </button>
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-export default LanguageSwitcher; 
+    <button
+      onClick={toggleLanguage}
+      className="flex items-center gap-2 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      aria-label={t('language.toggle')}
+      title={t('language.toggle')}
+    >
+      <Languages className="w-4 h-4" />
+      <span className="text-sm font-medium">
+        {getCurrentLanguageLabel()}
+      </span>
+    </button>
+  )
+} 

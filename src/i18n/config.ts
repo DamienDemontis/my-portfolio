@@ -1,29 +1,35 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-import en from './en/translation.json';
-import fr from './fr/translation.json';
+import enTranslations from './locales/en.json'
+import frTranslations from './locales/fr.json'
 
-export const resources = {
+const resources = {
   en: {
-    translation: en,
+    translation: enTranslations
   },
   fr: {
-    translation: fr,
-  },
-} as const;
+    translation: frTranslations
+  }
+}
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
-    debug: import.meta.env.DEV,
     resources,
-    interpolation: {
-      escapeValue: false, 
+    fallbackLng: 'en',
+    debug: false,
+    
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage']
     },
-  });
 
-export default i18n; 
+    interpolation: {
+      escapeValue: false
+    }
+  })
+
+export default i18n 

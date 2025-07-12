@@ -1,44 +1,72 @@
-import { useTranslation } from 'react-i18next';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import LanguageSwitcher from '@/components/common/LanguageSwitcher';
-import ThemeToggle from '@/components/common/ThemeToggle';
+import { useTranslation } from 'react-i18next'
+import { Github, Linkedin, Mail, Heart } from 'lucide-react'
 
-const socialLinks = [
-  { href: 'https://github.com/damiendemontis', icon: FaGithub, label: 'GitHub' },
-  { href: 'https://linkedin.com/in/damien-demontis', icon: FaLinkedin, label: 'LinkedIn' },
-  { href: 'mailto:damien.demontis@epitech.eu', icon: FaEnvelope, label: 'Email' },
-];
+export const Footer = () => {
+  const { t } = useTranslation()
 
-const NAV_ITEMS = ["about", "experience", "projects", "skills", "education", "contact"];
-
-const Footer = () => {
-  const { t } = useTranslation();
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      href: 'https://github.com/damiendemontis',
+      icon: Github,
+      color: 'hover:text-gray-900 dark:hover:text-white'
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/damien-demontis/',
+      icon: Linkedin,
+      color: 'hover:text-blue-600'
+    },
+    {
+      name: 'Email',
+      href: 'mailto:damien.demontis@epitech.eu',
+      icon: Mail,
+      color: 'hover:text-primary-600'
+    }
+  ]
 
   return (
-    <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded-t-lg">
-      <nav className="grid grid-flow-col gap-4">
-        {NAV_ITEMS.map(id => (
-          <a key={id} href={`#${id}`} className="link link-hover capitalize">{t(`nav.${id}`)}</a>
-        ))}
-      </nav>
-      <nav>
-        <div className="grid grid-flow-col gap-4">
-          {socialLinks.map(({ href, icon: Icon, label }) => (
-            <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="btn btn-ghost btn-circle">
-              <Icon className="h-6 w-6" />
-            </a>
-          ))}
-        </div>
-      </nav>
-      <aside>
-        <div className="flex items-center gap-4 mb-4">
-          <LanguageSwitcher />
-          <ThemeToggle />
-        </div>
-        <p>{t('footer.copyright')}</p>
-      </aside>
-    </footer>
-  );
-};
+    <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <div className="max-w-7xl mx-auto container-padding py-8">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          {/* Social Links */}
+          <div className="flex space-x-6 mb-4 md:mb-0">
+            {socialLinks.map((link) => {
+              const IconComponent = link.icon
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-gray-600 dark:text-gray-400 transition-colors duration-200 ${link.color}`}
+                  aria-label={link.name}
+                >
+                  <IconComponent className="w-6 h-6" />
+                </a>
+              )
+            })}
+          </div>
 
-export default Footer; 
+          {/* Copyright */}
+          <div className="text-center md:text-right">
+            <p className="text-gray-600 dark:text-gray-400 text-sm flex items-center justify-center md:justify-end gap-1">
+              © {new Date().getFullYear()} Damien Demontis. Made with{' '}
+              <Heart className="w-4 h-4 text-red-500 fill-current" />
+              in France
+            </p>
+          </div>
+        </div>
+
+        {/* Additional Footer Info */}
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-500">
+              {t('contact.info.availability')} • {t('contact.info.location')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+} 

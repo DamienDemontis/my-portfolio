@@ -1,77 +1,115 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useScrollSpy } from '@/hooks/useScrollSpy';
-import LanguageSwitcher from '@/components/common/LanguageSwitcher';
-import ThemeToggle from '@/components/common/ThemeToggle';
-import { HiBars3, HiXMark } from "react-icons/hi2";
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Menu, X } from 'lucide-react'
+import { ThemeToggle } from '../common/ThemeToggle'
+import { LanguageSwitcher } from '../common/LanguageSwitcher'
 
-const NAV_ITEMS = ["about", "experience", "projects", "skills", "education", "contact"];
-
-const Navbar = () => {
-  const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const activeId = useScrollSpy(NAV_ITEMS, { rootMargin: '0% 0% -80% 0%' });
+export const Navbar = () => {
+  const { t } = useTranslation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      const scrollTop = window.scrollY
+      setIsScrolled(scrollTop > 20)
+    }
 
-  const NavLink = ({ id }: { id: string }) => (
-    <li>
-      <a
-        href={`#${id}`}
-        onClick={() => setIsOpen(false)}
-        className={`capitalize transition-colors duration-300 ${activeId === id ? 'text-primary font-semibold' : 'hover:text-primary'}`}
-      >
-        {t(`nav.${id}`)}
-      </a>
-    </li>
-  );
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const navItems = [
+    { key: 'home', href: '#home' },
+    { key: 'about', href: '#about' },
+    { key: 'experience', href: '#experience' },
+    { key: 'skills', href: '#skills' },
+    { key: 'education', href: '#education' },
+    { key: 'projects', href: '#projects' },
+    { key: 'certifications', href: '#certifications' },
+    { key: 'interests', href: '#interests' },
+    { key: 'languages', href: '#languages' },
+    { key: 'contact', href: '#contact' }
+  ]
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+    setIsMenuOpen(false)
+  }
 
   return (
-    <motion.header 
-      className={`sticky top-0 z-50 transition-shadow duration-300 ${isScrolled ? 'shadow-lg bg-base-100/80 backdrop-blur-sm' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg'
+          : 'bg-transparent'
+      }`}
     >
-      <div className="navbar container mx-auto">
-        <div className="navbar-start">
-          <a href="#hero" className="btn btn-ghost text-xl font-display font-bold">
-            D.D.
-          </a>
-        </div>
+      <div className="max-w-7xl mx-auto container-padding">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <button
+              onClick={() => scrollToSection('#home')}
+              className="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-200"
+            >
+              DD
+            </button>
+          </div>
 
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-2">
-            {NAV_ITEMS.map((id) => <NavLink key={id} id={id} />)}
-          </ul>
-        </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => scrollToSection(item.href)}
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 font-medium"
+              >
+                {t(`nav.${item.key}`)}
+              </button>
+            ))}
+          </div>
 
-        <div className="navbar-end">
-          <LanguageSwitcher />
-          <ThemeToggle />
-          <div className="dropdown dropdown-end lg:hidden">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <HiXMark className="h-6 w-6" /> : <HiBars3 className="h-6 w-6" />}
-            </label>
-            {isOpen && (
-              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52">
-                {NAV_ITEMS.map((id) => <NavLink key={id} id={id} />)}
-              </ul>
-            )}
+          {/* Controls */}
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+            <LanguageSwitcher />
+            
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
           </div>
         </div>
-      </div>
-    </motion.header>
-  );
-};
 
-export default Navbar; 
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 shadow-lg">
+            <div className="container-padding py-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full text-left py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 font-medium"
+                >
+                  {t(`nav.${item.key}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  )
+} 

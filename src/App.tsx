@@ -1,29 +1,38 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/sections/Hero";
-import About from "@/sections/About";
-import Experience from "./sections/Experience";
-import Projects from "./sections/Projects";
-import Skills from "./sections/Skills";
-import Education from "./sections/Education";
-import Contact from "./sections/Contact";
+import { ThemeProvider } from './contexts/ThemeContext'
+import { Navbar } from './components/layout/Navbar'
+import { Hero } from './sections/Hero'
+import { About } from './sections/About'
+import { Experience } from './sections/Experience'
+import { Skills } from './sections/Skills'
+import { Education } from './sections/Education'
+import { Projects } from './sections/Projects'
+import { Certifications } from './sections/Certifications'
+import { Interests } from './sections/Interests'
+import { Languages } from './sections/Languages'
+import { Contact } from './sections/Contact'
+import { Footer } from './components/layout/Footer'
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
-    </>
-  );
+    <ThemeProvider>
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Experience />
+          <Skills />
+          <Education />
+          <Projects />
+          <Certifications />
+          <Interests />
+          <Languages />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
+  )
 }
 
-export default App; 
+export default App 
