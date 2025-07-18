@@ -339,15 +339,13 @@ export const Projects = () => {
             <div className="flex items-center justify-center gap-3 mb-6">
               <Lightbulb className="w-6 h-6 text-violet-600" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Innovation Through Code
+                {t('sections.projects.innovationThroughCode')}
               </h3>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Each project represents a unique challenge solved through innovative thinking and technical expertise. 
-              From AI-powered systems to creative applications, these projects demonstrate my ability to transform 
-              ideas into functional, scalable solutions.
+              {t('sections.projects.innovationThroughCodeText')}
               <span className="block mt-4 font-semibold text-violet-600 dark:text-violet-400">
-                Building the future, one project at a time.
+                {t('sections.projects.buildingTheFuture')}
               </span>
             </p>
           </div>

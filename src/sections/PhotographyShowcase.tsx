@@ -253,16 +253,16 @@ export const PhotographyShowcase = () => {
     }
   }, [isTransitioning, goToNext, goToPrevious])
 
-  // Auto-advance photos with infinite loop
+  // Auto-advance photos with infinite loop (optimized)
   useEffect(() => {
-    if (!isHovered && !isTransitioning) {
+    if (!isHovered && !isTransitioning && inView) {
       const interval = setInterval(() => {
         goToNext()
-      }, 4000) // Change photo every 4 seconds
+      }, 5000) // Change photo every 5 seconds (slower for better performance)
 
       return () => clearInterval(interval)
     }
-  }, [isHovered, isTransitioning, goToNext])
+  }, [isHovered, isTransitioning, goToNext, inView])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -312,14 +312,10 @@ export const PhotographyShowcase = () => {
             animate={inView ? "visible" : "hidden"}
             className="relative"
           >
-            {/* Floating camera icon */}
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              className="absolute -top-4 -right-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-full p-3 shadow-lg border border-white/20"
-            >
+            {/* Simplified camera icon */}
+            <div className="absolute -top-4 -right-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-full p-3 shadow-lg border border-white/20">
               <Camera className="w-6 h-6 text-purple-600" />
-            </motion.div>
+            </div>
 
             {/* Main photo container */}
             <div 

@@ -400,17 +400,8 @@ export const Skills = () => {
                                 }}
                                 className={`h-1.5 bg-gradient-to-r ${getProficiencyColor()} rounded-full relative overflow-hidden`}
                               >
-                                {/* Shine effect */}
-                                <motion.div
-                                  animate={{ x: ['-100%', '100%'] }}
-                                  transition={{ 
-                                    duration: 2, 
-                                    repeat: Infinity, 
-                                    repeatDelay: 3,
-                                    ease: "easeInOut"
-                                  }}
-                                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                                />
+                                {/* Simplified shine effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
                               </motion.div>
                             </div>
                           </div>
@@ -420,22 +411,10 @@ export const Skills = () => {
                   </motion.div>
                 </div>
 
-                {/* Floating element */}
-                <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                    rotate: [0, 10, 0]
-                  }}
-                  transition={{ 
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: categoryIndex * 1.5
-                  }}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-white/50 dark:bg-gray-700/50 backdrop-blur-xl rounded-full border border-gray-200/50 dark:border-gray-600/50 flex items-center justify-center shadow-lg"
-                >
+                {/* Simplified floating element */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-white/50 dark:bg-gray-700/50 backdrop-blur-xl rounded-full border border-gray-200/50 dark:border-gray-600/50 flex items-center justify-center shadow-lg">
                   <Zap className="w-3 h-3 text-blue-500 dark:text-blue-400" />
-                </motion.div>
+                </div>
               </motion.div>
             )
           })}
@@ -456,12 +435,9 @@ export const Skills = () => {
             }}
           >
             <div className="flex items-center justify-center gap-3 mb-4">
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
+              <div>
                 <Zap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              </motion.div>
+              </div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                 {t('skills.summary.title')}
               </h3>

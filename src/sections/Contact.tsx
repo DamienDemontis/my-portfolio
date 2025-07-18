@@ -42,7 +42,7 @@ export const Contact = () => {
 
   const handleResumeDownload = (language: 'en' | 'fr') => {
     const resumeUrls = {
-      en: '/RESUME_Demontis_Damien_2024_LINKEDIN_EN.pdf',
+      en: '/CV_Demontis_Damien_2024_LINKEDIN_EN.pdf',
       fr: '/CV_Demontis_Damien_2024_LINKEDIN_FR.pdf'
     }
     

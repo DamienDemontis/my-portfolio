@@ -255,15 +255,13 @@ export const Interests = () => {
             <div className="flex items-center justify-center gap-3 mb-6">
               <Palette className="w-6 h-6 text-rose-600" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Passion-Driven Development
+                {t('sections.interests.passionDriven')}
               </h3>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              My diverse interests fuel my creativity as a developer and shape my global perspective. 
-              From the rhythms of Japanese pop to the complexity of geopolitical dynamics, 
-              these passions inspire innovative solutions and meaningful connections.
+              {t('sections.interests.passionDrivenText')}
               <span className="block mt-4 font-semibold text-rose-600 dark:text-rose-400">
-                "The best code is written when passion meets purpose."
+                {t('sections.interests.passionQuote')}
               </span>
             </p>
           </div>

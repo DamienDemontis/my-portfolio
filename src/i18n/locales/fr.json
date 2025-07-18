@@ -708,6 +708,11 @@
   },
   "languages": {
     "title": "Langues",
+    "subtitle": "Communication multilingue à travers les cultures et les frontières",
+    "summary": {
+      "title": "Communication Multilingue",
+      "description": "La diversité linguistique permet une communication efficace au sein d'équipes internationales et de cultures, essentielle pour la collaboration technologique mondiale et ma prochaine relocalisation en Asie."
+    },
     "items": {
       "french": {
         "name": "Français",
@@ -737,7 +742,7 @@
     "description": "Je suis toujours ouvert à discuter de nouvelles opportunités, de projets innovants, ou simplement échanger sur la technologie et le développement.",
     "form": {
       "name": "Nom Complet",
-      "email": "Adresse Email",
+              "email": "Email",
       "subject": "Sujet",
       "message": "Votre Message",
       "send": "Envoyer le Message",
@@ -788,5 +793,34 @@
     "french": "Français",
     "korean": "한국어",
     "toggle": "Changer de Langue"
+  },
+  "footer": {
+    "quickNavigation": "Navigation Rapide",
+    "letsConnect": "Restons Connectés",
+    "craftedWith": "Créé avec",
+    "inFrance": "en France",
+    "builtWith": "Construit avec React, TypeScript & Tailwind CSS",
+    "openToOpportunities": "Ouvert aux nouvelles opportunités et collaborations"
+  },
+  "sections": {
+    "experience": {
+      "professionalSummary": "Résumé Professionnel",
+      "professionalSummaryText": "Tout au long de mon parcours professionnel, j'ai constamment livré des solutions à fort impact tout en encadrant les autres et en stimulant l'innovation. Mon expérience s'étend du développement full-stack au leadership technique, toujours avec un focus sur la qualité, l'évolutivité et l'excellence d'équipe."
+    },
+    "projects": {
+      "innovationThroughCode": "Innovation par le Code",
+      "innovationThroughCodeText": "Chaque projet représente un défi unique résolu grâce à une pensée innovante et une expertise technique. Des systèmes alimentés par l'IA aux applications créatives, ces projets démontrent ma capacité à transformer des idées en solutions fonctionnelles et évolutives.",
+      "buildingTheFuture": "Construire l'avenir, un projet à la fois."
+    },
+    "certifications": {
+      "leadershipExcellence": "Excellence en Leadership & Management",
+      "leadershipExcellenceText": "Ces certifications démontrent mon engagement envers le développement professionnel en leadership, gestion d'équipe et communication efficace. Elles complètent mes compétences techniques et améliorent ma capacité à diriger des équipes et gérer des projets complexes avec succès.",
+      "continuousLearning": "Apprendre et grandir continuellement en tant que leader technique."
+    },
+    "interests": {
+      "passionDriven": "Développement Guidé par la Passion",
+      "passionDrivenText": "Mes intérêts divers alimentent ma créativité en tant que développeur et façonnent ma perspective globale. Des rythmes de la pop japonaise à la complexité de la dynamique géopolitique, ces passions inspirent des solutions innovantes et des connexions significatives.",
+      "passionQuote": "\"Le meilleur code est écrit quand la passion rencontre l'objectif.\""
+    }
   }
 } 

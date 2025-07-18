@@ -74,49 +74,10 @@ export const About = () => {
       {/* Enhanced Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20"></div>
       
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ 
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 right-10 w-32 h-32 bg-blue-400/10 dark:bg-blue-400/5 rounded-full blur-xl"
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            y: [0, 15, 0],
-            rotate: [0, -3, 0],
-            scale: [1, 0.9, 1]
-          }}
-          transition={{ 
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-          className="absolute bottom-32 left-16 w-24 h-24 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-xl"
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, 10, 0],
-            y: [0, -10, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ 
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
-          className="absolute top-1/2 left-1/4 w-20 h-20 bg-pink-400/10 dark:bg-pink-400/5 rounded-full blur-xl"
-        ></motion.div>
+      {/* Simplified background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-32 h-32 bg-blue-400/5 dark:bg-blue-400/3 rounded-full blur-xl"></div>
+        <div className="absolute bottom-32 left-16 w-24 h-24 bg-purple-400/5 dark:bg-purple-400/3 rounded-full blur-xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">

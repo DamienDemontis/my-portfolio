@@ -250,15 +250,13 @@ export const Certifications = () => {
             <div className="flex items-center justify-center gap-3 mb-4">
               <Award className="w-6 h-6 text-yellow-600" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Leadership & Management Excellence
+                {t('sections.certifications.leadershipExcellence')}
               </h3>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              These certifications demonstrate my commitment to professional development in leadership, team management, 
-              and effective communication. They complement my technical skills and enhance my ability to lead teams 
-              and manage complex projects successfully.
+              {t('sections.certifications.leadershipExcellenceText')}
               <span className="block mt-2 font-semibold text-yellow-600 dark:text-yellow-400">
-                Continuously learning and growing as a technical leader.
+                {t('sections.certifications.continuousLearning')}
               </span>
             </p>
           </div>

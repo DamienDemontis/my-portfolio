@@ -708,6 +708,11 @@
   },
   "languages": {
     "title": "Languages",
+    "subtitle": "Multilingual communication across cultures and borders",
+    "summary": {
+      "title": "Multilingual Communication",
+      "description": "Language diversity enables effective communication across international teams and cultures, essential for global technology collaboration and my upcoming relocation to Asia."
+    },
     "items": {
       "french": {
         "name": "French",
@@ -737,7 +742,7 @@
     "description": "I'm always open to discussing new opportunities, innovative projects, or just having a chat about technology and development.",
     "form": {
       "name": "Full Name",
-      "email": "Email Address",
+              "email": "Email",
       "subject": "Subject",
       "message": "Your Message",
       "send": "Send Message",
@@ -788,5 +793,34 @@
     "french": "Français",
     "korean": "한국어",
     "toggle": "Switch Language"
+  },
+  "footer": {
+    "quickNavigation": "Quick Navigation",
+    "letsConnect": "Let's Connect",
+    "craftedWith": "Crafted with",
+    "inFrance": "in France",
+    "builtWith": "Built with React, TypeScript & Tailwind CSS",
+    "openToOpportunities": "Open to new opportunities and collaborations"
+  },
+  "sections": {
+    "experience": {
+      "professionalSummary": "Professional Summary",
+      "professionalSummaryText": "Throughout my professional journey, I've consistently delivered high-impact solutions while mentoring others and driving innovation. My experience spans from full-stack development to technical leadership, always with a focus on quality, scalability, and team excellence."
+    },
+    "projects": {
+      "innovationThroughCode": "Innovation Through Code",
+      "innovationThroughCodeText": "Each project represents a unique challenge solved through innovative thinking and technical expertise. From AI-powered systems to creative applications, these projects demonstrate my ability to transform ideas into functional, scalable solutions.",
+      "buildingTheFuture": "Building the future, one project at a time."
+    },
+    "certifications": {
+      "leadershipExcellence": "Leadership & Management Excellence",
+      "leadershipExcellenceText": "These certifications demonstrate my commitment to professional development in leadership, team management, and effective communication. They complement my technical skills and enhance my ability to lead teams and manage complex projects successfully.",
+      "continuousLearning": "Continuously learning and growing as a technical leader."
+    },
+    "interests": {
+      "passionDriven": "Passion-Driven Development",
+      "passionDrivenText": "My diverse interests fuel my creativity as a developer and shape my global perspective. From the rhythms of Japanese pop to the complexity of geopolitical dynamics, these passions inspire innovative solutions and meaningful connections.",
+      "passionQuote": "\"The best code is written when passion meets purpose.\""
+    }
   }
 } 

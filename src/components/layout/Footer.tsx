@@ -94,7 +94,7 @@ export const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center justify-center md:justify-start gap-2">
               <Sparkles className="w-5 h-5 text-blue-500" />
-              Quick Navigation
+              {t('footer.quickNavigation')}
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -115,7 +115,7 @@ export const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center justify-center md:justify-start gap-2">
               <Code className="w-5 h-5 text-purple-500" />
-              Let's Connect
+              {t('footer.letsConnect')}
             </h4>
             <div className="space-y-4">
               <div className="flex items-center justify-center md:justify-start gap-3 text-gray-600 dark:text-gray-400">
@@ -144,15 +144,15 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
               <p className="text-sm flex items-center gap-1">
-                © {currentYear} Damien Demontis. Crafted with{' '}
+                © {currentYear} Damien Demontis. {t('footer.craftedWith')}{' '}
                 <Heart className="w-4 h-4 text-red-500 fill-current animate-pulse" />
-                in France
+                {t('footer.inFrance')}
               </p>
             </div>
             
             <div className="text-xs text-gray-500 dark:text-gray-500 text-center md:text-right">
-              <p>Built with React, TypeScript & Tailwind CSS</p>
-              <p className="mt-1">Open to new opportunities and collaborations</p>
+              <p>{t('footer.builtWith')}</p>
+              <p className="mt-1">{t('footer.openToOpportunities')}</p>
             </div>
           </div>
         </div>

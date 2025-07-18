@@ -157,6 +157,7 @@ export const Experience = () => {
                             exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
                             exp === 'simple' ? '/Logo-plus-simple.png' :
                             exp === 'acoris' ? '/acoris_logo.jpg' :
+                            exp === 'leonart' ? '/Logo_Leon\'Art.png' :
                             ''
                           }
                           alt={`${t(`experience.positions.${exp}.company`)} logo`}
@@ -291,13 +292,11 @@ export const Experience = () => {
             <div className="flex items-center justify-center gap-3 mb-4">
               <Briefcase className="w-6 h-6 text-blue-500" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Professional Summary
+                {t('sections.experience.professionalSummary')}
               </h3>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Throughout my professional journey, I've consistently delivered high-impact solutions while mentoring others and driving innovation. 
-              My experience spans from full-stack development to technical leadership, always with a focus on 
-              <span className="font-semibold text-blue-600 dark:text-blue-400"> quality, scalability, and team excellence</span>.
+              {t('sections.experience.professionalSummaryText')}
             </p>
           </div>
         </motion.div>

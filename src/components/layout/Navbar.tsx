@@ -289,7 +289,7 @@ export const Navbar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className={`lg:hidden mt-4 backdrop-blur-xl border-t shadow-2xl rounded-2xl overflow-hidden ${
+              className={`lg:hidden mt-4 backdrop-blur-xl border-t shadow-2xl rounded-2xl overflow-hidden max-h-[70vh] overflow-y-auto ${
                 isScrolled 
                   ? 'bg-white/80 dark:bg-black/70 border-gray-300/30 dark:border-white/20' 
                   : 'bg-white/60 dark:bg-black/60 border-white/20 dark:border-gray-700/30'

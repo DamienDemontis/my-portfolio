@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { ArrowDown, Download, Mail } from 'lucide-react'
+import { useInView } from 'react-intersection-observer'
 import Balatro from '../blocks/Backgrounds/Balatro/Balatro'
 
 export const Hero = () => {
   const { t } = useTranslation()
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+  })
 
   const scrollToAbout = () => {
     const element = document.querySelector('#about')
@@ -21,43 +25,44 @@ export const Hero = () => {
   }
 
   const handleResumeDownload = () => {
-    // This would typically link to your actual resume file
-    const resumeUrl = '/resume-damien-demontis.pdf'
+    // Download English version by default
+    const resumeUrl = '/CV_Demontis_Damien_2024_LINKEDIN_EN.pdf'
     window.open(resumeUrl, '_blank')
   }
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0">
       {/* Balatro Animated Background */}
       <div className="absolute inset-0 z-0">
         <Balatro
           spinRotation={-1.5}
-          spinSpeed={4.0}
+          spinSpeed={2.5}
           offset={[0.1, 0.1]}
           color1="#0ea5e9"
           color2="#0284c7"
           color3="#0f172a"
-          contrast={2.8}
+          contrast={2.0}
           lighting={0.3}
-          spinAmount={0.4}
-          pixelFilter={850.0}
-          spinEase={0.8}
+          spinAmount={0.3}
+          pixelFilter={500.0}
+          spinEase={0.6}
           isRotate={true}
-          mouseInteraction={true}
+          mouseInteraction={false}
+          isVisible={inView}
         />
       </div>
 
       {/* Overlay for better text contrast */}
       <div className="absolute inset-0 z-[1] bg-white/10 dark:bg-black/20 backdrop-blur-[0.5px]"></div>
 
-      {/* Enhanced Background decoration */}
-      <div className="absolute inset-0 z-[2] overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 dark:bg-primary-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-50 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-200/30 dark:bg-secondary-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-50 animate-pulse delay-1000"></div>
+      {/* Simplified Background decoration */}
+      <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 dark:bg-blue-400/5 rounded-full blur-xl opacity-50"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-xl opacity-50"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content Section */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Glass container for text content */}
@@ -171,7 +176,7 @@ export const Hero = () => {
           >
             <div className="relative">
               {/* Photo placeholder with artistic design */}
-              <div className="w-80 h-80 md:w-96 md:h-96 relative">
+              <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
                 {/* Main photo container */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-700 border border-white/20">
                   {/* Actual photo */}

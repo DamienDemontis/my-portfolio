@@ -19,6 +19,7 @@ interface BalatrProps {
   spinEase?: number;
   isRotate?: boolean;
   mouseInteraction?: boolean;
+  isVisible?: boolean;
 }
 
 function hexToVec4(hex: string): [number, number, number, number] {
@@ -136,6 +137,7 @@ const Balatro: React.FC<BalatrProps> = ({
   spinEase = 1.0,
   isRotate = false,
   mouseInteraction = true,
+  isVisible = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -149,13 +151,17 @@ const Balatro: React.FC<BalatrProps> = ({
     let program: Program;
 
     function resize() {
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      // Reduce resolution for better performance
+      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+      const width = Math.floor(container.offsetWidth * pixelRatio);
+      const height = Math.floor(container.offsetHeight * pixelRatio);
+      
+      renderer.setSize(width, height);
+      gl.canvas.style.width = container.offsetWidth + 'px';
+      gl.canvas.style.height = container.offsetHeight + 'px';
+      
       if (program) {
-        program.uniforms.iResolution.value = [
-          gl.canvas.width,
-          gl.canvas.height,
-          gl.canvas.width / gl.canvas.height,
-        ];
+        program.uniforms.iResolution.value = [width, height, width / height];
       }
     }
     window.addEventListener("resize", resize);
@@ -169,9 +175,9 @@ const Balatro: React.FC<BalatrProps> = ({
         iTime: { value: 0 },
         iResolution: {
           value: [
-            gl.canvas.width,
-            gl.canvas.height,
-            gl.canvas.width / gl.canvas.height,
+            container.offsetWidth,
+            container.offsetHeight,
+            container.offsetWidth / container.offsetHeight,
           ],
         },
         uSpinRotation: { value: spinRotation },
@@ -193,12 +199,28 @@ const Balatro: React.FC<BalatrProps> = ({
     const mesh = new Mesh(gl, { geometry, program });
     let animationFrameId: number;
 
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Limit to 30 FPS for better performance
+    const frameInterval = 1000 / targetFPS;
+
     function update(time: number) {
+      if (!isVisible) return;
+      
+      // Throttle frame rate
+      if (time - lastFrameTime < frameInterval) {
+        animationFrameId = requestAnimationFrame(update);
+        return;
+      }
+      lastFrameTime = time;
+      
       animationFrameId = requestAnimationFrame(update);
       program.uniforms.iTime.value = time * 0.001;
       renderer.render({ scene: mesh });
     }
-    animationFrameId = requestAnimationFrame(update);
+    
+    if (isVisible) {
+      animationFrameId = requestAnimationFrame(update);
+    }
     container.appendChild(gl.canvas);
 
     function handleMouseMove(e: MouseEvent) {
@@ -233,6 +255,7 @@ const Balatro: React.FC<BalatrProps> = ({
     spinEase,
     isRotate,
     mouseInteraction,
+    isVisible,
   ]);
 
   return <div ref={containerRef} className="w-full h-full" />;
