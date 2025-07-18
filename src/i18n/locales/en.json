@@ -5,7 +5,7 @@
     "experience": "Experience",
     "skills": "Skills",
     "education": "Education",
-    "journey": "Journey",
+    "photography": "Photography",
     "projects": "Projects",
     "certifications": "Certifications",
     "interests": "Interests",
@@ -43,89 +43,551 @@
         "title": "Pedagogical Mentor | MSc Curriculum",
         "company": "EPITECH",
         "period": "March 2025 - Present",
-        "description": "Provide dedicated mentorship to Master of Science students, overseeing advanced topics in web development and DevOps.",
+        "location": "Nancy, France",
+        "description": "Provide dedicated mentorship to Master of Science students, overseeing advanced topics in web development and DevOps. I hold conferences on various tech topics, cybersecurity, AI, and History of Games, creating engaging content that motivates students to aid their learning journey.",
+        "technologies": ["Java", "ECS", "TypeScript", "MySQL", "NoSQL", "Design Thinking", "Nuxt", "Pinia", "Deno", "Docker", "Kubernetes", "Jenkins", "Firestore", "PyQt6", "OpenCV"],
         "achievements": [
           "Successfully implemented facial recognition attendance system",
           "Introduced modern frameworks (Nuxt, Pinia, Deno) into MSc curriculum",
           "Improved cross-promotion communication through tech events",
-          "Modernized project deployment pipeline with Docker and Kubernetes"
-        ]
+          "Modernized project deployment pipeline with Docker and Kubernetes",
+          "Delivered engaging conferences on cybersecurity, AI, and game development history",
+          "Created motivational content that significantly improved student engagement"
+        ],
+        "impact": "Significantly enhanced educational efficiency and student readiness for modern technologies."
       },
       "epitech_assistant": {
-        "title": "Regional Assistant | MSc Curriculum",
+        "title": "Regional Assistant | PGE & MSc Curriculums",
         "company": "EPITECH",
-        "period": "September 2024 - Present",
-        "description": "Support and guidance to pre-Master students in Python, Java, PHP, and DevOps.",
+        "period": "End of 2021 - March 2025",
+        "location": "Nancy, France",
+        "description": "Started as Regional Assistant for PGE Curriculum (end of 2021 - September 2024), mentoring and teaching students below my year level. Transitioned to MSc Curriculum in September 2024, providing support to pre-Master students in advanced technologies.",
+        "technologies": ["C", "CSFML", "C++", "SFML", "Design Patterns", "Docker", "Web Basics", "UNIX", "Python", "Java", "PHP", "Node.js", "JavaScript"],
         "achievements": [
+          "Mentored students in PGE curriculum for 3 years in fundamental programming concepts",
+          "Taught C, C++, SFML graphics programming, and design patterns",
+          "Introduced containerization concepts with Docker and web development basics",
           "Contributed to dynamic learning environment boosting student motivation",
           "Implemented training modules improving coding proficiency",
-          "Facilitated project presentations and code reviews"
-        ]
+          "Facilitated project presentations and code reviews across both curriculums"
+        ],
+        "impact": "Achieved measurable improvement in students' coding proficiency across both PGE and MSc curriculums, demonstrating significant impact on academic progress."
+      },
+      "leonart": {
+        "title": "Technical Lead & Project Manager",
+        "company": "Leon'Art (Student Startup)",
+        "period": "April 2023 - March 2025",
+        "location": "Nancy, France",
+        "description": "Leon'Art was a platform connecting artists and art enthusiasts, facilitating the sale and purchase of artworks. This web and mobile application distinguished itself from other online art sales platforms through its social network dimension, promoting the discovery of lesser-known artists. Co-founded with 6 other students, we successfully launched a beta version before deciding to discontinue as we evolved as individuals and realized we didn't see a future for the product.",
+        "technologies": ["React", "React Native", "Tailwind CSS", "TypeScript", "Node.js", "Google Cloud Services", "Firestore", "Stripe API", "Swagger", "Jira", "Docker", "Kubernetes"],
+        "achievements": [
+          "Led technical development as backend developer and project manager",
+          "Successfully delivered complex commercial product with full payment integration",
+          "Implemented social network features promoting artist discovery",
+          "Managed development team and coordinated project milestones",
+          "Deployed scalable infrastructure using Docker and Kubernetes",
+          "Integrated comprehensive API documentation with Swagger"
+        ],
+        "impact": "Successfully launched a complete commercial platform that connected artists with art enthusiasts, demonstrating end-to-end product development capabilities."
       },
       "simple": {
         "title": "Web Developer Intern",
         "company": "+Simple",
         "period": "April 2023 - August 2023",
+        "location": "Nancy, France",
         "description": "Led migration from Django monolithic architecture to modern Nuxt.js frontend.",
+        "technologies": ["Python", "Django", "Nuxt.js", "SQL", "Pinia", "GitLab CI/CD"],
         "achievements": [
           "Reduced page load times by 50%",
           "Improved code modularity and maintainability",
           "Enhanced system scalability for future growth",
           "Achieved 30% increase in test coverage"
-        ]
+        ],
+        "impact": "Dramatically improved system performance and scalability, positioning platform for future growth."
       },
       "acoris": {
         "title": "Web Developer Intern",
         "company": "ACORIS Mutuelles",
         "period": "July 2021 - December 2021",
+        "location": "Nancy, France",
         "description": "Developed robust intranet solution using WordPress and PHP.",
+        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript", "CSS"],
         "achievements": [
           "Delivered fully functional intranet improving communication efficiency",
           "Led development of custom PHP module",
           "Applied Agile methodologies for project management"
-        ]
+        ],
+        "impact": "Revolutionized company-wide internal communication and workflow efficiency."
       }
     }
   },
   "skills": {
     "title": "Skills & Technologies",
+    "subtitle": "Technical expertise across the full development stack",
     "categories": {
       "frontend": {
         "title": "Frontend Development",
-        "technologies": ["React", "Vue.js", "Nuxt.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS"]
+        "technologies": [
+          {
+            "name": "JavaScript",
+            "level": "expert",
+            "experience": "4+ years",
+            "description": "Core JavaScript programming, ES6+, async/await, and modern web APIs.",
+            "projects": ["All Web Projects", "Interactive Applications"]
+          },
+          {
+            "name": "HTML5",
+            "level": "expert",
+            "experience": "4+ years",
+            "description": "Semantic HTML markup, accessibility best practices, and modern web standards.",
+            "projects": ["All Web Projects"]
+          },
+          {
+            "name": "CSS3",
+            "level": "expert",
+            "experience": "4+ years",
+            "description": "Advanced CSS styling, animations, grid, flexbox, and responsive design principles.",
+            "projects": ["Portfolio", "UI/UX Projects"]
+          },
+          {
+            "name": "React",
+            "level": "advanced",
+            "experience": "3+ years",
+            "description": "Building modern, responsive web applications with React hooks, context API, and component composition.",
+            "projects": ["Leon'Art", "Portfolio", "AI Recognition System"]
+          },
+          {
+            "name": "TypeScript",
+            "level": "advanced",
+            "experience": "2+ years",
+            "description": "Type-safe JavaScript development with strong typing and modern ES6+ features.",
+            "projects": ["Portfolio", "Enterprise Applications"]
+          },
+          {
+            "name": "Tailwind CSS",
+            "level": "advanced",
+            "experience": "2+ years",
+            "description": "Utility-first CSS framework for rapid UI development with custom design systems.",
+            "projects": ["Portfolio", "Modern Web Apps"]
+          },
+          {
+            "name": "Vue.js",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Developing interactive user interfaces with Vue.js and Vuex for state management.",
+            "projects": ["Leon'Art Mobile", "Dashboard Projects"]
+          },
+          {
+            "name": "Nuxt.js",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Server-side rendering and static site generation with Nuxt.js for performance optimization.",
+            "projects": ["E-commerce Platform", "Blog System"]
+          },
+          {
+            "name": "Next.js",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "React-based framework for production-ready applications with SSR and static generation.",
+            "projects": ["Web Applications", "Portfolio Sites"]
+          }
+        ]
       },
       "backend": {
         "title": "Backend Development",
-        "technologies": ["Node.js", "Python", "Django", "PHP", "Java", "REST APIs", "GraphQL"]
+        "technologies": [
+          {
+            "name": "Python",
+            "level": "expert",
+            "experience": "4+ years",
+            "description": "Full-stack Python development, data processing, AI/ML integration, and automation scripts.",
+            "projects": ["AI Recognition System", "Data Analytics", "Desktop Applications"]
+          },
+          {
+            "name": "C",
+            "level": "expert",
+            "experience": "3+ years",
+            "description": "Systems programming, memory management, and low-level development from EPITECH curriculum.",
+            "projects": ["Academic Projects", "System Programming"]
+          },
+          {
+            "name": "Node.js",
+            "level": "expert",
+            "experience": "3+ years",
+            "description": "Server-side JavaScript development with Express.js, API design, and microservices architecture.",
+            "projects": ["Leon'Art API", "Web Services"]
+          },
+          {
+            "name": "REST APIs",
+            "level": "advanced",
+            "experience": "3+ years",
+            "description": "RESTful API design, implementation, and documentation with proper HTTP methods and status codes.",
+            "projects": ["Leon'Art API", "Microservices"]
+          },
+          {
+            "name": "Java",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Object-oriented programming with Java, Spring framework, and enterprise application development from EPITECH.",
+            "projects": ["Academic Projects", "Enterprise Systems"]
+          },
+          {
+            "name": "C++",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Object-oriented programming in C++, STL, and advanced programming concepts from EPITECH curriculum.",
+            "projects": ["Academic Projects", "System Development"]
+          },
+          {
+            "name": "C#",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": ".NET development, object-oriented programming, and Windows application development from EPITECH.",
+            "projects": ["Academic Projects", "Windows Applications"]
+          },
+          {
+            "name": "Django",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Django web framework for rapid development of secure and scalable web applications.",
+            "projects": ["Web Applications", "Admin Dashboards"]
+          },
+          {
+            "name": "PHP",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "PHP development for web applications, WordPress customization, and server-side logic.",
+            "projects": ["Corporate Intranet", "WordPress Sites"]
+          },
+          {
+            "name": "Haskell",
+            "level": "beginner",
+            "experience": "1+ years",
+            "description": "Functional programming paradigm, pure functions, and type systems from EPITECH curriculum.",
+            "projects": ["Academic Projects", "Functional Programming"]
+          },
+          {
+            "name": "ECS",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Entity Component System architecture for game development and complex systems design.",
+            "projects": ["Game Development", "System Architecture"]
+          },
+          {
+            "name": "GraphQL",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "Query language for APIs with type-safe schema design and efficient data fetching.",
+            "projects": ["Modern Web Apps"]
+          }
+        ]
       },
       "devops": {
         "title": "DevOps & Cloud",
-        "technologies": ["Docker", "Kubernetes", "Jenkins", "GitLab CI/CD", "Firebase", "Linux"]
+        "technologies": [
+          {
+            "name": "Linux",
+            "level": "advanced",
+            "experience": "3+ years",
+            "description": "Linux system administration, command line tools, shell scripting, and server management.",
+            "projects": ["Server Administration", "Development Environment"]
+          },
+          {
+            "name": "Firebase",
+            "level": "advanced",
+            "experience": "2+ years",
+            "description": "Backend-as-a-Service platform with real-time database, authentication, and cloud functions.",
+            "projects": ["AI Recognition System", "Real-time Apps"]
+          },
+          {
+            "name": "Google Cloud Platform",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Cloud computing services including Compute Engine, Cloud Storage, and cloud deployment solutions.",
+            "projects": ["Cloud Deployments", "Scalable Applications"]
+          },
+          {
+            "name": "Docker",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Containerization of applications, multi-stage builds, and Docker Compose for development environments.",
+            "projects": ["All Production Apps", "Development Workflow"]
+          },
+          {
+            "name": "GitLab CI/CD",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Automated testing, building, and deployment using GitLab's integrated CI/CD platform.",
+            "projects": ["Version Control", "Automated Deployment"]
+          },
+          {
+            "name": "Jenkins",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Continuous integration and deployment pipelines with automated testing and deployment workflows.",
+            "projects": ["CI/CD Pipelines", "Automated Workflows"]
+          },
+          {
+            "name": "Bash",
+            "level": "intermediate",
+            "experience": "3+ years",
+            "description": "Shell scripting, automation, and command-line tools for system administration and development workflows.",
+            "projects": ["Automation Scripts", "Development Tools"]
+          },
+          {
+            "name": "Ansible",
+            "level": "beginner",
+            "experience": "1+ years",
+            "description": "Infrastructure as Code, configuration management, and automated deployment from EPITECH curriculum.",
+            "projects": ["Academic Projects", "Infrastructure Management"]
+          },
+          {
+            "name": "Kubernetes",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "Container orchestration, scaling, and management of microservices in production environments from EPITECH.",
+            "projects": ["Learning Projects", "Academic Labs"]
+          }
+        ]
       },
       "databases": {
         "title": "Databases",
-        "technologies": ["PostgreSQL", "MongoDB", "Firestore", "MySQL", "Redis"]
+        "technologies": [
+          {
+            "name": "PostgreSQL",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Relational database design, complex queries, indexing, and performance optimization.",
+            "projects": ["Web Applications", "Data Analytics"]
+          },
+          {
+            "name": "MongoDB",
+            "level": "advanced",
+            "experience": "2+ years",
+            "description": "NoSQL document database with aggregation pipelines, indexing, and scalable data modeling.",
+            "projects": ["Leon'Art", "Real-time Applications"]
+          },
+          {
+            "name": "Firestore",
+            "level": "advanced",
+            "experience": "2+ years",
+            "description": "Real-time NoSQL database with offline support, real-time synchronization, and security rules.",
+            "projects": ["AI Recognition System", "Mobile Apps"]
+          },
+          {
+            "name": "MySQL",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Relational database management with stored procedures, triggers, and optimization techniques.",
+            "projects": ["Corporate Intranet", "Web Applications"]
+          },
+          {
+            "name": "Redis",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "In-memory data structure store for caching, session management, and pub/sub messaging.",
+            "projects": ["Performance Optimization"]
+          },
+          {
+            "name": "NoSQL",
+            "level": "advanced",
+            "experience": "3+ years",
+            "description": "Non-relational database design principles, document stores, key-value pairs, and flexible schema design.",
+            "projects": ["Leon'Art", "Real-time Applications", "AI Recognition System"]
+          }
+        ]
       },
       "tools": {
         "title": "Tools & Others",
-        "technologies": ["Git", "Figma", "Unity", "OpenCV", "PyQt6", "Blender"]
+        "technologies": [
+          {
+            "name": "Git",
+            "level": "advanced",
+            "experience": "4+ years",
+            "description": "Version control with Git, branching strategies, merge conflicts resolution, and collaborative workflows.",
+            "projects": ["All Projects", "Team Collaboration"]
+          },
+          {
+            "name": "Figma",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "UI/UX design, prototyping, design systems, and collaborative design workflows.",
+            "projects": ["Portfolio Design", "App Mockups"]
+          },
+          {
+            "name": "Unity",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Game development with Unity engine, C# scripting, physics systems, and AI implementation.",
+            "projects": ["Tank Game", "Inept Intruder"]
+          },
+          {
+            "name": "PyQt6",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Cross-platform GUI development with Python, desktop application design, and user interface creation.",
+            "projects": ["AI Recognition System", "Desktop Tools"]
+          },
+          {
+            "name": "Zapier",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Automation platform for connecting apps and services with workflow automation and integration.",
+            "projects": ["Business Automation", "Workflow Integration"]
+          },
+          {
+            "name": "Blender",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "3D modeling, animation, and rendering for game development and visual content creation.",
+            "projects": ["Game Assets", "3D Modeling"]
+          },
+          {
+            "name": "Unreal Engine",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "Game development engine for creating high-quality games with advanced graphics and physics.",
+            "projects": ["Game Development", "3D Projects"]
+          },
+          {
+            "name": "Design Thinking",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "Human-centered design methodology for problem-solving, user empathy, and innovative solution development.",
+            "projects": ["Leon'Art UX", "Educational Content", "Student Mentoring"]
+          }
+        ]
+      },
+      "mobile": {
+        "title": "Mobile Development",
+        "technologies": [
+          {
+            "name": "React Native",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Cross-platform mobile development with React Native for iOS and Android applications.",
+            "projects": ["Leon'Art Mobile", "Mobile Apps"]
+          },
+          {
+            "name": "Expo",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Platform for universal React applications with tools for building, deploying, and quickly iterating on iOS and Android.",
+            "projects": ["Mobile Prototypes", "React Native Apps"]
+          },
+          {
+            "name": "Android",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "Native Android development with Java/Kotlin, Android SDK, and mobile app architecture.",
+            "projects": ["Learning Projects", "Mobile Development"]
+          },
+          {
+            "name": "Flutter",
+            "level": "beginner",
+            "experience": "6+ months",
+            "description": "Google's UI toolkit for building natively compiled applications for mobile from a single codebase.",
+            "projects": ["Learning Projects", "Prototypes"]
+          }
+        ]
+      },
+      "testing": {
+        "title": "Testing & QA",
+        "technologies": [
+          {
+            "name": "Jest",
+            "level": "intermediate",
+            "experience": "2+ years",
+            "description": "JavaScript testing framework for unit tests, integration tests, and test-driven development.",
+            "projects": ["React Applications", "Node.js APIs"]
+          },
+          {
+            "name": "Cypress",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "End-to-end testing framework for web applications with real browser testing.",
+            "projects": ["Web Applications", "E2E Testing"]
+          },
+          {
+            "name": "Mocha",
+            "level": "beginner",
+            "experience": "1+ years",
+            "description": "JavaScript test framework for Node.js programs with flexible testing capabilities.",
+            "projects": ["Backend Testing", "API Testing"]
+          }
+        ]
+      },
+      "aiml": {
+        "title": "AI & Machine Learning",
+        "technologies": [
+          {
+            "name": "TensorFlow",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Machine learning framework for building and training neural networks and deep learning models.",
+            "projects": ["AI Recognition System", "ML Projects"]
+          },
+          {
+            "name": "PyTorch",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Deep learning framework for research and production with dynamic computational graphs.",
+            "projects": ["AI Recognition System", "Research Projects"]
+          },
+          {
+            "name": "OpenCV",
+            "level": "intermediate",
+            "experience": "1+ years",
+            "description": "Computer vision library for image processing, facial recognition, and AI-powered visual applications.",
+            "projects": ["AI Recognition System", "Computer Vision"]
+          }
+        ]
       }
+    },
+    "summary": {
+      "title": "Full-Stack Expertise",
+      "description": "My comprehensive technical skill set spans the entire development ecosystem, from modern frontend frameworks to scalable backend solutions and cloud infrastructure. I continuously evolve with emerging technologies to deliver cutting-edge solutions that meet today's digital demands.",
+      "tagline": "Always learning, always building, always innovating."
     }
   },
   "education": {
     "title": "Education",
+    "subtitle": "Academic journey through prestigious institutions with international exposure",
+    "keyHighlights": "Key Highlights",
+    "academicFoundation": {
+      "title": "Academic Foundation",
+      "description": "Strong fundamentals in mathematics, sciences, and computer science, preparing for advanced EPITECH studies with excellent academic performance."
+    },
+    "philosophy": {
+      "title": "Academic Excellence & Global Perspective",
+      "description": "My educational journey at EPITECH has been marked by consistent academic excellence with a 3.7/4.0 GPA and unique leadership opportunities. The international exchange at Keimyung University enhanced my global perspective and technical skills in emerging technologies.",
+      "quote": "\"Education is not preparation for life; education is life itself.\" - John Dewey"
+    },
     "institutions": {
       "epitech": {
         "name": "EPITECH - European Institute of Technology",
         "degree": "Expert in Information Technology",
+        "msc": "Master of Science in Computer Science",
+        "expert": "Expert en Technologies de l'Information",
         "period": "2020 - 2025",
         "location": "Nancy, France",
         "gpa": "GPA: 3.7/4",
+        "description": "EPITECH is a project-oriented school that emphasizes learning through real-world projects rather than traditional lectures. Students develop practical skills by working on innovative projects, from web applications to AI systems, fostering creativity, autonomy, and technical excellence.",
         "highlights": [
           "Major of Nancy campus",
           "Teaching Assistant for 3 consecutive years",
           "Active member of CodingClub",
-          "Startup Project Manager for Leon'Art"
+          "Startup Project Manager for Leon'Art",
+          "Project-based learning methodology",
+          "Innovation-driven curriculum",
+          "Core Programming: C, C++, Java, Haskell",
+          "Software Engineering: Design patterns, UNIX systems",
+          "Web Development: HTML, CSS, JavaScript, PHP",
+          "Graphics Programming: CSFML, SFML",
+          "DevOps: Docker, CI/CD, System Administration",
+          "Database Management: SQL, NoSQL databases",
+          "Object-Oriented Programming & Functional Programming",
+          "Agile Development & Project Management"
         ]
       },
       "keimyung": {
@@ -135,11 +597,14 @@
         "location": "Daegu, South Korea",
         "video": "https://youtu.be/s0AG0_PY93I",
         "videoTitle": "My International Year in Korea",
+        "description": "International exchange program focusing on game development and artificial intelligence. Served as certified EPITECH Ambassador, representing the school and facilitating cultural and academic exchanges between institutions.",
         "highlights": [
+          "Certified EPITECH Ambassador",
           "Video game development focus",
           "Artificial Intelligence studies",
           "VR/AR technologies",
-          "Korean language learning"
+          "Korean language learning",
+          "International cultural exchange"
         ]
       },
       "henri_poincare": {
@@ -163,31 +628,37 @@
         "title": "AI Facial Recognition Attendance System",
         "description": "Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and Torch",
         "technologies": ["Python", "OpenCV", "PyQt6", "Firestore", "AI/ML"],
-        "features": ["Real-time facial recognition", "Cloud database integration", "Automated reporting"]
+        "features": ["Real-time facial recognition", "Cloud database integration", "Automated reporting"],
+        "github": "https://github.com/DamienDemontis/proto-1-pr-smart"
       },
       "leonart": {
         "title": "Leon'Art - Art Marketplace",
-        "description": "Mobile and web application for buying and selling art with social features",
+        "description": "Startup project that ended early 2025. Mobile and web application for buying and selling art with social features",
         "technologies": ["React Native", "Node.js", "MongoDB", "Express"],
-        "features": ["Art marketplace", "Social networking", "Payment integration"]
+        "features": ["Art marketplace", "Social networking", "Payment integration"],
+        "github": "https://github.com/Leon-Art-EIP"
       },
       "intranet": {
         "title": "Corporate Intranet Solution",
         "description": "WordPress-based intranet improving company-wide communication",
         "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
-        "features": ["Internal communication", "Document management", "User authentication"]
+        "features": ["Internal communication", "Document management", "User authentication"],
+        "video": "https://youtu.be/fSEylEdaZiM",
+        "videoTitle": "Corporate Intranet Demo"
       },
       "inept_intruder": {
-        "title": "Inept-Intruder - AI Unity Game",
-        "description": "Unity-based game with AI characters and advanced gameplay mechanics",
-        "technologies": ["Unity", "C#", "AI/ML", "Game Development"],
-        "features": ["AI-driven NPCs", "Advanced physics", "Procedural generation"]
+        "title": "Inept-Intruder - Multiplayer Game",
+        "description": "Multiplayer game where CCTV man (player) helps another player go through a trapped factory environment",
+        "technologies": ["Unity", "C#", "Multiplayer", "Game Development"],
+        "features": ["Multiplayer cooperation", "Trapped factory environment", "CCTV assistance mechanics"],
+        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main"
       },
       "tank_game": {
-        "title": "Tank Battle - Unity Recreation",
+        "title": "Wii Tanks Remastered",
         "description": "Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics",
         "technologies": ["Unity", "C#", "Game Physics", "3D Graphics"],
         "features": ["Classic tank gameplay", "Enhanced visuals", "Smooth controls"],
+        "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
         "video": "https://youtu.be/jWfFh3oCJ2I",
         "videoTitle": "Tank Game Demo"
       }
@@ -227,6 +698,14 @@
       }
     }
   },
+  "photography": {
+    "title": "Travel Photography",
+    "subtitle": "Capturing moments from my journey across South Korea - from urban landscapes to natural wonders",
+    "conclusion": {
+      "title": "Through the Lens",
+      "description": "Photography and videography were integral parts of my role as an international ambassador for EPITECH at Keimyung University. Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities. Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities. These photos represent not just places, but experiences that have shaped my perspective and deepened my connection to Asian culture."
+    }
+  },
   "languages": {
     "title": "Languages",
     "items": {
@@ -237,13 +716,18 @@
       },
       "english": {
         "name": "English",
-        "level": "B1 Level",
-        "description": "Professional working proficiency equivalent to TOEIC 945/990"
+        "level": "C1 Level",
+        "description": "Fully fluent - professional proficiency equivalent to TEPITECH 945/990"
       },
       "korean": {
         "name": "Korean",
         "level": "A2 Level",
         "description": "Elementary proficiency, learned during exchange year"
+      },
+      "italian": {
+        "name": "Italian",
+        "level": "Conversational",
+        "description": "Conversational level - half Italian heritage"
       }
     }
   },
@@ -273,7 +757,7 @@
     "social": {
       "linkedin": "LinkedIn",
       "github": "GitHub",
-      "email": "Email",
+      "instagram": "Instagram",
       "connect": "Connect with me"
     },
     "resume": {
@@ -302,6 +786,7 @@
   "language": {
     "english": "English",
     "french": "Français",
+    "korean": "한국어",
     "toggle": "Switch Language"
   }
 } 

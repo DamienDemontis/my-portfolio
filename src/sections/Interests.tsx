@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Brain, Globe, Palette, Users, Lightbulb, Sprout, BookOpen, Gamepad2 } from 'lucide-react'
+import { Brain, Globe, Palette, Users, Lightbulb, BookOpen, Gamepad2, Music, Headphones, Leaf, TrendingUp, Zap, Heart } from 'lucide-react'
 
 export const Interests = () => {
   const { t } = useTranslation()
@@ -12,32 +12,53 @@ export const Interests = () => {
 
   const interestCategories = [
     {
+      key: 'music',
+      icon: Music,
+      color: 'from-pink-500 to-rose-600',
+      bgColor: 'from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20',
+      borderColor: 'border-pink-200 dark:border-pink-800',
+      interests: [
+        { name: 'Japanese Pop', description: 'Contemporary J-Pop and traditional sounds', icon: Headphones },
+        { name: 'Electronic Music', description: 'Synthesizers, ambient, and electronic beats', icon: Zap },
+        { name: 'Jazz', description: 'Classic and modern jazz improvisation', icon: Music },
+        { name: 'French Classics', description: 'Chanson française and timeless melodies', icon: Heart }
+      ]
+    },
+    {
+      key: 'global_affairs',
+      icon: Globe,
+      color: 'from-emerald-500 to-teal-600',
+      bgColor: 'from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20',
+      borderColor: 'border-emerald-200 dark:border-emerald-800',
+      interests: [
+        { name: 'Ecology', description: 'Environmental sustainability and climate action', icon: Leaf },
+        { name: 'Geopolitics', description: 'International relations and global dynamics', icon: Globe },
+        { name: 'Asian Culture', description: 'Cultural exchange and Asian perspectives', icon: BookOpen }
+      ]
+    },
+    {
       key: 'technology',
       icon: Brain,
       color: 'from-blue-500 to-cyan-600',
       bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
-      borderColor: 'border-blue-200 dark:border-blue-800'
+      borderColor: 'border-blue-200 dark:border-blue-800',
+      interests: [
+        { name: 'Tech Innovation', description: 'Emerging technologies and future trends', icon: Lightbulb },
+        { name: 'AI & Machine Learning', description: 'Artificial intelligence applications', icon: Brain },
+        { name: 'Game Development', description: 'Unity, VR/AR, and interactive experiences', icon: Gamepad2 }
+      ]
     },
     {
-      key: 'world',
-      icon: Globe,
-      color: 'from-green-500 to-emerald-600',
-      bgColor: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
-      borderColor: 'border-green-200 dark:border-green-800'
-    },
-    {
-      key: 'creativity',
-      icon: Palette,
-      color: 'from-purple-500 to-pink-600',
-      bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
-      borderColor: 'border-purple-200 dark:border-purple-800'
-    },
-    {
-      key: 'community',
-      icon: Users,
-      color: 'from-orange-500 to-red-600',
-      bgColor: 'from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20',
-      borderColor: 'border-orange-200 dark:border-orange-800'
+      key: 'personal_growth',
+      icon: TrendingUp,
+      color: 'from-purple-500 to-indigo-600',
+      bgColor: 'from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20',
+      borderColor: 'border-purple-200 dark:border-purple-800',
+      interests: [
+        { name: 'Cultural Exchange', description: 'International perspectives and diversity', icon: Users },
+        { name: 'Continuous Learning', description: 'Personal and professional development', icon: BookOpen },
+        { name: 'Community Building', description: 'Mentorship and knowledge sharing', icon: Users }
+      ]
     }
   ]
 
@@ -46,45 +67,91 @@ export const Interests = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8 }
+      transition: { duration: 0.8, ease: "easeOut" }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.4 }
+      x: 0,
+      transition: { duration: 0.5 }
     }
   }
 
   return (
-    <section id="interests" className="section-padding bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto container-padding">
+    <section id="interests" className="section-padding relative overflow-hidden">
+      {/* Creative Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:via-rose-900/10 dark:to-purple-900/10"></div>
+      
+      {/* Subtle floating background elements */}
+      <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          animate={{ 
+            x: [0, 45, 0],
+            y: [0, -40, 0],
+            rotate: [0, 15, 0]
+          }}
+          transition={{ 
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-8 right-0 w-48 h-48 bg-pink-400/6 dark:bg-pink-400/3 rounded-full blur-2xl"
+        ></motion.div>
+        <motion.div
+          animate={{ 
+            x: [0, -40, 0],
+            y: [0, 45, 0],
+            rotate: [0, -12, 0]
+          }}
+          transition={{ 
+            duration: 26,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 9
+          }}
+          className="absolute bottom-12 left-0 w-52 h-52 bg-purple-400/6 dark:bg-purple-400/3 rounded-3xl blur-2xl"
+        ></motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto container-padding relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {t('interests.title')}
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto rounded-full mb-6"></div>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {t('interests.subtitle')}
-          </p>
+          {/* Glass container for header */}
+          <div 
+            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
+            style={{
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Heart className="w-8 h-8 text-rose-600" />
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                {t('interests.title')}
+              </h2>
+            </div>
+            <div className="w-20 h-1 bg-gradient-to-r from-rose-500 to-purple-500 mx-auto rounded-full mb-4"></div>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Personal passions that inspire creativity and drive innovation
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -96,22 +163,36 @@ export const Interests = () => {
         >
           {interestCategories.map((category) => {
             const IconComponent = category.icon
-            const items = t(`interests.categories.${category.key}.items`, { returnObjects: true }) as string[]
             
             return (
               <motion.div
                 key={category.key}
                 variants={cardVariants}
-                className="card p-0 overflow-hidden hover:shadow-xl transition-all duration-300 group"
+                whileHover={{ 
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+                className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-0 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+                style={{
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                }}
               >
                 {/* Header with gradient background */}
                 <div className={`p-6 bg-gradient-to-br ${category.bgColor} border-b ${category.borderColor}`}>
                   <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${category.color} p-2.5 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
+                    <motion.div 
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${category.color} p-2.5 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
+                    >
                       <IconComponent className="w-full h-full text-white" />
-                    </div>
+                    </motion.div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                      {t(`interests.categories.${category.key}.title`)}
+                      {category.key === 'music' && 'Musical Tastes'}
+                      {category.key === 'global_affairs' && 'Global Perspectives'}
+                      {category.key === 'technology' && 'Tech Enthusiasm'}
+                      {category.key === 'personal_growth' && 'Personal Growth'}
                     </h3>
                   </div>
                 </div>
@@ -120,54 +201,70 @@ export const Interests = () => {
                 <div className="p-6">
                   <motion.div
                     variants={containerVariants}
-                    className="space-y-3"
+                    className="space-y-4"
                   >
-                    {items.map((item, index) => (
-                      <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 group/item"
-                      >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 group-hover/item:from-primary-200 group-hover/item:to-primary-300 dark:group-hover/item:from-primary-800 dark:group-hover/item:to-primary-900 transition-all duration-200">
-                          {category.key === 'technology' && index === 0 && <Brain className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'technology' && index === 1 && <Lightbulb className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'world' && index === 0 && <Globe className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'world' && index === 1 && <Sprout className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'creativity' && index === 0 && <BookOpen className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'creativity' && index === 1 && <Gamepad2 className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'creativity' && index === 2 && <Palette className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {category.key === 'community' && <Users className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
-                          {(
-                            (category.key === 'technology' && index > 1) ||
-                            (category.key === 'world' && index > 1) ||
-                            (category.key === 'creativity' && index > 2) ||
-                            !['technology', 'world', 'creativity', 'community'].includes(category.key)
-                          ) && <div className="w-2 h-2 bg-primary-500 rounded-full"></div>}
-                        </div>
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">
-                          {item}
-                        </span>
-                      </motion.div>
-                    ))}
+                    {category.interests.map((interest, index) => {
+                      const InterestIcon = interest.icon
+                      
+                      return (
+                        <motion.div
+                          key={index}
+                          variants={itemVariants}
+                          className="flex items-start gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-200 group/item border border-white/30 dark:border-gray-700/30"
+                        >
+                          <motion.div 
+                            whileHover={{ scale: 1.2 }}
+                            transition={{ duration: 0.2 }}
+                            className={`flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-r ${category.color} shadow-lg`}
+                          >
+                            <InterestIcon className="w-5 h-5 text-white" />
+                          </motion.div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                              {interest.name}
+                            </h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                              {interest.description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      )
+                    })}
                   </motion.div>
                 </div>
+
               </motion.div>
             )
           })}
         </motion.div>
 
-        {/* Personal note */}
+        {/* Personal philosophy */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="text-center mt-12"
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="text-center mt-16"
         >
-          <div className="max-w-3xl mx-auto">
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              These interests shape my perspective as a developer and help me bring creativity, 
-              global awareness, and community focus to every project. I believe the best solutions 
-              come from understanding both technology and the human experience.
+          <div 
+            className="max-w-4xl mx-auto backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
+            style={{
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Palette className="w-6 h-6 text-rose-600" />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                Passion-Driven Development
+              </h3>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              My diverse interests fuel my creativity as a developer and shape my global perspective. 
+              From the rhythms of Japanese pop to the complexity of geopolitical dynamics, 
+              these passions inspire innovative solutions and meaningful connections.
+              <span className="block mt-4 font-semibold text-rose-600 dark:text-rose-400">
+                "The best code is written when passion meets purpose."
+              </span>
             </p>
           </div>
         </motion.div>

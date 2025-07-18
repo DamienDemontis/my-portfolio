@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Menu, X, ChevronDown, User, Briefcase, GraduationCap, Code, MapPin, Mail } from 'lucide-react'
+import { Menu, X, ChevronDown, User, Briefcase, GraduationCap, MapPin, Mail } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeToggle } from '../common/ThemeToggle'
 import { LanguageSwitcher } from '../common/LanguageSwitcher'
@@ -15,10 +15,11 @@ export const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
-      setIsScrolled(scrollTop > 20)
+      // Change to trigger when leaving hero section (around viewport height)
+      setIsScrolled(scrollTop > window.innerHeight * 0.8)
       
       // Update current section for plane animation
-      const sections = ['home', 'about', 'experience', 'skills', 'education', 'journey', 'projects', 'contact']
+      const sections = ['home', 'about', 'experience', 'skills', 'education', 'photography', 'projects', 'contact']
       const currentSec = sections.find(section => {
         const element = document.querySelector(`#${section}`)
         if (element) {
@@ -68,11 +69,11 @@ export const Navbar = () => {
       ]
     },
     {
-      key: 'journey',
-      label: 'Journey',
+      key: 'photography',
+      label: t('nav.photography'),
       icon: <MapPin className="w-4 h-4" />,
       items: [
-        { key: 'journey', href: '#journey', icon: '🌏' }
+        { key: 'photography', href: '#photography', icon: '📸' }
       ]
     },
     {
@@ -105,7 +106,7 @@ export const Navbar = () => {
       'experience': 90,
       'skills': 135,
       'education': 180,
-      'journey': 225,
+      'photography': 225,
       'projects': 270,
       'contact': 315
     }
@@ -155,11 +156,8 @@ export const Navbar = () => {
                 </motion.div>
               </div>
               <div className="hidden sm:block">
-                <div className={`text-xl font-bold drop-shadow-lg ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>
+                <div className={`text-base lg:text-lg font-bold drop-shadow-lg ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>
                   Damien Demontis
-                </div>
-                <div className={`text-sm drop-shadow-md ${isScrolled ? 'text-gray-700 dark:text-white/80' : 'text-white/80'}`}>
-                  Full-Stack Developer
                 </div>
               </div>
             </button>
@@ -213,8 +211,8 @@ export const Navbar = () => {
                           transition={{ duration: 0.2 }}
                           className={`absolute top-full left-0 mt-2 w-56 backdrop-blur-xl rounded-2xl shadow-2xl border overflow-hidden ${
                             isScrolled 
-                              ? 'bg-white/30 dark:bg-black/20 border-gray-300/30 dark:border-white/20' 
-                              : 'bg-white/10 dark:bg-black/10 border-white/20 dark:border-gray-700/30'
+                              ? 'bg-white/80 dark:bg-black/70 border-gray-300/30 dark:border-white/20' 
+                              : 'bg-white/60 dark:bg-black/60 border-white/20 dark:border-gray-700/30'
                           }`}
                           style={{
                             backdropFilter: 'blur(20px)',
@@ -293,22 +291,20 @@ export const Navbar = () => {
               transition={{ duration: 0.3 }}
               className={`lg:hidden mt-4 backdrop-blur-xl border-t shadow-2xl rounded-2xl overflow-hidden ${
                 isScrolled 
-                  ? 'bg-white/30 dark:bg-black/20 border-gray-300/30 dark:border-white/20' 
-                  : 'bg-white/10 dark:bg-black/10 border-white/20 dark:border-gray-700/30'
+                  ? 'bg-white/80 dark:bg-black/70 border-gray-300/30 dark:border-white/20' 
+                  : 'bg-white/60 dark:bg-black/60 border-white/20 dark:border-gray-700/30'
               }`}
               style={{
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
               }}
             >
-              <div className="p-6">
+              <div className="p-4">
                 {navGroups.map((group) => (
                   <div key={group.key} className="mb-4">
                     <div className="flex items-center space-x-2 mb-3 px-2">
                       {group.icon}
-                      <span className={`font-bold drop-shadow-lg ${
-                        isScrolled ? 'text-gray-800 dark:text-white' : 'text-white'
-                      }`}>
+                      <span className="font-bold drop-shadow-lg text-gray-800 dark:text-white">
                         {group.label}
                       </span>
                     </div>
@@ -317,11 +313,7 @@ export const Navbar = () => {
                         <motion.button
                           key={item.key}
                           onClick={() => scrollToSection(item.href)}
-                          className={`flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-200 font-medium border ${
-                            isScrolled 
-                              ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5 hover:border-gray-400/20 dark:hover:border-white/20' 
-                              : 'text-white/90 hover:text-white hover:bg-white/10 border-white/5 hover:border-white/20'
-                          }`}
+                          className="flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-200 font-medium border text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5 hover:border-gray-400/20 dark:hover:border-white/20"
                           whileHover={{ x: 5 }}
                           whileTap={{ scale: 0.95 }}
                         >

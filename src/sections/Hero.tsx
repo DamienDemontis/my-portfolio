@@ -54,52 +54,6 @@ export const Hero = () => {
       <div className="absolute inset-0 z-[2] overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 dark:bg-primary-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-50 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-200/30 dark:bg-secondary-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-50 animate-pulse delay-1000"></div>
-        
-        {/* Floating tech elements */}
-        <motion.div
-          animate={{ 
-            y: [0, -20, 0],
-            rotate: [0, 10, 0]
-          }}
-          transition={{ 
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 left-10 text-4xl opacity-30"
-        >
-          ⚛️
-        </motion.div>
-        <motion.div
-          animate={{ 
-            y: [0, 20, 0],
-            rotate: [0, -10, 0]
-          }}
-          transition={{ 
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-          className="absolute top-40 right-20 text-3xl opacity-30"
-        >
-          🚀
-        </motion.div>
-        <motion.div
-          animate={{ 
-            y: [0, -15, 0],
-            x: [0, 10, 0]
-          }}
-          transition={{ 
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
-          className="absolute bottom-32 left-20 text-3xl opacity-30"
-        >
-          🇰🇷
-        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -172,18 +126,18 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-16"
               >
                 <button
                   onClick={scrollToContact}
-                  className="btn-primary flex items-center gap-2 group shadow-2xl backdrop-blur-sm bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border border-white/20 hover:border-white/40 transition-all duration-300"
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-2xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center gap-2 group hover:scale-105"
                 >
                   <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   {t('hero.cta.contact')}
                 </button>
                 <button
                   onClick={handleResumeDownload}
-                  className="btn-secondary flex items-center gap-2 group shadow-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 transition-all duration-300"
+                  className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl shadow-2xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center gap-2 group hover:scale-105"
                 >
                   <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   {t('hero.cta.resume')}
@@ -235,47 +189,6 @@ export const Hero = () => {
                   className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg border border-white/20"
                 >
                   D²
-                </motion.div>
-
-                <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{ 
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl rounded-xl p-3 shadow-lg border border-white/20"
-                  style={{
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">🚀</span>
-                    <div className="text-xs">
-                      <div className="font-semibold text-white drop-shadow-lg">Next Stop</div>
-                      <div className="text-white/80 drop-shadow-md">Asia 2025</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                    opacity: [0.8, 1, 0.8]
-                  }}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                  }}
-                  className="absolute top-1/2 -right-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full p-2 shadow-lg border border-white/20"
-                >
-                  <span className="text-xl">🌏</span>
                 </motion.div>
               </div>
             </div>

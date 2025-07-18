@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, MapPin, Clock, Send, Download, FileText, Github, Linkedin } from 'lucide-react'
+import { Mail, MapPin, Clock, Send, Download, FileText, Github, Linkedin, MessageCircle, Instagram } from 'lucide-react'
 
 export const Contact = () => {
   const { t } = useTranslation()
@@ -64,8 +64,8 @@ export const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: t('contact.info.location'),
-      href: null
+      value: 'Frouard, Grand Est, France',
+      href: 'https://maps.google.com/maps?q=Frouard,+Grand+Est,+France'
     },
     {
       icon: Clock,
@@ -80,13 +80,19 @@ export const Contact = () => {
       name: 'LinkedIn',
       href: 'https://www.linkedin.com/in/damien-demontis/',
       icon: Linkedin,
-      color: 'hover:bg-blue-600'
+      color: 'from-blue-500 to-blue-600'
     },
     {
       name: 'GitHub',
       href: 'https://github.com/damiendemontis',
       icon: Github,
-      color: 'hover:bg-gray-800'
+      color: 'from-gray-600 to-gray-800'
+    },
+    {
+      name: 'Instagram',
+      href: 'https://www.instagram.com/damien.demontis/',
+      icon: Instagram,
+      color: 'from-pink-500 to-rose-600'
     }
   ]
 
@@ -95,39 +101,85 @@ export const Contact = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 }
+      transition: { duration: 0.8, ease: "easeOut" }
     }
   }
 
   return (
-    <section id="contact" className="section-padding bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto container-padding">
+    <section id="contact" className="section-padding relative overflow-hidden">
+      {/* Professional Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-green-900/10 dark:to-emerald-900/10"></div>
+      
+      {/* Subtle floating background elements */}
+      <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          animate={{ 
+            x: [0, 35, 0],
+            y: [0, -30, 0],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-16 right-8 w-36 h-36 bg-green-400/6 dark:bg-green-400/3 rounded-full blur-2xl"
+        ></motion.div>
+        <motion.div
+          animate={{ 
+            x: [0, -30, 0],
+            y: [0, 35, 0],
+            rotate: [0, -8, 0]
+          }}
+          transition={{ 
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 7
+          }}
+          className="absolute bottom-20 left-12 w-40 h-40 bg-emerald-400/6 dark:bg-emerald-400/3 rounded-2xl blur-2xl"
+        ></motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto container-padding relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {t('contact.title')}
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto rounded-full mb-6"></div>
-          <h3 className="text-xl md:text-2xl text-primary-600 dark:text-primary-400 font-semibold mb-4">
-            {t('contact.subtitle')}
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {t('contact.description')}
-          </p>
+          {/* Glass container for header */}
+          <div 
+            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
+            style={{
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <MessageCircle className="w-8 h-8 text-green-600" />
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                {t('contact.title')}
+              </h2>
+            </div>
+            <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-emerald-500 mx-auto rounded-full mb-6"></div>
+            <h3 className="text-xl md:text-2xl text-green-600 dark:text-green-400 font-semibold mb-4">
+              {t('contact.subtitle')}
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              {t('contact.description')}
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -139,7 +191,13 @@ export const Contact = () => {
         >
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
-            <div className="card p-8">
+            <div 
+              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
+            >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.form.send')} Message
               </h3>
@@ -157,8 +215,12 @@ export const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
                       placeholder={t('contact.form.namePlaceholder')}
+                      style={{
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                      }}
                     />
                   </div>
                   <div>
@@ -172,8 +234,12 @@ export const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
                       placeholder={t('contact.form.emailPlaceholder')}
+                      style={{
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                      }}
                     />
                   </div>
                 </div>
@@ -189,8 +255,12 @@ export const Contact = () => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
                     placeholder={t('contact.form.subjectPlaceholder')}
+                    style={{
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                    }}
                   />
                 </div>
                 
@@ -205,15 +275,21 @@ export const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 transition-colors duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 resize-none backdrop-blur-sm"
                     placeholder={t('contact.form.messagePlaceholder')}
+                    style={{
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                    }}
                   />
                 </div>
                 
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   {isSubmitting ? (
                     <>
@@ -226,7 +302,7 @@ export const Contact = () => {
                       {t('contact.form.send')}
                     </>
                   )}
-                </button>
+                </motion.button>
               </form>
             </div>
           </motion.div>
@@ -234,7 +310,13 @@ export const Contact = () => {
           {/* Contact Info & Resume */}
           <motion.div variants={itemVariants} className="space-y-8">
             {/* Contact Information */}
-            <div className="card p-8">
+            <div 
+              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
+            >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.info.contactInfo')}
               </h3>
@@ -243,9 +325,15 @@ export const Contact = () => {
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon
                   return (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                    <motion.div 
+                      key={index} 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-white/30 dark:border-gray-700/30"
+                    >
+                      <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <IconComponent className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-gray-100">
@@ -254,7 +342,9 @@ export const Contact = () => {
                         {info.href ? (
                           <a
                             href={info.href}
-                            className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
                           >
                             {info.value}
                           </a>
@@ -264,26 +354,34 @@ export const Contact = () => {
                           </p>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>
             </div>
 
             {/* Resume Download */}
-            <div className="card p-8">
+            <div 
+              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
+            >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.resume.download')}
               </h3>
               
               <div className="space-y-4">
-                <button
+                <motion.button
                   onClick={() => handleResumeDownload('en')}
-                  className="w-full flex items-center justify-between p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-between p-4 border border-white/30 dark:border-gray-600/30 rounded-2xl hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                      <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <FileText className="w-5 h-5 text-white" />
                     </div>
                     <div className="text-left">
                       <p className="font-semibold text-gray-900 dark:text-gray-100">
@@ -294,16 +392,18 @@ export const Contact = () => {
                       </p>
                     </div>
                   </div>
-                  <Download className="w-5 h-5 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
-                </button>
+                  <Download className="w-5 h-5 text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-200" />
+                </motion.button>
                 
-                <button
+                <motion.button
                   onClick={() => handleResumeDownload('fr')}
-                  className="w-full flex items-center justify-between p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-between p-4 border border-white/30 dark:border-gray-600/30 rounded-2xl hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                      <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                      <FileText className="w-5 h-5 text-white" />
                     </div>
                     <div className="text-left">
                       <p className="font-semibold text-gray-900 dark:text-gray-100">
@@ -314,13 +414,19 @@ export const Contact = () => {
                       </p>
                     </div>
                   </div>
-                  <Download className="w-5 h-5 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
-                </button>
+                  <Download className="w-5 h-5 text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-200" />
+                </motion.button>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="card p-8">
+            <div 
+              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
+            >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.social.connect')}
               </h3>
@@ -329,16 +435,18 @@ export const Contact = () => {
                 {socialLinks.map((social) => {
                   const IconComponent = social.icon
                   return (
-                    <a
+                    <motion.a
                       key={social.name}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center justify-center w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg ${social.color} hover:text-white transition-all duration-200 hover:scale-110`}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`flex items-center justify-center w-16 h-16 bg-gradient-to-r ${social.color} text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200`}
                       aria-label={social.name}
                     >
-                      <IconComponent className="w-6 h-6" />
-                    </a>
+                      <IconComponent className="w-7 h-7" />
+                    </motion.a>
                   )
                 })}
               </div>
