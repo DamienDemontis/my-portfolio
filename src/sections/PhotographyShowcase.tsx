@@ -274,18 +274,6 @@ export const PhotographyShowcase = () => {
     }
   }
 
-  const floatingVariants = {
-    animate: {
-      y: [0, -10, 0],
-      rotate: [0, 5, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  }
-
   return (
     <section id="photography" className="section-padding bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
       <div className="max-w-7xl mx-auto container-padding">

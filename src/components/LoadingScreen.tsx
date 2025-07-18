@@ -32,7 +32,7 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
       ]
 
       const imagePromises = imagesToPreload.map((src) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const img = new Image()
           img.onload = resolve
           img.onerror = resolve // Continue even if some images fail
