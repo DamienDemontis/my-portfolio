@@ -98,8 +98,8 @@ Update the content in the translation files:
 
 ### Resume Files
 Place your resume files in the `public` directory:
-- `RESUME_Demontis_Damien_2024_LINKEDIN_EN.pdf` (English)
-- `CV_Demontis_Damien_2024_LINKEDIN_FR.pdf` (French)
+- `CV_Damien_DEMONTIS_EN.pdf` (English)
+- `CV_Damien_DEMONTIS_FR.pdf` (French)
 
 ## 📱 Responsive Design
 
