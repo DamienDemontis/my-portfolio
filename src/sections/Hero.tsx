@@ -26,7 +26,7 @@ export const Hero = () => {
 
   const handleResumeDownload = () => {
     // Download English version by default
-    const resumeUrl = '/CV_Demontis_Damien_2024_LINKEDIN_EN.pdf'
+    const resumeUrl = '/CV_Damien_DEMONTIS_EN.pdf'
     window.open(resumeUrl, '_blank')
   }
 
