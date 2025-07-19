@@ -448,10 +448,10 @@ export const PhotographyShowcase = () => {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
                   <p className="text-base md:text-lg">
-                    Photography and videography were integral parts of my role as an <span className="font-semibold text-purple-600 dark:text-purple-400">international ambassador for EPITECH</span> at Keimyung University.
+                    {t('photography.ambassador')} <span className="font-semibold text-purple-600 dark:text-purple-400">{t('photography.epitech')}</span> {t('photography.university')}.
                   </p>
                   <p className="text-base md:text-lg">
-                    Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities.
+                    {t('photography.beyond')}
                   </p>
                   <p className="text-base md:text-lg">
                     Each image tells a story of <span className="font-semibold text-pink-600 dark:text-pink-400">cultural discovery</span>, natural wonders, and the vibrant energy of Korean cities.

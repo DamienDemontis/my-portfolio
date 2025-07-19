@@ -701,6 +701,10 @@
   "photography": {
     "title": "Travel Photography",
     "subtitle": "Capturing moments from my journey across South Korea - from urban landscapes to natural wonders",
+    "ambassador": "Photography and videography were integral parts of my role as an",
+    "epitech": "international ambassador for EPITECH",
+    "university": "at Keimyung University",
+    "beyond": "Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities.",
     "conclusion": {
       "title": "Through the Lens",
       "description": "Photography and videography were integral parts of my role as an international ambassador for EPITECH at Keimyung University. Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities. Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities. These photos represent not just places, but experiences that have shaped my perspective and deepened my connection to Asian culture."
@@ -742,7 +746,7 @@
     "description": "I'm always open to discussing new opportunities, innovative projects, or just having a chat about technology and development.",
     "form": {
       "name": "Full Name",
-              "email": "Email",
+              "email": "Mail",
       "subject": "Subject",
       "message": "Your Message",
       "send": "Send Message",

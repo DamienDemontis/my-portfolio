@@ -701,6 +701,10 @@
   "photography": {
     "title": "Photographie de Voyage",
     "subtitle": "Capturer des moments de mon voyage à travers la Corée du Sud - des paysages urbains aux merveilles naturelles",
+    "ambassador": "La photographie et la vidéographie faisaient partie intégrante de mon rôle d'",
+    "epitech": "ambassadeur international pour EPITECH",
+    "university": "à l'Université Keimyung",
+    "beyond": "Au-delà de documenter la beauté et la diversité de la Corée du Sud pendant mon année d'échange, j'étais responsable de créer du contenu qui mettait en valeur l'expérience étudiante et les opportunités d'échange culturel.",
     "conclusion": {
       "title": "À Travers l'Objectif",
       "description": "La photographie et la vidéographie faisaient partie intégrante de mon rôle d'ambassadeur international pour EPITECH à l'Université Keimyung. Au-delà de documenter la beauté et la diversité de la Corée du Sud pendant mon année d'échange, j'étais responsable de créer du contenu qui mettait en valeur l'expérience étudiante et les opportunités d'échange culturel. Chaque image raconte une histoire de découverte culturelle, de merveilles naturelles et de l'énergie vibrante des villes coréennes. Ces photos représentent non seulement des lieux, mais des expériences qui ont façonné ma perspective et approfondi ma connexion avec la culture asiatique."
@@ -742,7 +746,7 @@
     "description": "Je suis toujours ouvert à discuter de nouvelles opportunités, de projets innovants, ou simplement échanger sur la technologie et le développement.",
     "form": {
       "name": "Nom Complet",
-              "email": "Email",
+              "email": "Mail",
       "subject": "Sujet",
       "message": "Votre Message",
       "send": "Envoyer le Message",

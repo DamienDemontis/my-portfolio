@@ -363,7 +363,7 @@ export const Skills = () => {
                                     <img
                                       src={logoUrl}
                                       alt={tech.name}
-                                      className="w-5 h-5 object-contain"
+                                      className="w-5 h-5 object-contain dark:invert"
                                       style={{
                                         filter: 'brightness(0.8) contrast(1.2)'
                                       }}

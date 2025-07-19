@@ -171,7 +171,7 @@ export const Navbar = () => {
                   /* Single item - direct link */
                   <motion.button
                     onClick={() => scrollToSection(group.items[0].href)}
-                    className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border ${
+                    className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border whitespace-nowrap ${
                       isScrolled 
                         ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
                         : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
@@ -187,7 +187,7 @@ export const Navbar = () => {
                   <div>
                     <motion.button
                       onClick={() => handleDropdownToggle(group.key)}
-                      className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border ${
+                      className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border whitespace-nowrap ${
                         isScrolled 
                           ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
                           : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
