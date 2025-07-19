@@ -219,7 +219,7 @@ const Balatro: React.FC<BalatrProps> = ({
     }
     
     if (isVisible) {
-      animationFrameId = requestAnimationFrame(update);
+    animationFrameId = requestAnimationFrame(update);
     }
     container.appendChild(gl.canvas);
 

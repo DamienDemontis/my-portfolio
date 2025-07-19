@@ -364,9 +364,6 @@ export const Skills = () => {
                                       src={logoUrl}
                                       alt={tech.name}
                                       className="w-5 h-5 object-contain dark:invert"
-                                      style={{
-                                        filter: 'brightness(0.8) contrast(1.2)'
-                                      }}
                                     />
                                   ) : (
                                     <Code className="w-5 h-5 text-gray-600 dark:text-gray-400" />
