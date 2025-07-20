@@ -31,7 +31,7 @@ export const Hero = () => {
   }
 
   return (
-    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0">
+    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-16 lg:pt-20 xl:pt-24">
       {/* Balatro Animated Background */}
       <div className="absolute inset-0 z-0">
         <Balatro
