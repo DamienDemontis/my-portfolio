@@ -7,7 +7,8 @@ export const Education = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0,
+    rootMargin: '0px 0px -10% 0px',
   })
 
   const institutions = ['epitech', 'keimyung', 'henri_poincare']
