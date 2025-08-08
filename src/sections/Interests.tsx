@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Brain, Globe, Palette, Users, Lightbulb, BookOpen, Gamepad2, Music, Headphones, Leaf, TrendingUp, Zap, Heart } from 'lucide-react'
+import { Brain, Globe, Palette, Users, Lightbulb, BookOpen, Gamepad2, Music, Headphones, Leaf, Zap, Heart } from 'lucide-react'
 
 export const Interests = () => {
   const { t } = useTranslation()
@@ -19,10 +19,10 @@ export const Interests = () => {
       bgColor: 'from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20',
       borderColor: 'border-pink-200 dark:border-pink-800',
       interests: [
-        { name: 'Japanese Pop', description: 'Contemporary J-Pop and traditional sounds', icon: Headphones },
-        { name: 'Electronic Music', description: 'Synthesizers, ambient, and electronic beats', icon: Zap },
-        { name: 'Jazz', description: 'Classic and modern jazz improvisation', icon: Music },
-        { name: 'French Classics', description: 'Chanson française and timeless melodies', icon: Heart }
+        { name: t('interests.japanesePopTitle'), description: t('interests.japanesePopDesc'), icon: Headphones },
+        { name: t('interests.electronicMusicTitle'), description: t('interests.electronicMusicDesc'), icon: Zap },
+        { name: t('interests.jazzTitle'), description: t('interests.jazzDesc'), icon: Music },
+        { name: t('interests.frenchClassicsTitle'), description: t('interests.frenchClassicsDesc'), icon: Heart }
       ]
     },
     {
@@ -32,9 +32,9 @@ export const Interests = () => {
       bgColor: 'from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20',
       borderColor: 'border-emerald-200 dark:border-emerald-800',
       interests: [
-        { name: 'Ecology', description: 'Environmental sustainability and climate action', icon: Leaf },
-        { name: 'Geopolitics', description: 'International relations and global dynamics', icon: Globe },
-        { name: 'Asian Culture', description: 'Cultural exchange and Asian perspectives', icon: BookOpen }
+        { name: t('interests.ecologyTitle'), description: t('interests.ecologyDesc'), icon: Leaf },
+        { name: t('interests.geopoliticsTitle'), description: t('interests.geopoliticsDesc'), icon: Globe },
+        { name: t('interests.asianCultureTitle'), description: t('interests.asianCultureDesc'), icon: BookOpen }
       ]
     },
     {
@@ -44,21 +44,21 @@ export const Interests = () => {
       bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
       borderColor: 'border-blue-200 dark:border-blue-800',
       interests: [
-        { name: 'Tech Innovation', description: 'Emerging technologies and future trends', icon: Lightbulb },
-        { name: 'AI & Machine Learning', description: 'Artificial intelligence applications', icon: Brain },
-        { name: 'Game Development', description: 'Unity, VR/AR, and interactive experiences', icon: Gamepad2 }
+        { name: t('interests.techInnovationTitle'), description: t('interests.techInnovationDesc'), icon: Lightbulb },
+        { name: t('interests.aiMlTitle'), description: t('interests.aiMlDesc'), icon: Brain },
+        { name: t('interests.gameDevTitle'), description: t('interests.gameDevDesc'), icon: Gamepad2 }
       ]
     },
     {
       key: 'personal_growth',
-      icon: TrendingUp,
+      icon: Users,
       color: 'from-purple-500 to-indigo-600',
       bgColor: 'from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20',
       borderColor: 'border-purple-200 dark:border-purple-800',
       interests: [
-        { name: 'Cultural Exchange', description: 'International perspectives and diversity', icon: Users },
-        { name: 'Continuous Learning', description: 'Personal and professional development', icon: BookOpen },
-        { name: 'Community Building', description: 'Mentorship and knowledge sharing', icon: Users }
+        { name: t('interests.culturalExchangeTitle'), description: t('interests.culturalExchangeDesc'), icon: Users },
+        { name: t('interests.continuousLearningTitle'), description: t('interests.continuousLearningDesc'), icon: BookOpen },
+        { name: t('interests.communityBuildingTitle'), description: t('interests.communityBuildingDesc'), icon: Heart }
       ]
     }
   ]
@@ -150,7 +150,7 @@ export const Interests = () => {
             </div>
             <div className="w-20 h-1 bg-gradient-to-r from-rose-500 to-purple-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Personal passions that inspire creativity and drive innovation
+              {t('interests.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -190,10 +190,10 @@ export const Interests = () => {
                       <IconComponent className="w-full h-full text-white" />
                     </motion.div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                      {category.key === 'music' && 'Musical Tastes'}
-                      {category.key === 'global_affairs' && 'Global Perspectives'}
-                      {category.key === 'technology' && 'Tech Enthusiasm'}
-                      {category.key === 'personal_growth' && 'Personal Growth'}
+                      {category.key === 'music' && t('interests.musicalTastes')}
+                      {category.key === 'global_affairs' && t('interests.globalPerspectives')}
+                      {category.key === 'technology' && t('interests.techEnthusiasm')}
+                      {category.key === 'personal_growth' && t('interests.personalGrowth')}
                     </h3>
                   </div>
                 </div>

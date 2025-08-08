@@ -36,8 +36,12 @@
     }
   },
   "experience": {
-    "title": "전문 경험",
+    "title": "전문 경력",
+    "subtitle": "소프트웨어 개발 및 기술 리더십 분야의 전문적 여정",
     "current": "현재",
+    "keyTechnologies": "핵심 기술",
+    "keyAchievements": "주요 성과",
+    "impactResults": "영향 및 결과",
     "positions": {
       "epitech_mentor": {
         "title": "교육 멘토 | MSc 커리큘럼",
@@ -122,8 +126,9 @@
     }
   },
   "skills": {
-    "title": "기술 & 테크놀로지",
-    "subtitle": "전체 개발 스택에 걸친 기술적 전문성",
+    "title": "기술 및 스킬",
+    "subtitle": "풀스택 전문성",
+    "technologies": "기술들",
     "categories": {
       "frontend": {
         "title": "프론트엔드 개발",
@@ -552,17 +557,25 @@
   },
   "education": {
     "title": "교육",
-    "subtitle": "국제적 노출을 통한 명문 교육 기관에서의 학업 여정",
+    "subtitle": "학업 우수성 및 글로벌 관점",
     "keyHighlights": "주요 특징",
     "academicFoundation": {
       "title": "학업 기반",
       "description": "수학, 과학, 컴퓨터 과학의 탄탄한 기초를 바탕으로 우수한 학업 성과로 EPITECH의 고급 연구에 준비했습니다."
     },
     "philosophy": {
-      "title": "학업 우수성 & 글로벌 관점",
+      "title": "학업 우수성 및 글로벌 관점",
       "description": "EPITECH에서의 교육 여정은 3.7/4.0 GPA와 독특한 리더십 기회로 일관된 학업 우수성을 보여주었습니다. 계명대학교에서의 국제 교환은 글로벌 관점과 신기술 분야의 기술적 역량을 향상시켰습니다.",
       "quote": "\"교육은 삶을 위한 준비가 아니라 삶 그 자체이다.\" - 존 듀이"
     },
+    "campusLeader": "캠퍼스 리더",
+    "leadershipRoles": "리더십 역할",
+    "pedagogicalAssistant": "교육 조교 (3년 연속)",
+    "codingClubMember": "코딩클럽 활발한 멤버",
+    "internationalExchange": "국제 교환 프로그램",
+    "gameDevAI": "게임 개발 및 AI 중심",
+    "koreanLanguageCulture": "한국어 및 문화",
+    "vrArResearch": "VR/AR 기술 연구",
     "institutions": {
       "epitech": {
         "name": "EPITECH - 유럽 기술 연구소",
@@ -623,6 +636,11 @@
   },
   "projects": {
     "title": "주요 프로젝트",
+    "subtitle": "기술적 전문성과 창의적 문제 해결을 보여주는 혁신적 솔루션",
+    "technologiesUsed": "사용 기술",
+    "keyFeatures": "주요 기능",
+    "sourceCode": "소스 코드",
+    "watchDemo": "데모 보기",
     "items": {
       "facial_recognition": {
         "title": "AI 얼굴 인식 출석 시스템",
@@ -665,21 +683,71 @@
     }
   },
   "certifications": {
-    "title": "자격증",
-    "subtitle": "전문 자격증과 지속적 학습",
+    "title": "전문 자격증",
+    "subtitle": "IONIS X의 리더십, 관리 및 커뮤니케이션 전문 자격증",
+    "verifiedCertification": "검증된 자격증",
+    "active": "활성",
     "items": {
-      "ionis": {
-        "name": "Ionis X 자격증",
-        "provider": "Ionis Education Group",
-        "topics": ["IT 프로젝트 관리", "팀 & 조직 관리", "위기 커뮤니케이션", "애자일 코칭"],
-        "year": "2024"
+      "agile_coaching": {
+        "title": "Agile Coaching",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "애자일 팀과 프레임워크를 위한 고급 코칭 방법론"
+      },
+      "team_management": {
+        "title": "Team/Operational Management",
+        "provider": "IONIS X", 
+        "year": "June 2022",
+        "description": "리더십 스킬과 운영 관리 전략"
+      },
+      "crisis_communication": {
+        "title": "Crisis Communication",
+        "provider": "IONIS X",
+        "year": "June 2022", 
+        "description": "도전적인 상황과 위기 관리 중 전략적 커뮤니케이션"
+      },
+      "it_project_management": {
+        "title": "IT Project Management",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "IT 환경을 위한 포괄적인 프로젝트 관리 방법론"
       }
     }
   },
   "interests": {
-    "title": "관심사 & 열정",
-    "subtitle": "코딩을 넘어서 저를 움직이는 것들",
-    "categories": {
+    "title": "관심사 및 열정",
+    "subtitle": "창의성과 혁신을 영감시키는 개인적 열정",
+    "musicalTastes": "음악 취향",
+    "japanesePopTitle": "일본 팝",
+    "japanesePopDesc": "현대 J-Pop과 전통적 사운드",
+    "electronicMusicTitle": "전자 음악",
+    "electronicMusicDesc": "신시사이저, 앰비언트, 전자 비트",
+    "jazzTitle": "재즈",
+    "jazzDesc": "클래식 및 모던 재즈 즉흥연주",
+    "frenchClassicsTitle": "프랑스 클래식",
+    "frenchClassicsDesc": "샹송 프랑세즈와 영원한 멜로디",
+    "globalPerspectives": "글로벌 관점",
+    "ecologyTitle": "생태학",
+    "ecologyDesc": "환경 지속가능성과 기후 행동",
+    "geopoliticsTitle": "지정학",
+    "geopoliticsDesc": "국제 관계와 글로벌 역학",
+    "asianCultureTitle": "아시아 문화",
+    "asianCultureDesc": "문화 교류와 아시아적 관점",
+    "techEnthusiasm": "기술 열정",
+    "techInnovationTitle": "기술 혁신",
+    "techInnovationDesc": "신기술과 미래 트렌드",
+    "aiMlTitle": "AI 및 머신러닝",
+    "aiMlDesc": "인공지능 응용",
+    "gameDevTitle": "게임 개발",
+    "gameDevDesc": "Unity, VR/AR, 인터랙티브 경험",
+    "personalGrowth": "개인적 성장",
+    "culturalExchangeTitle": "문화 교류",
+    "culturalExchangeDesc": "국제적 관점과 다양성",
+    "continuousLearningTitle": "지속적 학습",
+    "continuousLearningDesc": "개인적 및 전문적 발전",
+    "communityBuildingTitle": "커뮤니티 구축",
+    "communityBuildingDesc": "멘토링과 지식 공유",
+    "items": {
       "technology": {
         "title": "기술 & 혁신",
         "items": ["인공지능 & VR/AR", "LLM 개발", "기술 동향", "오픈소스 기여"]
@@ -700,23 +768,44 @@
   },
   "photography": {
     "title": "여행 사진",
-    "subtitle": "한국 전역을 여행하며 찍은 순간들 - 도시 경관부터 자연의 경이로움까지",
-    "ambassador": "사진과 영상 촬영은 계명대학교에서의",
-    "epitech": "EPITECH 국제 대사",
-    "university": "역할의 핵심 부분이었습니다",
-    "beyond": "교환학생 기간 동안 한국의 아름다움과 다양성을 기록하는 것을 넘어서, 학생 경험과 문화 교류 기회를 보여주는 콘텐츠를 만드는 책임이 있었습니다.",
+    "subtitle": "렌즈를 통해",
+    "categories": {
+      "all": "전체",
+      "urban": "도시 생활",
+      "nature": "자연",
+      "culture": "문화"
+    },
+    "photoDescriptions": {
+      "each_image": "각 이미지는 문화적 발견, 자연의 경이로움, 그리고 한국 도시의 활기찬 에너지의 이야기를 들려줍니다."
+    },
     "conclusion": {
       "title": "렌즈를 통해",
-      "description": "사진과 영상 촬영은 계명대학교에서 EPITECH의 국제 대사로서 제 역할의 핵심 부분이었습니다. 교환학생 기간 동안 한국의 아름다움과 다양성을 기록하는 것을 넘어서, 학생 경험과 문화 교류 기회를 보여주는 콘텐츠를 만드는 책임이 있었습니다. 각 이미지는 문화적 발견, 자연의 경이로움, 한국 도시들의 활기찬 에너지에 대한 이야기를 담고 있습니다. 이 사진들은 단순한 장소가 아닌, 나의 관점을 형성하고 아시아 문화와의 연결을 깊게 한 경험들을 나타냅니다."
-    }
+      "description": "사진과 비디오그래피는 계명대학교에서 EPITECH의 국제 대사로서 제 역할의 핵심 부분이었습니다. 교환학생 기간 동안 한국의 아름다움과 다양성을 기록하는 것을 넘어서, 학생 경험과 문화 교류 기회를 보여주는 콘텐츠를 만드는 책임이 있었습니다. 각 이미지는 문화적 발견, 자연의 경이로움, 한국 도시들의 활기찬 에너지에 대한 이야기를 담고 있습니다. 이 사진들은 단순한 장소가 아닌, 나의 관점을 형성하고 아시아 문화와의 연결을 깊게 한 경험들을 나타냅니다."
+    },
+    "ambassador": "사진과 비디오그래피는 제가",
+    "epitech": "EPITECH",
+    "university": "의 국제 대사로서의 역할에서 핵심적인 부분이었습니다. 한국에서 대학의 대표로서, 저는 문화 교류, 캠퍼스 생활, 그리고 국제 학생들의 독특한 경험을 기록했습니다.",
+    "beyond": "공식적인 임무를 넘어서, 제 카메라는 한국의 풍부한 유산을 탐험하는 도구가 되었습니다 - 번화한 서울 거리에서 고요한 사원까지, 현대 건축에서 전통 시장까지."
   },
   "languages": {
     "title": "언어",
     "subtitle": "문화와 국경을 넘나드는 다국어 소통",
-    "summary": {
-      "title": "다국어 소통",
-      "description": "언어 다양성은 국제 팀과 문화 간의 효과적인 소통을 가능하게 하며, 글로벌 기술 협업과 다가오는 아시아 이전에 필수적입니다."
-    },
+    "nativeSpeaker": "완벽한 유창함을 가진 원어민",
+    "fullyFluent": "완전 유창 - 전문적 숙련도 (TEPITECH 945)",
+    "conversationalLevel": "대화 수준 - 이탈리아 혈통",
+    "elementaryLevel": "교환 경험을 통한 초급 수준",
+    "native": "원어민",
+    "c2Fluent": "C2 유창",
+    "conversational": "대화 가능",
+    "a2Elementary": "A2 초급",
+    "multilingualCommunication": "다국어 커뮤니케이션",
+    "motherTongue": "모국어",
+    "b1Plus": "B1+",
+    "professional": "전문적",
+    "heritage": "혈통",
+    "a2": "A2",
+    "elementary": "초급",
+    "languageDiversityDesc": "언어의 다양성은 국제 팀과 문화 간의 효과적인 소통을 가능하게 하며, 글로벌 기술 협력과 아시아로의 이주에 필수적입니다.",
     "items": {
       "french": {
         "name": "프랑스어",
@@ -725,7 +814,7 @@
       },
       "english": {
         "name": "영어",
-        "level": "C1 레벨",
+        "level": "C2 레벨",
         "description": "완전 유창함 - TEPITECH 945/990과 동등한 전문적 숙련도"
       },
       "korean": {
@@ -799,12 +888,12 @@
     "toggle": "언어 변경"
   },
   "footer": {
-    "quickNavigation": "빠른 탐색",
-    "letsConnect": "연결하기",
-    "craftedWith": "제작됨",
+    "quickNavigation": "빠른 내비게이션",
+    "letsConnect": "연결해요",
+    "craftedWith": "깨끗한 코드와 뛰어난 사용자 경험에 대한 열정으로 혁신적인 디지털 솔루션을 만들고 있습니다.",
     "inFrance": "프랑스에서",
-    "builtWith": "React, TypeScript & Tailwind CSS로 구축",
-    "openToOpportunities": "새로운 기회와 협업에 열려있음"
+    "builtWith": "React, TypeScript & Tailwind CSS로 제작",
+    "openToOpportunities": "새로운 기회와 협력에 열려있습니다"
   },
   "sections": {
     "experience": {

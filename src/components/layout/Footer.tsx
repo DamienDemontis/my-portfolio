@@ -67,7 +67,7 @@ export const Footer = () => {
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-              Crafting innovative digital solutions with passion for clean code and exceptional user experiences.
+              {t('footer.craftedWith')}
             </p>
             
             {/* Social Links */}

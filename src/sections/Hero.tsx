@@ -44,7 +44,7 @@ export const Hero = () => {
           contrast={2.0}
           lighting={0.3}
           spinAmount={0.3}
-          pixelFilter={500.0}
+          pixelFilter={2000.0}
           spinEase={0.6}
           isRotate={true}
           mouseInteraction={false}

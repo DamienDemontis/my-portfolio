@@ -31,20 +31,20 @@ export const Languages = () => {
 
   const getLanguageLevel = (language: string) => {
     const levels = {
-      french: 'Native',
-      english: 'C1 Fluent',
-      italian: 'Conversational',
-      korean: 'A2 Elementary'
+      french: t('languages.native'),
+      english: t('languages.c2Fluent'),
+      italian: t('languages.conversational'),
+      korean: t('languages.a2Elementary')
     }
     return levels[language as keyof typeof levels] || 'Beginner'
   }
 
   const getLanguageDescription = (language: string) => {
     const descriptions = {
-      french: 'Native speaker with perfect fluency',
-      english: 'Fully fluent - professional proficiency (TEPITECH 945)',
-      italian: 'Conversational level - half Italian heritage',
-      korean: 'Elementary level from study abroad experience'
+      french: t('languages.nativeSpeaker'),
+      english: t('languages.fullyFluent'),
+      italian: t('languages.conversationalLevel'),
+      korean: t('languages.elementaryLevel')
     }
     return descriptions[language as keyof typeof descriptions] || 'Learning'
   }
@@ -127,7 +127,7 @@ export const Languages = () => {
             </div>
             <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Multilingual communication across cultures and borders
+              {t('languages.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -240,7 +240,7 @@ export const Languages = () => {
                     <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-3">
                       <span className="text-green-800 dark:text-green-200 text-xs font-medium flex items-center gap-2">
                         <FlagIcon countryCode="gb" size={16} />
-                        TOEIC 945/990
+                        TEPITECH 945/990
                       </span>
                     </div>
                   )}
@@ -302,30 +302,29 @@ export const Languages = () => {
             <div className="flex items-center justify-center gap-3 mb-6">
               <Globe className="w-6 h-6 text-indigo-600" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Multilingual Communication
+                {t('languages.multilingualCommunication')}
               </h3>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
               <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-4">
-                <div className="font-semibold text-green-800 dark:text-green-200">Native</div>
-                <div className="text-green-600 dark:text-green-300">Mother Tongue</div>
+                <div className="font-semibold text-green-800 dark:text-green-200">{t('languages.native')}</div>
+                <div className="text-green-600 dark:text-green-300">{t('languages.motherTongue')}</div>
               </div>
               <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-4">
-                <div className="font-semibold text-blue-800 dark:text-blue-200">B1+</div>
-                <div className="text-blue-600 dark:text-blue-300">Professional</div>
+                <div className="font-semibold text-blue-800 dark:text-blue-200">{t('languages.b1Plus')}</div>
+                <div className="text-blue-600 dark:text-blue-300">{t('languages.professional')}</div>
               </div>
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-4">
-                <div className="font-semibold text-red-800 dark:text-red-200">Conversational</div>
-                <div className="text-red-600 dark:text-red-300">Heritage</div>
+                <div className="font-semibold text-red-800 dark:text-red-200">{t('languages.conversational')}</div>
+                <div className="text-red-600 dark:text-red-300">{t('languages.heritage')}</div>
               </div>
               <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-2xl p-4">
-                <div className="font-semibold text-purple-800 dark:text-purple-200">A2</div>
-                <div className="text-purple-600 dark:text-purple-300">Elementary</div>
+                <div className="font-semibold text-purple-800 dark:text-purple-200">{t('languages.a2')}</div>
+                <div className="text-purple-600 dark:text-purple-300">{t('languages.elementary')}</div>
               </div>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Language diversity enables effective communication across international teams and cultures, 
-              essential for global technology collaboration and my upcoming relocation to Asia.
+              {t('languages.languageDiversityDesc')}
             </p>
           </div>
         </motion.div>

@@ -15,10 +15,10 @@ export const Certifications = () => {
   const certifications = [
     {
       id: 'agile_coaching',
-      name: 'Agile Coaching',
-      provider: 'IONIS X',
-      year: 'June 2022',
-      description: 'Advanced coaching methodologies for Agile teams and frameworks',
+      name: t('certifications.items.agile_coaching.title'),
+      provider: t('certifications.items.agile_coaching.provider'),
+      year: t('certifications.items.agile_coaching.year'),
+      description: t('certifications.items.agile_coaching.description'),
       icon: Users,
       color: 'from-blue-500 to-cyan-500',
       bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
@@ -26,10 +26,10 @@ export const Certifications = () => {
     },
     {
       id: 'team_management',
-      name: 'Team/Operational Management',
-      provider: 'IONIS X',
-      year: 'June 2022',
-      description: 'Leadership skills and operational management strategies',
+      name: t('certifications.items.team_management.title'),
+      provider: t('certifications.items.team_management.provider'),
+      year: t('certifications.items.team_management.year'),
+      description: t('certifications.items.team_management.description'),
       icon: Target,
       color: 'from-green-500 to-emerald-500',
       bgColor: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
@@ -37,10 +37,10 @@ export const Certifications = () => {
     },
     {
       id: 'crisis_communication',
-      name: 'Crisis Communication',
-      provider: 'IONIS X',
-      year: 'June 2022',
-      description: 'Strategic communication during challenging situations and crisis management',
+      name: t('certifications.items.crisis_communication.title'),
+      provider: t('certifications.items.crisis_communication.provider'),
+      year: t('certifications.items.crisis_communication.year'),
+      description: t('certifications.items.crisis_communication.description'),
       icon: MessageSquare,
       color: 'from-orange-500 to-red-500',
       bgColor: 'from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20',
@@ -48,13 +48,13 @@ export const Certifications = () => {
     },
     {
       id: 'it_project_management',
-      name: 'IT Project Management',
-      provider: 'IONIS X',
-      year: 'June 2022',
-      description: 'Comprehensive project management methodologies for IT environments',
+      name: t('certifications.items.it_project_management.title'),
+      provider: t('certifications.items.it_project_management.provider'),
+      year: t('certifications.items.it_project_management.year'),
+      description: t('certifications.items.it_project_management.description'),
       icon: Briefcase,
-      color: 'from-purple-500 to-pink-500',
-      bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
+      color: 'from-purple-500 to-indigo-500',
+      bgColor: 'from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20',
       borderColor: 'border-purple-200 dark:border-purple-800'
     }
   ]
@@ -137,7 +137,7 @@ export const Certifications = () => {
             </div>
             <div className="w-20 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Professional certifications in leadership, management, and communication from IONIS X
+              {t('certifications.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -203,12 +203,12 @@ export const Certifications = () => {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="font-medium">Verified Certification</span>
+                    <span className="font-medium">{t('certifications.verifiedCertification')}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-yellow-500 fill-current" />
                     <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                      Active
+                      {t('certifications.active')}
                     </span>
                   </div>
                 </div>

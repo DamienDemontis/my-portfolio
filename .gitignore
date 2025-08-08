@@ -11,6 +11,11 @@ dist/
 dist-ssr/
 *.local
 
+# Bundle analyzer outputs
+stats.html
+dist/stats.html
+*.stats.html
+
 # Environment variables
 .env
 .env.local

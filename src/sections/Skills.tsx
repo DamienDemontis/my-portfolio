@@ -321,7 +321,7 @@ export const Skills = () => {
                         {t(`skills.categories.${category.key}.title`)}
                       </h3>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {technologies.length} technologies
+                        {technologies.length} {t('skills.technologies')}
                       </p>
                     </div>
                   </div>

@@ -37,7 +37,11 @@
   },
   "experience": {
     "title": "Expérience Professionnelle",
+    "subtitle": "Parcours professionnel en développement logiciel et leadership technique",
     "current": "Actuel",
+    "keyTechnologies": "Technologies Clés",
+    "keyAchievements": "Réalisations Clés",
+    "impactResults": "Impact & Résultats",
     "positions": {
       "epitech_mentor": {
         "title": "Accompagnateur Pédagogique | Cursus MSc",
@@ -123,7 +127,8 @@
   },
   "skills": {
     "title": "Compétences & Technologies",
-    "subtitle": "Expertise technique sur l'ensemble de la stack de développement",
+    "subtitle": "Expertise Full-Stack",
+    "technologies": "technologies",
     "categories": {
       "frontend": {
         "title": "Développement Frontend",
@@ -552,7 +557,7 @@
   },
   "education": {
     "title": "Formation",
-    "subtitle": "Parcours académique à travers des institutions prestigieuses avec exposition internationale",
+    "subtitle": "Excellence Académique & Perspective Globale",
     "keyHighlights": "Points Clés",
     "academicFoundation": {
       "title": "Base Académique",
@@ -563,6 +568,14 @@
       "description": "Mon parcours éducatif à EPITECH a été marqué par une excellence académique constante avec un GPA de 3.7/4.0 et des opportunités de leadership uniques. L'échange international à l'Université Keimyung a enrichi ma perspective globale et mes compétences techniques dans les technologies émergentes.",
       "quote": "\"L'éducation n'est pas une préparation à la vie ; l'éducation est la vie elle-même.\" - John Dewey"
     },
+    "campusLeader": "Leader du Campus",
+    "leadershipRoles": "Rôles de Leadership",
+    "pedagogicalAssistant": "Assistant Pédagogique (3 années consécutives)",
+    "codingClubMember": "Membre Actif du CodingClub",
+    "internationalExchange": "Programme d'Échange International",
+    "gameDevAI": "Développement de Jeux & IA",
+    "koreanLanguageCulture": "Langue et Culture Coréennes",
+    "vrArResearch": "Recherche en Technologies VR/AR",
     "institutions": {
       "epitech": {
         "name": "EPITECH - European Institute of Technology",
@@ -623,6 +636,11 @@
   },
   "projects": {
     "title": "Projets Phares",
+    "subtitle": "Solutions innovantes démontrant expertise technique et résolution créative de problèmes",
+    "technologiesUsed": "Technologies Utilisées",
+    "keyFeatures": "Fonctionnalités Clés",
+    "sourceCode": "Code Source",
+    "watchDemo": "Voir Démo",
     "items": {
       "facial_recognition": {
         "title": "Système de Reconnaissance Faciale IA",
@@ -665,21 +683,71 @@
     }
   },
   "certifications": {
-    "title": "Certifications",
-    "subtitle": "Accréditations professionnelles et formation continue",
+    "title": "Certifications Professionnelles",
+    "subtitle": "Certifications professionnelles en leadership, management et communication d'IONIS X",
+    "verifiedCertification": "Certification Vérifiée",
+    "active": "Actif",
     "items": {
-      "ionis": {
-        "name": "Certifications Ionis X",
-        "provider": "Groupe Ionis Education",
-        "topics": ["Gestion de Projet IT", "Management d'Équipe et Organisationnel", "Communication de Crise", "Coaching Agile"],
-        "year": "2024"
+      "agile_coaching": {
+        "title": "Agile Coaching",
+        "provider": "IONIS X",
+        "year": "Juin 2022",
+        "description": "Méthodologies de coaching avancées pour les équipes et frameworks Agile"
+      },
+      "team_management": {
+        "title": "Gestion d'Équipe/Opérationnelle",
+        "provider": "IONIS X",
+        "year": "Juin 2022",
+        "description": "Compétences en leadership et stratégies de gestion opérationnelle"
+      },
+      "crisis_communication": {
+        "title": "Communication de Crise",
+        "provider": "IONIS X",
+        "year": "Juin 2022",
+        "description": "Communication stratégique dans les situations difficiles et gestion de crise"
+      },
+      "it_project_management": {
+        "title": "Gestion de Projet IT",
+        "provider": "IONIS X",
+        "year": "Juin 2022",
+        "description": "Méthodologies complètes de gestion de projet pour les environnements IT"
       }
     }
   },
   "interests": {
     "title": "Centres d'Intérêt & Passions",
-    "subtitle": "Ce qui me motive au-delà du code",
-    "categories": {
+    "subtitle": "Passions personnelles qui inspirent créativité et innovation",
+    "musicalTastes": "Goûts Musicaux",
+    "japanesePopTitle": "Pop Japonaise",
+    "japanesePopDesc": "J-Pop contemporaine et sons traditionnels",
+    "electronicMusicTitle": "Musique Électronique",
+    "electronicMusicDesc": "Synthétiseurs, ambiant et rythmes électroniques",
+    "jazzTitle": "Jazz",
+    "jazzDesc": "Improvisation jazz classique et moderne",
+    "frenchClassicsTitle": "Classiques Français",
+    "frenchClassicsDesc": "Chanson française et mélodies intemporelles",
+    "globalPerspectives": "Perspectives Globales",
+    "ecologyTitle": "Écologie",
+    "ecologyDesc": "Durabilité environnementale et action climatique",
+    "geopoliticsTitle": "Géopolitique",
+    "geopoliticsDesc": "Relations internationales et dynamiques mondiales",
+    "asianCultureTitle": "Culture Asiatique",
+    "asianCultureDesc": "Échange culturel et perspectives asiatiques",
+    "techEnthusiasm": "Passion Tech",
+    "techInnovationTitle": "Innovation Technologique",
+    "techInnovationDesc": "Technologies émergentes et tendances futures",
+    "aiMlTitle": "IA & Apprentissage Automatique",
+    "aiMlDesc": "Applications d'intelligence artificielle",
+    "gameDevTitle": "Développement de Jeux",
+    "gameDevDesc": "Unity, VR/AR et expériences interactives",
+    "personalGrowth": "Développement Personnel",
+    "culturalExchangeTitle": "Échange Culturel",
+    "culturalExchangeDesc": "Perspectives internationales et diversité",
+    "continuousLearningTitle": "Apprentissage Continu",
+    "continuousLearningDesc": "Développement personnel et professionnel",
+    "communityBuildingTitle": "Construction Communautaire",
+    "communityBuildingDesc": "Mentorat et partage de connaissances",
+    "items": {
       "technology": {
         "title": "Technologie & Innovation",
         "items": ["Intelligence Artificielle & VR/AR", "Développement LLM", "Veille Technologique", "Contributions Open Source"]
@@ -700,23 +768,44 @@
   },
   "photography": {
     "title": "Photographie de Voyage",
-    "subtitle": "Capturer des moments de mon voyage à travers la Corée du Sud - des paysages urbains aux merveilles naturelles",
-    "ambassador": "La photographie et la vidéographie faisaient partie intégrante de mon rôle d'",
-    "epitech": "ambassadeur international pour EPITECH",
-    "university": "à l'Université Keimyung",
-    "beyond": "Au-delà de documenter la beauté et la diversité de la Corée du Sud pendant mon année d'échange, j'étais responsable de créer du contenu qui mettait en valeur l'expérience étudiante et les opportunités d'échange culturel.",
+    "subtitle": "À Travers l'Objectif",
+    "categories": {
+      "all": "Tout",
+      "urban": "Vie Urbaine",
+      "nature": "Nature",
+      "culture": "Culture"
+    },
+    "photoDescriptions": {
+      "each_image": "Chaque image raconte une histoire de découverte culturelle, de merveilles naturelles et de l'énergie vibrante des villes coréennes."
+    },
     "conclusion": {
       "title": "À Travers l'Objectif",
       "description": "La photographie et la vidéographie faisaient partie intégrante de mon rôle d'ambassadeur international pour EPITECH à l'Université Keimyung. Au-delà de documenter la beauté et la diversité de la Corée du Sud pendant mon année d'échange, j'étais responsable de créer du contenu qui mettait en valeur l'expérience étudiante et les opportunités d'échange culturel. Chaque image raconte une histoire de découverte culturelle, de merveilles naturelles et de l'énergie vibrante des villes coréennes. Ces photos représentent non seulement des lieux, mais des expériences qui ont façonné ma perspective et approfondi ma connexion avec la culture asiatique."
-    }
+    },
+    "ambassador": "La photographie et la vidéographie étaient des parties intégrantes de mon rôle d'ambassadeur international pour",
+    "epitech": "EPITECH",
+    "university": ". En tant que représentant de l'université en Corée, j'ai documenté les échanges culturels, la vie de campus et les expériences uniques des étudiants internationaux.",
+    "beyond": "Au-delà des devoirs officiels, mon appareil photo est devenu un outil pour explorer le riche patrimoine de la Corée - des rues animées de Séoul aux temples sereins, de l'architecture moderne aux marchés traditionnels."
   },
   "languages": {
     "title": "Langues",
-    "subtitle": "Communication multilingue à travers les cultures et les frontières",
-    "summary": {
-      "title": "Communication Multilingue",
-      "description": "La diversité linguistique permet une communication efficace au sein d'équipes internationales et de cultures, essentielle pour la collaboration technologique mondiale et ma prochaine relocalisation en Asie."
-    },
+    "subtitle": "Communication multilingue à travers cultures et frontières",
+    "nativeSpeaker": "Locuteur natif avec maîtrise parfaite",
+    "fullyFluent": "Parfaitement fluide - niveau professionnel (TEPITECH 945)",
+    "conversationalLevel": "Niveau conversationnel - héritage italien",
+    "elementaryLevel": "Niveau élémentaire grâce à l'expérience d'échange",
+    "native": "Natif",
+    "c2Fluent": "C2 Courant",
+    "conversational": "Conversationnel",
+    "a2Elementary": "A2 Élémentaire",
+    "multilingualCommunication": "Communication Multilingue",
+    "motherTongue": "Langue Maternelle",
+    "b1Plus": "B1+",
+    "professional": "Professionnel",
+    "heritage": "Héritage",
+    "a2": "A2",
+    "elementary": "Élémentaire",
+    "languageDiversityDesc": "La diversité linguistique permet une communication efficace dans les équipes internationales et cultures, essentielle pour la collaboration technologique mondiale et ma prochaine relocalisation en Asie.",
     "items": {
       "french": {
         "name": "Français",
@@ -725,7 +814,7 @@
       },
       "english": {
         "name": "Anglais",
-        "level": "Niveau C1",
+        "level": "Niveau C2",
         "description": "Parfaitement bilingue - compétence professionnelle équivalent TEPITECH 945/990"
       },
       "korean": {
@@ -800,10 +889,10 @@
   },
   "footer": {
     "quickNavigation": "Navigation Rapide",
-    "letsConnect": "Restons Connectés",
-    "craftedWith": "Créé avec",
+    "letsConnect": "Connectons-nous",
+    "craftedWith": "Créant des solutions numériques innovantes avec passion pour un code propre et des expériences utilisateur exceptionnelles.",
     "inFrance": "en France",
-    "builtWith": "Construit avec React, TypeScript & Tailwind CSS",
+    "builtWith": "Conçu avec React, TypeScript & Tailwind CSS",
     "openToOpportunities": "Ouvert aux nouvelles opportunités et collaborations"
   },
   "sections": {

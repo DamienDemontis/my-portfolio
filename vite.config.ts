@@ -2,17 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 
-export default defineConfig(({ mode }) => ({
-  plugins: [
-    react(),
-    // Bundle analyzer
-    mode === 'analyze' && visualizer({
-      filename: 'dist/stats.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true
-    })
-  ].filter(Boolean),
+export default defineConfig({
+  plugins: [react(), visualizer()],
   server: {
     port: 3000,
     open: true
@@ -24,11 +15,14 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          animations: ['framer-motion', 'gsap'],
+          animations: ['framer-motion'],
           three: ['three', '@react-three/fiber', '@react-three/drei'],
-          utils: ['react-i18next', 'react-intersection-observer']
+          i18n: ['react-i18next', 'i18next'],
+          icons: ['lucide-react'],
+          utils: ['react-intersection-observer']
         }
       }
-    }
+    },
+    chunkSizeWarningLimit: 1000
   }
-})) 
+}); 

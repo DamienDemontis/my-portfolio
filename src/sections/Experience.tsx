@@ -97,7 +97,7 @@ export const Experience = () => {
             </div>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Professional journey in software development and technical leadership
+              {t('experience.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -203,7 +203,7 @@ export const Experience = () => {
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-3 flex items-center gap-2">
                       <TrendingUp className="w-4 h-4 text-blue-500" />
-                      Key Technologies
+                      {t('experience.keyTechnologies')}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {Array.isArray(t(`experience.positions.${exp}.technologies`, { returnObjects: true })) &&
@@ -223,7 +223,7 @@ export const Experience = () => {
                   <div className="space-y-3">
                     <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-4 flex items-center gap-2">
                       <Users className="w-4 h-4 text-green-500" />
-                      Key Achievements
+                      {t('experience.keyAchievements')}
                     </h4>
                     {Array.isArray(t(`experience.positions.${exp}.achievements`, { returnObjects: true })) &&
                       (t(`experience.positions.${exp}.achievements`, { returnObjects: true }) as string[]).map((achievement, achIndex) => (
@@ -248,7 +248,7 @@ export const Experience = () => {
                     <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-800/50">
                       <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-2 flex items-center gap-2">
                         <TrendingUp className="w-4 h-4 text-purple-500" />
-                        Impact & Results
+                        {t('experience.impactResults')}
                       </h4>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                         {t(`experience.positions.${exp}.impact`)}

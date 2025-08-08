@@ -122,7 +122,7 @@ export const Projects = () => {
             </div>
             <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-purple-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Innovative solutions showcasing technical expertise and creative problem-solving
+              {t('projects.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -210,7 +210,7 @@ export const Projects = () => {
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                       <Code className="w-4 h-4 text-violet-500" />
-                      Technologies Used
+                      {t('projects.technologiesUsed')}
                     </h4>
                     <motion.div 
                       variants={containerVariants}
@@ -237,8 +237,8 @@ export const Projects = () => {
                   {/* Features */}
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                      <Database className="w-4 h-4 text-violet-500" />
-                      Key Features
+                      <Database className="w-4 h-4 text-blue-500" />
+                      {t('projects.keyFeatures')}
                     </h4>
                     <div className="space-y-2">
                       {features.map((feature, featureIndex) => (

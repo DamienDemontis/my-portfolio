@@ -204,19 +204,13 @@ export const PhotographyShowcase = () => {
 
   // Preload next images for smoother transitions
   useEffect(() => {
-    const preloadImages = () => {
-      const nextIndex = (currentPhotoIndex + 1) % photos.length
-      const prevIndex = (currentPhotoIndex - 1 + photos.length) % photos.length
-      
-      const img1 = new Image()
-      const img2 = new Image()
-      
-      img1.src = photos[nextIndex].src
-      img2.src = photos[prevIndex].src
-    }
-    
-    preloadImages()
-  }, [currentPhotoIndex, photos])
+    // Preload first 3 images for better performance
+    const preloadImages = photos.slice(0, 3);
+    preloadImages.forEach(image => {
+      const img = new Image();
+      img.src = image.src;
+    });
+  }, []);
 
   // Navigation functions with transition handling
   const goToNext = useCallback(() => {
@@ -324,6 +318,8 @@ export const PhotographyShowcase = () => {
                     willChange: 'opacity',
                     transform: 'translateZ(0)', // Force GPU acceleration
                   }}
+                  loading="lazy"
+                  decoding="async"
                   crossOrigin="anonymous"
                 />
                 
@@ -454,8 +450,8 @@ export const PhotographyShowcase = () => {
                   <p className="text-base md:text-lg">
                     {t('photography.beyond')}
                   </p>
-                  <p className="text-base md:text-lg">
-                    Each image tells a story of <span className="font-semibold text-pink-600 dark:text-pink-400">cultural discovery</span>, natural wonders, and the vibrant energy of Korean cities.
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                    {t('photography.photoDescriptions.each_image')}
                   </p>
                 </div>
                 <div className="hidden md:flex justify-center">

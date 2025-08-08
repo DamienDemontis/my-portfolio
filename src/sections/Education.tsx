@@ -179,7 +179,7 @@ export const Education = () => {
                       <div className="flex items-center gap-1">
                         <Trophy className="w-4 h-4 text-yellow-500 fill-current" />
                         <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                          Campus Leader
+                          {t('education.campusLeader')}
                         </span>
                       </div>
                     </div>
@@ -189,20 +189,20 @@ export const Education = () => {
                       <div className="flex items-center gap-2 mb-2">
                         <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         <span className="font-semibold text-gray-900 dark:text-gray-100">
-                          Leadership Roles
+                          {t('education.leadershipRoles')}
                         </span>
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                           <span className="text-sm text-gray-700 dark:text-gray-300">
-                            Pedagogical Assistant (3 consecutive years)
+                            {t('education.pedagogicalAssistant')}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                           <span className="text-sm text-gray-700 dark:text-gray-300">
-                            CodingClub Active Member
+                            {t('education.codingClubMember')}
                           </span>
                         </div>
                       </div>
@@ -258,26 +258,26 @@ export const Education = () => {
                     <div className="flex items-center gap-2 mb-2">
                       <Globe className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                       <span className="font-semibold text-purple-900 dark:text-purple-200">
-                        International Exchange Program
+                        {t('education.internationalExchange')}
                       </span>
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         <span className="text-sm text-purple-700 dark:text-purple-300">
-                          Game Development & AI Focus
+                          {t('education.gameDevAI')}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
                         <span className="text-sm text-purple-700 dark:text-purple-300">
-                          Korean Language & Culture
+                          {t('education.koreanLanguageCulture')}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
                         <span className="text-sm text-purple-700 dark:text-purple-300">
-                          VR/AR Technology Research
+                          {t('education.vrArResearch')}
                         </span>
                       </div>
                     </div>

@@ -37,7 +37,11 @@
   },
   "experience": {
     "title": "Professional Experience",
+    "subtitle": "Professional journey in software development and technical leadership",
     "current": "Current",
+    "keyTechnologies": "Key Technologies",
+    "keyAchievements": "Key Achievements",
+    "impactResults": "Impact & Results",
     "positions": {
       "epitech_mentor": {
         "title": "Pedagogical Mentor | MSc Curriculum",
@@ -123,7 +127,8 @@
   },
   "skills": {
     "title": "Skills & Technologies",
-    "subtitle": "Technical expertise across the full development stack",
+    "subtitle": "Full-Stack Expertise",
+    "technologies": "technologies",
     "categories": {
       "frontend": {
         "title": "Frontend Development",
@@ -552,7 +557,7 @@
   },
   "education": {
     "title": "Education",
-    "subtitle": "Academic journey through prestigious institutions with international exposure",
+    "subtitle": "Academic Excellence & Global Perspective",
     "keyHighlights": "Key Highlights",
     "academicFoundation": {
       "title": "Academic Foundation",
@@ -563,6 +568,14 @@
       "description": "My educational journey at EPITECH has been marked by consistent academic excellence with a 3.7/4.0 GPA and unique leadership opportunities. The international exchange at Keimyung University enhanced my global perspective and technical skills in emerging technologies.",
       "quote": "\"Education is not preparation for life; education is life itself.\" - John Dewey"
     },
+    "campusLeader": "Campus Leader",
+    "leadershipRoles": "Leadership Roles",
+    "pedagogicalAssistant": "Pedagogical Assistant (3 consecutive years)",
+    "codingClubMember": "CodingClub Active Member",
+    "internationalExchange": "International Exchange Program",
+    "gameDevAI": "Game Development & AI Focus",
+    "koreanLanguageCulture": "Korean Language & Culture",
+    "vrArResearch": "VR/AR Technology Research",
     "institutions": {
       "epitech": {
         "name": "EPITECH - European Institute of Technology",
@@ -623,6 +636,11 @@
   },
   "projects": {
     "title": "Featured Projects",
+    "subtitle": "Innovative solutions showcasing technical expertise and creative problem-solving",
+    "technologiesUsed": "Technologies Used",
+    "keyFeatures": "Key Features",
+    "sourceCode": "Source Code",
+    "watchDemo": "Watch Demo",
     "items": {
       "facial_recognition": {
         "title": "AI Facial Recognition Attendance System",
@@ -665,21 +683,71 @@
     }
   },
   "certifications": {
-    "title": "Certifications",
-    "subtitle": "Professional credentials and continuous learning",
+    "title": "Professional Certifications",
+    "subtitle": "Professional certifications in leadership, management, and communication from IONIS X",
+    "verifiedCertification": "Verified Certification",
+    "active": "Active",
     "items": {
-      "ionis": {
-        "name": "Ionis X Certifications",
-        "provider": "Ionis Education Group",
-        "topics": ["IT Project Management", "Team & Organizational Management", "Crisis Communication", "Agile Coaching"],
-        "year": "2024"
+      "agile_coaching": {
+        "title": "Agile Coaching",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "Advanced coaching methodologies for Agile teams and frameworks"
+      },
+      "team_management": {
+        "title": "Team/Operational Management",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "Leadership skills and operational management strategies"
+      },
+      "crisis_communication": {
+        "title": "Crisis Communication",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "Strategic communication during challenging situations and crisis management"
+      },
+      "it_project_management": {
+        "title": "IT Project Management",
+        "provider": "IONIS X",
+        "year": "June 2022",
+        "description": "Comprehensive project management methodologies for IT environments"
       }
     }
   },
   "interests": {
     "title": "Interests & Passions",
-    "subtitle": "What drives me beyond coding",
-    "categories": {
+    "subtitle": "Personal passions that inspire creativity and drive innovation",
+    "musicalTastes": "Musical Tastes",
+    "japanesePopTitle": "Japanese Pop",
+    "japanesePopDesc": "Contemporary J-Pop and traditional sounds",
+    "electronicMusicTitle": "Electronic Music",
+    "electronicMusicDesc": "Synthesizers, ambient, and electronic beats",
+    "jazzTitle": "Jazz",
+    "jazzDesc": "Classic and modern jazz improvisation",
+    "frenchClassicsTitle": "French Classics",
+    "frenchClassicsDesc": "Chanson française and timeless melodies",
+    "globalPerspectives": "Global Perspectives",
+    "ecologyTitle": "Ecology",
+    "ecologyDesc": "Environmental sustainability and climate action",
+    "geopoliticsTitle": "Geopolitics",
+    "geopoliticsDesc": "International relations and global dynamics",
+    "asianCultureTitle": "Asian Culture",
+    "asianCultureDesc": "Cultural exchange and Asian perspectives",
+    "techEnthusiasm": "Tech Enthusiasm",
+    "techInnovationTitle": "Tech Innovation",
+    "techInnovationDesc": "Emerging technologies and future trends",
+    "aiMlTitle": "AI & Machine Learning",
+    "aiMlDesc": "Artificial intelligence applications",
+    "gameDevTitle": "Game Development",
+    "gameDevDesc": "Unity, VR/AR, and interactive experiences",
+    "personalGrowth": "Personal Growth",
+    "culturalExchangeTitle": "Cultural Exchange",
+    "culturalExchangeDesc": "International perspectives and diversity",
+    "continuousLearningTitle": "Continuous Learning",
+    "continuousLearningDesc": "Personal and professional development",
+    "communityBuildingTitle": "Community Building",
+    "communityBuildingDesc": "Mentorship and knowledge sharing",
+    "items": {
       "technology": {
         "title": "Technology & Innovation",
         "items": ["Artificial Intelligence & VR/AR", "LLM Development", "Technological Watch", "Open Source Contributions"]
@@ -700,23 +768,44 @@
   },
   "photography": {
     "title": "Travel Photography",
-    "subtitle": "Capturing moments from my journey across South Korea - from urban landscapes to natural wonders",
-    "ambassador": "Photography and videography were integral parts of my role as an",
-    "epitech": "international ambassador for EPITECH",
-    "university": "at Keimyung University",
-    "beyond": "Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities.",
+    "subtitle": "Through the Lens",
+    "categories": {
+      "all": "All",
+      "urban": "Urban Life",
+      "nature": "Nature",
+      "culture": "Culture"
+    },
+    "photoDescriptions": {
+      "each_image": "Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities."
+    },
     "conclusion": {
       "title": "Through the Lens",
       "description": "Photography and videography were integral parts of my role as an international ambassador for EPITECH at Keimyung University. Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities. Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities. These photos represent not just places, but experiences that have shaped my perspective and deepened my connection to Asian culture."
-    }
+    },
+    "ambassador": "Photography and videography were integral parts of my role as an international ambassador for",
+    "epitech": "EPITECH",
+    "university": ". As a representative of the university in Korea, I documented cultural exchanges, campus life, and the unique experiences of international students.",
+    "beyond": "Beyond official duties, my camera became a tool for exploring Korea's rich heritage - from bustling Seoul streets to serene temple grounds, from modern architecture to traditional markets."
   },
   "languages": {
     "title": "Languages",
     "subtitle": "Multilingual communication across cultures and borders",
-    "summary": {
-      "title": "Multilingual Communication",
-      "description": "Language diversity enables effective communication across international teams and cultures, essential for global technology collaboration and my upcoming relocation to Asia."
-    },
+    "nativeSpeaker": "Native speaker with perfect fluency",
+    "fullyFluent": "Fully fluent - professional proficiency (TEPITECH 945)",
+    "conversationalLevel": "Conversational level - half Italian heritage",
+    "elementaryLevel": "Elementary level from study abroad experience",
+    "native": "Native",
+    "c2Fluent": "C2 Fluent",
+    "conversational": "Conversational", 
+    "a2Elementary": "A2 Elementary",
+    "multilingualCommunication": "Multilingual Communication",
+    "motherTongue": "Mother Tongue",
+    "b1Plus": "B1+",
+    "professional": "Professional",
+    "heritage": "Heritage",
+    "a2": "A2",
+    "elementary": "Elementary",
+    "languageDiversityDesc": "Language diversity enables effective communication across international teams and cultures, essential for global technology collaboration and my upcoming relocation to Asia.",
     "items": {
       "french": {
         "name": "French",
@@ -725,7 +814,7 @@
       },
       "english": {
         "name": "English",
-        "level": "C1 Level",
+        "level": "C2 Level",
         "description": "Fully fluent - professional proficiency equivalent to TEPITECH 945/990"
       },
       "korean": {
@@ -801,7 +890,7 @@
   "footer": {
     "quickNavigation": "Quick Navigation",
     "letsConnect": "Let's Connect",
-    "craftedWith": "Crafted with",
+    "craftedWith": "Crafting innovative digital solutions with passion for clean code and exceptional user experiences.",
     "inFrance": "in France",
     "builtWith": "Built with React, TypeScript & Tailwind CSS",
     "openToOpportunities": "Open to new opportunities and collaborations"
