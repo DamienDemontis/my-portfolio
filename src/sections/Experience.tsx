@@ -56,7 +56,11 @@ export const Experience = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-32 right-20 w-24 h-24 bg-blue-400/5 dark:bg-blue-400/3 rounded-2xl blur-xl"
+          className="absolute top-32 right-20 w-24 h-24 rounded-2xl opacity-25"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.012) 60%, transparent 100%)',
+            boxShadow: '0 0 60px 20px rgba(59, 130, 246, 0.04)'
+          }}
         ></motion.div>
         <motion.div
           animate={{ 
@@ -70,7 +74,11 @@ export const Experience = () => {
             ease: "easeInOut",
             delay: 4
           }}
-          className="absolute bottom-40 left-24 w-28 h-28 bg-slate-400/5 dark:bg-slate-400/3 rounded-full blur-xl"
+          className="absolute bottom-40 left-24 w-28 h-28 rounded-full opacity-25"
+          style={{
+            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.05) 0%, rgba(100, 116, 139, 0.012) 60%, transparent 100%)',
+            boxShadow: '0 0 60px 20px rgba(100, 116, 139, 0.04)'
+          }}
         ></motion.div>
       </div>
 

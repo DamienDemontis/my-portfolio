@@ -140,6 +140,11 @@ const Balatro: React.FC<BalatrProps> = ({
   isVisible = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const animationControlRef = useRef<{
+    start: () => void;
+    stop: () => void;
+    isRunning: boolean;
+  } | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -197,14 +202,22 @@ const Balatro: React.FC<BalatrProps> = ({
     });
 
     const mesh = new Mesh(gl, { geometry, program });
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+    let isAnimating = false;
 
     let lastFrameTime = 0;
+    let pausedTime = 0; // Track time when paused
+    let resumeTimeOffset = 0; // Offset to maintain animation continuity
     const targetFPS = 30; // Limit to 30 FPS for better performance
     const frameInterval = 1000 / targetFPS;
 
     function update(time: number) {
-      if (!isVisible) return;
+      if (!isVisible) {
+        // Stop the animation loop completely when not visible
+        isAnimating = false;
+        pausedTime = time;
+        return;
+      }
       
       // Throttle frame rate
       if (time - lastFrameTime < frameInterval) {
@@ -213,13 +226,45 @@ const Balatro: React.FC<BalatrProps> = ({
       }
       lastFrameTime = time;
       
+      // Continue the animation loop
       animationFrameId = requestAnimationFrame(update);
-      program.uniforms.iTime.value = time * 0.001;
+      
+      // Calculate adjusted time to maintain animation continuity
+      const adjustedTime = (time - resumeTimeOffset) * 0.001;
+      program.uniforms.iTime.value = adjustedTime;
       renderer.render({ scene: mesh });
     }
     
+    function startAnimation() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      // Calculate offset to maintain smooth animation when resuming
+      if (pausedTime > 0) {
+        resumeTimeOffset += (performance.now() - pausedTime);
+      }
+      
+      animationFrameId = requestAnimationFrame(update);
+    }
+    
+    function stopAnimation() {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      isAnimating = false;
+    }
+    
+    // Store animation controls in ref for external access
+    animationControlRef.current = {
+      start: startAnimation,
+      stop: stopAnimation,
+      isRunning: isAnimating
+    };
+    
+    // Start animation based on initial visibility
     if (isVisible) {
-    animationFrameId = requestAnimationFrame(update);
+      startAnimation();
     }
     container.appendChild(gl.canvas);
 
@@ -233,7 +278,7 @@ const Balatro: React.FC<BalatrProps> = ({
     container.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopAnimation();
       window.removeEventListener("resize", resize);
       container.removeEventListener("mousemove", handleMouseMove);
       if (container.contains(gl.canvas)) {
@@ -257,6 +302,17 @@ const Balatro: React.FC<BalatrProps> = ({
     mouseInteraction,
     isVisible,
   ]);
+
+  // Effect to handle visibility changes
+  useEffect(() => {
+    if (!animationControlRef.current) return;
+    
+    if (isVisible) {
+      animationControlRef.current.start();
+    } else {
+      animationControlRef.current.stop();
+    }
+  }, [isVisible]);
 
   return <div ref={containerRef} className="w-full h-full" />;
 };

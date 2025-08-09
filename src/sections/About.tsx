@@ -79,10 +79,18 @@ export const About = () => {
       {/* Enhanced Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20"></div>
       
-      {/* Simplified background elements */}
+      {/* Optimized background elements - No expensive blur filters */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-32 h-32 bg-blue-400/5 dark:bg-blue-400/3 rounded-full blur-xl"></div>
-        <div className="absolute bottom-32 left-16 w-24 h-24 bg-purple-400/5 dark:bg-purple-400/3 rounded-full blur-xl"></div>
+        <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-20"
+             style={{
+               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.02) 70%, transparent 100%)',
+               boxShadow: '0 0 60px 20px rgba(59, 130, 246, 0.05)'
+             }}></div>
+        <div className="absolute bottom-32 left-16 w-24 h-24 rounded-full opacity-20"
+             style={{
+               background: 'radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, rgba(147, 51, 234, 0.02) 70%, transparent 100%)',
+               boxShadow: '0 0 60px 20px rgba(147, 51, 234, 0.05)'
+             }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">

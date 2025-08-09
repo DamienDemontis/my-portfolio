@@ -7,7 +7,8 @@ import Balatro from '../blocks/Backgrounds/Balatro/Balatro'
 export const Hero = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
-    threshold: 0.1,
+    threshold: 0,
+    rootMargin: '0px 0px -30% 0px', // Animation stays active until Hero is 30% out of view
   })
 
   const scrollToAbout = () => {
@@ -55,10 +56,18 @@ export const Hero = () => {
       {/* Overlay for better text contrast */}
       <div className="absolute inset-0 z-[1] bg-white/10 dark:bg-black/20 backdrop-blur-[0.5px]"></div>
 
-      {/* Simplified Background decoration */}
+      {/* Optimized Background decoration - No expensive blur filters */}
       <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 dark:bg-blue-400/5 rounded-full blur-xl opacity-50"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-xl opacity-50"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full opacity-30"
+             style={{
+               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
+               boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
+             }}></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-30"
+             style={{
+               background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(147, 51, 234, 0.05) 50%, transparent 100%)',
+               boxShadow: '0 0 120px 40px rgba(147, 51, 234, 0.1)'
+             }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">

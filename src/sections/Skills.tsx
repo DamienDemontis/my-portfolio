@@ -224,7 +224,11 @@ export const Skills = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-10 right-20 w-40 h-40 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-3xl"
+          className="absolute top-10 right-20 w-40 h-40 rounded-full opacity-30"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 60%, transparent 100%)',
+            boxShadow: '0 0 80px 30px rgba(59, 130, 246, 0.06)'
+          }}
         ></motion.div>
         <motion.div
           animate={{ 
@@ -238,7 +242,11 @@ export const Skills = () => {
             ease: "easeInOut",
             delay: 10
           }}
-          className="absolute bottom-10 left-20 w-40 h-40 bg-slate-500/5 dark:bg-slate-400/5 rounded-full blur-3xl"
+          className="absolute bottom-10 left-20 w-40 h-40 rounded-full opacity-30"
+          style={{
+            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 0%, rgba(100, 116, 139, 0.02) 60%, transparent 100%)',
+            boxShadow: '0 0 80px 30px rgba(100, 116, 139, 0.06)'
+          }}
         ></motion.div>
       </div>
 

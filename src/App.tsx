@@ -15,7 +15,14 @@ import { Languages } from './sections/Languages'
 import { Contact } from './sections/Contact'
 import { Footer } from './components/layout/Footer'
 import { PerformanceDashboard } from './components/debug/PerformanceDashboard'
+import { PerformanceMonitor } from './components/debug/PerformanceMonitor'
+import { WithProfiler } from './utils/ProfilerLog'
 import { LoadingScreen } from './components/LoadingScreen'
+
+// Import debug utils in development
+if (process.env.NODE_ENV === 'development') {
+  import('./utils/debugUtils');
+}
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -26,7 +33,8 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <WithProfiler id="Root">
+        <div className="relative min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         {/* Main Content - Always rendered but initially hidden */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -53,7 +61,8 @@ function App() {
             <Contact />
           </main>
           <Footer />
-          <PerformanceDashboard />
+          <PerformanceDashboard enabled={process.env.NODE_ENV === 'development'} />
+          <PerformanceMonitor enabled={process.env.NODE_ENV === 'development'} />
         </motion.div>
 
         {/* Loading Screen - Overlay that fades out */}
@@ -76,7 +85,8 @@ function App() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+        </div>
+      </WithProfiler>
     </ThemeProvider>
   )
 }

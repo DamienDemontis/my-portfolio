@@ -96,7 +96,11 @@ export const Certifications = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-24 right-16 w-28 h-28 bg-yellow-400/8 dark:bg-yellow-400/4 rounded-3xl blur-xl"
+          className="absolute top-24 right-16 w-28 h-28 rounded-3xl opacity-25"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(251, 191, 36, 0.06) 0%, rgba(251, 191, 36, 0.015) 60%, transparent 100%)',
+            boxShadow: '0 0 70px 25px rgba(251, 191, 36, 0.05)'
+          }}
         ></motion.div>
         <motion.div
           animate={{ 
@@ -110,7 +114,11 @@ export const Certifications = () => {
             ease: "easeInOut",
             delay: 5
           }}
-          className="absolute bottom-32 left-20 w-32 h-32 bg-orange-400/8 dark:bg-orange-400/4 rounded-full blur-xl"
+          className="absolute bottom-32 left-20 w-32 h-32 rounded-full opacity-25"
+          style={{
+            background: 'radial-gradient(circle, rgba(251, 146, 60, 0.06) 0%, rgba(251, 146, 60, 0.015) 60%, transparent 100%)',
+            boxShadow: '0 0 70px 25px rgba(251, 146, 60, 0.05)'
+          }}
         ></motion.div>
       </div>
 

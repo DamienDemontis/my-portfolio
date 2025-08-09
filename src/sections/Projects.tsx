@@ -81,7 +81,11 @@ export const Projects = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-0 right-4 w-64 h-64 bg-violet-400/4 dark:bg-violet-400/2 rounded-full blur-3xl"
+          className="absolute top-0 right-4 w-64 h-64 rounded-full opacity-25"
+          style={{
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, rgba(139, 92, 246, 0.015) 60%, transparent 100%)',
+            boxShadow: '0 0 100px 35px rgba(139, 92, 246, 0.04)'
+          }}
         ></motion.div>
         <motion.div
           animate={{ 
@@ -95,7 +99,11 @@ export const Projects = () => {
             ease: "easeInOut",
             delay: 12
           }}
-          className="absolute bottom-4 left-8 w-72 h-72 bg-purple-400/4 dark:bg-purple-400/2 rounded-3xl blur-3xl"
+          className="absolute bottom-4 left-8 w-72 h-72 rounded-3xl opacity-25"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(147, 51, 234, 0.06) 0%, rgba(147, 51, 234, 0.015) 60%, transparent 100%)',
+            boxShadow: '0 0 100px 35px rgba(147, 51, 234, 0.04)'
+          }}
         ></motion.div>
       </div>
 

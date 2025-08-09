@@ -3,7 +3,16 @@ import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
-  plugins: [react(), visualizer()],
+  plugins: [
+    react(), 
+    visualizer({ 
+      filename: 'stats.html', 
+      template: 'treemap', 
+      gzipSize: true, 
+      brotliSize: true,
+      open: false // Don't auto-open in browser
+    })
+  ],
   server: {
     port: 3000,
     open: true
@@ -25,4 +34,4 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000
   }
-}); 
+});
