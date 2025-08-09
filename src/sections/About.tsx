@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Code, Users, BookOpen, Trophy, Sparkles, Heart, Brain } from 'lucide-react'
+import { Code, Users, BookOpen, Trophy, Coffee, Heart, Brain } from 'lucide-react'
+import { PokemonProfileCard } from '../components/PokemonProfileCard'
+import { useState } from 'react'
 
 export const About = () => {
   const { t } = useTranslation()
+  const [isHeartFilled, setIsHeartFilled] = useState(false)
+  const [isSmiling, setIsSmiling] = useState(false)
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0,
@@ -102,7 +106,7 @@ export const About = () => {
             >
               <motion.div variants={itemVariants}>
                 <div className="flex items-center gap-3 mb-6">
-                  <Sparkles className="w-8 h-8 text-blue-500" />
+                  <Coffee className="w-8 h-8 text-blue-500" />
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                     {t('about.title')}
                   </h2>
@@ -170,94 +174,20 @@ export const About = () => {
             className="order-1 lg:order-2 flex justify-center"
           >
             <div className="relative">
-              {/* Main visual container */}
-              <div 
-                className="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-600 rounded-3xl shadow-2xl relative overflow-hidden border border-white/20"
-                style={{
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)',
+              {/* Pokemon Profile Card */}
+              <PokemonProfileCard 
+                isSmiling={isSmiling}
+                onContactClick={() => {
+                  // Scroll to contact section
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
-              >
-                {/* Animated overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30"></div>
-                
-                {/* Floating decorative elements */}
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute top-6 right-6 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30"
-                ></motion.div>
-                <motion.div 
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                  className="absolute bottom-6 left-6 w-20 h-20 bg-white/15 backdrop-blur-sm rounded-full border border-white/30"
-                ></motion.div>
-                
-                {/* Enhanced floating tech stack */}
-                <motion.div 
-                  initial={{ y: 0 }}
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-12 left-12 bg-white/20 backdrop-blur-xl rounded-xl px-4 py-2 text-sm font-bold text-white border border-white/30 shadow-lg"
-                >
-                  React
-                </motion.div>
-                <motion.div 
-                  initial={{ y: 0 }}
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute top-16 right-8 bg-white/20 backdrop-blur-xl rounded-xl px-4 py-2 text-sm font-bold text-white border border-white/30 shadow-lg"
-                >
-                  TypeScript
-                </motion.div>
-                <motion.div 
-                  initial={{ y: 0 }}
-                  animate={{ y: [-3, 7, -3] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-24 left-8 bg-white/20 backdrop-blur-xl rounded-xl px-4 py-2 text-sm font-bold text-white border border-white/30 shadow-lg"
-                >
-                  Python
-                </motion.div>
-                <motion.div 
-                  initial={{ y: 0 }}
-                  animate={{ y: [7, -3, 7] }}
-                  transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                  className="absolute bottom-12 right-12 bg-white/20 backdrop-blur-xl rounded-xl px-4 py-2 text-sm font-bold text-white border border-white/30 shadow-lg"
-                >
-                  Docker
-                </motion.div>
+                className="max-w-sm w-full"
+              />
 
-                {/* Center content with enhanced styling */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <motion.div 
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                      className="w-32 h-32 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center mb-6 mx-auto border border-white/30 shadow-2xl"
-                    >
-                      <Code className="w-16 h-16" />
-                    </motion.div>
-                    <motion.p 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.5 }}
-                      className="text-xl font-bold mb-2 drop-shadow-lg"
-                    >
-                      Full Stack
-                    </motion.p>
-                    <motion.p 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.7 }}
-                      className="text-lg drop-shadow-lg"
-                    >
-                      Developer
-                    </motion.p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating elements around the main visual */}
+              {/* Floating elements around the Pokemon card */}
               <motion.div
                 animate={{ 
                   y: [0, -15, 0],
@@ -274,13 +204,15 @@ export const About = () => {
                   WebkitBackdropFilter: 'blur(20px)',
                 }}
               >
-                <Sparkles className="w-8 h-8 text-yellow-400" />
+                <Coffee className="w-8 h-8 text-yellow-400" />
               </motion.div>
 
+              {/* Interactive Heart Easter Egg */}
               <motion.div
                 animate={{ 
                   y: [0, 10, 0],
-                  rotate: [0, -5, 0]
+                  rotate: [0, -5, 0],
+                  scale: isHeartFilled ? [1, 1.5, 1.2] : 1
                 }}
                 transition={{ 
                   duration: 5,
@@ -288,13 +220,78 @@ export const About = () => {
                   ease: "easeInOut",
                   delay: 1
                 }}
-                className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-lg"
+                className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-lg cursor-pointer hover:scale-110 transition-transform focus:outline-none select-none"
                 style={{
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
+                  outline: 'none',
+                  WebkitTapHighlightColor: 'transparent'
                 }}
+                onClick={() => {
+                  setIsHeartFilled(!isHeartFilled);
+                  setIsSmiling(!isSmiling);
+                }}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                tabIndex={-1}
               >
-                <Heart className="w-8 h-8 text-red-400" />
+                <motion.div
+                  animate={{
+                    scale: isHeartFilled ? [1, 2.5, 1.5, 1.8, 1.3] : 1,
+                    rotate: isHeartFilled ? [0, 45, -30, 15, 0] : 0,
+                    y: isHeartFilled ? [0, -20, 0, -10, 0] : 0
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    ease: "easeOut",
+                    times: [0, 0.3, 0.6, 0.8, 1]
+                  }}
+                >
+                  <Heart 
+                    className={`w-8 h-8 transition-all duration-500 ${
+                      isHeartFilled 
+                        ? 'text-red-500 fill-red-500 drop-shadow-lg' 
+                        : 'text-red-400'
+                    }`} 
+                  />
+                  
+                  {/* Particle effects when heart is filled */}
+                  {isHeartFilled && (
+                    <>
+                      <motion.div
+                        className="absolute inset-0 pointer-events-none"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                      >
+                        {/* Sparkle particles */}
+                        {[...Array(8)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-red-400 rounded-full"
+                            initial={{ 
+                              x: 16, 
+                              y: 16, 
+                              scale: 0,
+                              opacity: 1 
+                            }}
+                            animate={{ 
+                              x: 16 + (Math.cos(i * 45 * Math.PI / 180) * 40),
+                              y: 16 + (Math.sin(i * 45 * Math.PI / 180) * 40),
+                              scale: [0, 1, 0],
+                              opacity: [1, 1, 0]
+                            }}
+                            transition={{ 
+                              duration: 0.8,
+                              delay: 0.2,
+                              ease: "easeOut"
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    </>
+                  )}
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>

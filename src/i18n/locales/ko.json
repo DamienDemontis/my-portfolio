@@ -915,5 +915,38 @@
       "passionDrivenText": "나의 다양한 관심사는 개발자로서의 창의성을 자극하고 글로벌 관점을 형성합니다. 일본 팝의 리듬부터 지정학적 역학의 복잡성까지, 이러한 열정들은 혁신적인 솔루션과 의미 있는 연결을 영감을 줍니다.",
       "passionQuote": "\"최고의 코드는 열정이 목적과 만날 때 작성됩니다.\""
     }
+  },
+  "pokemonCard": {
+    "name": "다미앙",
+    "type": "커피 중독자",
+    "level": "Lv.25",
+    "hp": "95/100",
+    "rarity": "언커먼",
+    "ability": "스택 오버플로우",
+    "abilityDescription": "인터넷에서 솔루션을 87% 정확도로 복사",
+    "moves": {
+      "move1": {
+        "name": "Git Commit",
+        "damage": "45",
+        "description": "50% 확률로 실수로 main에 푸시"
+      },
+      "move2": {
+        "name": "Console.log",
+        "damage": "∞",
+        "description": "시니어 개발자들에게 정신적 데미지"
+      }
+    },
+    "weaknesses": ["머지 충돌", "프로덕션 배포"],
+    "resistance": "카페인",
+    "status": "",
+    "contactText": "영입",
+    "flavorText": "새벽 3시에 디버깅하는 모습이 자주 목격됨. 주로 GIF와 한숨으로 소통한다.",
+    "stats": {
+      "coding": "★★★★☆",
+      "debugging": "★★★☆☆", 
+      "documentation": "★☆☆☆☆",
+      "social": "★★☆☆☆"
+    },
+    "catchyStats": "3년+ 경험 ☕ 카페인 연료 �� 지식 공유자 🚀 기술 애호가"
   }
 } 

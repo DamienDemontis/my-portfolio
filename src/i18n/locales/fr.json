@@ -915,5 +915,38 @@
       "passionDrivenText": "Mes intérêts divers alimentent ma créativité en tant que développeur et façonnent ma perspective globale. Des rythmes de la pop japonaise à la complexité de la dynamique géopolitique, ces passions inspirent des solutions innovantes et des connexions significatives.",
       "passionQuote": "\"Le meilleur code est écrit quand la passion rencontre l'objectif.\""
     }
+  },
+  "pokemonCard": {
+    "name": "Damien",
+    "type": "Accro au Café",
+    "level": "Niv.25",
+    "hp": "95/100",
+    "rarity": "Peu Commun",
+    "ability": "Stack Overflow",
+    "abilityDescription": "Copie les solutions d'internet avec 87% de précision",
+    "moves": {
+      "move1": {
+        "name": "Git Commit",
+        "damage": "45",
+        "description": "50% de chance de push sur main par accident"
+      },
+      "move2": {
+        "name": "Console.log",
+        "damage": "∞",
+        "description": "Inflige des dégâts émotionnels aux développeurs seniors"
+      }
+    },
+    "weaknesses": ["Conflits de Merge", "Déploiements en Prod"],
+    "resistance": "Caféine",
+          "status": "",
+    "contactText": "Recruter",
+    "flavorText": "Souvent trouvé en train de déboguer à 3h du matin. Communique principalement par GIFs et soupirs.",
+    "stats": {
+      "coding": "★★★★☆",
+      "debugging": "★★★☆☆", 
+      "documentation": "★☆☆☆☆",
+      "social": "★★☆☆☆"
+    },
+    "catchyStats": "3+ Ans d'Expérience ☕ Propulsé par la Caféine 📚 Partageur de Savoir 🚀 Passionné de Tech"
   }
 } 

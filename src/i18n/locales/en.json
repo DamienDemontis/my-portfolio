@@ -915,5 +915,38 @@
       "passionDrivenText": "My diverse interests fuel my creativity as a developer and shape my global perspective. From the rhythms of Japanese pop to the complexity of geopolitical dynamics, these passions inspire innovative solutions and meaningful connections.",
       "passionQuote": "\"The best code is written when passion meets purpose.\""
     }
+  },
+  "pokemonCard": {
+    "name": "Damien",
+    "type": "Coffee Addict",
+    "level": "Lv.25",
+    "hp": "95/100",
+    "rarity": "Uncommon",
+    "ability": "Stack Overflow",
+    "abilityDescription": "Copies solutions from the internet with 87% accuracy",
+    "moves": {
+      "move1": {
+        "name": "Git Commit",
+        "damage": "45",
+        "description": "50% chance to push to main by accident"
+      },
+      "move2": {
+        "name": "Console.log",
+        "damage": "∞",
+        "description": "Deals emotional damage to senior developers"
+      }
+    },
+    "weaknesses": ["Merge Conflicts", "Production Deployments"],
+    "resistance": "Caffeine",
+          "status": "",
+    "contactText": "Recruit",
+    "flavorText": "Often found debugging at 3 AM. Known to communicate primarily through GIFs and sighs.",
+    "stats": {
+      "coding": "★★★★☆",
+      "debugging": "★★★☆☆", 
+      "documentation": "★☆☆☆☆",
+      "social": "★★☆☆☆"
+    },
+    "catchyStats": "3+ Years Experience ☕ Caffeine Powered 📚 Knowledge Sharer 🚀 Tech Enthusiast"
   }
 } 
