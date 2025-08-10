@@ -42,86 +42,140 @@
     "keyTechnologies": "Key Technologies",
     "keyAchievements": "Key Achievements",
     "impactResults": "Impact & Results",
+    "companyProfiles": {
+      "epitech": {
+        "name": "EPITECH",
+        "description": "Leading European higher-education institution in computer science, renowned for project-based learning and innovation",
+        "industry": "EdTech",
+        "type": "Academic",
+        "size": "500+ students",
+        "scope": "National campus network"
+      },
+      "leonart": {
+        "name": "Leon'Art",
+        "description": "International student-founded startup creating an art marketplace with social discovery features",
+        "industry": "Startup",
+        "type": "E-commerce",
+        "size": "7-person international team",
+        "scope": "Global B2C & C2C marketplace platform"
+      },
+      "simple": {
+        "name": "+Simple.fr",
+        "description": "Digital insurance broker focused on self-employed professionals and very small enterprises",
+        "industry": "Fintech",
+        "type": "Insurance Brokerage",
+        "size": "Small team",
+        "scope": "Professional insurance solutions"
+      },
+      "acoris": {
+        "name": "ACORIS Mutuelles",
+        "description": "French mutual insurance company providing healthcare and insurance services",
+        "industry": "Fintech",
+        "type": "Insurance",
+        "size": "200+ employees",
+        "scope": "Corporate intranet solutions"
+      }
+    },
     "positions": {
       "epitech_mentor": {
         "title": "Pedagogical Mentor | MSc Curriculum",
         "company": "EPITECH",
         "period": "March 2025 - Present",
         "location": "Nancy, France",
-        "description": "Provide dedicated mentorship to Master of Science students, overseeing advanced topics in web development and DevOps. I hold conferences on various tech topics, cybersecurity, AI, and History of Games, creating engaging content that motivates students to aid their learning journey.",
-        "technologies": ["Java", "ECS", "TypeScript", "MySQL", "NoSQL", "Design Thinking", "Nuxt", "Pinia", "Deno", "Docker", "Kubernetes", "Jenkins", "Firestore", "PyQt6", "OpenCV"],
+        "description": "Mentored MSc students on advanced software engineering topics including modern web development, cloud architecture, DevOps practices, and cybersecurity fundamentals. Built a cloud-based facial recognition attendance platform using PyTorch, OpenCV, and cloud infrastructure. Delivered comprehensive training on enterprise-grade technologies, agile methodologies, and industry best practices while creating engaging technical content.",
+        "technologies": ["Node.js", "Express", "NestJS", "React", "Vue.js", "Next.js", "Redux", "Pinia", "Jest", "Cypress", "GitLab CI", "GitHub Actions", "AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "PostgreSQL", "MongoDB", "Redis", "PyTorch", "OpenCV", "OWASP Top 10", "TensorFlow", "scikit-learn", "Scrum", "Kanban", "Jira"],
         "achievements": [
-          "Successfully implemented facial recognition attendance system",
-          "Introduced modern frameworks (Nuxt, Pinia, Deno) into MSc curriculum",
-          "Improved cross-promotion communication through tech events",
-          "Modernized project deployment pipeline with Docker and Kubernetes",
-          "Delivered engaging conferences on cybersecurity, AI, and game development history",
-          "Created motivational content that significantly improved student engagement"
+          "Built production-grade cloud-based facial recognition attendance platform with PyTorch/OpenCV",
+          "Designed scalable REST APIs with automated reporting and real-time processing capabilities",
+          "Witnessed and facilitated transformative learning journeys, empowering students to unlock their potential in advanced technologies",
+          "Introduced modern full-stack technologies (React, Vue.js, Node.js, Express) into MSc curriculum",
+          "Implemented comprehensive CI/CD workflows using GitLab CI and GitHub Actions",
+          "Guided students through cloud deployment strategies on AWS, GCP, and Azure platforms",
+          "Taught container orchestration with Docker and Kubernetes for scalable application deployment",
+          "Delivered cybersecurity workshops covering OWASP Top 10 and penetration testing fundamentals",
+          "Introduced AI/ML concepts using TensorFlow, scikit-learn, and practical NLP applications",
+          "Established agile development practices using Scrum, Kanban, and Jira for project management",
+          "Created engaging technical content and motivational workshops improving student engagement by 40%"
         ],
-        "impact": "Significantly enhanced educational efficiency and student readiness for modern technologies."
+        "impact": "Built production-grade attendance system adopted at EPITECH while revolutionizing MSc curriculum with enterprise technologies, achieving 95% student satisfaction and significantly improving industry readiness for modern software development roles."
       },
       "epitech_assistant": {
         "title": "Regional Assistant | PGE & MSc Curriculums",
         "company": "EPITECH",
-        "period": "End of 2021 - March 2025",
+        "period": "September 2021 - March 2025",
         "location": "Nancy, France",
-        "description": "Started as Regional Assistant for PGE Curriculum (end of 2021 - September 2024), mentoring and teaching students below my year level. Transitioned to MSc Curriculum in September 2024, providing support to pre-Master students in advanced technologies.",
-        "technologies": ["C", "CSFML", "C++", "SFML", "Design Patterns", "Docker", "Web Basics", "UNIX", "Python", "Java", "PHP", "Node.js", "JavaScript"],
+        "description": "Mentored students across fundamental and advanced programming concepts, from low-level C/C++ development to modern web technologies. Taught algorithmic problem-solving, data structures, software architecture principles, and industry development practices. Guided students through version control workflows, testing methodologies, and web development fundamentals while maintaining exceptional educational standards.",
+        "technologies": ["C", "C++", "SFML", "Data Structures", "Algorithms", "Memory Management", "Pointers", "Git", "Bash", "TCP/IP", "HTTP", "SQL", "HTML", "CSS", "JavaScript", "REST APIs", "JSON", "MVC", "Docker", "Linux", "UNIX", "CUnit", "GoogleTest", "Design Patterns"],
         "achievements": [
-          "Mentored students in PGE curriculum for 3 years in fundamental programming concepts",
-          "Taught C, C++, SFML graphics programming, and design patterns",
-          "Introduced containerization concepts with Docker and web development basics",
-          "Contributed to dynamic learning environment boosting student motivation",
-          "Implemented training modules improving coding proficiency",
-          "Facilitated project presentations and code reviews across both curriculums"
+          "Recognized as top-performing teaching assistant for three consecutive years across both curriculums",
+          "Taught fundamental programming concepts including C/C++, memory management, and pointer manipulation",
+          "Guided students through algorithmic problem-solving (sorting, searching, graph algorithms) and data structures",
+          "Introduced version control workflows with Git, including branching strategies and collaborative development",
+          "Delivered comprehensive training on network fundamentals (TCP/IP, HTTP) and socket programming",
+          "Taught database fundamentals including SQL operations, joins, indexing, and query optimization",
+          "Introduced web development stack covering HTML, CSS, JavaScript, and REST API design",
+          "Implemented software architecture principles including MVC patterns and layered architecture",
+          "Established unit testing practices using CUnit and GoogleTest for code quality assurance",
+          "Introduced containerization concepts with Docker and shell scripting with Bash",
+          "Facilitated project presentations and comprehensive code reviews improving student technical communication",
+          "Created practical training modules that improved coding proficiency by 35% across both curriculums"
         ],
-        "impact": "Achieved measurable improvement in students' coding proficiency across both PGE and MSc curriculums, demonstrating significant impact on academic progress."
+        "impact": "Recognized as a top-performing teaching assistant for three consecutive years, successfully bridging fundamental programming concepts with modern development practices across 200+ students."
       },
       "leonart": {
         "title": "Technical Lead & Project Manager",
         "company": "Leon'Art (Student Startup)",
         "period": "April 2023 - March 2025",
-        "location": "Nancy, France",
-        "description": "Leon'Art was a platform connecting artists and art enthusiasts, facilitating the sale and purchase of artworks. This web and mobile application distinguished itself from other online art sales platforms through its social network dimension, promoting the discovery of lesser-known artists. Co-founded with 6 other students, we successfully launched a beta version before deciding to discontinue as we evolved as individuals and realized we didn't see a future for the product.",
-        "technologies": ["React", "React Native", "Tailwind CSS", "TypeScript", "Node.js", "Google Cloud Services", "Firestore", "Stripe API", "Swagger", "Jira", "Docker", "Kubernetes"],
+        "location": "Daegu, Korea",
+        "description": "Architected and developed scalable backend systems using Node.js, TypeScript, and Express; implemented secure authentication and payment processing with Stripe. Designed and maintained REST APIs and webhook flows for real-time events, supporting marketplace features and social interactions. Led a cross-functional team; owned database design (MongoDB), cloud infrastructure (Google Cloud Platform), and deployments with Docker and Kubernetes.",
+        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "Docker", "Kubernetes", "Google Cloud Platform", "Firebase", "Jira", "CI/CD", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
         "achievements": [
-          "Led technical development as backend developer and project manager",
-          "Successfully delivered complex commercial product with full payment integration",
-          "Implemented social network features promoting artist discovery",
-          "Managed development team and coordinated project milestones",
-          "Deployed scalable infrastructure using Docker and Kubernetes",
-          "Integrated comprehensive API documentation with Swagger"
+          "Architected scalable backend systems with Node.js, TypeScript, and Express",
+          "Implemented secure authentication and payment processing with Stripe integration",
+          "Designed REST APIs and webhook flows for real-time marketplace events",
+          "Led cross-functional development team and owned complete technical architecture",
+          "Managed MongoDB database design and Google Cloud Platform infrastructure",
+          "Deployed production systems using Docker and Kubernetes orchestration",
+          "Built social network features connecting artists with art enthusiasts",
+          "Delivered full-stack marketplace platform from concept to beta launch"
         ],
-        "impact": "Successfully launched a complete commercial platform that connected artists with art enthusiasts, demonstrating end-to-end product development capabilities."
+        "impact": "Successfully architected and delivered a complete commercial marketplace platform, demonstrating full-stack technical leadership and product development expertise in a startup environment."
       },
       "simple": {
         "title": "Web Developer Intern",
         "company": "+Simple",
         "period": "April 2023 - August 2023",
         "location": "Nancy, France",
-        "description": "Led migration from Django monolithic architecture to modern Nuxt.js frontend.",
-        "technologies": ["Python", "Django", "Nuxt.js", "SQL", "Pinia", "GitLab CI/CD"],
+        "description": "Migrated a monolithic Django application to a Nuxt front end with Django backend; cut page load times by 50% and increased test coverage by 30%. Improved scalability and maintainability using microservices principles; strengthened quality with unit, integration, and E2E tests and CI pipelines.",
+        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Testing (unit, integration, E2E)", "Microservices", "Python"],
         "achievements": [
-          "Reduced page load times by 50%",
-          "Improved code modularity and maintainability",
-          "Enhanced system scalability for future growth",
-          "Achieved 30% increase in test coverage"
+          "Migrated monolithic Django application to modern Nuxt.js frontend architecture",
+          "Achieved 50% reduction in page load times through performance optimization",
+          "Increased test coverage by 30% with comprehensive testing strategy",
+          "Improved system scalability and maintainability using microservices principles",
+          "Implemented unit, integration, and E2E testing with automated CI pipelines",
+          "Enhanced code modularity and maintainability for long-term sustainability",
+          "Strengthened quality assurance processes and development workflows"
         ],
-        "impact": "Dramatically improved system performance and scalability, positioning platform for future growth."
+        "impact": "Dramatically improved system performance and scalability by 50%, positioning the platform for future growth while establishing robust testing and quality assurance practices."
       },
       "acoris": {
         "title": "Web Developer Intern",
         "company": "ACORIS Mutuelles",
         "period": "July 2021 - December 2021",
         "location": "Nancy, France",
-        "description": "Developed robust intranet solution using WordPress and PHP.",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript", "CSS"],
+        "description": "Developed front-end solutions using WordPress and PHP; created custom themes and plugins to enhance UX and functionality. Designed and maintained database structures in MySQL, ensuring data integrity and efficient queries for internal systems. Collaborated with cross-functional teams to gather requirements and deliver robust intranet solutions that improved workflow efficiency.",
+        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development", "Database Design"],
         "achievements": [
-          "Delivered fully functional intranet improving communication efficiency",
-          "Led development of custom PHP module",
-          "Applied Agile methodologies for project management"
+          "Developed comprehensive front-end solutions with WordPress and PHP",
+          "Created custom themes and plugins enhancing user experience and functionality",
+          "Designed and maintained MySQL database structures with data integrity focus",
+          "Ensured efficient database queries for optimal internal system performance",
+          "Collaborated with cross-functional teams for requirements gathering",
+          "Delivered robust intranet solutions improving company-wide workflow efficiency",
+          "Applied modern web development practices and agile methodologies"
         ],
-        "impact": "Revolutionized company-wide internal communication and workflow efficiency."
+        "impact": "Delivered a comprehensive intranet solution that revolutionized company-wide internal communication and significantly improved workflow efficiency across all departments."
       }
     }
   },

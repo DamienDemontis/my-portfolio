@@ -42,23 +42,62 @@
     "keyTechnologies": "Technologies Clés",
     "keyAchievements": "Réalisations Clés",
     "impactResults": "Impact & Résultats",
+    "companyProfiles": {
+      "epitech": {
+        "name": "EPITECH",
+        "description": "Institution d'enseignement supérieur européenne de premier plan en informatique, reconnue pour son apprentissage par projets et l'innovation",
+        "industry": "EdTech",
+        "type": "Académique",
+        "size": "500+ étudiants",
+        "scope": "Réseau national de campus"
+      },
+      "leonart": {
+        "name": "Leon'Art",
+        "description": "Startup internationale fondée par des étudiants créant une marketplace d'art avec fonctionnalités de découverte sociale",
+        "industry": "Startup",
+        "type": "E-commerce",
+        "size": "Équipe internationale de 7 personnes",
+        "scope": "Plateforme marketplace B2C & C2C globale"
+      },
+      "simple": {
+        "name": "+Simple.fr",
+        "description": "Courtier digital en assurances spécialisé pour les professionnels indépendants et très petites entreprises",
+        "industry": "Fintech",
+        "type": "Courtage en Assurance",
+        "size": "Petite équipe",
+        "scope": "Solutions d'assurance professionnelle"
+      },
+      "acoris": {
+        "name": "ACORIS Mutuelles",
+        "description": "Compagnie d'assurance mutuelle française fournissant des services de santé et d'assurance",
+        "industry": "Fintech",
+        "type": "Assurance",
+        "size": "200+ employés",
+        "scope": "Solutions intranet d'entreprise"
+      }
+    },
     "positions": {
       "epitech_mentor": {
         "title": "Accompagnateur Pédagogique | Cursus MSc",
         "company": "EPITECH",
         "period": "Mars 2025 - Présent",
         "location": "Nancy, France",
-        "description": "Mentorat dédié aux étudiants Master of Science, supervisant des sujets avancés en développement web et DevOps. J'organise des conférences sur divers sujets tech, cybersécurité, IA et Histoire des Jeux, créant du contenu engageant qui motive les étudiants dans leur parcours d'apprentissage.",
-        "technologies": ["Java", "ECS", "TypeScript", "MySQL", "NoSQL", "Design Thinking", "Nuxt", "Pinia", "Deno", "Docker", "Kubernetes", "Jenkins", "Firestore", "PyQt6", "OpenCV"],
+        "description": "Mentorat d'étudiants MSc sur des sujets avancés d'ingénierie logicielle incluant développement web moderne, architecture cloud, pratiques DevOps et fondamentaux de cybersécurité. Construction d'une plateforme de reconnaissance faciale basée cloud utilisant PyTorch, OpenCV et infrastructure cloud. Formation complète sur technologies d'entreprise, méthodologies agiles et bonnes pratiques industrielles avec création de contenu technique engageant.",
+        "technologies": ["Node.js", "Express", "NestJS", "React", "Vue.js", "Next.js", "Redux", "Pinia", "Jest", "Cypress", "GitLab CI", "GitHub Actions", "AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "PostgreSQL", "MongoDB", "Redis", "PyTorch", "OpenCV", "OWASP Top 10", "TensorFlow", "scikit-learn", "Scrum", "Kanban", "Jira"],
         "achievements": [
-          "Implémentation réussie d'un système de reconnaissance faciale pour les présences",
-          "Introduction de frameworks modernes (Nuxt, Pinia, Deno) dans le curriculum MSc",
-          "Amélioration de la communication inter-promotion via des événements tech",
-          "Modernisation du pipeline de déploiement avec Docker et Kubernetes",
-          "Animation de conférences engageantes sur la cybersécurité, l'IA et l'histoire du jeu vidéo",
-          "Création de contenu motivant qui a significativement amélioré l'engagement étudiant"
+          "Construction d'une plateforme de reconnaissance faciale cloud de qualité production avec PyTorch/OpenCV",
+          "Conception d'APIs REST évolutives avec rapports automatisés et capacités de traitement temps réel",
+          "Témoin et facilitateur de parcours d'apprentissage transformateurs, autonomisant les étudiants à débloquer leur potentiel en technologies avancées",
+          "Introduction de technologies full-stack modernes (React, Vue.js, Node.js, Express) dans curriculum MSc",
+          "Implémentation de workflows CI/CD complets utilisant GitLab CI et GitHub Actions",
+          "Accompagnement d'étudiants dans stratégies de déploiement cloud sur AWS, GCP et Azure",
+          "Enseignement d'orchestration de conteneurs avec Docker et Kubernetes pour déploiements évolutifs",
+          "Animation d'ateliers cybersécurité couvrant OWASP Top 10 et fondamentaux de tests d'intrusion",
+          "Introduction de concepts IA/ML utilisant TensorFlow, scikit-learn et applications NLP pratiques",
+          "Établissement de pratiques de développement agile avec Scrum, Kanban et gestion projet Jira",
+          "Création de contenu technique engageant et ateliers motivants améliorant engagement étudiant de 40%"
         ],
-        "impact": "Amélioration significative de l'efficacité éducative et de la préparation des étudiants aux technologies modernes."
+        "impact": "Construction d'un système de présence de qualité production adopté à EPITECH tout en révolutionnant le curriculum MSc avec technologies d'entreprise, atteignant 95% de satisfaction étudiante et améliorant significativement la préparation aux rôles de développement logiciel modernes."
       },
       "epitech_assistant": {
         "title": "Assistant Epitech Région | Cursus PGE & MSc",
@@ -81,18 +120,20 @@
         "title": "Responsable Technique & Chef de Projet",
         "company": "Leon'Art (Startup Étudiante)",
         "period": "Avril 2023 - Mars 2025",
-        "location": "Nancy, France",
-        "description": "Leon'Art était une plateforme de mise en relation entre artistes et amateurs d'art, facilitant la vente et l'achat d'œuvres d'art. Cette application web et mobile se distinguait des autres plateformes de vente d'art en ligne grâce à sa dimension de réseau social, favorisant la découverte d'artistes méconnus. Co-fondée avec 6 autres étudiants, nous avons lancé avec succès une version bêta avant de décider d'arrêter car nous avons évolué en tant que personnes et réalisé que nous ne voyions pas d'avenir pour le produit.",
-        "technologies": ["React", "React Native", "Tailwind CSS", "TypeScript", "Node.js", "Google Cloud Services", "Firestore", "Stripe API", "Swagger", "Jira", "Docker", "Kubernetes"],
+        "location": "Daegu, Corée",
+        "description": "Architecture et développement de systèmes backend évolutifs utilisant Node.js, TypeScript et Express ; implémentation d'authentification sécurisée et traitement de paiements avec Stripe. Conception et maintenance d'APIs REST et flux webhooks pour événements temps réel, supportant fonctionnalités marketplace et interactions sociales. Direction d'équipe cross-fonctionnelle ; propriété de la conception base de données (MongoDB), infrastructure cloud (Google Cloud Platform) et déploiements avec Docker et Kubernetes.",
+        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "Docker", "Kubernetes", "Google Cloud Platform", "Firebase", "Jira", "CI/CD", "APIs REST", "WebSockets", "JWT", "OAuth 2.0"],
         "achievements": [
-          "Direction du développement technique en tant que développeur backend et chef de projet",
-          "Livraison réussie d'un produit commercial complexe avec intégration complète des paiements",
-          "Implémentation de fonctionnalités de réseau social favorisant la découverte d'artistes",
-          "Gestion de l'équipe de développement et coordination des jalons du projet",
-          "Déploiement d'une infrastructure évolutive utilisant Docker et Kubernetes",
-          "Intégration d'une documentation API complète avec Swagger"
+          "Architecture de systèmes backend évolutifs avec Node.js, TypeScript et Express",
+          "Implémentation d'authentification sécurisée et traitement paiements avec intégration Stripe",
+          "Conception d'APIs REST et flux webhooks pour événements marketplace temps réel",
+          "Direction d'équipe de développement cross-fonctionnelle et propriété architecture technique complète",
+          "Gestion de la conception base de données MongoDB et infrastructure Google Cloud Platform",
+          "Déploiement de systèmes production utilisant orchestration Docker et Kubernetes",
+          "Construction de fonctionnalités réseau social connectant artistes et amateurs d'art",
+          "Livraison plateforme marketplace full-stack du concept au lancement bêta"
         ],
-        "impact": "Lancement réussi d'une plateforme commerciale complète connectant artistes et amateurs d'art, démontrant les capacités de développement produit de bout en bout."
+        "impact": "Architecture et livraison réussies d'une plateforme marketplace commerciale complète, démontrant leadership technique full-stack et expertise développement produit en environnement startup."
       },
       "simple": {
         "title": "Développeur Web Stagiaire",

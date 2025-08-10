@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Code, Database, Cloud, Settings, Wrench, Smartphone, Zap } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export const Skills = () => {
   const { t } = useTranslation()
@@ -10,6 +11,12 @@ export const Skills = () => {
     threshold: 0,
     rootMargin: '0px 0px -10% 0px',
   })
+
+  // Helper CSS to hide scrollbars while preserving scroll/swipe
+  const hideScrollbarCss = `
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  `
 
   // Technology logos mapping - using Simple Icons CDN
   const technologyLogos: Record<string, string> = {
@@ -85,63 +92,41 @@ export const Skills = () => {
   }
 
   const skillCategories = [
-    {
-      key: 'frontend',
-      icon: Code,
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20',
-      borderColor: 'border-blue-200 dark:border-blue-800'
-    },
-    {
-      key: 'backend',
-      icon: Database,
-      color: 'from-green-500 to-green-600',
-      bgColor: 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20',
-      borderColor: 'border-green-200 dark:border-green-800'
-    },
-    {
-      key: 'devops',
-      icon: Cloud,
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20',
-      borderColor: 'border-orange-200 dark:border-orange-800'
-    },
-    {
-      key: 'databases',
-      icon: Database,
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20',
-      borderColor: 'border-purple-200 dark:border-purple-800'
-    },
-    {
-      key: 'mobile',
-      icon: Smartphone,
-      color: 'from-indigo-500 to-indigo-600',
-      bgColor: 'from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20',
-      borderColor: 'border-indigo-200 dark:border-indigo-800'
-    },
-    {
-      key: 'testing',
-      icon: Settings,
-      color: 'from-emerald-500 to-emerald-600',
-      bgColor: 'from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20',
-      borderColor: 'border-emerald-200 dark:border-emerald-800'
-    },
-    {
-      key: 'aiml',
-      icon: Zap,
-      color: 'from-pink-500 to-pink-600',
-      bgColor: 'from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20',
-      borderColor: 'border-pink-200 dark:border-pink-800'
-    },
-    {
-      key: 'tools',
-      icon: Wrench,
-      color: 'from-gray-500 to-gray-600',
-      bgColor: 'from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-700/20',
-      borderColor: 'border-gray-200 dark:border-gray-700'
-    }
+    { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20', borderColor: 'border-blue-200 dark:border-blue-800' },
+    { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20', borderColor: 'border-green-200 dark:border-green-800' },
+    { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20', borderColor: 'border-orange-200 dark:border-orange-800' },
+    { key: 'databases', icon: Database, color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20', borderColor: 'border-purple-200 dark:border-purple-800' },
+    { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20', borderColor: 'border-indigo-200 dark:border-indigo-800' },
+    { key: 'testing', icon: Settings, color: 'from-emerald-500 to-emerald-600', bgColor: 'from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20', borderColor: 'border-emerald-200 dark:border-emerald-800' },
+    { key: 'aiml', icon: Zap, color: 'from-pink-500 to-pink-600', bgColor: 'from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20', borderColor: 'border-pink-200 dark:border-pink-800' },
+    { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-700/20', borderColor: 'border-gray-200 dark:border-gray-700' }
   ]
+
+  // Mobile UX state: active category filter, show-more, and responsive detection
+  const [activeCategory, setActiveCategory] = useState<string>(skillCategories[0].key)
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+  const [isDesktop, setIsDesktop] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mql = window.matchMedia('(min-width: 768px)')
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    setIsDesktop(mql.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
+  }, [])
+
+  const toggleExpanded = (key: string) => {
+    setExpandedCategories(prev => {
+      const copy = new Set(prev)
+      if (copy.has(key)) copy.delete(key)
+      else copy.add(key)
+      return copy
+    })
+  }
+
+  const showAllLabel = t('common.showAll', { defaultValue: 'Show all' })
+  const showLessLabel = t('common.showLess', { defaultValue: 'Show less' })
 
   const getProficiencyColor = () => {
     // Use a consistent blue gradient for all proficiency levels
@@ -208,6 +193,8 @@ export const Skills = () => {
 
   return (
     <section id="skills" className="section-padding relative overflow-hidden">
+      {/* Scoped styles */}
+      <style dangerouslySetInnerHTML={{ __html: hideScrollbarCss }} />
       {/* Clean background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
       
@@ -278,6 +265,25 @@ export const Skills = () => {
           </div>
         </motion.div>
 
+        {/* Mobile category chips */}
+        <div className="md:hidden mb-4 -mt-2 overflow-x-auto no-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <div className="flex gap-2 pr-2">
+            {skillCategories.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`px-3 py-1.5 rounded-full text-sm border transition-colors whitespace-nowrap ${
+                  activeCategory === cat.key
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700'
+                }`}
+              >
+                {t(`skills.categories.${cat.key}.title`)}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -296,6 +302,10 @@ export const Skills = () => {
               const bLevel = proficiencyOrder[b.level as keyof typeof proficiencyOrder] || 0
               return bLevel - aLevel
             })
+
+            const isExpanded = expandedCategories.has(category.key)
+            const displayTechs = isDesktop ? technologies : technologies.slice(0, isExpanded ? technologies.length : 8)
+            const mobileVisibilityClass = activeCategory === category.key ? 'block md:block' : 'hidden md:block'
             
             return (
               <motion.div
@@ -305,7 +315,7 @@ export const Skills = () => {
                   scale: 1.02,
                   transition: { duration: 0.2 }
                 }}
-                className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 rounded-3xl p-0 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+                className={`backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 rounded-3xl p-0 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden ${mobileVisibilityClass}`}
                 style={{
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
@@ -339,9 +349,9 @@ export const Skills = () => {
                 <div className="p-4">
                   <motion.div 
                     variants={containerVariants}
-                    className="space-y-2"
+                    className="grid grid-cols-2 gap-2 md:space-y-2 md:grid-cols-1"
                   >
-                    {technologies.map((tech, index) => {
+                    {displayTechs.map((tech, index) => {
                       const logoUrl = technologyLogos[tech.name]
                       
                       return (
@@ -382,20 +392,20 @@ export const Skills = () => {
                                   <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
                                     {tech.name}
                                   </span>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                                  <p className="text-xs text-gray-600 dark:text-gray-400 md:block hidden">
                                     {tech.experience}
                                   </p>
                                 </div>
                               </div>
-                              <div className="text-right">
+                              <div className="text-right hidden md:block">
                                 <div className="text-xs text-gray-500 dark:text-gray-400">
                                   {getProficiencyLabel(tech.level)}
                                 </div>
                               </div>
                             </div>
                             
-                            {/* Proficiency bar */}
-                            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-1.5">
+                            {/* Proficiency bar (desktop only) */}
+                            <div className="hidden md:block w-full bg-gray-200 dark:bg-gray-600 rounded-full h-1.5">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={inView ? { width: getProficiencyWidth(tech.level) } : { width: 0 }}
@@ -415,6 +425,16 @@ export const Skills = () => {
                       )
                     })}
                   </motion.div>
+
+                  {/* Show more / less for mobile */}
+                  {!isDesktop && technologies.length > 8 && (
+                    <button
+                      onClick={() => toggleExpanded(category.key)}
+                      className="mt-3 md:hidden w-full text-xs py-2 rounded-lg bg-white/70 dark:bg-gray-700/70 border border-gray-200/50 dark:border-gray-600/50 text-gray-700 dark:text-gray-300"
+                    >
+                      {isExpanded ? showLessLabel : showAllLabel}
+                    </button>
+                  )}
                 </div>
 
                 {/* Simplified floating element */}

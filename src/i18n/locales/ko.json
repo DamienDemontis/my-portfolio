@@ -42,6 +42,40 @@
     "keyTechnologies": "핵심 기술",
     "keyAchievements": "주요 성과",
     "impactResults": "영향 및 결과",
+    "companyProfiles": {
+      "epitech": {
+        "name": "EPITECH",
+        "description": "프로젝트 기반 학습과 혁신으로 유명한 유럽의 선도적인 컴퓨터 과학 고등교육 기관",
+        "industry": "EdTech",
+        "type": "학술",
+        "size": "500+ 학생",
+        "scope": "국가 캠퍼스 네트워크"
+      },
+      "leonart": {
+        "name": "Leon'Art",
+        "description": "소셜 발견 기능을 갖춘 아트 마켓플레이스를 만드는 국제 학생 창업 스타트업",
+        "industry": "Startup",
+        "type": "전자상거래",
+        "size": "7명 국제 팀",
+        "scope": "글로벌 B2C & C2C 마켓플레이스 플랫폼"
+      },
+      "simple": {
+        "name": "+Simple.fr",
+        "description": "자영업자 및 소규모 기업을 위한 디지털 보험 중개업체",
+        "industry": "Fintech",
+        "type": "보험 중개",
+        "size": "소규모 팀",
+        "scope": "전문 보험 솔루션"
+      },
+      "acoris": {
+        "name": "ACORIS Mutuelles",
+        "description": "의료 및 보험 서비스를 제공하는 프랑스 상호 보험 회사",
+        "industry": "Fintech",
+        "type": "보험",
+        "size": "200+ 직원",
+        "scope": "기업 인트라넷 솔루션"
+      }
+    },
     "positions": {
       "epitech_mentor": {
         "title": "교육 멘토 | MSc 커리큘럼",
@@ -81,9 +115,9 @@
         "title": "기술 리드 & 프로젝트 매니저",
         "company": "Leon'Art (학생 스타트업)",
         "period": "2023년 4월 - 2025년 3월",
-        "location": "낸시, 프랑스",
+        "location": "대구, 한국",
         "description": "Leon'Art는 예술가와 미술 애호가를 연결하는 플랫폼으로, 예술 작품의 판매와 구매를 촉진했습니다. 이 웹 및 모바일 애플리케이션은 소셜 네트워크 차원을 통해 잘 알려지지 않은 예술가들의 발견을 촉진하여 다른 온라인 미술 판매 플랫폼과 차별화되었습니다. 6명의 다른 학생들과 공동 창립하여 베타 버전을 성공적으로 출시했지만, 개인으로서 발전하면서 제품의 미래를 보지 못한다는 것을 깨달아 중단하기로 결정했습니다.",
-        "technologies": ["React", "React Native", "Tailwind CSS", "TypeScript", "Node.js", "Google Cloud Services", "Firestore", "Stripe API", "Swagger", "Jira", "Docker", "Kubernetes"],
+        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "Docker", "Kubernetes", "Google Cloud Platform", "Firebase", "Jira", "CI/CD", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
         "achievements": [
           "백엔드 개발자 및 프로젝트 매니저로서 기술 개발 주도",
           "완전한 결제 통합을 갖춘 복잡한 상업 제품 성공적 전달",
