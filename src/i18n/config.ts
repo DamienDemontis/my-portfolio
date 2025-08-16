@@ -27,9 +27,16 @@ i18n
     debug: false,
     
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage']
+      order: ['localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+      caches: ['localStorage'],
+      // Convert language codes to base language (fr-FR -> fr)
+      convertDetectedLanguage: (lng: string) => lng.split('-')[0]
     },
+    
+    // Supported languages
+    supportedLngs: ['en', 'fr', 'ko'],
+    // Don't use country-specific variants
+    nonExplicitSupportedLngs: true,
 
     interpolation: {
       escapeValue: false

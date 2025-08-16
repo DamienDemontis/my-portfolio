@@ -70,7 +70,7 @@ export const Education = () => {
           animate={inView ? "visible" : "hidden"}
           className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8"
         >
-          {institutions.map((institution, index) => {
+          {institutions.map((institution) => {
             const highlights = t(`education.institutions.${institution}.highlights`, { returnObjects: true }) as string[]
             
             return (

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Languages, ChevronDown } from 'lucide-react'
 import { FlagIcon } from './FlagIcon'
@@ -6,6 +6,24 @@ import { FlagIcon } from './FlagIcon'
 export const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
+  const [currentLang, setCurrentLang] = useState('')
+
+  // Sync with i18n language changes
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      setCurrentLang(lng.split('-')[0])
+    }
+    
+    // Set initial language
+    setCurrentLang(i18n.language.split('-')[0])
+    
+    // Listen for language changes
+    i18n.on('languageChanged', handleLanguageChanged)
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged)
+    }
+  }, [i18n])
 
   const languages = [
     { code: 'en', label: 'EN', countryCode: 'gb', name: 'English' },
@@ -13,7 +31,8 @@ export const LanguageSwitcher = () => {
     { code: 'ko', label: 'KO', countryCode: 'kr', name: '한국어' }
   ]
 
-  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0]
+  // Use the state-managed current language for better sync
+  const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0]
 
   const handleLanguageChange = (langCode: string) => {
     i18n.changeLanguage(langCode)
@@ -44,7 +63,7 @@ export const LanguageSwitcher = () => {
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150 ${
-                  i18n.language === lang.code ? 'bg-gray-100 dark:bg-gray-700' : ''
+                  currentLang === lang.code ? 'bg-gray-100 dark:bg-gray-700' : ''
                 }`}
               >
                 <FlagIcon countryCode={lang.countryCode} size={20} />
@@ -56,7 +75,7 @@ export const LanguageSwitcher = () => {
                     {lang.label}
                   </div>
                 </div>
-                {i18n.language === lang.code && (
+                {currentLang === lang.code && (
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                 )}
               </button>
