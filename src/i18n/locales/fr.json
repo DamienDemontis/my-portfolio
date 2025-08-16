@@ -917,6 +917,11 @@
     "more": "En Savoir Plus",
     "less": "Voir Moins"
   },
+  "preloader": {
+    "loading": "Préparation au décollage...",
+    "clickToLand": "Cliquez n'importe où pour atterrir",
+    "landing": "Atterrissage..."
+  },
   "theme": {
     "light": "Mode Clair",
     "dark": "Mode Sombre",

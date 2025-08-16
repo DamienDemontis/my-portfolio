@@ -910,6 +910,11 @@
     "more": "더 알아보기",
     "less": "적게 보기"
   },
+  "preloader": {
+    "loading": "비행 준비 중...",
+    "clickToLand": "착륙하려면 아무 곳이나 클릭하세요",
+    "landing": "착륙 중..."
+  },
   "theme": {
     "light": "라이트 모드",
     "dark": "다크 모드",

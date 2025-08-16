@@ -40,9 +40,9 @@ function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoading ? 0 : 1 }}
           transition={{ 
-            duration: 1.2, 
+            duration: 1.5, 
             ease: [0.4, 0, 0.2, 1],
-            delay: isLoading ? 0 : 0.3 // Small delay to ensure smooth crossfade
+            delay: isLoading ? 0 : 0.8 // Delay to match landing animation
           }}
           className="min-h-screen"
         >
@@ -71,12 +71,10 @@ function App() {
             <motion.div
               initial={{ opacity: 1 }}
               exit={{ 
-                opacity: 0,
-                scale: 1.05,
-                filter: "blur(8px)"
+                opacity: 0
               }}
               transition={{ 
-                duration: 1.2, 
+                duration: 2, 
                 ease: [0.4, 0, 0.2, 1]
               }}
               className="fixed inset-0 z-[10000]"

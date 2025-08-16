@@ -930,6 +930,11 @@
     "more": "Learn More",
     "less": "Show Less"
   },
+  "preloader": {
+    "loading": "Preparing for flight...",
+    "clickToLand": "Click anywhere to land",
+    "landing": "Landing..."
+  },
   "theme": {
     "light": "Light Mode",
     "dark": "Dark Mode",
