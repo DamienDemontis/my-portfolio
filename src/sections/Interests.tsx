@@ -74,20 +74,20 @@ export const Interests = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, x: -10 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.3 }
     }
   }
 
@@ -98,49 +98,20 @@ export const Interests = () => {
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 45, 0],
-            y: [0, -40, 0],
-            rotate: [0, 15, 0]
-          }}
-          transition={{ 
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-8 right-0 w-48 h-48 bg-pink-400/6 dark:bg-pink-400/3 rounded-full blur-2xl"
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -40, 0],
-            y: [0, 45, 0],
-            rotate: [0, -12, 0]
-          }}
-          transition={{ 
-            duration: 26,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 9
-          }}
-          className="absolute bottom-12 left-0 w-52 h-52 bg-purple-400/6 dark:bg-purple-400/3 rounded-3xl blur-2xl"
-        ></motion.div>
+        <div className="absolute top-8 right-0 w-48 h-48 bg-pink-100/30 dark:bg-pink-900/10 rounded-full"></div>
+        <div className="absolute bottom-12 left-0 w-52 h-52 bg-purple-100/30 dark:bg-purple-900/10 rounded-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           {/* Glass container for header */}
           <div 
-            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Heart className="w-8 h-8 text-rose-600" />
@@ -173,19 +144,23 @@ export const Interests = () => {
                   scale: 1.02,
                   transition: { duration: 0.2 }
                 }}
-                className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-0 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden"
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  willChange: 'transform',
+                  transform: 'translateZ(0)'
                 }}
+                className="bg-white/80 dark:bg-black/50 rounded-3xl p-0 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-200 group overflow-hidden"
               >
                 {/* Header with gradient background */}
                 <div className={`p-6 bg-gradient-to-br ${category.bgColor} border-b ${category.borderColor}`}>
                   <div className="flex items-center mb-4">
                     <motion.div 
                       whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                      className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${category.color} p-2.5 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
+                      transition={{ duration: 0.4 }}
+                      style={{
+                        willChange: 'transform',
+                        transform: 'translateZ(0)'
+                      }}
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${category.color} p-2.5 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-200`}
                     >
                       <IconComponent className="w-full h-full text-white" />
                     </motion.div>
@@ -212,10 +187,18 @@ export const Interests = () => {
                           key={index}
                           variants={itemVariants}
                           className="flex items-start gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-200 group/item border border-white/30 dark:border-gray-700/30"
+                          style={{
+                            willChange: 'transform',
+                            transform: 'translateZ(0)'
+                          }}
                         >
                           <motion.div 
-                            whileHover={{ scale: 1.2 }}
+                            whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
+                            style={{
+                              willChange: 'transform',
+                              transform: 'translateZ(0)'
+                            }}
                             className={`flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-r ${category.color} shadow-lg`}
                           >
                             <InterestIcon className="w-5 h-5 text-white" />
@@ -243,15 +226,11 @@ export const Interests = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
           className="text-center mt-16"
         >
           <div 
-            className="max-w-4xl mx-auto backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Palette className="w-6 h-6 text-rose-600" />

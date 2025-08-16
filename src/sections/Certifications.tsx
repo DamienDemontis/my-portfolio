@@ -70,11 +70,11 @@ export const Certifications = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   }
 
@@ -85,57 +85,20 @@ export const Certifications = () => {
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 25, 0],
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ 
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-24 right-16 w-28 h-28 rounded-3xl opacity-25"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(251, 191, 36, 0.06) 0%, rgba(251, 191, 36, 0.015) 60%, transparent 100%)',
-            boxShadow: '0 0 70px 25px rgba(251, 191, 36, 0.05)'
-          }}
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -20, 0],
-            y: [0, 25, 0],
-            rotate: [0, -3, 0]
-          }}
-          transition={{ 
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5
-          }}
-          className="absolute bottom-32 left-20 w-32 h-32 rounded-full opacity-25"
-          style={{
-            background: 'radial-gradient(circle, rgba(251, 146, 60, 0.06) 0%, rgba(251, 146, 60, 0.015) 60%, transparent 100%)',
-            boxShadow: '0 0 70px 25px rgba(251, 146, 60, 0.05)'
-          }}
-        ></motion.div>
+        <div className="absolute top-24 right-16 w-28 h-28 rounded-3xl bg-yellow-100/30 dark:bg-yellow-900/10"></div>
+        <div className="absolute bottom-32 left-20 w-32 h-32 rounded-full bg-orange-100/30 dark:bg-orange-900/10"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           {/* Glass container for header */}
           <div 
-            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Award className="w-8 h-8 text-yellow-600" />
@@ -168,18 +131,22 @@ export const Certifications = () => {
                   scale: 1.02,
                   transition: { duration: 0.2 }
                 }}
-                className={`backdrop-blur-xl bg-gradient-to-br ${cert.bgColor} rounded-3xl p-8 border ${cert.borderColor} shadow-xl hover:shadow-2xl transition-all duration-300 group`}
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  willChange: 'transform',
+                  transform: 'translateZ(0)'
                 }}
+                className={`bg-gradient-to-br ${cert.bgColor} rounded-3xl p-8 border ${cert.borderColor} shadow-xl hover:shadow-2xl transition-all duration-200 group`}
               >
                 {/* Header */}
                 <div className="flex items-center mb-6">
                   <motion.div 
                     whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${cert.color} p-3 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
+                    transition={{ duration: 0.4 }}
+                    style={{
+                      willChange: 'transform',
+                      transform: 'translateZ(0)'
+                    }}
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${cert.color} p-3 mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-200`}
                   >
                     <IconComponent className="w-full h-full text-white" />
                   </motion.div>
@@ -224,8 +191,8 @@ export const Certifications = () => {
                 {/* Floating element */}
                 <motion.div
                   animate={{ 
-                    y: [0, -8, 0],
-                    rotate: [0, 5, 0]
+                    y: [0, -4, 0],
+                    rotate: [0, 3, 0]
                   }}
                   transition={{ 
                     duration: 4,
@@ -233,7 +200,7 @@ export const Certifications = () => {
                     ease: "easeInOut",
                     delay: index * 0.5
                   }}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-white/30 backdrop-blur-xl rounded-full border border-white/40 flex items-center justify-center"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-white/60 rounded-full border border-white/40 flex items-center justify-center"
                 >
                   <Star className="w-3 h-3 text-yellow-500" />
                 </motion.div>
@@ -246,15 +213,11 @@ export const Certifications = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
           className="text-center mt-16"
         >
           <div 
-            className="max-w-4xl mx-auto backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
           >
             <div className="flex items-center justify-center gap-3 mb-4">
               <Award className="w-6 h-6 text-yellow-600" />

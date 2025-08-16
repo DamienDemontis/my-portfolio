@@ -115,20 +115,20 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${
+      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/20 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/30 shadow-2xl'
-          : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/10 dark:border-gray-700/20'
+          ? 'bg-white/80 dark:bg-black/80 border border-white/30 dark:border-gray-700/40 shadow-2xl'
+          : 'bg-white/15 dark:bg-black/15 border border-white/15 dark:border-gray-700/25'
       }`}
       style={{
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
         boxShadow: isScrolled 
-          ? '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)' 
-          : '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+          ? '0 8px 32px rgba(0, 0, 0, 0.15)' 
+          : '0 4px 16px rgba(0, 0, 0, 0.1)',
         borderRadius: '2rem',
         width: 'fit-content',
-        maxWidth: 'calc(100vw - 2rem)'
+        maxWidth: 'calc(100vw - 2rem)',
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0) translateX(-50%)'
       }}
     >
       <div className="px-6 lg:px-8">
@@ -171,13 +171,14 @@ export const Navbar = () => {
                   /* Single item - direct link */
                   <motion.button
                     onClick={() => scrollToSection(group.items[0].href)}
-                    className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border whitespace-nowrap ${
+                    className={`flex items-center space-x-2 px-4 py-3 rounded-2xl transition-colors duration-150 font-medium border whitespace-nowrap ${
                       isScrolled 
                         ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
                         : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
                     }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                   >
                     {group.icon}
                     <span>{group.label}</span>
@@ -187,13 +188,14 @@ export const Navbar = () => {
                   <div>
                     <motion.button
                       onClick={() => handleDropdownToggle(group.key)}
-                      className={`flex items-center space-x-2 px-4 py-3 rounded-2xl backdrop-blur-sm transition-all duration-200 font-medium border whitespace-nowrap ${
+                      className={`flex items-center space-x-2 px-4 py-3 rounded-2xl transition-colors duration-150 font-medium border whitespace-nowrap ${
                         isScrolled 
                           ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/20 dark:border-white/10 hover:border-gray-400/30 dark:hover:border-white/20' 
                           : 'text-white/90 hover:text-white hover:bg-white/10 border-white/10 hover:border-white/20'
                       }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                     >
                       {group.icon}
                       <span>{group.label}</span>
@@ -205,18 +207,18 @@ export const Navbar = () => {
                     <AnimatePresence>
                       {activeDropdown === group.key && (
                         <motion.div
-                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          initial={{ opacity: 0, y: -5, scale: 0.98 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                          className={`absolute top-full left-0 mt-2 w-56 backdrop-blur-xl rounded-2xl shadow-2xl border overflow-hidden ${
+                          exit={{ opacity: 0, y: -5, scale: 0.98 }}
+                          transition={{ duration: 0.15 }}
+                          className={`absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-2xl border overflow-hidden ${
                             isScrolled 
-                              ? 'bg-white/80 dark:bg-black/70 border-gray-300/30 dark:border-white/20' 
-                              : 'bg-white/60 dark:bg-black/60 border-white/20 dark:border-gray-700/30'
+                              ? 'bg-white/90 dark:bg-black/85 border-gray-300/30 dark:border-white/20' 
+                              : 'bg-white/80 dark:bg-black/80 border-white/20 dark:border-gray-700/30'
                           }`}
                           style={{
-                            backdropFilter: 'blur(20px)',
-                            WebkitBackdropFilter: 'blur(20px)',
+                            willChange: 'transform, opacity',
+                            transform: 'translateZ(0)'
                           }}
                         >
                           {group.items.map((item) => (
@@ -288,15 +290,15 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className={`lg:hidden mt-4 backdrop-blur-xl border-t shadow-2xl rounded-2xl overflow-hidden max-h-[70vh] overflow-y-auto ${
+              transition={{ duration: 0.2 }}
+              className={`lg:hidden mt-4 border-t shadow-2xl rounded-2xl overflow-hidden max-h-[70vh] overflow-y-auto ${
                 isScrolled 
-                  ? 'bg-white/80 dark:bg-black/70 border-gray-300/30 dark:border-white/20' 
-                  : 'bg-white/60 dark:bg-black/60 border-white/20 dark:border-gray-700/30'
+                  ? 'bg-white/90 dark:bg-black/85 border-gray-300/30 dark:border-white/20' 
+                  : 'bg-white/80 dark:bg-black/80 border-white/20 dark:border-gray-700/30'
               }`}
               style={{
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                willChange: 'height, opacity',
+                transform: 'translateZ(0)'
               }}
             >
               <div className="p-4">

@@ -108,11 +108,11 @@ export const Contact = () => {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   }
 
@@ -123,49 +123,20 @@ export const Contact = () => {
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 35, 0],
-            y: [0, -30, 0],
-            rotate: [0, 10, 0]
-          }}
-          transition={{ 
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-16 right-8 w-36 h-36 bg-green-400/6 dark:bg-green-400/3 rounded-full blur-2xl"
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -30, 0],
-            y: [0, 35, 0],
-            rotate: [0, -8, 0]
-          }}
-          transition={{ 
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 7
-          }}
-          className="absolute bottom-20 left-12 w-40 h-40 bg-emerald-400/6 dark:bg-emerald-400/3 rounded-2xl blur-2xl"
-        ></motion.div>
+        <div className="absolute top-16 right-8 w-36 h-36 bg-green-100/30 dark:bg-green-900/10 rounded-full"></div>
+        <div className="absolute bottom-20 left-12 w-40 h-40 bg-emerald-100/30 dark:bg-emerald-900/10 rounded-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           {/* Glass container for header */}
           <div 
-            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <MessageCircle className="w-8 h-8 text-green-600" />
@@ -193,11 +164,7 @@ export const Contact = () => {
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
             <div 
-              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
-              style={{
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-              }}
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.form.send')} Message
@@ -216,12 +183,8 @@ export const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/80 dark:bg-gray-800/80 dark:text-gray-100 transition-all duration-200"
                       placeholder={t('contact.form.namePlaceholder')}
-                      style={{
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                      }}
                     />
                   </div>
                   <div>
@@ -235,12 +198,8 @@ export const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/80 dark:bg-gray-800/80 dark:text-gray-100 transition-all duration-200"
                       placeholder={t('contact.form.emailPlaceholder')}
-                      style={{
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                      }}
                     />
                   </div>
                 </div>
@@ -256,12 +215,8 @@ export const Contact = () => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/80 dark:bg-gray-800/80 dark:text-gray-100 transition-all duration-200"
                     placeholder={t('contact.form.subjectPlaceholder')}
-                    style={{
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                    }}
                   />
                 </div>
                 
@@ -276,12 +231,8 @@ export const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 dark:text-gray-100 transition-all duration-200 resize-none backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-white/30 dark:border-gray-600/30 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white/80 dark:bg-gray-800/80 dark:text-gray-100 transition-all duration-200 resize-none"
                     placeholder={t('contact.form.messagePlaceholder')}
-                    style={{
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                    }}
                   />
                 </div>
                 
@@ -290,6 +241,10 @@ export const Contact = () => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{
+                    willChange: 'transform',
+                    transform: 'translateZ(0)'
+                  }}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   {isSubmitting ? (
@@ -312,11 +267,7 @@ export const Contact = () => {
           <motion.div variants={itemVariants} className="space-y-8">
             {/* Contact Information */}
             <div 
-              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
-              style={{
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-              }}
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.info.contactInfo')}
@@ -328,9 +279,13 @@ export const Contact = () => {
                   return (
                     <motion.div 
                       key={index} 
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
+                      style={{
+                        willChange: 'transform',
+                        transform: 'translateZ(0)'
+                      }}
                       className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-white/30 dark:border-gray-700/30"
                     >
                       <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
@@ -363,11 +318,7 @@ export const Contact = () => {
 
             {/* Resume Download */}
             <div 
-              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
-              style={{
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-              }}
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.resume.download')}
@@ -378,6 +329,10 @@ export const Contact = () => {
                   onClick={() => handleResumeDownload('en')}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{
+                    willChange: 'transform',
+                    transform: 'translateZ(0)'
+                  }}
                   className="w-full flex items-center justify-between p-4 border border-white/30 dark:border-gray-600/30 rounded-2xl hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3">
@@ -400,6 +355,10 @@ export const Contact = () => {
                   onClick={() => handleResumeDownload('fr')}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{
+                    willChange: 'transform',
+                    transform: 'translateZ(0)'
+                  }}
                   className="w-full flex items-center justify-between p-4 border border-white/30 dark:border-gray-600/30 rounded-2xl hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3">
@@ -422,11 +381,7 @@ export const Contact = () => {
 
             {/* Social Links */}
             <div 
-              className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
-              style={{
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-              }}
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 {t('contact.social.connect')}
@@ -441,8 +396,12 @@ export const Contact = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      style={{
+                        willChange: 'transform',
+                        transform: 'translateZ(0)'
+                      }}
                       className={`flex items-center justify-center w-16 h-16 bg-gradient-to-r ${social.color} text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200`}
                       aria-label={social.name}
                     >

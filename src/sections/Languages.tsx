@@ -60,11 +60,11 @@ export const Languages = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   }
 
@@ -75,49 +75,20 @@ export const Languages = () => {
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 40, 0],
-            y: [0, -35, 0],
-            rotate: [0, 12, 0]
-          }}
-          transition={{ 
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-12 right-4 w-40 h-40 bg-indigo-400/5 dark:bg-indigo-400/3 rounded-full blur-2xl"
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -35, 0],
-            y: [0, 40, 0],
-            rotate: [0, -10, 0]
-          }}
-          transition={{ 
-            duration: 24,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 8
-          }}
-          className="absolute bottom-16 left-8 w-44 h-44 bg-purple-400/5 dark:bg-purple-400/3 rounded-2xl blur-2xl"
-        ></motion.div>
+        <div className="absolute top-12 right-4 w-40 h-40 bg-indigo-100/30 dark:bg-indigo-900/10 rounded-full"></div>
+        <div className="absolute bottom-16 left-8 w-44 h-44 bg-purple-100/30 dark:bg-purple-900/10 rounded-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           {/* Glass container for header */}
           <div 
-            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Globe className="w-8 h-8 text-indigo-600" />
@@ -150,11 +121,11 @@ export const Languages = () => {
                   scale: 1.02,
                   transition: { duration: 0.2 }
                 }}
-                className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-6 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-300 group"
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  willChange: 'transform',
+                  transform: 'translateZ(0)'
                 }}
+                className="bg-white/80 dark:bg-black/50 rounded-3xl p-6 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-200 group"
               >
                 {/* Language Header */}
                 <div className="text-center mb-6">
@@ -202,7 +173,7 @@ export const Languages = () => {
                       animate={inView ? { 
                         strokeDashoffset: 2 * Math.PI * 45 * (1 - progressPercentage / 100)
                       } : { strokeDashoffset: 2 * Math.PI * 45 }}
-                      transition={{ duration: 1.5, delay: 0.5 + index * 0.2 }}
+                      transition={{ duration: 1.0, delay: 0.3 + index * 0.1 }}
                     />
                     <defs>
                       <linearGradient id={`gradient-${language.key}`} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -218,7 +189,7 @@ export const Languages = () => {
                       className="text-2xl font-bold text-gray-900 dark:text-gray-100"
                       initial={{ scale: 0 }}
                       animate={inView ? { scale: 1 } : { scale: 0 }}
-                      transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                     >
                       {progressPercentage}%
                     </motion.span>
@@ -267,8 +238,8 @@ export const Languages = () => {
                 {/* Floating element */}
                 <motion.div
                   animate={{ 
-                    y: [0, -12, 0],
-                    rotate: [0, 15, 0]
+                    y: [0, -6, 0],
+                    rotate: [0, 8, 0]
                   }}
                   transition={{ 
                     duration: 6,
@@ -276,7 +247,7 @@ export const Languages = () => {
                     ease: "easeInOut",
                     delay: index * 1.2
                   }}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-white/40 backdrop-blur-xl rounded-full border border-white/60 flex items-center justify-center shadow-lg"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-white/70 rounded-full border border-white/60 flex items-center justify-center shadow-lg"
                 >
                   <BookOpen className="w-3 h-3 text-indigo-500" />
                 </motion.div>
@@ -289,15 +260,11 @@ export const Languages = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
           className="mt-16 text-center"
         >
           <div 
-            className="max-w-4xl mx-auto backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Globe className="w-6 h-6 text-indigo-600" />

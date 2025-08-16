@@ -19,16 +19,10 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     const preloadAssets = async () => {
-      // Preload critical images
+      // Preload only hero image and first photography image for faster initial load
       const imagesToPreload = [
-        '/Damien.jpg',
-        '/photography/IMG_20240701_151842.jpg',
-        '/photography/IMG_20231006_110254.jpg',
-        '/photography/IMG_20231117_160650.jpg',
-        '/photography/IMG_20230820_063353.jpg',
-        '/photography/IMG_20231004_104055.jpg',
-        '/photography/IMG_20231107_155400.jpg',
-        '/photography/IMG_20240630_181716.jpg'
+        '/Damien.jpg', // Hero image
+        '/photography/IMG_20240701_151842.jpg' // First photography image only
       ]
 
       const imagePromises = imagesToPreload.map((src) => {
@@ -51,18 +45,22 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           await Promise.all(imagePromises)
         }
         
-        // Gradual progress for this step
+        // Gradual progress for this step - optimized for better performance
         const stepProgress = 25 // Each step is 25%
         const stepStartProgress = currentProgress
         const stepEndProgress = currentProgress + stepProgress
         
         const stepDuration = step.duration
-        const progressInterval = 50 // Update every 50ms
+        const progressInterval = 16 // 60fps updates
         const progressSteps = stepDuration / progressInterval
         const progressIncrement = stepProgress / progressSteps
         
         for (let j = 0; j < progressSteps; j++) {
-          await new Promise(resolve => setTimeout(resolve, progressInterval))
+          await new Promise(resolve => {
+            requestAnimationFrame(() => {
+              setTimeout(resolve, progressInterval)
+            })
+          })
           currentProgress = Math.min(stepStartProgress + (progressIncrement * (j + 1)), stepEndProgress)
           setProgress(currentProgress)
         }
@@ -95,6 +93,10 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
             ease: "linear"
           }}
           className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/5 rounded-full blur-xl"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)', // Force GPU acceleration
+          }}
         />
         <motion.div
           animate={{ 
@@ -107,6 +109,10 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
             ease: "linear"
           }}
           className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-white/5 rounded-full blur-xl"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)', // Force GPU acceleration
+          }}
         />
       </div>
 

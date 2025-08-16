@@ -174,20 +174,20 @@ export const Skills = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.4, ease: "easeOut" }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.6 }
+      transition: { duration: 0.3 }
     }
   }
 
@@ -198,43 +198,20 @@ export const Skills = () => {
       {/* Clean background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
       
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ 
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-10 right-20 w-40 h-40 rounded-full opacity-30"
+      {/* Optimized static background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-10 right-20 w-40 h-40 rounded-full opacity-10"
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 60%, transparent 100%)',
-            boxShadow: '0 0 80px 30px rgba(59, 130, 246, 0.06)'
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
           }}
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -20, 0],
-            y: [0, 30, 0],
-            rotate: [0, -5, 0]
-          }}
-          transition={{ 
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 10
-          }}
-          className="absolute bottom-10 left-20 w-40 h-40 rounded-full opacity-30"
+        ></div>
+        <div
+          className="absolute bottom-10 left-20 w-40 h-40 rounded-full opacity-10"
           style={{
-            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 0%, rgba(100, 116, 139, 0.02) 60%, transparent 100%)',
-            boxShadow: '0 0 80px 30px rgba(100, 116, 139, 0.06)'
+            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.1) 0%, transparent 70%)',
           }}
-        ></motion.div>
+        ></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -246,10 +223,10 @@ export const Skills = () => {
         >
           {/* Header */}
           <div 
-            className="backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-xl max-w-2xl mx-auto"
+            className="bg-white/95 dark:bg-gray-800/95 rounded-2xl p-6 border border-gray-200/60 dark:border-gray-700/60 shadow-xl max-w-2xl mx-auto"
             style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              willChange: 'transform',
+              transform: 'translateZ(0)'
             }}
           >
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -312,13 +289,13 @@ export const Skills = () => {
                 key={category.key}
                 variants={cardVariants}
                 whileHover={{ 
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
+                  scale: 1.01,
+                  transition: { duration: 0.15 }
                 }}
-                className={`backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 rounded-3xl p-0 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden ${mobileVisibilityClass}`}
+                className={`bg-white/95 dark:bg-gray-800/95 rounded-3xl p-0 border border-gray-200/60 dark:border-gray-700/60 shadow-xl hover:shadow-2xl transition-shadow duration-200 group overflow-hidden ${mobileVisibilityClass}`}
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  willChange: 'transform, box-shadow',
+                  transform: 'translateZ(0)'
                 }}
               >
                 {/* Header */}
@@ -359,24 +336,26 @@ export const Skills = () => {
                           key={index}
                           variants={itemVariants}
                           whileHover={{ 
-                            scale: 1.02,
-                            transition: { duration: 0.2 }
+                            scale: 1.01,
+                            transition: { duration: 0.1 }
                           }}
                           className="group/tech"
                         >
                           {/* Technology card */}
                           <div 
-                            className="relative p-3 rounded-xl bg-white/80 dark:bg-gray-700/80 border border-gray-200/50 dark:border-gray-600/50 hover:bg-white/90 dark:hover:bg-gray-700/90 transition-all duration-200 shadow-sm hover:shadow-md"
+                            className="relative p-3 rounded-xl bg-white/90 dark:bg-gray-700/90 border border-gray-200/60 dark:border-gray-600/60 hover:bg-white/95 dark:hover:bg-gray-700/95 transition-colors duration-150 shadow-sm hover:shadow-md"
                             style={{
-                              backdropFilter: 'blur(10px)',
-                              WebkitBackdropFilter: 'blur(10px)',
+                              willChange: 'background-color',
+                              transform: 'translateZ(0)'
                             }}
                           >
                             <div className="flex items-center justify-between mb-2">
                               <div className="flex items-center gap-2">
                                 <motion.div
-                                  whileHover={{ scale: 1.1 }}
+                                  whileHover={{ scale: 1.05 }}
+                                  transition={{ duration: 0.1 }}
                                   className="w-8 h-8 rounded-lg bg-white dark:bg-gray-800 p-1.5 shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center"
+                                  style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                                 >
                                   {logoUrl ? (
                                     <img

@@ -80,8 +80,12 @@ export const Footer = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-12 h-12 rounded-2xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-white/30 dark:border-gray-700/30 flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-300 ${link.color} ${link.bgColor} hover:scale-110 hover:shadow-lg`}
+                    className={`w-12 h-12 rounded-2xl bg-white/80 dark:bg-gray-800/80 border border-white/30 dark:border-gray-700/30 flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 ${link.color} ${link.bgColor} hover:scale-105 hover:shadow-lg`}
                     aria-label={link.name}
+                    style={{
+                      willChange: 'transform',
+                      transform: 'translateZ(0)'
+                    }}
                   >
                     <IconComponent className="w-5 h-5" />
                   </a>

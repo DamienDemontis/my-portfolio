@@ -63,12 +63,12 @@ export const Experience = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0, y: 10, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.7, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   }
 
@@ -77,60 +77,29 @@ export const Experience = () => {
       {/* Professional Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
       
-      {/* Enhanced floating background elements */}
+      {/* Simplified background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ 
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-32 right-20 w-32 h-32 rounded-3xl opacity-20"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 60%, transparent 100%)',
-            boxShadow: '0 0 80px 30px rgba(59, 130, 246, 0.06)',
-            backdropFilter: 'blur(40px)'
-          }}
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -25, 0],
-            y: [0, 30, 0],
-            rotate: [0, -3, 0]
-          }}
-          transition={{ 
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 6
-          }}
-          className="absolute bottom-40 left-24 w-36 h-36 rounded-full opacity-20"
-          style={{
-            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 0%, rgba(100, 116, 139, 0.02) 60%, transparent 100%)',
-            boxShadow: '0 0 80px 30px rgba(100, 116, 139, 0.06)',
-            backdropFilter: 'blur(40px)'
-          }}
-        ></motion.div>
+        <div
+          className="absolute top-32 right-20 w-32 h-32 rounded-3xl opacity-10 bg-blue-500/20"
+        ></div>
+        <div
+          className="absolute bottom-40 left-24 w-36 h-36 rounded-full opacity-10 bg-slate-500/20"
+        ></div>
       </div>
 
       <div className="max-w-6xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-12 lg:mb-16"
         >
-          {/* Enhanced glass container for header */}
+          {/* Optimized header container */}
           <div 
-            className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-6 md:p-8 lg:p-10 border border-white/40 dark:border-gray-700/40 shadow-2xl max-w-4xl mx-auto"
+            className="bg-white/90 dark:bg-black/80 rounded-3xl p-6 md:p-8 lg:p-10 border border-white/40 dark:border-gray-700/40 shadow-2xl max-w-4xl mx-auto"
             style={{
-              backdropFilter: 'blur(30px)',
-              WebkitBackdropFilter: 'blur(30px)',
+              willChange: 'transform',
+              transform: 'translateZ(0)',
             }}
           >
             <div className="flex items-center justify-center gap-3 mb-6">
@@ -165,33 +134,45 @@ export const Experience = () => {
                 variants={cardVariants}
                 className="group"
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  willChange: 'transform',
+                  transform: 'translateZ(0)',
+                }}
               >
                 <motion.div 
                   layout
-                  className="backdrop-blur-2xl bg-white/60 dark:bg-black/20 rounded-2xl lg:rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                  className="bg-white/90 dark:bg-black/70 rounded-2xl lg:rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden"
                   style={{
-                    backdropFilter: 'blur(25px)',
-                    WebkitBackdropFilter: 'blur(25px)',
+                    willChange: 'transform',
+                    transform: 'translateZ(0)',
                   }}
                 >
-                  {/* Always visible header - enhanced with glassmorphism */}
+                  {/* Always visible header - optimized */}
                   <motion.div 
                     layout
                     onClick={() => toggleCard(exp)}
-                    className="p-4 md:p-6 lg:p-8 cursor-pointer hover:bg-white/20 dark:hover:bg-white/5 transition-all duration-300 relative overflow-hidden"
+                    className="p-4 md:p-6 lg:p-8 cursor-pointer hover:bg-white/20 dark:hover:bg-white/5 transition-all duration-200 relative overflow-hidden"
+                    style={{
+                      willChange: 'transform',
+                      transform: 'translateZ(0)',
+                    }}
                   >
                     {/* Subtle gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                     
                     <div className="relative z-10">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
-                          {/* Enhanced company logo with bigger size */}
+                          {/* Optimized company logo */}
                           <motion.div 
                             className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
-                            whileHover={{ rotate: 5, scale: 1.05 }}
-                            transition={{ duration: 0.3 }}
+                            whileHover={{ rotate: 2, scale: 1.02 }}
+                            transition={{ duration: 0.2 }}
+                            style={{
+                              willChange: 'transform',
+                              transform: 'translateZ(0)',
+                            }}
                           >
                             <img 
                               src={
@@ -259,11 +240,15 @@ export const Experience = () => {
                           </div>
                         </div>
                         
-                        {/* Enhanced expand/collapse icon */}
+                        {/* Optimized expand/collapse icon */}
                         <motion.div
                           animate={{ rotate: isExpanded ? 180 : 0 }}
-                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="ml-2 flex-shrink-0 self-start mt-2"
+                          style={{
+                            willChange: 'transform',
+                            transform: 'translateZ(0)',
+                          }}
                         >
                           <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/60 dark:bg-gray-800/60 flex items-center justify-center shadow-md border border-gray-200/50 dark:border-gray-600/50">
                             <ChevronDown className="w-4 h-4 md:w-5 md:h-5 text-gray-500 dark:text-gray-400" />
@@ -273,7 +258,7 @@ export const Experience = () => {
                     </div>
                   </motion.div>
 
-                  {/* Enhanced expandable content with glassmorphism */}
+                  {/* Optimized expandable content */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -281,25 +266,19 @@ export const Experience = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="border-t border-white/30 dark:border-gray-700/30"
+                        style={{
+                          willChange: 'transform',
+                          transform: 'translateZ(0)',
+                        }}
                       >
                         <div 
-                          className="p-4 md:p-6 lg:p-8 space-y-3 md:space-y-4"
-                          style={{
-                            backdropFilter: 'blur(40px)',
-                            WebkitBackdropFilter: 'blur(40px)',
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)'
-                          }}
+                          className="p-4 md:p-6 lg:p-8 space-y-3 md:space-y-4 bg-white/20 dark:bg-black/20"
                         >
-                          {/* Enhanced description with glassmorphism */}
+                          {/* Optimized description */}
                           <div 
-                            className="p-2 md:p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden !mt-0"
-                            style={{
-                              backdropFilter: 'blur(20px)',
-                              WebkitBackdropFilter: 'blur(20px)',
-                              background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)'
-                            }}
+                            className="p-2 md:p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden !mt-0 bg-white/40 dark:bg-black/40"
                           >
                             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base">
                               {t(`experience.positions.${exp}.description`)}
@@ -315,14 +294,9 @@ export const Experience = () => {
 
                           {/* Enhanced technologies and achievements in responsive grid */}
                           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
-                            {/* Key Technologies with glassmorphism */}
+                            {/* Optimized Key Technologies */}
                             <div 
-                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30"
-                              style={{
-                                backdropFilter: 'blur(20px)',
-                                WebkitBackdropFilter: 'blur(20px)',
-                                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%)'
-                              }}
+                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 bg-blue-50/80 dark:bg-blue-900/40"
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-4 flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5 text-blue-500" />
@@ -333,11 +307,15 @@ export const Experience = () => {
                                   (t(`experience.positions.${exp}.technologies`, { returnObjects: true }) as string[]).map((tech, techIndex) => (
                                     <motion.span
                                       key={techIndex}
-                                      initial={{ opacity: 0, scale: 0.8 }}
+                                      initial={{ opacity: 0, scale: 0.95 }}
                                       animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ delay: techIndex * 0.1 }}
-                                      whileHover={{ scale: 1.05 }}
-                                      className="px-3 py-2 bg-blue-100/80 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded-xl text-sm font-medium border border-blue-200/50 dark:border-blue-800/50 backdrop-blur-sm"
+                                      transition={{ delay: techIndex * 0.05, duration: 0.2 }}
+                                      whileHover={{ scale: 1.02 }}
+                                      className="px-3 py-2 bg-blue-100/90 dark:bg-blue-900/70 text-blue-800 dark:text-blue-200 rounded-xl text-sm font-medium border border-blue-200/50 dark:border-blue-800/50"
+                                      style={{
+                                        willChange: 'transform',
+                                        transform: 'translateZ(0)',
+                                      }}
                                     >
                                       {tech}
                                     </motion.span>
@@ -346,14 +324,9 @@ export const Experience = () => {
                               </div>
                             </div>
 
-                            {/* Key Achievements with glassmorphism */}
+                            {/* Optimized Key Achievements */}
                             <div 
-                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30"
-                              style={{
-                                backdropFilter: 'blur(20px)',
-                                WebkitBackdropFilter: 'blur(20px)',
-                                background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%)'
-                              }}
+                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 bg-green-50/80 dark:bg-green-900/40"
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-4 flex items-center gap-2">
                                 <Award className="w-5 h-5 text-green-500" />
@@ -364,10 +337,14 @@ export const Experience = () => {
                                   (t(`experience.positions.${exp}.achievements`, { returnObjects: true }) as string[]).slice(0, 4).map((achievement, achIndex) => (
                                     <motion.div 
                                       key={achIndex}
-                                      initial={{ opacity: 0, x: -20 }}
+                                      initial={{ opacity: 0, x: -10 }}
                                       animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: achIndex * 0.1 }}
-                                      className="flex items-start gap-3 p-3 rounded-xl bg-green-50/80 dark:bg-green-900/20 border border-green-200/50 dark:border-green-800/50 backdrop-blur-sm"
+                                      transition={{ delay: achIndex * 0.05, duration: 0.2 }}
+                                      className="flex items-start gap-3 p-3 rounded-xl bg-green-50/90 dark:bg-green-900/70 border border-green-200/50 dark:border-green-800/50"
+                                      style={{
+                                        willChange: 'transform',
+                                        transform: 'translateZ(0)',
+                                      }}
                                     >
                                       <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                                       <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -380,17 +357,16 @@ export const Experience = () => {
                             </div>
                           </div>
 
-                          {/* Enhanced impact metrics with glassmorphism */}
+                          {/* Optimized impact metrics */}
                           {t(`experience.positions.${exp}.impact`) && (
                             <motion.div
-                              initial={{ opacity: 0, y: 20 }}
+                              initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.3 }}
-                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden"
+                              transition={{ delay: 0.2, duration: 0.3 }}
+                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden bg-purple-50/80 dark:bg-purple-900/40"
                               style={{
-                                backdropFilter: 'blur(20px)',
-                                WebkitBackdropFilter: 'blur(20px)',
-                                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)'
+                                willChange: 'transform',
+                                transform: 'translateZ(0)',
                               }}
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-3 flex items-center gap-2">
@@ -412,18 +388,18 @@ export const Experience = () => {
           })}
         </motion.div>
 
-        {/* Enhanced professional summary with glassmorphism */}
+        {/* Optimized professional summary */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
           className="text-center mt-12 lg:mt-16"
         >
           <div 
-            className="max-w-5xl mx-auto backdrop-blur-2xl bg-white/60 dark:bg-black/20 rounded-3xl p-6 md:p-8 lg:p-12 border border-white/50 dark:border-gray-700/50 shadow-2xl"
+            className="max-w-5xl mx-auto bg-white/90 dark:bg-black/80 rounded-3xl p-6 md:p-8 lg:p-12 border border-white/50 dark:border-gray-700/50 shadow-2xl"
             style={{
-              backdropFilter: 'blur(30px)',
-              WebkitBackdropFilter: 'blur(30px)',
+              willChange: 'transform',
+              transform: 'translateZ(0)',
             }}
           >
             <div className="flex items-center justify-center gap-3 mb-6">

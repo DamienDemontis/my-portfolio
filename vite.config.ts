@@ -19,7 +19,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps in production for smaller bundle
+    minify: 'esbuild', // Use esbuild for faster minification
     rollupOptions: {
       output: {
         manualChunks: {
@@ -29,9 +30,16 @@ export default defineConfig({
           i18n: ['react-i18next', 'i18next'],
           icons: ['lucide-react'],
           utils: ['react-intersection-observer']
-        }
+        },
+        // Add file name hashing for better caching
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    // Enable better compression
+    target: 'esnext',
+    cssCodeSplit: true
   }
 });

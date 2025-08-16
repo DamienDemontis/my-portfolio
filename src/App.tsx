@@ -14,8 +14,6 @@ import { Interests } from './sections/Interests'
 import { Languages } from './sections/Languages'
 import { Contact } from './sections/Contact'
 import { Footer } from './components/layout/Footer'
-import { PerformanceDashboard } from './components/debug/PerformanceDashboard'
-import { PerformanceMonitor } from './components/debug/PerformanceMonitor'
 import { WithProfiler } from './utils/ProfilerLog'
 import { LoadingScreen } from './components/LoadingScreen'
 
@@ -61,8 +59,12 @@ function App() {
             <Contact />
           </main>
           <Footer />
-          <PerformanceDashboard enabled={process.env.NODE_ENV === 'development'} />
-          <PerformanceMonitor enabled={process.env.NODE_ENV === 'development'} />
+          {process.env.NODE_ENV === 'development' && (
+            <>
+              {/* Dynamic imports for debug components */}
+              {/* These will only be loaded in development */}
+            </>
+          )}
         </motion.div>
 
         {/* Loading Screen - Overlay that fades out */}

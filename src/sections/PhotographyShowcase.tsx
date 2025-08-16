@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Camera, MapPin, Calendar, Heart, Globe, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { OptimizedImage } from '../components/ui/OptimizedImage'
 
 export const PhotographyShowcase = () => {
   const { t } = useTranslation()
@@ -14,7 +15,6 @@ export const PhotographyShowcase = () => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const imageRef = useRef<HTMLImageElement>(null)
 
   // Photo data with metadata
   const photos = [
@@ -202,36 +202,50 @@ export const PhotographyShowcase = () => {
     }
   ]
 
-  // Preload next images for smoother transitions
+  // Preload critical images only when component is in view
   useEffect(() => {
-    // Preload first 3 images for better performance
-    const preloadImages = photos.slice(0, 3);
-    preloadImages.forEach(image => {
-      const img = new Image();
-      img.src = image.src;
-    });
-  }, []);
+    if (inView) {
+      // Preload only current and next 2 images for smoother transitions
+      const imagesToPreload = [
+        photos[currentPhotoIndex],
+        photos[(currentPhotoIndex + 1) % photos.length],
+        photos[(currentPhotoIndex + 2) % photos.length]
+      ];
+      
+      imagesToPreload.forEach(photo => {
+        const img = new Image();
+        img.src = photo.src;
+      });
+    }
+  }, [currentPhotoIndex, inView, photos]);
 
-  // Navigation functions with transition handling
+  // Navigation functions with transition handling - optimized for performance
   const goToNext = useCallback(() => {
     if (isTransitioning) return
     setIsTransitioning(true)
     setCurrentPhotoIndex((prev) => (prev + 1) % photos.length)
-    setTimeout(() => setIsTransitioning(false), 300)
+    // Use requestAnimationFrame instead of setTimeout for better performance
+    requestAnimationFrame(() => {
+      setTimeout(() => setIsTransitioning(false), 250) // Reduced from 300ms
+    })
   }, [isTransitioning, photos.length])
 
   const goToPrevious = useCallback(() => {
     if (isTransitioning) return
     setIsTransitioning(true)
     setCurrentPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length)
-    setTimeout(() => setIsTransitioning(false), 300)
+    requestAnimationFrame(() => {
+      setTimeout(() => setIsTransitioning(false), 250)
+    })
   }, [isTransitioning, photos.length])
 
   const goToPhoto = useCallback((index: number) => {
     if (isTransitioning || index === currentPhotoIndex) return
     setIsTransitioning(true)
     setCurrentPhotoIndex(index)
-    setTimeout(() => setIsTransitioning(false), 300)
+    requestAnimationFrame(() => {
+      setTimeout(() => setIsTransitioning(false), 250)
+    })
   }, [isTransitioning, currentPhotoIndex])
 
   // Handle click navigation
@@ -252,8 +266,13 @@ export const PhotographyShowcase = () => {
   useEffect(() => {
     if (!isHovered && !isTransitioning && inView) {
       const interval = setInterval(() => {
-        goToNext()
-      }, 5000) // Change photo every 5 seconds (slower for better performance)
+        // Use requestIdleCallback if available for better performance
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => goToNext())
+        } else {
+          goToNext()
+        }
+      }, 6000) // Increased to 6 seconds for better performance
 
       return () => clearInterval(interval)
     }
@@ -306,21 +325,28 @@ export const PhotographyShowcase = () => {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               onClick={handleImageClick}
+              style={{
+                containIntrinsicSize: '100% 500px', // Prevent layout shifts
+                contentVisibility: 'auto'
+              }}
             >
               {/* Photo slideshow with optimized transitions */}
               <div className="absolute inset-0">
-                <img
-                  ref={imageRef}
+                <OptimizedImage
                   src={photos[currentPhotoIndex].src}
                   alt={photos[currentPhotoIndex].description}
-                  className="w-full h-full object-contain bg-gray-100 dark:bg-gray-800 transition-opacity duration-300 ease-in-out"
+                  className="w-full h-full"
                   style={{
                     willChange: 'opacity',
                     transform: 'translateZ(0)', // Force GPU acceleration
+                    objectFit: 'contain',
+                    objectPosition: 'center',
+                    backgroundColor: 'var(--tw-gray-100)'
                   }}
-                  loading="lazy"
-                  decoding="async"
-                  crossOrigin="anonymous"
+                  loading={currentPhotoIndex < 3 ? "eager" : "lazy"}
+                  priority={currentPhotoIndex === 0}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+                  onLoad={() => setIsTransitioning(false)}
                 />
                 
                 {/* Gradient overlay for text readability */}

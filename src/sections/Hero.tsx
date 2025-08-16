@@ -54,7 +54,7 @@ export const Hero = () => {
       </div>
 
       {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 z-[1] bg-white/10 dark:bg-black/20 backdrop-blur-[0.5px]"></div>
+      <div className="absolute inset-0 z-[1] bg-white/10 dark:bg-black/20"></div>
 
       {/* Optimized Background decoration - No expensive blur filters */}
       <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
@@ -74,18 +74,18 @@ export const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content Section */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Glass container for text content */}
-            <div className="backdrop-blur-xl bg-white/5 dark:bg-black/5 rounded-3xl p-8 lg:p-12 border border-white/10 shadow-2xl" 
+            {/* Optimized container for text content */}
+            <div className="bg-white/10 dark:bg-black/15 rounded-3xl p-8 lg:p-12 border border-white/20 shadow-xl" 
                  style={{
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)',
-                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                   willChange: 'transform',
+                   transform: 'translateZ(0)'
                  }}>
               {/* Greeting */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.4 }}
                 className="mb-6"
               >
                 <p className="text-lg md:text-xl text-white font-medium drop-shadow-lg">
@@ -95,9 +95,9 @@ export const Hero = () => {
 
               {/* Name */}
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
                 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
               >
                 <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
@@ -107,9 +107,9 @@ export const Hero = () => {
 
               {/* Title */}
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
                 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 drop-shadow-lg"
               >
                 {t('hero.title')}
@@ -117,9 +117,9 @@ export const Hero = () => {
 
               {/* Subtitle */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
                 className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-lg"
               >
                 {t('hero.subtitle')}
@@ -127,9 +127,9 @@ export const Hero = () => {
 
               {/* Description */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
                 className="text-base md:text-lg text-white/80 mb-12 max-w-4xl mx-auto text-balance drop-shadow-lg"
               >
                 {t('hero.description')}
@@ -137,21 +137,23 @@ export const Hero = () => {
 
               {/* CTA Buttons */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-16"
               >
                 <button
                   onClick={scrollToContact}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-2xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center gap-2 group hover:scale-105"
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 group hover:scale-[1.02]"
+                  style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                 >
                   <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   {t('hero.cta.contact')}
                 </button>
                 <button
                   onClick={handleResumeDownload}
-                  className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl shadow-2xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center gap-2 group hover:scale-105"
+                  className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl shadow-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 group hover:scale-[1.02]"
+                  style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                 >
                   <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   {t('hero.cta.resume')}
@@ -162,7 +164,7 @@ export const Hero = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
+                transition={{ duration: 0.4, delay: 0.6 }}
                 className="flex flex-col items-center lg:justify-start"
               >
                 <button
@@ -178,16 +180,17 @@ export const Hero = () => {
 
           {/* Photo Section */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="order-1 lg:order-2 flex justify-center"
           >
             <div className="relative">
               {/* Photo placeholder with artistic design */}
               <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
                 {/* Main photo container */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-700 border border-white/20">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
+                     style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
                   {/* Actual photo */}
                   <img 
                     src="/Damien.jpg" 
@@ -196,10 +199,11 @@ export const Hero = () => {
                   />
                 </div>
 
-                {/* Floating elements around photo */}
+                {/* Optimized floating element around photo */}
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                  style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                   className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg border border-white/20"
                 >
                   D²

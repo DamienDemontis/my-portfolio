@@ -40,17 +40,21 @@ export const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.1 // Reduced stagger for smoother performance
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut",
+        willChange: 'transform, opacity'
+      }
     }
   }
 
@@ -68,43 +72,20 @@ export const Projects = () => {
       {/* Innovation Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 dark:from-gray-900 dark:via-violet-900/10 dark:to-purple-900/10"></div>
       
-      {/* Subtle floating background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ 
-            x: [0, 60, 0],
-            y: [0, -50, 0],
-            rotate: [0, 20, 0]
-          }}
-          transition={{ 
-            duration: 28,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-0 right-4 w-64 h-64 rounded-full opacity-25"
+      {/* Optimized static background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-0 right-4 w-64 h-64 rounded-full opacity-10"
           style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, rgba(139, 92, 246, 0.015) 60%, transparent 100%)',
-            boxShadow: '0 0 100px 35px rgba(139, 92, 246, 0.04)'
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
           }}
-        ></motion.div>
-        <motion.div
-          animate={{ 
-            x: [0, -50, 0],
-            y: [0, 60, 0],
-            rotate: [0, -18, 0]
-          }}
-          transition={{ 
-            duration: 32,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 12
-          }}
-          className="absolute bottom-4 left-8 w-72 h-72 rounded-3xl opacity-25"
+        ></div>
+        <div
+          className="absolute bottom-4 left-8 w-72 h-72 rounded-3xl opacity-10"
           style={{
-            background: 'radial-gradient(ellipse, rgba(147, 51, 234, 0.06) 0%, rgba(147, 51, 234, 0.015) 60%, transparent 100%)',
-            boxShadow: '0 0 100px 35px rgba(147, 51, 234, 0.04)'
+            background: 'radial-gradient(ellipse, rgba(147, 51, 234, 0.1) 0%, transparent 70%)',
           }}
-        ></motion.div>
+        ></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -114,13 +95,9 @@ export const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          {/* Glass container for header */}
+          {/* Optimized container for header */}
           <div 
-            className="backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl max-w-3xl mx-auto"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="bg-white/90 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Lightbulb className="w-8 h-8 text-violet-600" />
@@ -155,40 +132,17 @@ export const Projects = () => {
                 key={project}
                 variants={cardVariants}
                 whileHover={{ 
-                  scale: 1.02,
+                  scale: 1.01,
                   transition: { duration: 0.2 }
                 }}
-                className="backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-3xl p-0 border border-white/40 dark:border-gray-700/40 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+                className="bg-white/80 dark:bg-black/40 rounded-3xl p-0 border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-shadow duration-200 group overflow-hidden"
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  willChange: 'transform, box-shadow',
+                  transform: 'translateZ(0)', // Force GPU acceleration
                 }}
               >
                 {/* Header with gradient */}
-                <div className={`p-6 bg-gradient-to-br ${projectColor.replace('500', '50').replace('600', '100')} dark:from-gray-800/20 dark:to-gray-700/20 relative overflow-hidden`}>
-                  {/* Floating particles */}
-                  <div className="absolute inset-0">
-                    {[...Array(4)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          x: [0, 25, 0],
-                          y: [0, -20, 0],
-                          opacity: [0.2, 0.5, 0.2]
-                        }}
-                        transition={{
-                          duration: 5 + i,
-                          repeat: Infinity,
-                          delay: i * 2
-                        }}
-                        className={`absolute w-3 h-3 bg-gradient-to-r ${projectColor} rounded-full blur-sm opacity-20`}
-                        style={{
-                          left: `${15 + i * 25}%`,
-                          top: `${20 + i * 15}%`
-                        }}
-                      />
-                    ))}
-                  </div>
+                <div className={`p-6 bg-gradient-to-br ${projectColor.replace('500', '50').replace('600', '100')} dark:from-gray-800/20 dark:to-gray-700/20 relative`}>
 
                   <div className="relative z-10">
                     <div className="flex justify-between items-start mb-4">
@@ -228,13 +182,9 @@ export const Projects = () => {
                         <motion.span
                           key={tech}
                           variants={tagVariants}
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 0.2 }}
-                          className="px-3 py-1.5 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm text-gray-800 dark:text-gray-200 rounded-xl text-xs font-medium border border-white/40 dark:border-gray-700/40 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200"
-                          style={{
-                            backdropFilter: 'blur(10px)',
-                            WebkitBackdropFilter: 'blur(10px)',
-                          }}
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.1 }}
+                          className="px-3 py-1.5 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl text-xs font-medium border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
                         >
                           {tech}
                         </motion.span>
@@ -293,13 +243,9 @@ export const Projects = () => {
                         href={t(`projects.items.${project}.github`)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/40 dark:border-gray-700/40 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200"
-                        style={{
-                          backdropFilter: 'blur(10px)',
-                          WebkitBackdropFilter: 'blur(10px)',
-                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
                       >
                         <Github className="w-4 h-4" />
                         Source Code
@@ -310,13 +256,9 @@ export const Projects = () => {
                         href={t(`projects.items.${project}.video`)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/40 dark:border-gray-700/40 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200"
-                        style={{
-                          backdropFilter: 'blur(10px)',
-                          WebkitBackdropFilter: 'blur(10px)',
-                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
                       >
                         <Play className="w-4 h-4" />
                         Watch Demo
@@ -339,11 +281,7 @@ export const Projects = () => {
           className="text-center mt-16"
         >
           <div 
-            className="max-w-4xl mx-auto backdrop-blur-xl bg-white/80 dark:bg-black/40 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Lightbulb className="w-6 h-6 text-violet-600" />
