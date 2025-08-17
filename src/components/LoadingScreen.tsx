@@ -15,9 +15,9 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   
-  // Spring animations for smooth movement
-  const springX = useSpring(mouseX, { stiffness: 300, damping: 30 })
-  const springY = useSpring(mouseY, { stiffness: 300, damping: 30 })
+  // Optimized spring animations for smooth movement with better performance
+  const springX = useSpring(mouseX, { stiffness: 400, damping: 35, restSpeed: 0.01 })
+  const springY = useSpring(mouseY, { stiffness: 400, damping: 35, restSpeed: 0.01 })
   
   // Transform values for 3D rotation - facing downward with dramatic inclination
   const rotateX = useTransform(springY, [-1, 1], [10, -60])
@@ -30,31 +30,42 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const stepZ = useTransform(springY, [-1, 1], [3, 15])
   const progressZ = useTransform(springX, [-1, 1], [20, 2])
 
-  // Mouse/touch movement handler for tilt effect
+  // Optimized mouse/touch movement handler with throttling
   useEffect(() => {
+    let rafId: number | null = null
+    
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2 // -1 to 1
-      const y = (e.clientY / window.innerHeight - 0.5) * 2 // -1 to 1
-      mouseX.set(x)
-      mouseY.set(y)
+      if (rafId) return // Throttle to 60fps
+      
+      rafId = requestAnimationFrame(() => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2 // -1 to 1
+        const y = (e.clientY / window.innerHeight - 0.5) * 2 // -1 to 1
+        mouseX.set(x)
+        mouseY.set(y)
+        rafId = null
+      })
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
+      if (rafId || e.touches.length === 0) return
+      
+      rafId = requestAnimationFrame(() => {
         const touch = e.touches[0]
         const x = (touch.clientX / window.innerWidth - 0.5) * 2
         const y = (touch.clientY / window.innerHeight - 0.5) * 2
         mouseX.set(x)
         mouseY.set(y)
-      }
+        rafId = null
+      })
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     window.addEventListener('touchmove', handleTouchMove, { passive: true })
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('touchmove', handleTouchMove)
+      if (rafId) cancelAnimationFrame(rafId)
     }
   }, [mouseX, mouseY])
 
@@ -67,10 +78,12 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     const preloadAssets = async () => {
-      // Preload hero image and ALL photography images for seamless experience
-      const imagesToPreload = [
-        '/Damien.jpg', // Hero image
-        // All photography images
+      // Preload critical images first, then others progressively
+      const criticalImages = [
+        '/Damien.jpg' // Hero image - highest priority
+      ]
+      
+      const photographyImages = [
         '/photography/IMG_20240701_151842.jpg',
         '/photography/IMG_20231006_110254.jpg',
         '/photography/IMG_20231117_160650.jpg',
@@ -99,16 +112,36 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         '/photography/IMG_20240630_181716.jpg'
       ]
 
-      const imagePromises = imagesToPreload.map((src) => {
-        return new Promise((resolve) => {
+      const totalImages = criticalImages.length + photographyImages.length
+      let loadedImages = 0
+
+      // Optimized image loader with progress tracking
+      const createImageLoader = (src: string) => {
+        return new Promise<boolean>((resolve) => {
           const img = new Image()
-          img.onload = resolve
-          img.onerror = resolve // Continue even if some images fail
+          
+          const onLoad = () => {
+            loadedImages++
+            resolve(true)
+          }
+          
+          const onError = () => {
+            console.warn(`Failed to load image: ${src}`)
+            loadedImages++
+            resolve(false)
+          }
+          
+          // Set up listeners before setting src to avoid race conditions
+          img.addEventListener('load', onLoad, { once: true })
+          img.addEventListener('error', onError, { once: true })
+          
+          // Use loading="eager" equivalent and add to cache
+          img.decoding = 'async'
           img.src = src
         })
-      })
+      }
 
-      // Simulate loading steps with actual work
+      // Real progress tracking based on actual loading
       let currentProgress = 0
       for (let i = 0; i < steps.length; i++) {
         const step = steps[i]
@@ -116,36 +149,71 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         
         if (i === 0) {
           // Load critical images during first step
-          await Promise.all(imagePromises)
+          await Promise.all(criticalImages.map(createImageLoader))
+          currentProgress = 25
+          setProgress(currentProgress)
+        } else if (i === 1) {
+          // Load photography images in batches during second step
+          const batchSize = 8
+          for (let j = 0; j < photographyImages.length; j += batchSize) {
+            const batch = photographyImages.slice(j, j + batchSize)
+            await Promise.all(batch.map(createImageLoader))
+            
+            // Update progress based on actual loaded images
+            const imageProgress = (loadedImages / totalImages) * 50 // Images are 50% of total progress
+            currentProgress = 25 + imageProgress
+            setProgress(Math.min(currentProgress, 75))
+          }
+        } else if (i === 2) {
+          // Prepare assets and cache optimization
+          currentProgress = 85
+          setProgress(currentProgress)
+          
+          // Simulate asset optimization work
+          await new Promise(resolve => setTimeout(resolve, step.duration))
+        } else if (i === 3) {
+          // Final preparations
+          currentProgress = 95
+          setProgress(currentProgress)
+          
+          // Simulate final setup work
+          await new Promise(resolve => setTimeout(resolve, step.duration))
         }
         
-        // Gradual progress for this step - optimized for better performance
-        const stepProgress = 25 // Each step is 25%
-        const stepStartProgress = currentProgress
-        const stepEndProgress = currentProgress + stepProgress
-        
-        const stepDuration = step.duration
-        const progressInterval = 16 // 60fps updates
-        const progressSteps = stepDuration / progressInterval
-        const progressIncrement = stepProgress / progressSteps
-        
-        for (let j = 0; j < progressSteps; j++) {
-          await new Promise(resolve => {
-            requestAnimationFrame(() => {
-              setTimeout(resolve, progressInterval)
-            })
-          })
-          currentProgress = Math.min(stepStartProgress + (progressIncrement * (j + 1)), stepEndProgress)
-          setProgress(currentProgress)
+        // Smooth progress animation for visual feedback
+        if (i > 1) {
+          const targetProgress = i === 2 ? 85 : 95
+          const stepDuration = step.duration
+          const startProgress = currentProgress
+          const progressRange = targetProgress - startProgress
+          
+          const startTime = performance.now()
+          const animateProgress = () => {
+            const elapsed = performance.now() - startTime
+            const progress = Math.min(elapsed / stepDuration, 1)
+            const easedProgress = 1 - Math.pow(1 - progress, 3) // Ease out cubic
+            
+            currentProgress = startProgress + (progressRange * easedProgress)
+            setProgress(currentProgress)
+            
+            if (progress < 1) {
+              requestAnimationFrame(animateProgress)
+            }
+          }
+          requestAnimationFrame(animateProgress)
+          
+          await new Promise(resolve => setTimeout(resolve, stepDuration))
         }
       }
 
-      // Final completion
+      // Final completion with smooth transition
       setProgress(100)
       setCurrentStep('Welcome!')
-      await new Promise(resolve => setTimeout(resolve, 300))
       
-      // Trigger the crossfade transition
+      // Brief pause to show completion
+      await new Promise(resolve => setTimeout(resolve, 200))
+      
+      // Trigger the transition to main app
       onLoadingComplete()
     }
 
@@ -183,8 +251,15 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         />
       </div>
 
-      {/* 3D Perspective container - Center top positioning */}
-      <div className="absolute inset-0 z-10" style={{ perspective: '1200px' }}>
+      {/* 3D Perspective container - Center top positioning with performance optimizations */}
+      <div 
+        className="absolute inset-0 z-10" 
+        style={{ 
+          perspective: '1200px',
+          willChange: 'transform',
+          transform: 'translateZ(0)' // Force GPU acceleration
+        }}
+      >
         {/* Main loading content - positioned at center top with mouse-reactive tilt */}
         <motion.div 
           className="absolute text-white top-16 sm:top-20 left-1/2 w-80 sm:w-96 text-center"
@@ -214,7 +289,11 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
             boxShadow: '0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(6, 182, 212, 0.08)',
             rotateX,
             rotateY,
-            translateZ: 60
+            translateZ: 60,
+            // Performance optimizations
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitFontSmoothing: 'antialiased'
           }}
         >
           {/* Logo/Icon with 3D depth and mouse reactivity */}
