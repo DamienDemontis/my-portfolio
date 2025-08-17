@@ -173,7 +173,7 @@ export const Education = () => {
 
           {/* Timeline Items - Completely Redesigned */}
           <div className="space-y-12">
-            {timelineData.map((item, index) => {
+            {timelineData.map((item) => {
               const highlights = t(`education.institutions.${item.institution}.highlights`, { returnObjects: true }) as string[]
               const isExpanded = expandedCards.has(item.id)
               
