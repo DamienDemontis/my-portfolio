@@ -216,29 +216,60 @@ export const Skills = () => {
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          {/* Header */}
-          <div 
-            className="bg-white/95 dark:bg-gray-800/95 rounded-2xl p-6 border border-gray-200/60 dark:border-gray-700/60 shadow-xl max-w-2xl mx-auto"
-            style={{
-              willChange: 'transform',
-              transform: 'translateZ(0)'
-            }}
-          >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Zap className="w-7 h-7 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+          {/* Elegant Header with Soft Impact */}
+          <div className="relative max-w-4xl mx-auto">
+            {/* Clean Icon Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-block mb-6"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+                <Code className="w-6 h-6 text-white" />
+              </div>
+            </motion.div>
+
+            {/* Beautiful Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
+            >
+              <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-transparent">
                 {t('skills.title')}
-              </h2>
-            </div>
-            <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full mb-3"></div>
-            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              {t('skills.subtitle')}
-            </p>
+              </span>
+            </motion.h2>
+
+            {/* Elegant Decorative Line */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={inView ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="relative mb-6 flex items-center justify-center"
+            >
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+              <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
+            </motion.div>
+
+
+            {/* Subtle Floating Elements */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="absolute inset-0 pointer-events-none overflow-hidden"
+            >
+              <div className="absolute top-1/2 left-1/4 w-1 h-1 bg-blue-300 rounded-full animate-pulse opacity-40"></div>
+              <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse opacity-30 delay-700"></div>
+              <div className="absolute bottom-1/3 left-1/2 w-1 h-1 bg-blue-400 rounded-full animate-pulse opacity-25 delay-1000"></div>
+            </motion.div>
           </div>
         </motion.div>
 

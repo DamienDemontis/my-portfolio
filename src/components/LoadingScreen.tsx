@@ -19,10 +19,36 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     const preloadAssets = async () => {
-      // Preload only hero image and first photography image for faster initial load
+      // Preload hero image and ALL photography images for seamless experience
       const imagesToPreload = [
         '/Damien.jpg', // Hero image
-        '/photography/IMG_20240701_151842.jpg' // First photography image only
+        // All photography images
+        '/photography/IMG_20240701_151842.jpg',
+        '/photography/IMG_20231006_110254.jpg',
+        '/photography/IMG_20231117_160650.jpg',
+        '/photography/IMG_20230820_063353.jpg',
+        '/photography/IMG_20231004_104055.jpg',
+        '/photography/IMG_20231107_155400.jpg',
+        '/photography/IMG_20231107_164957.jpg',
+        '/photography/IMG_20240111_184858.jpg',
+        '/photography/IMG_20240116_170340.jpg',
+        '/photography/IMG_20240503_183702.jpg',
+        '/photography/IMG_20240504_110543.jpg',
+        '/photography/IMG_20240504_120923_1.jpg',
+        '/photography/IMG_20240505_120320.jpg',
+        '/photography/IMG_20240505_142203.jpg',
+        '/photography/IMG_20240602_034858.jpg',
+        '/photography/IMG_20240630_203416.jpg',
+        '/photography/IMG_20240701_150338.jpg',
+        '/photography/IMG_20240701_200211.jpg',
+        '/photography/IMG_20240822_170729.jpg',
+        '/photography/IMG_20240403_130655.jpg',
+        '/photography/IMG_20240419_184403.jpg',
+        '/photography/IMG_20240504_110833.jpg',
+        '/photography/IMG_20240504_114735.jpg',
+        '/photography/IMG_20240531_232815.jpg',
+        '/photography/IMG_20240626_184532.jpg',
+        '/photography/IMG_20240630_181716.jpg'
       ]
 
       const imagePromises = imagesToPreload.map((src) => {

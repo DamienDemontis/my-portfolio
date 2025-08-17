@@ -90,26 +90,46 @@ export const Projects = () => {
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          {/* Optimized container for header */}
-          <div 
-            className="bg-white/90 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl max-w-3xl mx-auto"
+          {/* Clean Icon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-block mb-6"
           >
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Lightbulb className="w-8 h-8 text-violet-600" />
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('projects.title')}
-              </h2>
+            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+              <Lightbulb className="w-6 h-6 text-white" />
             </div>
-            <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-purple-500 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {t('projects.subtitle')}
-            </p>
-          </div>
+          </motion.div>
+
+          {/* Beautiful Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
+          >
+            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+              {t('projects.title')}
+            </span>
+          </motion.h2>
+
+          {/* Elegant Decorative Line */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={inView ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="relative mb-6 flex items-center justify-center"
+          >
+            <div className="w-24 h-1 bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-violet-400/20 via-purple-400/20 to-fuchsia-400/20 blur-sm rounded-full"></div>
+          </motion.div>
+
         </motion.div>
 
         <motion.div

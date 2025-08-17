@@ -115,16 +115,42 @@ export const About = () => {
                 transform: 'translateZ(0)'
               }}
             >
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center gap-3 mb-6">
-                  <Coffee className="w-8 h-8 text-blue-500" />
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+              <motion.div variants={itemVariants} className="text-center mb-12">
+                {/* Clean Icon */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="inline-block mb-6"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+                    <Coffee className="w-6 h-6 text-white" />
+                  </div>
+                </motion.div>
+
+                {/* Beautiful Title */}
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
+                >
+                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                     {t('about.title')}
-                  </h2>
-                </div>
-                <h3 className="text-xl md:text-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent font-semibold mb-8">
-                  {t('about.intro')}
-                </h3>
+                  </span>
+                </motion.h2>
+
+                {/* Elegant Decorative Line */}
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="relative mb-8 flex items-center justify-center"
+                >
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full"></div>
+                  <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 blur-sm rounded-full"></div>
+                </motion.div>
+
               </motion.div>
 
               <motion.div variants={itemVariants} className="space-y-6 mb-10">
