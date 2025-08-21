@@ -1,21 +1,30 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Navbar } from './components/layout/Navbar'
 import { Hero } from './sections/Hero'
-import { About } from './sections/About'
-import { Experience } from './sections/Experience'
-import { Skills } from './sections/Skills'
-import { Education } from './sections/Education'
-import { PhotographyShowcase } from './sections/PhotographyShowcase'
-import { Projects } from './sections/Projects'
-import { Certifications } from './sections/Certifications'
-import { Interests } from './sections/Interests'
-import { Languages } from './sections/Languages'
-import { Contact } from './sections/Contact'
-import { Footer } from './components/layout/Footer'
 import { WithProfiler } from './utils/ProfilerLog'
 import { LoadingScreen } from './components/LoadingScreen'
+
+// Lazy load non-critical sections for better performance
+const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })))
+const Experience = lazy(() => import('./sections/Experience').then(m => ({ default: m.Experience })))
+const Skills = lazy(() => import('./sections/Skills').then(m => ({ default: m.Skills })))
+const Education = lazy(() => import('./sections/Education').then(m => ({ default: m.Education })))
+const PhotographyShowcase = lazy(() => import('./sections/PhotographyShowcase').then(m => ({ default: m.PhotographyShowcase })))
+const Projects = lazy(() => import('./sections/Projects').then(m => ({ default: m.Projects })))
+const Certifications = lazy(() => import('./sections/Certifications').then(m => ({ default: m.Certifications })))
+const Interests = lazy(() => import('./sections/Interests').then(m => ({ default: m.Interests })))
+const Languages = lazy(() => import('./sections/Languages').then(m => ({ default: m.Languages })))
+const Contact = lazy(() => import('./sections/Contact').then(m => ({ default: m.Contact })))
+const Footer = lazy(() => import('./components/layout/Footer').then(m => ({ default: m.Footer })))
+
+// Fallback component for lazy loading
+const SectionFallback = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+  </div>
+)
 
 // Import debug utils in development
 if (process.env.NODE_ENV === 'development') {
@@ -33,32 +42,60 @@ function App() {
     <ThemeProvider>
       <WithProfiler id="Root">
         <div className="relative min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        {/* Fixed Navbar - Always visible and positioned */}
+        <Navbar />
+        
         {/* Main Content - Always rendered but initially hidden */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoading ? 0 : 1 }}
           transition={{ 
-            duration: 1.2, 
-            ease: [0.4, 0, 0.2, 1],
-            delay: isLoading ? 0 : 0.3 // Small delay to ensure smooth crossfade
+            duration: 0.8, // Reduced from 1.2
+            ease: [0.25, 0.46, 0.45, 0.94], // Optimized easing curve
+            delay: isLoading ? 0 : 0.1 // Reduced delay
           }}
           className="min-h-screen"
+          style={{
+            willChange: 'opacity',
+            transform: 'translateZ(0)'
+          }}
         >
-          <Navbar />
           <main>
             <Hero />
-            <About />
-            <Experience />
-            <Skills />
-            <Education />
-            <PhotographyShowcase />
-            <Projects />
-            <Certifications />
-            <Interests />
-            <Languages />
-            <Contact />
+            <Suspense fallback={<SectionFallback />}>
+              <About />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Experience />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Skills />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Education />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <PhotographyShowcase />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Projects />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Certifications />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Interests />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Languages />
+            </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <Contact />
+            </Suspense>
           </main>
-          <Footer />
+          <Suspense fallback={<SectionFallback />}>
+            <Footer />
+          </Suspense>
           {process.env.NODE_ENV === 'development' && (
             <>
               {/* Dynamic imports for debug components */}
@@ -74,14 +111,18 @@ function App() {
               initial={{ opacity: 1 }}
               exit={{ 
                 opacity: 0,
-                scale: 1.05,
-                filter: "blur(8px)"
+                scale: 1.02, // Reduced from 1.05
+                filter: "blur(4px)" // Reduced from 8px
               }}
               transition={{ 
-                duration: 1.2, 
-                ease: [0.4, 0, 0.2, 1]
+                duration: 0.8, // Reduced from 1.2
+                ease: [0.25, 0.46, 0.45, 0.94] // Optimized easing
               }}
               className="fixed inset-0 z-[10000]"
+              style={{
+                willChange: 'opacity, transform, filter',
+                transform: 'translateZ(0)'
+              }}
             >
               <LoadingScreen onLoadingComplete={handleLoadingComplete} />
             </motion.div>

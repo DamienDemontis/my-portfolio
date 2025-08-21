@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Download, Mail } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
 import Balatro from '../blocks/Backgrounds/Balatro/Balatro'
+import { OptimizedImage } from '../components/ui/OptimizedImage'
 
 export const Hero = () => {
   const { t } = useTranslation()
@@ -144,7 +145,7 @@ export const Hero = () => {
               >
                 <button
                   onClick={scrollToContact}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 group hover:scale-[1.02]"
+                  className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl shadow-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 group hover:scale-[1.02]"
                   style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                 >
                   <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -191,11 +192,20 @@ export const Hero = () => {
                 {/* Main photo container */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
                      style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
-                  {/* Actual photo */}
-                  <img 
+                  {/* Actual photo with optimized loading */}
+                  <OptimizedImage 
                     src="/Damien.jpg" 
                     alt="Damien Demontis in traditional Korean robe in Seoul"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
+                    priority={true}
+                    loading="eager"
+                    width={953}
+                    height={1271}
+                    sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, 384px"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center'
+                    }}
                   />
                 </div>
 

@@ -126,12 +126,10 @@ class PerformanceMonitor {
   private trackNavigationTiming() {
     // Track additional navigation metrics
     if ('navigation' in performance) {
-      const navigation = performance.navigation
       const timing = performance.timing
 
       const pageLoadTime = timing.loadEventEnd - timing.navigationStart
       const domReadyTime = timing.domContentLoadedEventEnd - timing.navigationStart
-      const timeToFirstByte = timing.responseStart - timing.navigationStart
 
       setTimeout(() => {
         this.addMetric('Page Load Time', pageLoadTime, pageLoadTime <= 3000 ? 'good' : pageLoadTime <= 5000 ? 'needs-improvement' : 'poor')

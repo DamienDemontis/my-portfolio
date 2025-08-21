@@ -18,7 +18,6 @@ interface OptimizedImageProps {
 // Helper function to generate next-gen format URLs
 const generateImageSources = (src: string) => {
   const basePath = src.replace(/\.[^/.]+$/, '') // Remove extension
-  const extension = src.split('.').pop()?.toLowerCase()
   
   return {
     avif: `${basePath}.avif`,
@@ -179,10 +178,11 @@ export const OptimizedImage = ({
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            objectFit: 'contain',
-            objectPosition: 'center',
+            objectFit: style?.objectFit || 'contain',
+            objectPosition: style?.objectPosition || 'center',
             willChange: 'opacity',
-            aspectRatio: width && height ? `${width} / ${height}` : 'auto'
+            aspectRatio: width && height ? `${width} / ${height}` : 'auto',
+            ...style
           }}
           loading={loading}
           decoding="async"

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { Code, Palette, Globe, Zap } from 'lucide-react'
+import { Code, Palette, Globe, Camera } from 'lucide-react'
 import Hyperspeed from '../blocks/Backgrounds/Hyperspeed/Hyperspeed'
 
 interface LoadingScreenProps {
@@ -71,18 +71,20 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   const steps = [
     { label: 'Loading portfolio data...', icon: Code, duration: 800 },
-    { label: 'Optimizing animations...', icon: Zap, duration: 600 },
-    { label: 'Preparing assets...', icon: Palette, duration: 700 },
+    { label: 'Loading photography showcase...', icon: Palette, duration: 600 },
+    { label: 'Preparing gallery assets...', icon: Camera, duration: 700 },
     { label: 'Finalizing experience...', icon: Globe, duration: 500 }
   ]
 
   useEffect(() => {
-    const preloadAssets = async () => {
-      // Preload critical images first, then others progressively
+    const optimizedLoading = async () => {
+      // Critical images for immediate display
       const criticalImages = [
-        '/Damien.jpg' // Hero image - highest priority
+        '/Damien.jpg', // Hero image - highest priority
+        '/about_pfp.png' // About section image
       ]
-      
+
+      // All photography images for slideshow
       const photographyImages = [
         '/photography/IMG_20240701_151842.jpg',
         '/photography/IMG_20231006_110254.jpg',
@@ -112,117 +114,82 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         '/photography/IMG_20240630_181716.jpg'
       ]
 
-      const totalImages = criticalImages.length + photographyImages.length
-      let loadedImages = 0
-
-      // Optimized image loader with progress tracking
-      const createImageLoader = (src: string) => {
-        return new Promise<boolean>((resolve) => {
-          const img = new Image()
-          
-          const onLoad = () => {
-            loadedImages++
-            resolve(true)
+      // Fast image preloader with modern format support
+      const preloadImage = (src: string) => {
+        return new Promise<void>((resolve) => {
+          // Try AVIF first, then WebP, then original
+          const tryFormats = async (basePath: string) => {
+            const formats = ['.avif', '.webp', '']
+            
+            for (const format of formats) {
+              try {
+                const url = format ? basePath.replace(/\.[^/.]+$/, format) : src
+                const img = new Image()
+                
+                await new Promise((res, rej) => {
+                  img.onload = res
+                  img.onerror = rej
+                  img.src = url
+                })
+                
+                resolve() // Successfully loaded
+                return
+              } catch {
+                continue // Try next format
+              }
+            }
+            resolve() // Resolve even if all fail to avoid blocking
           }
           
-          const onError = () => {
-            console.warn(`Failed to load image: ${src}`)
-            loadedImages++
-            resolve(false)
-          }
-          
-          // Set up listeners before setting src to avoid race conditions
-          img.addEventListener('load', onLoad, { once: true })
-          img.addEventListener('error', onError, { once: true })
-          
-          // Use loading="eager" equivalent and add to cache
-          img.decoding = 'async'
-          img.src = src
+          tryFormats(src)
         })
       }
 
-      // Real progress tracking based on actual loading
       let currentProgress = 0
+      
       for (let i = 0; i < steps.length; i++) {
         const step = steps[i]
         setCurrentStep(step.label)
         
         if (i === 0) {
-          // Load critical images during first step
-          await Promise.all(criticalImages.map(createImageLoader))
+          // Load critical images first
+          await Promise.allSettled(criticalImages.map(preloadImage))
           currentProgress = 25
           setProgress(currentProgress)
         } else if (i === 1) {
-          // Load photography images in batches during second step
-          const batchSize = 8
-          for (let j = 0; j < photographyImages.length; j += batchSize) {
-            const batch = photographyImages.slice(j, j + batchSize)
-            await Promise.all(batch.map(createImageLoader))
-            
-            // Update progress based on actual loaded images
-            const imageProgress = (loadedImages / totalImages) * 50 // Images are 50% of total progress
-            currentProgress = 25 + imageProgress
-            setProgress(Math.min(currentProgress, 75))
-          }
-        } else if (i === 2) {
-          // Prepare assets and cache optimization
-          currentProgress = 85
+          // Load first 8 photography images for immediate slideshow
+          const priorityPhotos = photographyImages.slice(0, 8)
+          await Promise.allSettled(priorityPhotos.map(preloadImage))
+          currentProgress = 60
           setProgress(currentProgress)
-          
-          // Simulate asset optimization work
-          await new Promise(resolve => setTimeout(resolve, step.duration))
+        } else if (i === 2) {
+          // Load remaining photography images
+          const remainingPhotos = photographyImages.slice(8)
+          await Promise.allSettled(remainingPhotos.map(preloadImage))
+          currentProgress = 90
+          setProgress(currentProgress)
         } else if (i === 3) {
           // Final preparations
-          currentProgress = 95
+          currentProgress = 100
           setProgress(currentProgress)
-          
-          // Simulate final setup work
-          await new Promise(resolve => setTimeout(resolve, step.duration))
-        }
-        
-        // Smooth progress animation for visual feedback
-        if (i > 1) {
-          const targetProgress = i === 2 ? 85 : 95
-          const stepDuration = step.duration
-          const startProgress = currentProgress
-          const progressRange = targetProgress - startProgress
-          
-          const startTime = performance.now()
-          const animateProgress = () => {
-            const elapsed = performance.now() - startTime
-            const progress = Math.min(elapsed / stepDuration, 1)
-            const easedProgress = 1 - Math.pow(1 - progress, 3) // Ease out cubic
-            
-            currentProgress = startProgress + (progressRange * easedProgress)
-            setProgress(currentProgress)
-            
-            if (progress < 1) {
-              requestAnimationFrame(animateProgress)
-            }
-          }
-          requestAnimationFrame(animateProgress)
-          
-          await new Promise(resolve => setTimeout(resolve, stepDuration))
+          await new Promise(resolve => setTimeout(resolve, 200))
         }
       }
 
-      // Final completion with smooth transition
-      setProgress(100)
       setCurrentStep('Welcome!')
       
-      // Brief pause to show completion
-      await new Promise(resolve => setTimeout(resolve, 200))
+      // Brief pause for smooth UX
+      await new Promise(resolve => setTimeout(resolve, 100))
       
-      // Trigger the transition to main app
       onLoadingComplete()
     }
 
-    preloadAssets()
+    optimizedLoading()
   }, [onLoadingComplete])
 
   return (
     <div className="w-full h-full relative flex items-center justify-center bg-black">
-      {/* Hyperspeed background */}
+      {/* Optimized Hyperspeed background - reduced complexity */}
       <div className="absolute inset-0">
         <Hyperspeed
           effectOptions={{
@@ -236,16 +203,16 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
               rightCars: [0x06b6d4, 0x0ea5e9, 0x3b82f6],
               sticks: 0x06b6d4,
             },
-            length: 400,
-            roadWidth: 10,
+            length: 200, // Reduced from 400
+            roadWidth: 8, // Reduced from 10
             islandWidth: 2,
-            lanesPerRoad: 4,
+            lanesPerRoad: 3, // Reduced from 4
             fov: 90,
-            fovSpeedUp: 150,
-            speedUp: 2,
-            carLightsFade: 0.4,
-            totalSideLightSticks: 20,
-            lightPairsPerRoadWay: 40,
+            fovSpeedUp: 120, // Reduced from 150
+            speedUp: 1.5, // Reduced from 2
+            carLightsFade: 0.6, // Increased for better performance
+            totalSideLightSticks: 10, // Reduced from 20
+            lightPairsPerRoadWay: 20, // Reduced from 40
             distortion: 'turbulentDistortion'
           }}
         />

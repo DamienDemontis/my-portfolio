@@ -143,7 +143,7 @@ export const Navbar = () => {
               className="flex items-center space-x-3 group"
             >
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/20">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/20">
                   <span className="text-white text-xl font-bold">D²</span>
                 </div>
                 {/* Flying plane indicator */}
@@ -228,7 +228,7 @@ export const Navbar = () => {
                               className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-colors duration-200 border-b last:border-b-0 ${
                                 isScrolled 
                                   ? 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5' 
-                                  : 'text-white/90 hover:text-white hover:bg-white/10 border-white/5'
+                                  : 'text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-white/10 dark:hover:bg-white/10 border-white/5 dark:border-white/5'
                               }`}
                               whileHover={{ x: 5 }}
                             >

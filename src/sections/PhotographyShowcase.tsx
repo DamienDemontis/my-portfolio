@@ -3,14 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Camera, MapPin, Calendar, Heart, Globe, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect, useCallback } from 'react'
-import { OptimizedImage } from '../components/ui/OptimizedImage'
 
-/** Simple fade transition component */
+/** Simple fade transition component - optimized for preloaded images */
 const FadeSlide: React.FC<{
   src: string
   alt: string
   duration?: number
 }> = ({ src, alt, duration = 0.8 }) => {
+  // Since images are preloaded, directly use the best format
+  const getImageSrc = (originalSrc: string) => {
+    const basePath = originalSrc.replace(/\.[^/.]+$/, '')
+    // Try AVIF first (most browsers support it now), then WebP, then original
+    return `${basePath}.avif` // We'll handle fallback in CSS
+  }
+
   return (
     <motion.div
       key={src}
@@ -20,22 +26,24 @@ const FadeSlide: React.FC<{
       exit={{ opacity: 0 }}
       transition={{ duration, ease: 'easeInOut' }}
     >
-      <OptimizedImage
-        src={src}
-        alt={alt}
-        width={1200}
-        height={800}
-        className="w-full h-full absolute inset-0"
-        style={{
-          willChange: 'transform',
-          transform: 'translateZ(0)',
-          objectFit: 'cover',
-          objectPosition: 'center'
-        }}
-        loading="eager"
-        priority={true}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-      />
+      {/* Use multiple sources for instant fallback */}
+      <picture className="w-full h-full absolute inset-0">
+        <source srcSet={getImageSrc(src)} type="image/avif" />
+        <source srcSet={src.replace(/\.[^/.]+$/, '.webp')} type="image/webp" />
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full absolute inset-0"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)',
+            objectFit: 'contain',
+            objectPosition: 'center'
+          }}
+          loading="eager"
+          decoding="sync"
+        />
+      </picture>
     </motion.div>
   )
 }
@@ -77,7 +85,15 @@ export const PhotographyShowcase = () => {
     { src: '/photography/IMG_20240630_181716.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'One last Picnic with friends', category: 'city' }
   ]
 
-  // Images are preloaded during app loading screen, no need for on-demand preloading
+  // All images are preloaded during app loading screen for instant transitions
+  useEffect(() => {
+    // Reset transition state when photo changes
+    const timer = setTimeout(() => {
+      setIsTransitioning(false)
+    }, 800) // Match FadeSlide duration
+    
+    return () => clearTimeout(timer)
+  }, [currentPhotoIndex])
 
   const goToNext = useCallback(() => {
     if (isTransitioning) return

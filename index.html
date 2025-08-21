@@ -30,7 +30,33 @@
     <link rel="canonical" href="https://www.demontis.dev" />
     
     <!-- Preload critical resources -->
+    <link rel="preload" href="/Damien.avif" as="image" importance="high">
+    <link rel="preload" href="/Damien.webp" as="image" importance="high">
     <link rel="preload" href="/Damien.jpg" as="image" importance="high">
+    <link rel="preload" href="/about_pfp.avif" as="image" importance="low">
+    
+    <!-- Critical CSS for faster FCP -->
+    <style>
+      /* Critical styles for initial rendering */
+      body { margin: 0; font-family: system-ui, sans-serif; background: #ffffff; }
+      #root { min-height: 100vh; }
+      .container-padding { padding-left: 1rem; padding-right: 1rem; }
+      @media (min-width: 640px) { .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } }
+      @media (min-width: 1024px) { .container-padding { padding-left: 2rem; padding-right: 2rem; } }
+      
+      /* Prevent layout shifts */
+      img { height: auto; max-width: 100%; }
+      .hero-image-container { aspect-ratio: 3/4; }
+      
+      /* Loading states */
+      .animate-spin { animation: spin 1s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        body { background: #111827; color: #f9fafb; }
+      }
+    </style>
     
     <!-- Optimized font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
