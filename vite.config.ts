@@ -23,13 +23,31 @@ export default defineConfig({
     minify: 'esbuild', // Use esbuild for faster minification
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          animations: ['framer-motion'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-          i18n: ['react-i18next', 'i18next'],
-          icons: ['lucide-react'],
-          utils: ['react-intersection-observer']
+        manualChunks: (id) => {
+          // Vendor chunk for React and related core libraries
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor'
+            }
+            if (id.includes('framer-motion')) {
+              return 'animations'
+            }
+            if (id.includes('three') || id.includes('@react-three/')) {
+              return 'three'
+            }
+            if (id.includes('i18next') || id.includes('react-i18next')) {
+              return 'i18n'
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons'
+            }
+            if (id.includes('react-intersection-observer')) {
+              return 'utils'
+            }
+            // Split other node_modules into smaller chunks
+            const chunks = id.split('node_modules/')[1].split('/')[0]
+            return `vendor-${chunks}`
+          }
         },
         // Add file name hashing for better caching
         entryFileNames: 'assets/[name]-[hash].js',
@@ -37,9 +55,13 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
-    chunkSizeWarningLimit: 1000,
-    // Enable better compression
+    chunkSizeWarningLimit: 600, // Reduced for better splitting
+    // Enable better compression and tree shaking
     target: 'esnext',
-    cssCodeSplit: true
+    cssCodeSplit: true,
+    // Enable CSS minification
+    cssMinify: true,
+    // Optimize dependencies
+    assetsInlineLimit: 2048 // Inline smaller assets
   }
 });

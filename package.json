@@ -10,9 +10,11 @@
     "dev:perf": "vite --mode development --open",
     "build": "tsc && vite build",
     "build:analyze": "tsc && vite build --mode analyze",
+    "build:optimized": "npm run optimize-images && npm run build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "analyze": "npx vite-bundle-analyzer dist"
+    "analyze": "npx vite-bundle-analyzer dist",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "@react-three/drei": "^9.102.6",
@@ -25,6 +27,7 @@
     "lucide-react": "^0.303.0",
     "maath": "^0.10.8",
     "ogl": "^1.0.11",
+    "postprocessing": "^6.37.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.5.0",
@@ -44,6 +47,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.32",
     "rollup-plugin-visualizer": "^5.14.0",
+    "sharp": "^0.34.3",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

@@ -23,6 +23,8 @@ const FadeSlide: React.FC<{
       <OptimizedImage
         src={src}
         alt={alt}
+        width={1200}
+        height={800}
         className="w-full h-full absolute inset-0"
         style={{
           willChange: 'transform',
@@ -32,7 +34,7 @@ const FadeSlide: React.FC<{
         }}
         loading="eager"
         priority={true}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
       />
     </motion.div>
   )
@@ -221,10 +223,20 @@ export const PhotographyShowcase = () => {
 
               {/* Arrows */}
               <div className="hidden md:block">
-                <button onClick={(e) => { e.stopPropagation(); goToPrevious() }} disabled={isTransitioning} className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); goToPrevious() }} 
+                  disabled={isTransitioning} 
+                  aria-label="Previous photo"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); goToNext() }} disabled={isTransitioning} className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); goToNext() }} 
+                  disabled={isTransitioning} 
+                  aria-label="Next photo"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <ChevronRight className="w-6 h-6" />
                 </button>
               </div>
@@ -236,6 +248,7 @@ export const PhotographyShowcase = () => {
                     key={index}
                     onClick={(e) => { e.stopPropagation(); goToPhoto(index) }}
                     disabled={isTransitioning}
+                    aria-label={`Go to photo ${index + 1}`}
                     className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${index === currentPhotoIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   />
                 ))}

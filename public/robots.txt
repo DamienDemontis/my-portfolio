@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.demontis.dev/sitemap.xml
+
+# Allow access to important assets
+Allow: /assets/
+Allow: /photography/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.avif
+
+# Block unnecessary paths
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /stats.html

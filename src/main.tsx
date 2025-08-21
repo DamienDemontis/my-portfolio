@@ -5,6 +5,9 @@ import './index.css'
 import './utils/performance.css'
 import './i18n/config.ts'
 
+// Initialize performance monitoring
+import performanceMonitor from './utils/performanceMonitor'
+
 // Initialize performance monitoring only in development
 if (process.env.NODE_ENV === 'development') {
   import('./utils/performance').then(({ initPerformanceMonitoring, startFPSMonitoring, logMemoryUsage }) => {
