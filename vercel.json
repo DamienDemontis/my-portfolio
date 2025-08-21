@@ -22,7 +22,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(png|jpg|jpeg|webp|avif|svg|ico)$)",
+      "source": "/(.*).png",
       "headers": [
         {
           "key": "Cache-Control",
@@ -31,11 +31,47 @@
       ]
     },
     {
-      "source": "/(.*\\.(css|js)$)",
+      "source": "/(.*).jpg",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).jpeg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).webp",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).avif",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
         }
       ]
     },
