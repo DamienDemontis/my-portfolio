@@ -1,0 +1,24 @@
+{
+  "name": "Damien Demontis",
+  "email": "damien.demontis@epitech.eu",
+  "experiences": [
+    {
+      "company": "+Simple",
+      "role": "Développeur web",
+      "period": "avr. 2023 - août 2023",
+      "description": "Migration Django vers Nuxt.js et amélioration des performances"
+    },
+    {
+      "company": "Epitech",
+      "role": "Assistant pédagogique",
+      "period": "févr. 2022 - avr. 2023",
+      "description": "Encadrement des étudiants et organisation d'ateliers"
+    },
+    {
+      "company": "Acoris Mutuelles",
+      "role": "Développeur Web",
+      "period": "juil. 2021 - déc. 2021",
+      "description": "Mise en place d'un intranet WordPress"
+    }
+  ]
+}
