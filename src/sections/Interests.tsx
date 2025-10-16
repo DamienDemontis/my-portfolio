@@ -15,9 +15,9 @@ export const Interests = () => {
     {
       key: 'music',
       icon: Music,
-      color: 'from-pink-500 to-rose-600',
-      bgColor: 'from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20',
-      borderColor: 'border-pink-200 dark:border-pink-800',
+      color: 'from-blue-500 to-cyan-600',
+      bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
+      borderColor: 'border-blue-200 dark:border-cyan-800',
       interests: [
         { name: t('interests.japanesePopTitle'), description: t('interests.japanesePopDesc'), icon: Headphones },
         { name: t('interests.electronicMusicTitle'), description: t('interests.electronicMusicDesc'), icon: Zap },
@@ -52,9 +52,9 @@ export const Interests = () => {
     {
       key: 'personal_growth',
       icon: Users,
-      color: 'from-purple-500 to-indigo-600',
-      bgColor: 'from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20',
-      borderColor: 'border-purple-200 dark:border-purple-800',
+      color: 'from-cyan-500 to-blue-600',
+      bgColor: 'from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20',
+      borderColor: 'border-cyan-200 dark:border-blue-800',
       interests: [
         { name: t('interests.culturalExchangeTitle'), description: t('interests.culturalExchangeDesc'), icon: Users },
         { name: t('interests.continuousLearningTitle'), description: t('interests.continuousLearningDesc'), icon: BookOpen },
@@ -94,12 +94,12 @@ export const Interests = () => {
   return (
     <section id="interests" className="section-padding relative overflow-hidden">
       {/* Creative Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:via-rose-900/10 dark:to-purple-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-8 right-0 w-48 h-48 bg-pink-100/30 dark:bg-pink-900/10 rounded-full"></div>
-        <div className="absolute bottom-12 left-0 w-52 h-52 bg-purple-100/30 dark:bg-purple-900/10 rounded-3xl"></div>
+        <div className="absolute top-8 right-0 w-48 h-48 bg-blue-100/30 dark:bg-blue-900/10 rounded-full"></div>
+        <div className="absolute bottom-12 left-0 w-52 h-52 bg-cyan-100/30 dark:bg-cyan-900/10 rounded-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -116,7 +116,7 @@ export const Interests = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
               <Heart className="w-6 h-6 text-white" />
             </div>
           </motion.div>
@@ -128,7 +128,7 @@ export const Interests = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('interests.title')}
             </span>
           </motion.h2>
@@ -140,8 +140,8 @@ export const Interests = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-rose-400/20 via-pink-400/20 to-purple-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>

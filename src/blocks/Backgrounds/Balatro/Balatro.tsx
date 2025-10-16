@@ -156,15 +156,16 @@ const Balatro: React.FC<BalatrProps> = ({
     let program: Program;
 
     function resize() {
-      // Reduce resolution for better performance
-      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+      // Significantly reduce resolution for better performance
+      // Lower pixel ratio = better performance with minimal visual quality loss
+      const pixelRatio = Math.min(window.devicePixelRatio, 1);
       const width = Math.floor(container.offsetWidth * pixelRatio);
       const height = Math.floor(container.offsetHeight * pixelRatio);
-      
+
       renderer.setSize(width, height);
       gl.canvas.style.width = container.offsetWidth + 'px';
       gl.canvas.style.height = container.offsetHeight + 'px';
-      
+
       if (program) {
         program.uniforms.iResolution.value = [width, height, width / height];
       }
@@ -208,7 +209,7 @@ const Balatro: React.FC<BalatrProps> = ({
     let lastFrameTime = 0;
     let pausedTime = 0; // Track time when paused
     let resumeTimeOffset = 0; // Offset to maintain animation continuity
-    const targetFPS = 30; // Limit to 30 FPS for better performance
+    const targetFPS = 24; // Limit to 24 FPS for better performance (reduced from 30)
     const frameInterval = 1000 / targetFPS;
 
     function update(time: number) {

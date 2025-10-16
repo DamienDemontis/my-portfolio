@@ -45,7 +45,7 @@ export const Experience = () => {
   const getIndustryBadgeColor = (industry: string) => {
     switch (industry) {
       case 'EdTech': return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800'
-      case 'Startup': return 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800'
+      case 'Startup': return 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-200 border-cyan-200 dark:border-cyan-800'
       case 'Enterprise': return 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200 border-green-200 dark:border-green-800'
       case 'Fintech': return 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-800'
       default: return 'bg-gray-100 dark:bg-gray-900/40 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-800'
@@ -57,18 +57,17 @@ export const Experience = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.08 // OPTIMIZED: Reduced from 0.2
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 10, scale: 0.98 },
+    hidden: { opacity: 0, y: 5 }, // OPTIMIZED: Reduced from 10, removed scale
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.25, ease: "easeOut" } // OPTIMIZED: Reduced from 0.3
     }
   }
 
@@ -113,7 +112,7 @@ export const Experience = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('experience.title')}
             </span>
           </motion.h2>
@@ -125,8 +124,8 @@ export const Experience = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-indigo-400/20 to-purple-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>
@@ -149,8 +148,8 @@ export const Experience = () => {
                 key={exp}
                 variants={cardVariants}
                 className="group"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ scale: 1.005 }} // OPTIMIZED: Reduced from 1.02
+                transition={{ duration: 0.15 }} // OPTIMIZED: Reduced from 0.2
                 style={{
                   willChange: 'transform',
                   transform: 'translateZ(0)',
@@ -175,7 +174,7 @@ export const Experience = () => {
                     }}
                   >
                     {/* Subtle gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                     
                     <div className="relative z-10">
                       <div className="flex items-start justify-between gap-4">
@@ -282,10 +281,10 @@ export const Experience = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: 0.2, ease: "easeOut" }} // OPTIMIZED: Reduced from 0.3, simplified easing
                         className="border-t border-white/30 dark:border-gray-700/30"
                         style={{
-                          willChange: 'transform',
+                          willChange: 'height, opacity',
                           transform: 'translateZ(0)',
                         }}
                       >
@@ -323,15 +322,10 @@ export const Experience = () => {
                                   (t(`experience.positions.${exp}.technologies`, { returnObjects: true }) as string[]).map((tech, techIndex) => (
                                     <motion.span
                                       key={techIndex}
-                                      initial={{ opacity: 0, scale: 0.95 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ delay: techIndex * 0.05, duration: 0.2 }}
-                                      whileHover={{ scale: 1.02 }}
+                                      initial={{ opacity: 0 }} // OPTIMIZED: Removed scale
+                                      animate={{ opacity: 1 }}
+                                      transition={{ delay: techIndex * 0.02, duration: 0.15 }} // OPTIMIZED: Reduced delays and duration
                                       className="px-3 py-2 bg-blue-100/90 dark:bg-blue-900/70 text-blue-800 dark:text-blue-200 rounded-xl text-sm font-medium border border-blue-200/50 dark:border-blue-800/50"
-                                      style={{
-                                        willChange: 'transform',
-                                        transform: 'translateZ(0)',
-                                      }}
                                     >
                                       {tech}
                                     </motion.span>
@@ -351,16 +345,12 @@ export const Experience = () => {
                               <div className="space-y-3">
                                 {Array.isArray(t(`experience.positions.${exp}.achievements`, { returnObjects: true })) &&
                                   (t(`experience.positions.${exp}.achievements`, { returnObjects: true }) as string[]).slice(0, 4).map((achievement, achIndex) => (
-                                    <motion.div 
+                                    <motion.div
                                       key={achIndex}
-                                      initial={{ opacity: 0, x: -10 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: achIndex * 0.05, duration: 0.2 }}
+                                      initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
+                                      animate={{ opacity: 1 }}
+                                      transition={{ delay: achIndex * 0.02, duration: 0.15 }} // OPTIMIZED: Reduced delays
                                       className="flex items-start gap-3 p-3 rounded-xl bg-green-50/90 dark:bg-green-900/70 border border-green-200/50 dark:border-green-800/50"
-                                      style={{
-                                        willChange: 'transform',
-                                        transform: 'translateZ(0)',
-                                      }}
                                     >
                                       <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                                       <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -379,14 +369,14 @@ export const Experience = () => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.2, duration: 0.3 }}
-                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden bg-purple-50/80 dark:bg-purple-900/40"
+                              className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden bg-blue-50/80 dark:bg-blue-900/40"
                               style={{
                                 willChange: 'transform',
                                 transform: 'translateZ(0)',
                               }}
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-3 flex items-center gap-2">
-                                <Zap className="w-5 h-5 text-purple-500" />
+                                <Zap className="w-5 h-5 text-blue-500" />
                                 {t('experience.impactResults')}
                               </h4>
                               <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">

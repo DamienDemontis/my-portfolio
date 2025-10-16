@@ -53,9 +53,9 @@ export const Certifications = () => {
       year: t('certifications.items.it_project_management.year'),
       description: t('certifications.items.it_project_management.description'),
       icon: Briefcase,
-      color: 'from-purple-500 to-indigo-500',
-      bgColor: 'from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20',
-      borderColor: 'border-purple-200 dark:border-purple-800'
+      color: 'from-blue-500 to-cyan-500',
+      bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
+      borderColor: 'border-blue-200 dark:border-cyan-800'
     }
   ]
 

@@ -95,10 +95,10 @@ export const Skills = () => {
     { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20', borderColor: 'border-blue-200 dark:border-blue-800' },
     { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20', borderColor: 'border-green-200 dark:border-green-800' },
     { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20', borderColor: 'border-orange-200 dark:border-orange-800' },
-    { key: 'databases', icon: Database, color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20', borderColor: 'border-purple-200 dark:border-purple-800' },
+    { key: 'databases', icon: Database, color: 'from-blue-500 to-cyan-600', bgColor: 'from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-800/20', borderColor: 'border-blue-200 dark:border-cyan-800' },
     { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20', borderColor: 'border-indigo-200 dark:border-indigo-800' },
     { key: 'testing', icon: Settings, color: 'from-emerald-500 to-emerald-600', bgColor: 'from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20', borderColor: 'border-emerald-200 dark:border-emerald-800' },
-    { key: 'aiml', icon: Zap, color: 'from-pink-500 to-pink-600', bgColor: 'from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20', borderColor: 'border-pink-200 dark:border-pink-800' },
+    { key: 'aiml', icon: Zap, color: 'from-cyan-500 to-blue-600', bgColor: 'from-cyan-50 to-blue-100 dark:from-cyan-900/20 dark:to-blue-800/20', borderColor: 'border-cyan-200 dark:border-blue-800' },
     { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-700/20', borderColor: 'border-gray-200 dark:border-gray-700' }
   ]
 
@@ -168,26 +168,25 @@ export const Skills = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.05 // OPTIMIZED: Reduced from 0.15
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 10 }, // OPTIMIZED: Reduced from 15
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" } // OPTIMIZED: Reduced from 0.4
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
+    hidden: { opacity: 0 }, // OPTIMIZED: Removed scale
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.3 }
+      transition: { duration: 0.2 } // OPTIMIZED: Reduced from 0.3
     }
   }
 
@@ -332,12 +331,11 @@ export const Skills = () => {
                 {/* Header */}
                 <div className={`p-4 bg-gradient-to-br ${category.bgColor} border-b ${category.borderColor} relative overflow-hidden`}>
                   <div className="flex items-center mb-3 relative z-10">
-                    <motion.div 
-                      whileHover={{ 
-                        rotate: 360,
-                        scale: 1.1
+                    <motion.div
+                      whileHover={{
+                        scale: 1.05 // OPTIMIZED: Removed 360 rotation, reduced scale
                       }}
-                      transition={{ duration: 0.6 }}
+                      transition={{ duration: 0.2 }} // OPTIMIZED: Reduced from 0.6
                       className={`w-10 h-10 rounded-xl bg-gradient-to-r ${category.color} p-2 mr-3 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
                     >
                       <IconComponent className="w-full h-full text-white" />
@@ -414,21 +412,18 @@ export const Skills = () => {
                               </div>
                             </div>
                             
-                            {/* Proficiency bar (desktop only) */}
+                            {/* Proficiency bar (desktop only) - OPTIMIZED */}
                             <div className="hidden md:block w-full bg-gray-200 dark:bg-gray-600 rounded-full h-1.5">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={inView ? { width: getProficiencyWidth(tech.level) } : { width: 0 }}
-                                transition={{ 
-                                  duration: 1.5, 
-                                  delay: 0.5 + categoryIndex * 0.1 + index * 0.05,
+                                transition={{
+                                  duration: 0.8, // OPTIMIZED: Reduced from 1.5
+                                  delay: 0.2 + categoryIndex * 0.05 + index * 0.02, // OPTIMIZED: Reduced delays
                                   ease: "easeOut"
                                 }}
-                                className={`h-1.5 bg-gradient-to-r ${getProficiencyColor()} rounded-full relative overflow-hidden`}
-                              >
-                                {/* Simplified shine effect */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
-                              </motion.div>
+                                className={`h-1.5 bg-gradient-to-r ${getProficiencyColor()} rounded-full`}
+                              />
                             </div>
                           </div>
                         </motion.div>

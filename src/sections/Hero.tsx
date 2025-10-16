@@ -66,8 +66,8 @@ export const Hero = () => {
              }}></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-30"
              style={{
-               background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(147, 51, 234, 0.05) 50%, transparent 100%)',
-               boxShadow: '0 0 120px 40px rgba(147, 51, 234, 0.1)'
+               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
+               boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
              }}></div>
       </div>
 
@@ -190,7 +190,7 @@ export const Hero = () => {
               {/* Photo placeholder with artistic design */}
               <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
                 {/* Main photo container */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 via-blue-500 to-purple-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
                      style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
                   {/* Actual photo with optimized loading */}
                   <OptimizedImage 

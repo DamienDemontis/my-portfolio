@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react'
 
 type Theme = 'light' | 'dark'
 
@@ -49,11 +49,12 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setThemeState((prevTheme: Theme) => prevTheme === 'light' ? 'dark' : 'light')
   }
 
-  const value = {
+  // OPTIMIZED: Memoize context value to prevent unnecessary re-renders
+  const value = useMemo(() => ({
     theme,
     toggleTheme,
     setTheme
-  }
+  }), [theme])
 
   return (
     <ThemeContext.Provider value={value}>

@@ -71,12 +71,12 @@ export const Languages = () => {
   return (
     <section id="languages" className="section-padding relative overflow-hidden">
       {/* Cultural Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/10 dark:to-purple-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-12 right-4 w-40 h-40 bg-indigo-100/30 dark:bg-indigo-900/10 rounded-full"></div>
-        <div className="absolute bottom-16 left-8 w-44 h-44 bg-purple-100/30 dark:bg-purple-900/10 rounded-2xl"></div>
+        <div className="absolute top-12 right-4 w-40 h-40 bg-blue-100/30 dark:bg-blue-900/10 rounded-full"></div>
+        <div className="absolute bottom-16 left-8 w-44 h-44 bg-cyan-100/30 dark:bg-cyan-900/10 rounded-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -93,7 +93,7 @@ export const Languages = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
               <Globe className="w-6 h-6 text-white" />
             </div>
           </motion.div>
@@ -105,7 +105,7 @@ export const Languages = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('languages.title')}
             </span>
           </motion.h2>
@@ -117,8 +117,8 @@ export const Languages = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>
@@ -156,8 +156,8 @@ export const Languages = () => {
                     {t(`languages.items.${language.key}.name`) || language.key.charAt(0).toUpperCase() + language.key.slice(1)}
                   </h3>
                   <div className="flex items-center justify-center gap-2 mb-2">
-                    <Award className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                    <span className="text-indigo-600 dark:text-indigo-400 font-semibold">
+                    <Award className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <span className="text-blue-600 dark:text-blue-400 font-semibold">
                       {getLanguageLevel(language.key)}
                     </span>
                   </div>

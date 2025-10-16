@@ -33,9 +33,9 @@ export const About = () => {
     {
       icon: BookOpen,
       value: t('about.stats.technologies'),
-      color: 'from-purple-500 to-pink-500',
-      bgColor: 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20',
-      borderColor: 'border-purple-200 dark:border-purple-800',
+      color: 'from-blue-500 to-cyan-500',
+      bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
+      borderColor: 'border-blue-200 dark:border-blue-800',
     },
     {
       icon: Users,
@@ -77,7 +77,7 @@ export const About = () => {
   return (
     <section id="about" className="section-padding relative overflow-hidden">
       {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20"></div>
       
       {/* Optimized background elements - Simple gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -88,8 +88,8 @@ export const About = () => {
             transform: 'translateZ(0)'
           }}
         ></div>
-        <div 
-          className="absolute bottom-32 left-16 w-24 h-24 rounded-full bg-purple-100/30 dark:bg-purple-400/10"
+        <div
+          className="absolute bottom-32 left-16 w-24 h-24 rounded-full bg-blue-100/30 dark:bg-blue-400/10"
           style={{
             willChange: 'transform',
             transform: 'translateZ(0)'
@@ -123,7 +123,7 @@ export const About = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="inline-block mb-6"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg mx-auto">
                     <Coffee className="w-6 h-6 text-white" />
                   </div>
                 </motion.div>
@@ -135,7 +135,7 @@ export const About = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
                 >
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
                     {t('about.title')}
                   </span>
                 </motion.h2>
@@ -147,8 +147,8 @@ export const About = () => {
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="relative mb-8 flex items-center justify-center"
                 >
-                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full"></div>
-                  <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 blur-sm rounded-full"></div>
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+                  <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
                 </motion.div>
 
               </motion.div>
@@ -161,7 +161,7 @@ export const About = () => {
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <Brain className="w-6 h-6 text-purple-500 mt-1 flex-shrink-0" />
+                  <Brain className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                     {t('about.aspiration')}
                   </p>
@@ -229,13 +229,12 @@ export const About = () => {
                 className="max-w-sm w-full"
               />
 
-              {/* Floating elements around the Pokemon card */}
+              {/* Floating elements around the Pokemon card - OPTIMIZED: removed rotate */}
               <motion.div
-                animate={{ 
-                  y: [0, -8, 0],
-                  rotate: [0, 5, 0]
+                animate={{
+                  y: [0, -8, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut"
@@ -249,14 +248,12 @@ export const About = () => {
                 <Coffee className="w-8 h-8 text-yellow-400" />
               </motion.div>
 
-              {/* Interactive Heart Easter Egg */}
+              {/* Interactive Heart Easter Egg - OPTIMIZED: removed rotate, simplified */}
               <motion.div
-                animate={{ 
-                  y: [0, 5, 0],
-                  rotate: [0, -3, 0],
-                  scale: isHeartFilled ? [1, 1.1, 1.05] : 1
+                animate={{
+                  y: [0, 5, 0]
                 }}
-                transition={{ 
+                transition={{
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -279,12 +276,10 @@ export const About = () => {
               >
                 <motion.div
                   animate={{
-                    scale: isHeartFilled ? [1, 1.3, 1.1] : 1,
-                    rotate: isHeartFilled ? [0, 15, -5, 0] : 0,
-                    y: isHeartFilled ? [0, -5, 0] : 0
+                    scale: isHeartFilled ? [1, 1.2, 1.1] : 1
                   }}
                   transition={{
-                    duration: 0.4,
+                    duration: 0.3,
                     ease: "easeOut"
                   }}
                   style={{
@@ -292,52 +287,13 @@ export const About = () => {
                     transform: 'translateZ(0)'
                   }}
                 >
-                  <Heart 
+                  <Heart
                     className={`w-8 h-8 transition-all duration-200 ${
-                      isHeartFilled 
-                        ? 'text-red-500 fill-red-500' 
+                      isHeartFilled
+                        ? 'text-red-500 fill-red-500'
                         : 'text-red-400'
-                    }`} 
+                    }`}
                   />
-                  
-                  {/* Simplified particle effects when heart is filled */}
-                  {isHeartFilled && (
-                    <motion.div
-                      className="absolute inset-0 pointer-events-none"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 1, 0] }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                    >
-                      {/* Simplified sparkle particles */}
-                      {[...Array(4)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-1 h-1 bg-red-400 rounded-full"
-                          initial={{ 
-                            x: 16, 
-                            y: 16, 
-                            scale: 0,
-                            opacity: 1 
-                          }}
-                          animate={{ 
-                            x: 16 + (Math.cos(i * 90 * Math.PI / 180) * 20),
-                            y: 16 + (Math.sin(i * 90 * Math.PI / 180) * 20),
-                            scale: [0, 1, 0],
-                            opacity: [1, 1, 0]
-                          }}
-                          transition={{ 
-                            duration: 0.4,
-                            delay: 0.1,
-                            ease: "easeOut"
-                          }}
-                          style={{
-                            willChange: 'transform',
-                            transform: 'translateZ(0)'
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  )}
                 </motion.div>
               </motion.div>
             </div>

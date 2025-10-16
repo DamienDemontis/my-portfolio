@@ -93,7 +93,7 @@ export const Contact = () => {
       name: 'Instagram',
       href: 'https://www.instagram.com/damien.demontis/',
       icon: Instagram,
-      color: 'from-pink-500 to-rose-600'
+      color: 'from-blue-500 to-cyan-600'
     }
   ]
 
@@ -102,17 +102,17 @@ export const Contact = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.05 // OPTIMIZED: Reduced from 0.15
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 5 }, // OPTIMIZED: Reduced from 15
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.2, ease: "easeOut" } // OPTIMIZED: Reduced from 0.3
     }
   }
 
@@ -294,15 +294,11 @@ export const Contact = () => {
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon
                   return (
-                    <motion.div 
-                      key={index} 
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      style={{
-                        willChange: 'transform',
-                        transform: 'translateZ(0)'
-                      }}
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 + index * 0.03, duration: 0.2 }} // OPTIMIZED: Reduced delays
                       className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-white/30 dark:border-gray-700/30"
                     >
                       <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">

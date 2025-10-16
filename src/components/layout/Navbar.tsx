@@ -13,28 +13,50 @@ export const Navbar = () => {
   const [currentSection, setCurrentSection] = useState('home')
 
   useEffect(() => {
+    let rafId: number | null = null
+    let lastScrollTop = 0
+
     const handleScroll = () => {
-      const scrollTop = window.scrollY
-      // Change to trigger when leaving hero section (around viewport height)
-      setIsScrolled(scrollTop > window.innerHeight * 0.8)
-      
-      // Update current section for plane animation
-      const sections = ['home', 'about', 'experience', 'skills', 'education', 'photography', 'projects', 'contact']
-      const currentSec = sections.find(section => {
-        const element = document.querySelector(`#${section}`)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+      // Cancel any pending animation frame
+      if (rafId) return
+
+      rafId = requestAnimationFrame(() => {
+        const scrollTop = window.scrollY
+
+        // Only update if scroll position changed significantly (reduce re-renders)
+        if (Math.abs(scrollTop - lastScrollTop) < 10) {
+          rafId = null
+          return
         }
-        return false
+
+        lastScrollTop = scrollTop
+
+        // Change to trigger when leaving hero section (around viewport height)
+        setIsScrolled(scrollTop > window.innerHeight * 0.8)
+
+        // Update current section for plane animation - throttle this expensive check
+        const sections = ['home', 'about', 'experience', 'skills', 'education', 'photography', 'projects', 'contact']
+        const currentSec = sections.find(section => {
+          const element = document.querySelector(`#${section}`)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            return rect.top <= 100 && rect.bottom >= 100
+          }
+          return false
+        })
+        if (currentSec) {
+          setCurrentSection(currentSec)
+        }
+
+        rafId = null
       })
-      if (currentSec) {
-        setCurrentSection(currentSec)
-      }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   const navGroups = [

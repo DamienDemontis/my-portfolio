@@ -27,7 +27,7 @@ export const Projects = () => {
   const getProjectColor = (project: string) => {
     const colors = {
       facial_recognition: 'from-blue-500 to-cyan-600',
-      leonart: 'from-purple-500 to-pink-600',
+      leonart: 'from-blue-500 to-cyan-600',
       intranet: 'from-green-500 to-emerald-600',
       inept_intruder: 'from-orange-500 to-red-600',
       tank_game: 'from-indigo-500 to-blue-600'
@@ -40,50 +40,48 @@ export const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1 // Reduced stagger for smoother performance
+        staggerChildren: 0.05 // OPTIMIZED: Further reduced from 0.1
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 }, // OPTIMIZED: Reduced from 20
     visible: {
       opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.4, 
-        ease: "easeOut",
-        willChange: 'transform, opacity'
+      transition: {
+        duration: 0.25, // OPTIMIZED: Reduced from 0.4
+        ease: "easeOut"
       }
     }
   }
 
   const tagVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0 }, // OPTIMIZED: Removed scale
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.2 } // OPTIMIZED: Reduced from 0.4
     }
   }
 
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       {/* Innovation Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 dark:from-gray-900 dark:via-violet-900/10 dark:to-purple-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
       
       {/* Optimized static background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute top-0 right-4 w-64 h-64 rounded-full opacity-10"
           style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
           }}
         ></div>
         <div
           className="absolute bottom-4 left-8 w-72 h-72 rounded-3xl opacity-10"
           style={{
-            background: 'radial-gradient(ellipse, rgba(147, 51, 234, 0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
           }}
         ></div>
       </div>
@@ -102,7 +100,7 @@ export const Projects = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
               <Lightbulb className="w-6 h-6 text-white" />
             </div>
           </motion.div>
@@ -114,7 +112,7 @@ export const Projects = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('projects.title')}
             </span>
           </motion.h2>
@@ -126,8 +124,8 @@ export const Projects = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-violet-400/20 via-purple-400/20 to-fuchsia-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>
@@ -151,13 +149,13 @@ export const Projects = () => {
               <motion.div
                 key={project}
                 variants={cardVariants}
-                whileHover={{ 
-                  scale: 1.01,
-                  transition: { duration: 0.2 }
+                whileHover={{
+                  scale: 1.005, // OPTIMIZED: Reduced from 1.01
+                  transition: { duration: 0.15 } // OPTIMIZED: Reduced from 0.2
                 }}
                 className="bg-white/80 dark:bg-black/40 rounded-3xl p-0 border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-shadow duration-200 group overflow-hidden"
                 style={{
-                  willChange: 'transform, box-shadow',
+                  willChange: 'transform',
                   transform: 'translateZ(0)', // Force GPU acceleration
                 }}
               >
@@ -191,7 +189,7 @@ export const Projects = () => {
                   {/* Technologies */}
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                      <Code className="w-4 h-4 text-violet-500" />
+                      <Code className="w-4 h-4 text-blue-500" />
                       {t('projects.technologiesUsed')}
                     </h4>
                     <motion.div 
@@ -222,9 +220,9 @@ export const Projects = () => {
                       {features.map((feature, featureIndex) => (
                         <motion.div
                           key={featureIndex}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 * featureIndex }}
+                          initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.03 * featureIndex, duration: 0.15 }} // OPTIMIZED: Reduced delays
                           className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors duration-200"
                         >
                           <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${projectColor} flex-shrink-0`}></div>
@@ -304,14 +302,14 @@ export const Projects = () => {
             className="max-w-4xl mx-auto bg-white/90 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
-              <Lightbulb className="w-6 h-6 text-violet-600" />
+              <Lightbulb className="w-6 h-6 text-blue-600" />
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 {t('sections.projects.innovationThroughCode')}
               </h3>
             </div>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {t('sections.projects.innovationThroughCodeText')}
-              <span className="block mt-4 font-semibold text-violet-600 dark:text-violet-400">
+              <span className="block mt-4 font-semibold text-blue-600 dark:text-blue-400">
                 {t('sections.projects.buildingTheFuture')}
               </span>
             </p>

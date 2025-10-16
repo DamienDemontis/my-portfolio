@@ -89,9 +89,10 @@ body {
   }
 }
 
-/* Smooth animations */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+/* Smooth animations - OPTIMIZED: Only apply to specific elements, not globally */
+/* Global transitions on all elements cause massive performance issues */
+button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

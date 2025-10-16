@@ -56,8 +56,8 @@ export const Education = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.1, // OPTIMIZED: Reduced from 0.3
+        delayChildren: 0.1 // OPTIMIZED: Reduced from 0.2
       }
     }
   }
@@ -68,24 +68,22 @@ export const Education = () => {
       scaleY: 1,
       opacity: 1,
       transition: {
-        duration: 1.5,
+        duration: 0.8, // OPTIMIZED: Reduced from 1.5
         ease: "easeOut"
       }
     }
   }
 
-  const cardVariants = (side: string) => ({
-    hidden: { 
-      opacity: 0, 
-      x: side === 'left' ? -100 : 100,
-      y: 20
+  const cardVariants = (_side: string) => ({ // OPTIMIZED: Removed x translation based on side
+    hidden: {
+      opacity: 0,
+      y: 10 // OPTIMIZED: Removed x translation, reduced y
     },
     visible: {
       opacity: 1,
-      x: 0,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.4, // OPTIMIZED: Reduced from 0.8
         ease: "easeOut"
       }
     }
@@ -96,9 +94,9 @@ export const Education = () => {
     <section id="education" className="py-20 lg:py-32 relative overflow-hidden">
       {/* Beautiful gradient background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-purple-900/20"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.05),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.05),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(6,182,212,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_80%,rgba(6,182,212,0.05),transparent_50%)]"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -115,7 +113,7 @@ export const Education = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
           </motion.div>
@@ -127,7 +125,7 @@ export const Education = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('education.title')}
             </span>
           </motion.h2>
@@ -139,8 +137,8 @@ export const Education = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>
@@ -157,7 +155,7 @@ export const Education = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px hidden lg:block">
             <motion.div
               variants={timelineVariants}
-              className="h-full w-full bg-gradient-to-b from-indigo-400 via-purple-500 to-pink-500 rounded-full origin-top"
+              className="h-full w-full bg-gradient-to-b from-blue-400 via-cyan-500 to-blue-600 rounded-full origin-top"
               style={{ willChange: 'transform' }}
             />
           </div>
@@ -166,7 +164,7 @@ export const Education = () => {
           <div className="absolute left-8 h-full w-px lg:hidden">
             <motion.div
               variants={timelineVariants}
-              className="h-full w-full bg-gradient-to-b from-indigo-400 via-purple-500 to-pink-500 rounded-full origin-top"
+              className="h-full w-full bg-gradient-to-b from-blue-400 via-cyan-500 to-blue-600 rounded-full origin-top"
               style={{ willChange: 'transform' }}
             />
           </div>
@@ -204,7 +202,7 @@ export const Education = () => {
                       <div className={`w-full h-full rounded-full bg-gradient-to-br ${
                         item.isMain 
                           ? 'from-yellow-400 via-orange-500 to-red-500 shadow-lg shadow-orange-500/30' 
-                          : 'from-indigo-400 via-purple-500 to-pink-500 shadow-lg shadow-purple-500/30'
+                          : 'from-blue-400 via-cyan-500 to-blue-600 shadow-lg shadow-blue-500/30'
                       } flex items-center justify-center border-3 border-white dark:border-gray-800 relative overflow-hidden`}>
                         <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
                         {item.isMain ? (
@@ -239,7 +237,7 @@ export const Education = () => {
                         }}
                       >
                         {/* Subtle gradient overlay on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                         
                         <div className="relative z-10">
                           {/* Card Header with Year */}
@@ -298,7 +296,7 @@ export const Education = () => {
                               <div className={`px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r ${
                                 item.isMain 
                                   ? 'from-yellow-400 to-orange-500 text-white' 
-                                  : 'from-indigo-500 to-purple-600 text-white'
+                                  : 'from-blue-500 to-cyan-600 text-white'
                               } rounded-full font-bold text-sm lg:text-lg shadow-lg`}>
                                 {item.year}
                               </div>
@@ -329,10 +327,10 @@ export const Education = () => {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            transition={{ duration: 0.2, ease: "easeOut" }} // OPTIMIZED: Reduced from 0.3
                             className="border-t border-white/30 dark:border-gray-700/30"
                             style={{
-                              willChange: 'transform',
+                              willChange: 'height, opacity',
                               transform: 'translateZ(0)',
                             }}
                           >
@@ -356,7 +354,7 @@ export const Education = () => {
                                     </div>
                                   </div>
                                   
-                                  <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                                  <div className="p-3 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                                     <div className="flex items-center gap-2 mb-2">
                                       <Users className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                                       <h4 className="font-bold text-gray-900 dark:text-white text-sm">
@@ -383,10 +381,10 @@ export const Education = () => {
 
                               {/* Keimyung Special Badges */}
                               {item.institution === 'keimyung' && (
-                                <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                                <div className="p-3 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl border border-blue-200 dark:border-cyan-800">
                                   <div className="flex items-center gap-2 mb-2">
-                                    <Globe className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                                    <h4 className="font-bold text-purple-900 dark:text-purple-200 text-sm">
+                                    <Globe className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                    <h4 className="font-bold text-blue-900 dark:text-blue-200 text-sm">
                                       {t('education.internationalExchange')}
                                     </h4>
                                   </div>
@@ -444,9 +442,9 @@ export const Education = () => {
                                   {highlights.map((highlight, highlightIndex) => (
                                     <motion.div
                                       key={highlightIndex}
-                                      initial={{ opacity: 0, x: -20 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: highlightIndex * 0.05, duration: 0.3 }}
+                                      initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
+                                      animate={{ opacity: 1 }}
+                                      transition={{ delay: highlightIndex * 0.02, duration: 0.15 }} // OPTIMIZED: Reduced delays
                                       className="flex items-start gap-2 p-2 rounded-lg bg-gray-50/80 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/70 transition-colors"
                                     >
                                       <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>

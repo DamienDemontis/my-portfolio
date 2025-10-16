@@ -9,7 +9,7 @@ const FadeSlide: React.FC<{
   src: string
   alt: string
   duration?: number
-}> = ({ src, alt, duration = 0.8 }) => {
+}> = ({ src, alt, duration = 0.4 }) => {
   // Since images are preloaded, directly use the best format
   const getImageSrc = (originalSrc: string) => {
     const basePath = originalSrc.replace(/\.[^/.]+$/, '')
@@ -87,11 +87,11 @@ export const PhotographyShowcase = () => {
 
   // All images are preloaded during app loading screen for instant transitions
   useEffect(() => {
-    // Reset transition state when photo changes
+    // Reset transition state when photo changes - OPTIMIZED: reduced from 800ms to 400ms
     const timer = setTimeout(() => {
       setIsTransitioning(false)
-    }, 800) // Match FadeSlide duration
-    
+    }, 400) // Match FadeSlide duration
+
     return () => clearTimeout(timer)
   }, [currentPhotoIndex])
 
@@ -148,7 +148,7 @@ export const PhotographyShowcase = () => {
   }
 
   return (
-    <section id="photography" className="section-padding bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
+    <section id="photography" className="section-padding bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20">
       <div className="max-w-7xl mx-auto container-padding">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -163,7 +163,7 @@ export const PhotographyShowcase = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
               <Camera className="w-6 h-6 text-white" />
             </div>
           </motion.div>
@@ -175,7 +175,7 @@ export const PhotographyShowcase = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
               {t('photography.title')}
             </span>
           </motion.h2>
@@ -187,8 +187,8 @@ export const PhotographyShowcase = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-orange-400/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
         </motion.div>
@@ -283,7 +283,7 @@ export const PhotographyShowcase = () => {
               {[
                 { key: 'city', label: 'Urban Life', icon: Globe, color: 'from-blue-500 to-cyan-500' },
                 { key: 'nature', label: 'Nature', icon: Sparkles, color: 'from-green-500 to-emerald-500' },
-                { key: 'culture', label: 'Culture', icon: Heart, color: 'from-purple-500 to-pink-500' }
+                { key: 'culture', label: 'Culture', icon: Heart, color: 'from-blue-500 to-cyan-500' }
               ].map((category) => (
                 <motion.div key={category.key} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`bg-gradient-to-r ${category.color} rounded-xl p-4 md:p-6 text-white text-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300`}
                   onClick={() => {
@@ -312,19 +312,19 @@ export const PhotographyShowcase = () => {
             <div className="max-w-5xl mx-auto bg-white/50 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 dark:border-gray-700/20 shadow-xl">
               <div className="text-center mb-8">
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
-                  <Camera className="w-6 h-6 md:w-8 md:h-8 text-purple-500" />
+                  <Camera className="w-6 h-6 md:w-8 md:h-8 text-blue-500" />
                   {t('photography.conclusion.title')}
                 </h3>
-                <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-6" />
+                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full mb-6" />
               </div>
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  <p className="text-base md:text-lg">{t('photography.ambassador')} <span className="font-semibold text-purple-600 dark:text-purple-400">{t('photography.epitech')}</span> {t('photography.university')}.</p>
+                  <p className="text-base md:text-lg">{t('photography.ambassador')} <span className="font-semibold text-blue-600 dark:text-blue-400">{t('photography.epitech')}</span> {t('photography.university')}.</p>
                   <p className="text-base md:text-lg">{t('photography.beyond')}</p>
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{t('photography.photoDescriptions.each_image')}</p>
                 </div>
                 <div className="hidden md:flex justify-center">
-                  <div className="w-48 h-48 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
+                  <div className="w-48 h-48 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl">
                     <div className="w-40 h-40 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center">
                       <Camera className="w-16 h-16 text-white" />
                     </div>
