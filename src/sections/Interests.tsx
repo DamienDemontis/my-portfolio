@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Brain, Globe, Palette, Users, Lightbulb, BookOpen, Gamepad2, Music, Headphones, Leaf, Zap, Heart } from 'lucide-react'
+import { Brain, Globe, Users, Lightbulb, BookOpen, Gamepad2, Music, Headphones, Leaf, Zap, Heart } from 'lucide-react'
 
 export const Interests = () => {
   const { t } = useTranslation()
