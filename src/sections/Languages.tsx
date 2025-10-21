@@ -71,7 +71,7 @@ export const Languages = () => {
   return (
     <section id="languages" className="section-padding relative overflow-hidden">
       {/* Cultural Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20"></div>
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">

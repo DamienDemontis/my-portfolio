@@ -119,7 +119,7 @@ export const Contact = () => {
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       {/* Professional Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-green-900/10 dark:to-emerald-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">

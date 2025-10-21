@@ -319,9 +319,7 @@ export const PhotographyShowcase = () => {
               </div>
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  <p className="text-base md:text-lg">{t('photography.ambassador')} <span className="font-semibold text-blue-600 dark:text-blue-400">{t('photography.epitech')}</span> {t('photography.university')}.</p>
-                  <p className="text-base md:text-lg">{t('photography.beyond')}</p>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{t('photography.photoDescriptions.each_image')}</p>
+                  <p className="text-base md:text-lg">{t('photography.ambassador')} <span className="font-semibold text-blue-600 dark:text-blue-400">{t('photography.epitech')}</span>{t('photography.university')}</p>
                 </div>
                 <div className="hidden md:flex justify-center">
                   <div className="w-48 h-48 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl">

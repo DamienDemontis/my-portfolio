@@ -17,7 +17,7 @@
     "name": "Damien Demontis",
     "title": "Full Stack Developer & IT Specialist",
     "subtitle": "Passionate about modern technologies and innovation",
-    "description": "Based in France, relocating to Asia in 2025. 5th year student at EPITECH with expertise in web development, DevOps, and pedagogical mentorship.",
+    "description": "Based in France, relocating to Asia in 2025-2026. EPITECH Alumnus (graduated 2025) with expertise in web development, DevOps, and pedagogical mentorship.",
     "cta": {
       "contact": "Get In Touch",
       "resume": "Download Resume"
@@ -26,7 +26,7 @@
   "about": {
     "title": "About Me",
     "intro": "Passionate Full Stack Developer with a Vision for Innovation",
-    "description": "As a determined final-year student at EPITECH, I've dedicated my studies to mastering advanced technologies and software development. My academic and hands-on experiences have sharpened my skills in project management, team leadership, and crisis communication, preparing me for challenging IT roles.",
+    "description": "As an EPITECH Alumnus (graduated 2025), I've dedicated my studies to mastering advanced technologies and software development. My academic and hands-on experiences have sharpened my skills in project management, team leadership, and crisis communication, preparing me for challenging IT roles.",
     "aspiration": "I'm actively seeking a full-time IT position from September 2025, aiming to merge technical expertise with my passion for Asian culture and technological innovations.",
     "stats": {
       "experience": "3+ Years Experience",
@@ -43,6 +43,14 @@
     "keyAchievements": "Key Achievements",
     "impactResults": "Impact & Results",
     "companyProfiles": {
+      "jobneko": {
+        "name": "JobNeko",
+        "description": "Innovative open-source project specializing in artificial intelligence applied to job search and market analysis. Currently self-hostable, with upcoming SaaS model similar to n8n.",
+        "industry": "Startup",
+        "type": "Open Source / AI",
+        "size": "Solo Founder",
+        "scope": "AI-powered job analysis platform"
+      },
       "epitech": {
         "name": "EPITECH",
         "description": "Leading European higher-education institution in computer science, renowned for project-based learning and innovation",
@@ -77,10 +85,32 @@
       }
     },
     "positions": {
+      "freelance_founder": {
+        "title": "Founder & Freelance Full Stack Developer",
+        "company": "Freelance / JobNeko",
+        "period": "September 2024 - Present",
+        "location": "Nancy, France (Remote)",
+        "description": "Founded JobNeko, a sophisticated open-source platform that transforms job searching through artificial intelligence and intelligent automation. Designed to be self-hostable with an upcoming SaaS model (similar to n8n). Simultaneously developing custom websites for various clients with expertise in modern architecture and scalable solutions.",
+        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Vercel", "Git", "Docker"],
+        "achievements": [
+          "Created JobNeko: full-stack open-source AI-powered job market analysis platform (https://github.com/DamienDemontis/JobNeko)",
+          "Self-hostable architecture allowing complete user data control",
+          "Automated job data extraction via advanced LLMs from any website",
+          "Intelligent salary analysis with affordability scoring and cost-of-living calculations",
+          "AI-powered resume-job matching system with personalized compatibility scoring",
+          "Universal web scraping compatible with all job boards and career pages",
+          "Chrome extension for one-click job capture from any webpage",
+          "RAG (Retrieval-Augmented Generation) implementation for contextual recommendations",
+          "Unified professional dashboard for tracking and analyzing opportunities",
+          "Custom website development for clients with modern architectures",
+          "Technical consulting and mentoring on SaaS architectures and AI integrations"
+        ],
+        "impact": "Successfully launched an innovative open-source project transforming the job search experience with AI. Vision to offer a free self-hostable solution with a premium SaaS option for those preferring simplified management. Demonstrated expertise in technical entrepreneurship and modern product development."
+      },
       "epitech_mentor": {
         "title": "Pedagogical Mentor | MSc Curriculum",
         "company": "EPITECH",
-        "period": "March 2025 - Present",
+        "period": "March 2024 - August 2024",
         "location": "Nancy, France",
         "description": "Mentored MSc students on advanced software engineering topics including modern web development, cloud architecture, DevOps practices, and cybersecurity fundamentals. Built a cloud-based facial recognition attendance platform using PyTorch, OpenCV, and cloud infrastructure. Delivered comprehensive training on enterprise-grade technologies, agile methodologies, and industry best practices while creating engaging technical content.",
         "technologies": ["Node.js", "Express", "NestJS", "React", "Vue.js", "Next.js", "Redux", "Pinia", "Jest", "Cypress", "GitLab CI", "GitHub Actions", "AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "PostgreSQL", "MongoDB", "Redis", "PyTorch", "OpenCV", "OWASP Top 10", "TensorFlow", "scikit-learn", "Scrum", "Kanban", "Jira"],
@@ -102,7 +132,7 @@
       "epitech_assistant": {
         "title": "Regional Assistant | PGE & MSc Curriculums",
         "company": "EPITECH",
-        "period": "September 2021 - March 2025",
+        "period": "Late 2021 - August 2024",
         "location": "Nancy, France",
         "description": "Mentored students across fundamental and advanced programming concepts, from low-level C/C++ development to modern web technologies. Taught algorithmic problem-solving, data structures, software architecture principles, and industry development practices. Guided students through version control workflows, testing methodologies, and web development fundamentals while maintaining exceptional educational standards.",
         "technologies": ["C", "C++", "SFML", "Data Structures", "Algorithms", "Memory Management", "Pointers", "Git", "Bash", "TCP/IP", "HTTP", "SQL", "HTML", "CSS", "JavaScript", "REST APIs", "JSON", "MVC", "Docker", "Linux", "UNIX", "CUnit", "GoogleTest", "Design Patterns"],
@@ -257,7 +287,7 @@
         "technologies": [
           {
             "name": "Python",
-            "level": "expert",
+            "level": "intermediate",
             "experience": "4+ years",
             "description": "Full-stack Python development, data processing, AI/ML integration, and automation scripts.",
             "projects": ["AI Recognition System", "Data Analytics", "Desktop Applications"]
@@ -634,8 +664,8 @@
       "epitech": {
         "name": "EPITECH - European Institute of Technology",
         "degree": "Expert in Information Technology",
-        "msc": "Master in Computer Science",
-        "expert": "Expert en Technologies de l'Information",
+        "msc": "Alumnus - Expert in Information Technology",
+        "expert": "Master in Computer Science (graduated)",
         "period": "2020 - 2025",
         "location": "Nancy, France",
         "gpa": "GPA: 3.7/4",
@@ -829,17 +859,13 @@
       "nature": "Nature",
       "culture": "Culture"
     },
-    "photoDescriptions": {
-      "each_image": "Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities."
-    },
     "conclusion": {
       "title": "Through the Lens",
-      "description": "Photography and videography were integral parts of my role as an international ambassador for EPITECH at Keimyung University. Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities. Each image tells a story of cultural discovery, natural wonders, and the vibrant energy of Korean cities. These photos represent not just places, but experiences that have shaped my perspective and deepened my connection to Asian culture."
+      "description": "Photography and videography were integral parts of my role as an international ambassador for EPITECH at Keimyung University. Beyond documenting the beauty and diversity of South Korea during my exchange year, I was responsible for creating content that showcased the student experience and cultural exchange opportunities. These photos represent not just places, but experiences that have shaped my perspective and deepened my connection to Asian culture."
     },
     "ambassador": "Photography and videography were integral parts of my role as an international ambassador for",
     "epitech": "EPITECH",
-    "university": ". As a representative of the university in Korea, I documented cultural exchanges, campus life, and the unique experiences of international students.",
-    "beyond": "Beyond official duties, my camera became a tool for exploring Korea's rich heritage - from bustling Seoul streets to serene temple grounds, from modern architecture to traditional markets."
+    "university": ". As a representative of the university in Korea, I documented cultural exchanges, campus life, and the unique experiences of international students."
   },
   "languages": {
     "title": "Languages",

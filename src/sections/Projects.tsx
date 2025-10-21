@@ -68,7 +68,7 @@ export const Projects = () => {
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       {/* Innovation Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
       
       {/* Optimized static background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

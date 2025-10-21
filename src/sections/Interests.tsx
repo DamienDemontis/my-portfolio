@@ -94,7 +94,7 @@ export const Interests = () => {
   return (
     <section id="interests" className="section-padding relative overflow-hidden">
       {/* Creative Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/10 dark:to-cyan-900/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
       
       {/* Subtle floating background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -242,30 +242,6 @@ export const Interests = () => {
           })}
         </motion.div>
 
-        {/* Personal philosophy */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.5 }}
-          className="text-center mt-16"
-        >
-          <div 
-            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/60 rounded-3xl p-8 border border-white/30 dark:border-gray-700/30 shadow-xl"
-          >
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Palette className="w-6 h-6 text-rose-600" />
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                {t('sections.interests.passionDriven')}
-              </h3>
-            </div>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {t('sections.interests.passionDrivenText')}
-              <span className="block mt-4 font-semibold text-rose-600 dark:text-rose-400">
-                {t('sections.interests.passionQuote')}
-              </span>
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

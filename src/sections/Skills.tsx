@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Code, Database, Cloud, Settings, Wrench, Smartphone, Zap } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Code, Database, Cloud, Wrench, Smartphone, Zap, TestTube } from 'lucide-react'
+import { useState } from 'react'
 
 export const Skills = () => {
   const { t } = useTranslation()
@@ -12,13 +12,7 @@ export const Skills = () => {
     rootMargin: '0px 0px -10% 0px',
   })
 
-  // Helper CSS to hide scrollbars while preserving scroll/swipe
-  const hideScrollbarCss = `
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  `
-
-  // Technology logos mapping - using Simple Icons CDN
+  // Technology logos mapping
   const technologyLogos: Record<string, string> = {
     // Frontend
     'React': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
@@ -30,7 +24,7 @@ export const Skills = () => {
     'HTML5': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg',
     'CSS3': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg',
     'Tailwind CSS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tailwindcss.svg',
-    
+
     // Backend
     'Node.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nodedotjs.svg',
     'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg',
@@ -41,10 +35,10 @@ export const Skills = () => {
     'C++': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cplusplus.svg',
     'C#': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/csharp.svg',
     'Haskell': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/haskell.svg',
-    'ECS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gamemaker.svg', // Using gamemaker as proxy for ECS
+    'ECS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gamemaker.svg',
     'REST APIs': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/fastapi.svg',
     'GraphQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg',
-    
+
     // DevOps & Cloud
     'Docker': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg',
     'Kubernetes': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kubernetes.svg',
@@ -55,25 +49,25 @@ export const Skills = () => {
     'Linux': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg',
     'Bash': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gnubash.svg',
     'Ansible': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/ansible.svg',
-    
+
     // Databases
     'PostgreSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postgresql.svg',
     'MongoDB': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
     'Firestore': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/firebase.svg',
     'MySQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mysql.svg',
     'Redis': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/redis.svg',
-    'NoSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg', // Using MongoDB as proxy for NoSQL
-    
+    'NoSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
+
     // Testing
     'Jest': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jest.svg',
     'Cypress': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cypress.svg',
     'Mocha': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mocha.svg',
-    
+
     // AI/ML
     'TensorFlow': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tensorflow.svg',
     'PyTorch': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg',
     'OpenCV': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/opencv.svg',
-    
+
     // Tools
     'Git': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg',
     'Figma': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
@@ -82,8 +76,8 @@ export const Skills = () => {
     'PyQt6': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/qt.svg',
     'Blender': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/blender.svg',
     'Zapier': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/zapier.svg',
-    'Design Thinking': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg', // Using Figma as proxy for Design Thinking
-    
+    'Design Thinking': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
+
     // Mobile
     'React Native': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
     'Flutter': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg',
@@ -92,45 +86,31 @@ export const Skills = () => {
   }
 
   const skillCategories = [
-    { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20', borderColor: 'border-blue-200 dark:border-blue-800' },
-    { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20', borderColor: 'border-green-200 dark:border-green-800' },
-    { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20', borderColor: 'border-orange-200 dark:border-orange-800' },
-    { key: 'databases', icon: Database, color: 'from-blue-500 to-cyan-600', bgColor: 'from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-800/20', borderColor: 'border-blue-200 dark:border-cyan-800' },
-    { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20', borderColor: 'border-indigo-200 dark:border-indigo-800' },
-    { key: 'testing', icon: Settings, color: 'from-emerald-500 to-emerald-600', bgColor: 'from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20', borderColor: 'border-emerald-200 dark:border-emerald-800' },
-    { key: 'aiml', icon: Zap, color: 'from-cyan-500 to-blue-600', bgColor: 'from-cyan-50 to-blue-100 dark:from-cyan-900/20 dark:to-blue-800/20', borderColor: 'border-cyan-200 dark:border-blue-800' },
-    { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-700/20', borderColor: 'border-gray-200 dark:border-gray-700' }
+    { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500' },
+    { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'bg-green-500/10', borderColor: 'border-green-500' },
+    { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'bg-orange-500/10', borderColor: 'border-orange-500' },
+    { key: 'databases', icon: Database, color: 'from-cyan-500 to-cyan-600', bgColor: 'bg-cyan-500/10', borderColor: 'border-cyan-500' },
+    { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'bg-indigo-500/10', borderColor: 'border-indigo-500' },
+    { key: 'testing', icon: TestTube, color: 'from-emerald-500 to-emerald-600', bgColor: 'bg-emerald-500/10', borderColor: 'border-emerald-500' },
+    { key: 'aiml', icon: Zap, color: 'from-purple-500 to-purple-600', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500' },
+    { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'bg-gray-500/10', borderColor: 'border-gray-500' }
   ]
 
-  // Mobile UX state: active category filter, show-more, and responsive detection
   const [activeCategory, setActiveCategory] = useState<string>(skillCategories[0].key)
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
-  const [isDesktop, setIsDesktop] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const mql = window.matchMedia('(min-width: 768px)')
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
-    setIsDesktop(mql.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
-  }, [])
-
-  const toggleExpanded = (key: string) => {
-    setExpandedCategories(prev => {
-      const copy = new Set(prev)
-      if (copy.has(key)) copy.delete(key)
-      else copy.add(key)
-      return copy
-    })
-  }
-
-  const showAllLabel = t('common.showAll', { defaultValue: 'Show all' })
-  const showLessLabel = t('common.showLess', { defaultValue: 'Show less' })
-
-  const getProficiencyColor = () => {
-    // Use a consistent blue gradient for all proficiency levels
-    return 'from-blue-500 to-blue-600'
+  const getProficiencyColor = (level: string) => {
+    switch (level) {
+      case 'expert':
+        return 'from-blue-600 to-blue-700'
+      case 'advanced':
+        return 'from-blue-500 to-blue-600'
+      case 'intermediate':
+        return 'from-blue-400 to-blue-500'
+      case 'beginner':
+        return 'from-slate-400 to-slate-500'
+      default:
+        return 'from-blue-500 to-blue-600'
+    }
   }
 
   const getProficiencyWidth = (level: string) => {
@@ -151,158 +131,121 @@ export const Skills = () => {
   const getProficiencyLabel = (level: string) => {
     switch (level) {
       case 'expert':
-        return '★★★★★'
+        return 'Expert'
       case 'advanced':
-        return '★★★★☆'
+        return 'Avancé'
       case 'intermediate':
-        return '★★★☆☆'
+        return 'Intermédiaire'
       case 'beginner':
-        return '★★☆☆☆'
+        return 'Débutant'
       default:
-        return '★★★☆☆'
-    }
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05 // OPTIMIZED: Reduced from 0.15
-      }
-    }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 10 }, // OPTIMIZED: Reduced from 15
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" } // OPTIMIZED: Reduced from 0.4
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0 }, // OPTIMIZED: Removed scale
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.2 } // OPTIMIZED: Reduced from 0.3
+        return 'Intermédiaire'
     }
   }
 
   return (
-    <section id="skills" className="section-padding relative overflow-hidden">
-      {/* Scoped styles */}
-      <style dangerouslySetInnerHTML={{ __html: hideScrollbarCss }} />
+    <section id="skills" className="py-20 lg:py-32 relative overflow-hidden">
       {/* Clean background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
-      
-      {/* Optimized static background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-10 right-20 w-40 h-40 rounded-full opacity-10"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
-          }}
-        ></div>
-        <div
-          className="absolute bottom-10 left-20 w-40 h-40 rounded-full opacity-10"
-          style={{
-            background: 'radial-gradient(circle, rgba(100, 116, 139, 0.1) 0%, transparent 70%)',
-          }}
-        ></div>
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.03),transparent_50%)]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto container-padding relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          {/* Elegant Header with Soft Impact */}
-          <div className="relative max-w-4xl mx-auto">
-            {/* Clean Icon Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-block mb-6"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
-                <Code className="w-6 h-6 text-white" />
-              </div>
-            </motion.div>
+          {/* Clean Icon Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-block mb-6"
+          >
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+              <Code className="w-6 h-6 text-white" />
+            </div>
+          </motion.div>
 
-            {/* Beautiful Title */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
-            >
-              <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-transparent">
-                {t('skills.title')}
-              </span>
-            </motion.h2>
+          {/* Beautiful Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
+          >
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-transparent">
+              {t('skills.title')}
+            </span>
+          </motion.h2>
 
-            {/* Elegant Decorative Line */}
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={inView ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="relative mb-6 flex items-center justify-center"
-            >
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
-              <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
-            </motion.div>
+          {/* Elegant Decorative Line */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={inView ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="relative mb-6 flex items-center justify-center"
+          >
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
+          </motion.div>
+        </motion.div>
 
+        {/* Category Tabs */}
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mb-8"
+        >
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+            {skillCategories.map((category) => {
+              const IconComponent = category.icon
+              const isActive = activeCategory === category.key
 
-            {/* Subtle Floating Elements */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="absolute inset-0 pointer-events-none overflow-hidden"
-            >
-              <div className="absolute top-1/2 left-1/4 w-1 h-1 bg-blue-300 rounded-full animate-pulse opacity-40"></div>
-              <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse opacity-30 delay-700"></div>
-              <div className="absolute bottom-1/3 left-1/2 w-1 h-1 bg-blue-400 rounded-full animate-pulse opacity-25 delay-1000"></div>
-            </motion.div>
+              return (
+                <motion.button
+                  key={category.key}
+                  onClick={() => setActiveCategory(category.key)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`
+                    group relative px-4 py-3 md:px-6 md:py-4 rounded-2xl font-semibold
+                    transition-all duration-300 flex items-center gap-2 md:gap-3
+                    ${isActive
+                      ? `bg-gradient-to-r ${category.color} text-white shadow-lg shadow-${category.color.split('-')[1]}-500/30`
+                      : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                    }
+                  `}
+                >
+                  <IconComponent className={`w-4 h-4 md:w-5 md:h-5 ${isActive ? 'text-white' : 'text-gray-600 dark:text-gray-400'}`} />
+                  <span className="text-sm md:text-base">{t(`skills.categories.${category.key}.title`)}</span>
+
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 rounded-2xl border-2 border-white/20"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </motion.button>
+              )
+            })}
           </div>
         </motion.div>
 
-        {/* Mobile category chips */}
-        <div className="md:hidden mb-4 -mt-2 overflow-x-auto no-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
-          <div className="flex gap-2 pr-2">
-            {skillCategories.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
-                className={`px-3 py-1.5 rounded-full text-sm border transition-colors whitespace-nowrap ${
-                  activeCategory === cat.key
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700'
-                }`}
-              >
-                {t(`skills.categories.${cat.key}.title`)}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* Technologies Display */}
+        <AnimatePresence mode="wait">
+          {skillCategories.map((category) => {
+            if (activeCategory !== category.key) return null
 
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-3 xl:grid-cols-4 gap-4"
-        >
-          {skillCategories.map((category, categoryIndex) => {
-            const IconComponent = category.icon
             const rawTechnologies = t(`skills.categories.${category.key}.technologies`, { returnObjects: true }) as any[]
-            
-            // Sort technologies by proficiency level (expert -> advanced -> intermediate -> beginner)
+
+            // Sort by proficiency
             const proficiencyOrder = { expert: 4, advanced: 3, intermediate: 2, beginner: 1 }
             const technologies = rawTechnologies.sort((a, b) => {
               const aLevel = proficiencyOrder[a.level as keyof typeof proficiencyOrder] || 0
@@ -310,172 +253,122 @@ export const Skills = () => {
               return bLevel - aLevel
             })
 
-            const isExpanded = expandedCategories.has(category.key)
-            const displayTechs = isDesktop ? technologies : technologies.slice(0, isExpanded ? technologies.length : 8)
-            const mobileVisibilityClass = activeCategory === category.key ? 'block md:block' : 'hidden md:block'
-            
             return (
               <motion.div
                 key={category.key}
-                variants={cardVariants}
-                whileHover={{ 
-                  scale: 1.01,
-                  transition: { duration: 0.15 }
-                }}
-                className={`bg-white/95 dark:bg-gray-800/95 rounded-3xl p-0 border border-gray-200/60 dark:border-gray-700/60 shadow-xl hover:shadow-2xl transition-shadow duration-200 group overflow-hidden ${mobileVisibilityClass}`}
-                style={{
-                  willChange: 'transform, box-shadow',
-                  transform: 'translateZ(0)'
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="max-w-6xl mx-auto"
               >
-                {/* Header */}
-                <div className={`p-4 bg-gradient-to-br ${category.bgColor} border-b ${category.borderColor} relative overflow-hidden`}>
-                  <div className="flex items-center mb-3 relative z-10">
-                    <motion.div
-                      whileHover={{
-                        scale: 1.05 // OPTIMIZED: Removed 360 rotation, reduced scale
-                      }}
-                      transition={{ duration: 0.2 }} // OPTIMIZED: Reduced from 0.6
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-r ${category.color} p-2 mr-3 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
-                    >
-                      <IconComponent className="w-full h-full text-white" />
-                    </motion.div>
+                {/* Category Header */}
+                <div className={`mb-6 p-6 rounded-3xl bg-gradient-to-br ${category.bgColor} border ${category.borderColor}`}>
+                  <div className="flex items-center gap-4">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.color} p-3 shadow-lg`}>
+                      <category.icon className="w-full h-full text-white" />
+                    </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                         {t(`skills.categories.${category.key}.title`)}
                       </h3>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-600 dark:text-gray-400">
                         {technologies.length} {t('skills.technologies')}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-4">
-                  <motion.div 
-                    variants={containerVariants}
-                    className="grid grid-cols-2 gap-2 md:space-y-2 md:grid-cols-1"
-                  >
-                    {displayTechs.map((tech, index) => {
-                      const logoUrl = technologyLogos[tech.name]
-                      
-                      return (
-                        <motion.div
-                          key={index}
-                          variants={itemVariants}
-                          whileHover={{ 
-                            scale: 1.01,
-                            transition: { duration: 0.1 }
-                          }}
-                          className="group/tech"
-                        >
-                          {/* Technology card */}
-                          <div 
-                            className="relative p-3 rounded-xl bg-white/90 dark:bg-gray-700/90 border border-gray-200/60 dark:border-gray-600/60 hover:bg-white/95 dark:hover:bg-gray-700/95 transition-colors duration-150 shadow-sm hover:shadow-md"
-                            style={{
-                              willChange: 'background-color',
-                              transform: 'translateZ(0)'
-                            }}
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <div className="flex items-center gap-2">
-                                <motion.div
-                                  whileHover={{ scale: 1.05 }}
-                                  transition={{ duration: 0.1 }}
-                                  className="w-8 h-8 rounded-lg bg-white dark:bg-gray-800 p-1.5 shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center"
-                                  style={{ willChange: 'transform', transform: 'translateZ(0)' }}
-                                >
-                                  {logoUrl ? (
-                                    <img
-                                      src={logoUrl}
-                                      alt={tech.name}
-                                      className="w-5 h-5 object-contain dark:invert"
-                                    />
-                                  ) : (
-                                    <Code className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                                  )}
-                                </motion.div>
-                                <div>
-                                  <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
-                                    {tech.name}
-                                  </span>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400 md:block hidden">
-                                    {tech.experience}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="text-right hidden md:block">
-                                <div className="text-xs text-gray-500 dark:text-gray-400">
-                                  {getProficiencyLabel(tech.level)}
-                                </div>
-                              </div>
-                            </div>
-                            
-                            {/* Proficiency bar (desktop only) - OPTIMIZED */}
-                            <div className="hidden md:block w-full bg-gray-200 dark:bg-gray-600 rounded-full h-1.5">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                animate={inView ? { width: getProficiencyWidth(tech.level) } : { width: 0 }}
-                                transition={{
-                                  duration: 0.8, // OPTIMIZED: Reduced from 1.5
-                                  delay: 0.2 + categoryIndex * 0.05 + index * 0.02, // OPTIMIZED: Reduced delays
-                                  ease: "easeOut"
-                                }}
-                                className={`h-1.5 bg-gradient-to-r ${getProficiencyColor()} rounded-full`}
+                {/* Technologies Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {technologies.map((tech, index) => {
+                    const logoUrl = technologyLogos[tech.name]
+
+                    return (
+                      <motion.div
+                        key={tech.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                        className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-start gap-4 mb-4">
+                          {/* Logo */}
+                          <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-700 p-2.5 flex items-center justify-center flex-shrink-0 border border-gray-200 dark:border-gray-600">
+                            {logoUrl ? (
+                              <img
+                                src={logoUrl}
+                                alt={tech.name}
+                                className="w-full h-full object-contain dark:invert"
                               />
+                            ) : (
+                              <Code className="w-full h-full text-gray-600 dark:text-gray-400" />
+                            )}
+                          </div>
+
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                              {tech.name}
+                            </h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                              {tech.experience}
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs font-semibold px-2 py-1 rounded-full bg-gradient-to-r ${getProficiencyColor(tech.level)} text-white`}>
+                                {getProficiencyLabel(tech.level)}
+                              </span>
                             </div>
                           </div>
-                        </motion.div>
-                      )
-                    })}
-                  </motion.div>
+                        </div>
 
-                  {/* Show more / less for mobile */}
-                  {!isDesktop && technologies.length > 8 && (
-                    <button
-                      onClick={() => toggleExpanded(category.key)}
-                      className="mt-3 md:hidden w-full text-xs py-2 rounded-lg bg-white/70 dark:bg-gray-700/70 border border-gray-200/50 dark:border-gray-600/50 text-gray-700 dark:text-gray-300"
-                    >
-                      {isExpanded ? showLessLabel : showAllLabel}
-                    </button>
-                  )}
-                </div>
+                        {/* Proficiency bar */}
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: getProficiencyWidth(tech.level) }}
+                            transition={{
+                              duration: 0.8,
+                              delay: index * 0.05,
+                              ease: "easeOut"
+                            }}
+                            className={`h-full bg-gradient-to-r ${getProficiencyColor(tech.level)} rounded-full`}
+                          />
+                        </div>
 
-                {/* Simplified floating element */}
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-white/50 dark:bg-gray-700/50 backdrop-blur-xl rounded-full border border-gray-200/50 dark:border-gray-600/50 flex items-center justify-center shadow-lg">
-                  <Zap className="w-3 h-3 text-blue-500 dark:text-blue-400" />
+                        {/* Description (optional, shown on hover or always) */}
+                        {tech.description && (
+                          <p className="mt-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">
+                            {tech.description}
+                          </p>
+                        )}
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </motion.div>
             )
           })}
-        </motion.div>
+        </AnimatePresence>
 
         {/* Summary */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
-          className="text-center mt-8"
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-center mt-12"
         >
-          <div 
-            className="max-w-3xl mx-auto backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-xl"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
-          >
+          <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 rounded-3xl p-8 border border-gray-200 dark:border-gray-700 shadow-xl">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div>
-                <Zap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 {t('skills.summary.title')}
               </h3>
             </div>
-            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {t('skills.summary.description')}
-              <span className="block mt-3 font-semibold text-blue-600 dark:text-blue-400">
+              <span className="block mt-4 font-semibold text-blue-600 dark:text-blue-400">
                 {t('skills.summary.tagline')}
               </span>
             </p>
@@ -484,4 +377,4 @@ export const Skills = () => {
       </div>
     </section>
   )
-} 
+}

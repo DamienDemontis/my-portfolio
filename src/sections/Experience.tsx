@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Calendar, MapPin, CheckCircle, Briefcase, TrendingUp, Users, ChevronDown, Building2, Award, Zap } from 'lucide-react'
 import { useState } from 'react'
+import { LottieAnimation } from '../components/LottieAnimation'
 
 export const Experience = () => {
   const { t } = useTranslation()
@@ -15,6 +16,7 @@ export const Experience = () => {
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
 
   const experiences = [
+    'freelance_founder',
     'epitech_mentor',
     'epitech_assistant',
     'leonart',
@@ -36,6 +38,7 @@ export const Experience = () => {
 
   const getCompanyKey = (exp: string) => {
     if (exp.includes('epitech')) return 'epitech'
+    if (exp === 'freelance_founder') return 'jobneko'
     if (exp === 'leonart') return 'leonart'
     if (exp === 'simple') return 'simple'
     if (exp === 'acoris') return 'acoris'
@@ -180,7 +183,7 @@ export const Experience = () => {
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
                           {/* Optimized company logo */}
-                          <motion.div 
+                          <motion.div
                             className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
                             whileHover={{ rotate: 2, scale: 1.02 }}
                             transition={{ duration: 0.2 }}
@@ -189,17 +192,24 @@ export const Experience = () => {
                               transform: 'translateZ(0)',
                             }}
                           >
-                            <img 
-                              src={
-                                exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
-                                exp === 'simple' ? '/Logo-plus-simple.png' :
-                                exp === 'acoris' ? '/acoris_logo.jpg' :
-                                exp === 'leonart' ? '/Logo_Leon\'Art.png' :
-                                ''
-                              }
-                              alt={`${t(`experience.positions.${exp}.company`)} logo`}
-                              className="w-full h-full object-contain rounded-xl"
-                            />
+                            {exp === 'freelance_founder' ? (
+                              <LottieAnimation
+                                animationPath="/JobNeko.json"
+                                className="w-full h-full"
+                              />
+                            ) : (
+                              <img
+                                src={
+                                  exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
+                                  exp === 'simple' ? '/Logo-plus-simple.png' :
+                                  exp === 'acoris' ? '/acoris_logo.jpg' :
+                                  exp === 'leonart' ? '/Logo_Leon\'Art.png' :
+                                  ''
+                                }
+                                alt={`${t(`experience.positions.${exp}.company`)} logo`}
+                                className="w-full h-full object-contain rounded-xl"
+                              />
+                            )}
                           </motion.div>
                           
                           {/* Enhanced job info with better responsive layout */}
@@ -241,7 +251,7 @@ export const Experience = () => {
                               <div className="flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
                                 <span>{t(`experience.positions.${exp}.period`)}</span>
-                                {exp === 'epitech_mentor' && (
+                                {exp === 'freelance_founder' && (
                                   <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium ml-2">
                                     {t('experience.current')}
                                   </span>
