@@ -914,6 +914,7 @@
     "subtitle": "Ready to bring your ideas to life",
     "description": "I'm always open to discussing new opportunities, innovative projects, or just having a chat about technology and development.",
     "form": {
+      "title": "Send a Message",
       "name": "Full Name",
               "email": "Mail",
       "subject": "Subject",
@@ -924,11 +925,18 @@
       "namePlaceholder": "Your full name",
       "emailPlaceholder": "your.email@example.com",
       "subjectPlaceholder": "What's this about?",
-      "messagePlaceholder": "Tell me about your project, idea, or just say hello!"
+      "messagePlaceholder": "Tell me about your project, idea, or just say hello!",
+      "bookCall": "Book a Call",
+      "fishCounter": {
+        "clickCat": "Click the cat to give a fish! 🐱",
+        "fish": "fish",
+        "fishes": "fishes"
+      }
     },
     "info": {
       "email": "Mail",
-      "location": "Frouard, Grand Est, France",
+      "location": "Location",
+      "availabilityLabel": "Availability",
       "availability": "Available from September 2025",
       "contactInfo": "Contact Information"
     },

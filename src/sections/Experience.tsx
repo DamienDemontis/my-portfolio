@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Calendar, MapPin, CheckCircle, Briefcase, TrendingUp, Users, ChevronDown, Building2, Award, Zap } from 'lucide-react'
+import { Calendar, MapPin, CheckCircle, Briefcase, TrendingUp, Users, ChevronDown, Building2, Award, Zap, Github } from 'lucide-react'
 import { useState } from 'react'
 import { LottieAnimation } from '../components/LottieAnimation'
 
@@ -354,20 +354,47 @@ export const Experience = () => {
                               </h4>
                               <div className="space-y-3">
                                 {Array.isArray(t(`experience.positions.${exp}.achievements`, { returnObjects: true })) &&
-                                  (t(`experience.positions.${exp}.achievements`, { returnObjects: true }) as string[]).slice(0, 4).map((achievement, achIndex) => (
-                                    <motion.div
-                                      key={achIndex}
-                                      initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
-                                      animate={{ opacity: 1 }}
-                                      transition={{ delay: achIndex * 0.02, duration: 0.15 }} // OPTIMIZED: Reduced delays
-                                      className="flex items-start gap-3 p-3 rounded-xl bg-green-50/90 dark:bg-green-900/70 border border-green-200/50 dark:border-green-800/50"
-                                    >
-                                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                      <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                                        {achievement}
-                                      </span>
-                                    </motion.div>
-                                  ))
+                                  (t(`experience.positions.${exp}.achievements`, { returnObjects: true }) as string[]).slice(0, 4).map((achievement, achIndex) => {
+                                    // Parse achievement text to detect URLs
+                                    const urlRegex = /(https?:\/\/[^\s)]+)/g;
+                                    const hasUrl = urlRegex.test(achievement);
+                                    const parts = achievement.split(urlRegex).filter(p => p);
+
+                                    return (
+                                      <motion.div
+                                        key={achIndex}
+                                        initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: achIndex * 0.02, duration: 0.15 }} // OPTIMIZED: Reduced delays
+                                        className="flex items-start gap-3 p-3 rounded-xl bg-green-50/90 dark:bg-green-900/70 border border-green-200/50 dark:border-green-800/50"
+                                      >
+                                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                          {hasUrl ? (
+                                            parts.map((part, index) => {
+                                              if (part.match(/^https?:\/\//)) {
+                                                return (
+                                                  <a
+                                                    key={`url-${index}`}
+                                                    href={part}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold underline decoration-2 underline-offset-2 hover:decoration-blue-600 dark:hover:decoration-blue-400 transition-all"
+                                                  >
+                                                    <Github className="w-3.5 h-3.5" />
+                                                    GitHub
+                                                  </a>
+                                                );
+                                              }
+                                              return <span key={`text-${index}`}>{part}</span>;
+                                            })
+                                          ) : (
+                                            achievement
+                                          )}
+                                        </span>
+                                      </motion.div>
+                                    );
+                                  })
                                 }
                               </div>
                             </div>

@@ -1,8 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, MapPin, Clock, Send, Download, FileText, Github, Linkedin, MessageCircle, Instagram } from 'lucide-react'
+import { Mail, MapPin, Clock, Send, Download, FileText, Github, Linkedin, MessageCircle, Instagram, Calendar } from 'lucide-react'
+import { LottieAnimation } from '../components/LottieAnimation'
+import { FishCounter } from '../components/FishCounter'
+
+// Declare Calendly type for TypeScript
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (options: {
+        url: string
+        parentElement: Element | null
+        prefill?: Record<string, unknown>
+        utm?: Record<string, unknown>
+      }) => void
+    }
+  }
+}
 
 export const Contact = () => {
   const { t } = useTranslation()
@@ -20,6 +36,19 @@ export const Contact = () => {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Initialize Calendly widget when component mounts
+  useEffect(() => {
+    // Check if Calendly script is loaded
+    if (window.Calendly) {
+      window.Calendly.initInlineWidget({
+        url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1',
+        parentElement: document.querySelector('.calendly-inline-widget'),
+        prefill: {},
+        utm: {}
+      })
+    }
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -64,13 +93,13 @@ export const Contact = () => {
     },
     {
       icon: MapPin,
-      label: 'Location',
+      label: t('contact.info.location'),
       value: 'Frouard, Grand Est, France',
       href: 'https://maps.google.com/maps?q=Frouard,+Grand+Est,+France'
     },
     {
       icon: Clock,
-      label: 'Availability',
+      label: t('contact.info.availabilityLabel'),
       value: t('contact.info.availability'),
       href: null
     }
@@ -176,15 +205,15 @@ export const Contact = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 gap-12"
+          className="grid lg:grid-cols-2 gap-12 lg:items-start"
         >
           {/* Contact Form */}
-          <motion.div variants={itemVariants}>
-            <div 
+          <motion.div variants={itemVariants} className="flex flex-col gap-8">
+            <div
               className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                {t('contact.form.send')} Message
+                {t('contact.form.title')}
               </h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -277,6 +306,20 @@ export const Contact = () => {
                   )}
                 </motion.button>
               </form>
+            </div>
+
+            {/* Calendly Embed Widget - Separate Card */}
+            <div
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl mt-8"
+            >
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
+                <Calendar className="w-6 h-6" />
+                {t('contact.form.bookCall')}
+              </h3>
+              <div
+                className="calendly-inline-widget rounded-2xl overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                style={{ minWidth: '320px', height: '800px' }}
+              ></div>
             </div>
           </motion.div>
 
@@ -424,6 +467,30 @@ export const Contact = () => {
                 })}
               </div>
             </div>
+
+            {/* Lottie Cat Animation with Fish Counter */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-white/80 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl overflow-hidden flex flex-col"
+              style={{ minHeight: '100%' }}
+            >
+              <div
+                className="-mt-20 cursor-pointer transition-transform hover:scale-105 active:scale-95 mb-8"
+                onClick={() => {
+                  if ((window as any).__feedCat) {
+                    (window as any).__feedCat()
+                  }
+                }}
+              >
+                <LottieAnimation
+                  animationPath="/JobNeko.json"
+                  className="w-full h-[500px]"
+                />
+              </div>
+              <div className="mt-auto">
+                <FishCounter />
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

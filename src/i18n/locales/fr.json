@@ -901,6 +901,7 @@
     "subtitle": "Prêt à donner vie à vos idées",
     "description": "Je suis toujours ouvert à discuter de nouvelles opportunités, de projets innovants, ou simplement échanger sur la technologie et le développement.",
     "form": {
+      "title": "Envoyer un Message",
       "name": "Nom Complet",
               "email": "Mail",
       "subject": "Sujet",
@@ -911,11 +912,18 @@
       "namePlaceholder": "Votre nom complet",
       "emailPlaceholder": "votre.email@exemple.com",
       "subjectPlaceholder": "De quoi s'agit-il ?",
-      "messagePlaceholder": "Parlez-moi de votre projet, idée, ou dites simplement bonjour !"
+      "messagePlaceholder": "Parlez-moi de votre projet, idée, ou dites simplement bonjour !",
+      "bookCall": "Réserver un Appel",
+      "fishCounter": {
+        "clickCat": "Clique sur le chat pour donner un poisson ! 🐱",
+        "fish": "poisson",
+        "fishes": "poissons"
+      }
     },
     "info": {
       "email": "Mail",
-      "location": "Frouard, Grand Est, France",
+      "location": "Localisation",
+      "availabilityLabel": "Disponibilité",
       "availability": "Disponible à partir de septembre 2025",
       "contactInfo": "Informations de Contact"
     },
