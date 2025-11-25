@@ -3,17 +3,23 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Code, Users, BookOpen, Trophy, Coffee, Heart, Brain } from 'lucide-react'
 import { PokemonProfileCard } from '../components/PokemonProfileCard'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
 
 export const About = () => {
   const { t } = useTranslation()
   const [isHeartFilled, setIsHeartFilled] = useState(false)
   const [isSmiling, setIsSmiling] = useState(false)
+  const [isLowEnd, setIsLowEnd] = useState(false)
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0,
     rootMargin: '0px 0px -10% 0px',
   })
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   const stats = [
     {
@@ -78,10 +84,10 @@ export const About = () => {
     <section id="about" className="section-padding relative overflow-hidden">
       {/* Enhanced Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20"></div>
-      
+
       {/* Optimized background elements - Simple gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
+        <div
           className="absolute top-20 right-10 w-32 h-32 rounded-full bg-blue-100/30 dark:bg-blue-400/10"
           style={{
             willChange: 'transform',
@@ -108,7 +114,7 @@ export const About = () => {
           {/* Content */}
           <div className="order-2 lg:order-1">
             {/* Solid container for content */}
-            <div 
+            <div
               className="bg-white/90 dark:bg-gray-800/90 rounded-3xl p-8 lg:p-12 border border-white/30 dark:border-gray-700/30 shadow-xl"
               style={{
                 willChange: 'transform',
@@ -179,10 +185,10 @@ export const About = () => {
                     <motion.div
                       key={index}
                       variants={statsVariants}
-                      whileHover={{ 
+                      whileHover={!isLowEnd ? {
                         scale: 1.02,
                         transition: { duration: 0.2 }
-                      }}
+                      } : {}}
                       className={`bg-gradient-to-br ${stat.bgColor} rounded-2xl p-6 border ${stat.borderColor} shadow-lg hover:shadow-xl transition-all duration-200 group cursor-pointer`}
                       style={{
                         willChange: 'transform',
@@ -190,7 +196,7 @@ export const About = () => {
                       }}
                     >
                       <div className="flex flex-col items-center text-center">
-                        <div 
+                        <div
                           className={`w-12 h-12 rounded-xl bg-gradient-to-r ${stat.color} p-2.5 mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-200`}
                           style={{
                             willChange: 'transform',
@@ -217,7 +223,7 @@ export const About = () => {
           >
             <div className="relative">
               {/* Pokemon Profile Card */}
-              <PokemonProfileCard 
+              <PokemonProfileCard
                 isSmiling={isSmiling}
                 onContactClick={() => {
                   // Scroll to contact section
@@ -231,9 +237,9 @@ export const About = () => {
 
               {/* Floating elements around the Pokemon card - OPTIMIZED: removed rotate */}
               <motion.div
-                animate={{
+                animate={!isLowEnd ? {
                   y: [0, -8, 0]
-                }}
+                } : {}}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
@@ -250,9 +256,9 @@ export const About = () => {
 
               {/* Interactive Heart Easter Egg - OPTIMIZED: removed rotate, simplified */}
               <motion.div
-                animate={{
+                animate={!isLowEnd ? {
                   y: [0, 5, 0]
-                }}
+                } : {}}
                 transition={{
                   duration: 4,
                   repeat: Infinity,
@@ -270,8 +276,8 @@ export const About = () => {
                   setIsHeartFilled(!isHeartFilled);
                   setIsSmiling(!isSmiling);
                 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={!isLowEnd ? { scale: 1.02 } : {}}
+                whileTap={!isLowEnd ? { scale: 0.95 } : {}}
                 tabIndex={-1}
               >
                 <motion.div
@@ -288,11 +294,10 @@ export const About = () => {
                   }}
                 >
                   <Heart
-                    className={`w-8 h-8 transition-all duration-200 ${
-                      isHeartFilled
+                    className={`w-8 h-8 transition-all duration-200 ${isHeartFilled
                         ? 'text-red-500 fill-red-500'
                         : 'text-red-400'
-                    }`}
+                      }`}
                   />
                 </motion.div>
               </motion.div>
@@ -302,4 +307,4 @@ export const About = () => {
       </div>
     </section>
   )
-} 
+}

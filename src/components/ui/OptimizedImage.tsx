@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { isLowEndDevice } from '../../utils/performanceOptimizations'
 
 interface OptimizedImageProps {
   src: string
@@ -18,7 +19,7 @@ interface OptimizedImageProps {
 // Helper function to generate next-gen format URLs
 const generateImageSources = (src: string) => {
   const basePath = src.replace(/\.[^/.]+$/, '') // Remove extension
-  
+
   return {
     avif: `${basePath}.avif`,
     webp: `${basePath}.webp`,
@@ -43,13 +44,18 @@ export const OptimizedImage = ({
   const [hasError, setHasError] = useState(false)
   const [currentSrc, setCurrentSrc] = useState<string | null>(null)
   const [supportedFormat, setSupportedFormat] = useState<'avif' | 'webp' | 'original'>('original')
+  const [isLowEnd, setIsLowEnd] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null)
-  
+
   const { ref: intersectionRef, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
     rootMargin: '100px' // Increased rootMargin for better UX
   })
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   const shouldLoad = priority || loading === 'eager' || inView
 
@@ -63,7 +69,7 @@ export const OptimizedImage = ({
         avif.onerror = () => resolve(false)
         avif.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUEAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg=='
       })
-      
+
       if (avifSupported) {
         setSupportedFormat('avif')
         return
@@ -76,7 +82,7 @@ export const OptimizedImage = ({
         webp.onerror = () => resolve(false)
         webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
       })
-      
+
       if (webpSupported) {
         setSupportedFormat('webp')
       }
@@ -107,13 +113,13 @@ export const OptimizedImage = ({
       }
 
       const img = new Image()
-      
+
       img.onload = () => {
         setCurrentSrc(finalSrc)
         setIsLoaded(true)
         onLoad?.()
       }
-      
+
       img.onerror = () => {
         // Fallback to original format if next-gen format fails
         if (finalSrc !== sources.original) {
@@ -133,7 +139,7 @@ export const OptimizedImage = ({
           onError?.()
         }
       }
-      
+
       img.src = finalSrc
     }
   }, [shouldLoad, src, currentSrc, hasError, supportedFormat, onLoad, onError])
@@ -150,22 +156,22 @@ export const OptimizedImage = ({
     <div className={`relative overflow-hidden ${className}`} style={style}>
       {/* Placeholder while loading */}
       {!isLoaded && !hasError && (
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse"
-          style={{
+        <div
+          className={`absolute inset-0 bg-gray-200 ${!isLowEnd ? 'animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200' : ''}`}
+          style={!isLowEnd ? {
             backgroundSize: '200% 100%',
             animation: 'shimmer 1.5s infinite linear'
-          }}
+          } : {}}
         />
       )}
-      
+
       {/* Error state */}
       {hasError && (
         <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
           Failed to load image
         </div>
       )}
-      
+
       {/* Actual image */}
       {currentSrc && (
         <img
@@ -174,9 +180,8 @@ export const OptimizedImage = ({
           alt={alt}
           width={width}
           height={height}
-          className={`w-full h-full transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`w-full h-full transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
           style={{
             objectFit: style?.objectFit || 'contain',
             objectPosition: style?.objectPosition || 'center',
@@ -189,18 +194,20 @@ export const OptimizedImage = ({
           sizes={sizes}
         />
       )}
-      
+
       {/* Intersection observer target for lazy loading */}
       {!priority && loading === 'lazy' && (
         <div ref={intersectionRef} className="absolute inset-0 pointer-events-none" />
       )}
-      
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      `}</style>
+
+      {!isLowEnd && (
+        <style>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+        `}</style>
+      )}
     </div>
   )
 }

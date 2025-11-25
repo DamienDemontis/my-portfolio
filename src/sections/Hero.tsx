@@ -4,6 +4,8 @@ import { ArrowDown, Download, Mail } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
 import Balatro from '../blocks/Backgrounds/Balatro/Balatro'
 import { OptimizedImage } from '../components/ui/OptimizedImage'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
+import { useState, useEffect } from 'react'
 
 export const Hero = () => {
   const { t } = useTranslation()
@@ -11,6 +13,12 @@ export const Hero = () => {
     threshold: 0,
     rootMargin: '0px 0px -30% 0px', // Animation stays active until Hero is 30% out of view
   })
+
+  const [isLowEnd, setIsLowEnd] = useState(false)
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   const scrollToAbout = () => {
     const element = document.querySelector('#about')
@@ -49,7 +57,7 @@ export const Hero = () => {
           pixelFilter={2000.0}
           spinEase={0.6}
           isRotate={true}
-          mouseInteraction={false}
+          mouseInteraction={!isLowEnd}
           isVisible={inView}
         />
       </div>
@@ -60,15 +68,15 @@ export const Hero = () => {
       {/* Optimized Background decoration - No expensive blur filters */}
       <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full opacity-30"
-             style={{
-               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
-               boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
-             }}></div>
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
+            boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
+          }}></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-30"
-             style={{
-               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
-               boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
-             }}></div>
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)',
+            boxShadow: '0 0 120px 40px rgba(59, 130, 246, 0.1)'
+          }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
@@ -76,12 +84,12 @@ export const Hero = () => {
           {/* Content Section */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Optimized container for text content */}
-            <div className="bg-white/10 dark:bg-black/15 rounded-3xl p-8 lg:p-12 border border-white/20 shadow-xl" 
-                 style={{
-                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                   willChange: 'transform',
-                   transform: 'translateZ(0)'
-                 }}>
+            <div className="bg-white/10 dark:bg-black/15 rounded-3xl p-8 lg:p-12 border border-white/20 shadow-xl"
+              style={{
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                willChange: 'transform',
+                transform: 'translateZ(0)'
+              }}>
               {/* Greeting */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -191,10 +199,10 @@ export const Hero = () => {
               <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
                 {/* Main photo container */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
-                     style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
+                  style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
                   {/* Actual photo with optimized loading */}
-                  <OptimizedImage 
-                    src="/Damien.jpg" 
+                  <OptimizedImage
+                    src="/Damien.jpg"
                     alt="Damien Demontis in traditional Korean robe in Seoul"
                     className="w-full h-full"
                     priority={true}
@@ -211,7 +219,7 @@ export const Hero = () => {
 
                 {/* Optimized floating element around photo */}
                 <motion.div
-                  animate={{ rotate: 360 }}
+                  animate={!isLowEnd ? { rotate: 360 } : {}}
                   transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                   style={{ willChange: 'transform', transform: 'translateZ(0)' }}
                   className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg border border-white/20"
@@ -225,4 +233,4 @@ export const Hero = () => {
       </div>
     </section>
   )
-} 
+}

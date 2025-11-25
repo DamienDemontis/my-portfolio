@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Camera, MapPin, Calendar, Heart, Globe, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect, useCallback } from 'react'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
 
 /** Simple fade transition component - optimized for preloaded images */
 const FadeSlide: React.FC<{
@@ -55,6 +56,11 @@ export const PhotographyShowcase = () => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isLowEnd, setIsLowEnd] = useState(false)
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   const photos = [
     { src: '/photography/IMG_20240701_151842.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'A good meal in the heart of Seoul', category: 'city' },
@@ -122,9 +128,9 @@ export const PhotographyShowcase = () => {
     else if (clickPosition < 0.4) goToPrevious()
   }, [isTransitioning, goToNext, goToPrevious])
 
-  // Auto-advance photos
+  // Auto-advance photos - OPTIMIZED: Disable on low-end devices
   useEffect(() => {
-    if (!isHovered && !isTransitioning && inView) {
+    if (!isLowEnd && !isHovered && !isTransitioning && inView) {
       const interval = setInterval(() => {
         if ('requestIdleCallback' in window) {
           requestIdleCallback(() => goToNext())
@@ -134,7 +140,7 @@ export const PhotographyShowcase = () => {
       }, 6000)
       return () => clearInterval(interval)
     }
-  }, [isHovered, isTransitioning, goToNext, inView])
+  }, [isHovered, isTransitioning, goToNext, inView, isLowEnd])
 
 
   const containerVariants = {
@@ -224,7 +230,7 @@ export const PhotographyShowcase = () => {
 
                 {/* Gradient overlay for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                
+
                 {/* Photo information */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white pointer-events-none">
                   <div className="flex items-center gap-2 mb-2 text-sm md:text-base">
@@ -239,17 +245,17 @@ export const PhotographyShowcase = () => {
 
               {/* Arrows */}
               <div className="hidden md:block">
-                <button 
-                  onClick={(e) => { e.stopPropagation(); goToPrevious() }} 
-                  disabled={isTransitioning} 
+                <button
+                  onClick={(e) => { e.stopPropagation(); goToPrevious() }}
+                  disabled={isTransitioning}
                   aria-label="Previous photo"
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
-                <button 
-                  onClick={(e) => { e.stopPropagation(); goToNext() }} 
-                  disabled={isTransitioning} 
+                <button
+                  onClick={(e) => { e.stopPropagation(); goToNext() }}
+                  disabled={isTransitioning}
                   aria-label="Next photo"
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-xl rounded-full p-3 text-white hover:bg-black/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -285,7 +291,7 @@ export const PhotographyShowcase = () => {
                 { key: 'nature', label: 'Nature', icon: Sparkles, color: 'from-green-500 to-emerald-500' },
                 { key: 'culture', label: 'Culture', icon: Heart, color: 'from-blue-500 to-cyan-500' }
               ].map((category) => (
-                <motion.div key={category.key} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`bg-gradient-to-r ${category.color} rounded-xl p-4 md:p-6 text-white text-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300`}
+                <motion.div key={category.key} whileHover={!isLowEnd ? { scale: 1.05 } : {}} whileTap={!isLowEnd ? { scale: 0.95 } : {}} className={`bg-gradient-to-r ${category.color} rounded-xl p-4 md:p-6 text-white text-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300`}
                   onClick={() => {
                     // Go to specific photos as requested by user
                     let targetIndex = -1

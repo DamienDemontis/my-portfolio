@@ -124,6 +124,19 @@ button, a, input, select, textarea {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Low-end device optimizations */
+.low-end-device .glass {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.low-end-device .glass-dark {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(15, 15, 35, 0.9);
+}
+
 /* Hide Calendly widget scrollbar */
 .calendly-inline-widget,
 .calendly-inline-widget iframe {

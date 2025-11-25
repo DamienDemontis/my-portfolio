@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Code, Database, Cloud, Wrench, Smartphone, Zap, TestTube } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
 
 export const Skills = () => {
   const { t } = useTranslation()
@@ -11,6 +12,12 @@ export const Skills = () => {
     threshold: 0,
     rootMargin: '0px 0px -10% 0px',
   })
+
+  const [isLowEnd, setIsLowEnd] = useState(false)
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   // Technology logos mapping
   const technologyLogos: Record<string, string> = {
@@ -211,8 +218,8 @@ export const Skills = () => {
                 <motion.button
                   key={category.key}
                   onClick={() => setActiveCategory(category.key)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={!isLowEnd ? { scale: 1.05 } : {}}
+                  whileTap={!isLowEnd ? { scale: 0.95 } : {}}
                   className={`
                     group relative px-4 py-3 md:px-6 md:py-4 rounded-2xl font-semibold
                     transition-all duration-300 flex items-center gap-2 md:gap-3
@@ -225,7 +232,7 @@ export const Skills = () => {
                   <IconComponent className={`w-4 h-4 md:w-5 md:h-5 ${isActive ? 'text-white' : 'text-gray-600 dark:text-gray-400'}`} />
                   <span className="text-sm md:text-base">{t(`skills.categories.${category.key}.title`)}</span>
 
-                  {isActive && (
+                  {isActive && !isLowEnd && (
                     <motion.div
                       layoutId="activeTab"
                       className="absolute inset-0 rounded-2xl border-2 border-white/20"
@@ -289,8 +296,8 @@ export const Skills = () => {
                         key={tech.name}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.05 }}
-                        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                        transition={{ duration: 0.4, delay: isLowEnd ? 0 : index * 0.05 }}
+                        whileHover={!isLowEnd ? { scale: 1.02, transition: { duration: 0.2 } } : {}}
                         className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
                       >
                         <div className="flex items-start gap-4 mb-4">
@@ -329,8 +336,8 @@ export const Skills = () => {
                             initial={{ width: 0 }}
                             animate={{ width: getProficiencyWidth(tech.level) }}
                             transition={{
-                              duration: 0.8,
-                              delay: index * 0.05,
+                              duration: isLowEnd ? 0 : 0.8,
+                              delay: isLowEnd ? 0 : index * 0.05,
                               ease: "easeOut"
                             }}
                             className={`h-full bg-gradient-to-r ${getProficiencyColor(tech.level)} rounded-full`}

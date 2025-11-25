@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Calendar, MapPin, CheckCircle, Briefcase, TrendingUp, Users, ChevronDown, Building2, Award, Zap, Github } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LottieAnimation } from '../components/LottieAnimation'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
 
 export const Experience = () => {
   const { t } = useTranslation()
@@ -14,6 +15,11 @@ export const Experience = () => {
   })
 
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
+  const [isLowEnd, setIsLowEnd] = useState(false)
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
 
   const experiences = [
     'freelance_founder',
@@ -78,7 +84,7 @@ export const Experience = () => {
     <section id="experience" className="section-padding relative overflow-hidden">
       {/* Professional Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
-      
+
       {/* Simplified background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div
@@ -145,21 +151,21 @@ export const Experience = () => {
             const isExpanded = expandedCards.has(exp)
             const companyKey = getCompanyKey(exp)
             const companyProfile = t(`experience.companyProfiles.${companyKey}`, { returnObjects: true }) as any
-            
+
             return (
               <motion.div
                 key={exp}
                 variants={cardVariants}
                 className="group"
-                whileHover={{ scale: 1.005 }} // OPTIMIZED: Reduced from 1.02
+                whileHover={!isLowEnd ? { scale: 1.005 } : {}} // OPTIMIZED: Disable hover scale on low end
                 transition={{ duration: 0.15 }} // OPTIMIZED: Reduced from 0.2
                 style={{
                   willChange: 'transform',
                   transform: 'translateZ(0)',
                 }}
               >
-                <motion.div 
-                  layout
+                <motion.div
+                  layout={!isLowEnd} // OPTIMIZED: Disable layout animation on low end
                   className="bg-white/90 dark:bg-black/70 rounded-2xl lg:rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-200 overflow-hidden"
                   style={{
                     willChange: 'transform',
@@ -167,8 +173,8 @@ export const Experience = () => {
                   }}
                 >
                   {/* Always visible header - optimized */}
-                  <motion.div 
-                    layout
+                  <motion.div
+                    layout={!isLowEnd} // OPTIMIZED: Disable layout animation on low end
                     onClick={() => toggleCard(exp)}
                     className="p-4 md:p-6 lg:p-8 cursor-pointer hover:bg-white/20 dark:hover:bg-white/5 transition-all duration-200 relative overflow-hidden"
                     style={{
@@ -178,14 +184,14 @@ export const Experience = () => {
                   >
                     {/* Subtle gradient overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                    
+
                     <div className="relative z-10">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
                           {/* Optimized company logo */}
                           <motion.div
                             className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
-                            whileHover={{ rotate: 2, scale: 1.02 }}
+                            whileHover={!isLowEnd ? { rotate: 2, scale: 1.02 } : {}}
                             transition={{ duration: 0.2 }}
                             style={{
                               willChange: 'transform',
@@ -201,17 +207,17 @@ export const Experience = () => {
                               <img
                                 src={
                                   exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
-                                  exp === 'simple' ? '/Logo-plus-simple.png' :
-                                  exp === 'acoris' ? '/acoris_logo.jpg' :
-                                  exp === 'leonart' ? '/Logo_Leon\'Art.png' :
-                                  ''
+                                    exp === 'simple' ? '/Logo-plus-simple.png' :
+                                      exp === 'acoris' ? '/acoris_logo.jpg' :
+                                        exp === 'leonart' ? '/Logo_Leon\'Art.png' :
+                                          ''
                                 }
                                 alt={`${t(`experience.positions.${exp}.company`)} logo`}
                                 className="w-full h-full object-contain rounded-xl"
                               />
                             )}
                           </motion.div>
-                          
+
                           {/* Enhanced job info with better responsive layout */}
                           <div className="flex-1 min-w-0 space-y-3">
                             {/* Job title and company */}
@@ -223,14 +229,14 @@ export const Experience = () => {
                                 {t(`experience.positions.${exp}.company`)}
                               </p>
                             </div>
-                            
+
                             {/* Company mini-profile */}
                             <div className="hidden md:block">
                               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                                 {companyProfile?.description}
                               </p>
                             </div>
-                            
+
                             {/* Industry badges and context */}
                             <div className="flex flex-wrap gap-2">
                               <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getIndustryBadgeColor(companyProfile?.industry)}`}>
@@ -245,7 +251,7 @@ export const Experience = () => {
                                 {companyProfile?.scope}
                               </span>
                             </div>
-                            
+
                             {/* Period and location - enhanced responsive design */}
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 dark:text-gray-400">
                               <div className="flex items-center gap-2">
@@ -264,7 +270,7 @@ export const Experience = () => {
                             </div>
                           </div>
                         </div>
-                        
+
                         {/* Optimized expand/collapse icon */}
                         <motion.div
                           animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -287,7 +293,7 @@ export const Experience = () => {
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
-                        layout
+                        layout={!isLowEnd} // OPTIMIZED: Disable layout animation on low end
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
@@ -298,11 +304,11 @@ export const Experience = () => {
                           transform: 'translateZ(0)',
                         }}
                       >
-                        <div 
+                        <div
                           className="p-4 md:p-6 lg:p-8 space-y-3 md:space-y-4 bg-white/20 dark:bg-black/20"
                         >
                           {/* Optimized description */}
-                          <div 
+                          <div
                             className="p-2 md:p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 relative overflow-hidden !mt-0 bg-white/40 dark:bg-black/40"
                           >
                             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base">
@@ -320,7 +326,7 @@ export const Experience = () => {
                           {/* Enhanced technologies and achievements in responsive grid */}
                           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
                             {/* Optimized Key Technologies */}
-                            <div 
+                            <div
                               className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 bg-blue-50/80 dark:bg-blue-900/40"
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-4 flex items-center gap-2">
@@ -345,7 +351,7 @@ export const Experience = () => {
                             </div>
 
                             {/* Optimized Key Achievements */}
-                            <div 
+                            <div
                               className="p-4 md:p-6 rounded-2xl border border-white/30 dark:border-gray-700/30 bg-green-50/80 dark:bg-green-900/40"
                             >
                               <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-4 flex items-center gap-2">
@@ -438,7 +444,7 @@ export const Experience = () => {
           transition={{ duration: 0.3, delay: 0.5 }}
           className="text-center mt-12 lg:mt-16"
         >
-          <div 
+          <div
             className="max-w-5xl mx-auto bg-white/90 dark:bg-black/80 rounded-3xl p-6 md:p-8 lg:p-12 border border-white/50 dark:border-gray-700/50 shadow-2xl"
             style={{
               willChange: 'transform',

@@ -1,10 +1,11 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Navbar } from './components/layout/Navbar'
 import { Hero } from './sections/Hero'
 import { WithProfiler } from './utils/ProfilerLog'
 import { LoadingScreen } from './components/LoadingScreen'
+import { isLowEndDevice } from './utils/performanceOptimizations'
 
 // Lazy load non-critical sections for better performance
 const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })))
@@ -34,6 +35,13 @@ if (process.env.NODE_ENV === 'development') {
 function App() {
   const [isLoading, setIsLoading] = useState(true)
 
+  useEffect(() => {
+    // Check for low-end device and add class to body
+    if (isLowEndDevice()) {
+      document.body.classList.add('low-end-device');
+    }
+  }, []);
+
   const handleLoadingComplete = () => {
     setIsLoading(false)
   }
@@ -42,94 +50,94 @@ function App() {
     <ThemeProvider>
       <WithProfiler id="Root">
         <div className="relative min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        {/* Fixed Navbar - Always visible and positioned */}
-        <Navbar />
-        
-        {/* Main Content - Always rendered but initially hidden - OPTIMIZED */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoading ? 0 : 1 }}
-          transition={{
-            duration: 0.5, // Further reduced from 0.8
-            ease: "easeOut", // Simpler easing for better performance
-            delay: isLoading ? 0 : 0
-          }}
-          className="min-h-screen"
-          style={{
-            willChange: 'opacity',
-            transform: 'translateZ(0)'
-          }}
-        >
-          <main>
-            <Hero />
-            <Suspense fallback={<SectionFallback />}>
-              <About />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Experience />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Skills />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Education />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <PhotographyShowcase />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Projects />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Certifications />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Interests />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Languages />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Contact />
-            </Suspense>
-          </main>
-          <Suspense fallback={<SectionFallback />}>
-            <Footer />
-          </Suspense>
-          {process.env.NODE_ENV === 'development' && (
-            <>
-              {/* Dynamic imports for debug components */}
-              {/* These will only be loaded in development */}
-            </>
-          )}
-        </motion.div>
+          {/* Fixed Navbar - Always visible and positioned */}
+          <Navbar />
 
-        {/* Loading Screen - Overlay that fades out - OPTIMIZED */}
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div
-              initial={{ opacity: 1 }}
-              exit={{
-                opacity: 0
-              }}
-              transition={{
-                duration: 0.6, // Further reduced from 0.8
-                ease: "easeOut" // Simpler easing
-              }}
-              className="fixed inset-0 z-[10000]"
-              style={{
-                willChange: 'opacity',
-                transform: 'translateZ(0)'
-              }}
-            >
-              <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* Main Content - Always rendered but initially hidden - OPTIMIZED */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isLoading ? 0 : 1 }}
+            transition={{
+              duration: 0.5, // Further reduced from 0.8
+              ease: "easeOut", // Simpler easing for better performance
+              delay: isLoading ? 0 : 0
+            }}
+            className="min-h-screen"
+            style={{
+              willChange: 'opacity',
+              transform: 'translateZ(0)'
+            }}
+          >
+            <main>
+              <Hero />
+              <Suspense fallback={<SectionFallback />}>
+                <About />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Experience />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Skills />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Education />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <PhotographyShowcase />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Projects />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Certifications />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Interests />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Languages />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Contact />
+              </Suspense>
+            </main>
+            <Suspense fallback={<SectionFallback />}>
+              <Footer />
+            </Suspense>
+            {process.env.NODE_ENV === 'development' && (
+              <>
+                {/* Dynamic imports for debug components */}
+                {/* These will only be loaded in development */}
+              </>
+            )}
+          </motion.div>
+
+          {/* Loading Screen - Overlay that fades out - OPTIMIZED */}
+          <AnimatePresence>
+            {isLoading && (
+              <motion.div
+                initial={{ opacity: 1 }}
+                exit={{
+                  opacity: 0
+                }}
+                transition={{
+                  duration: 0.6, // Further reduced from 0.8
+                  ease: "easeOut" // Simpler easing
+                }}
+                className="fixed inset-0 z-[10000]"
+                style={{
+                  willChange: 'opacity',
+                  transform: 'translateZ(0)'
+                }}
+              >
+                <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </WithProfiler>
     </ThemeProvider>
   )
 }
 
-export default App 
+export default App

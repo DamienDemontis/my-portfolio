@@ -1,9 +1,10 @@
 /*
-	Installed from https://reactbits.dev/tailwind/
+  Installed from https://reactbits.dev/tailwind/
 */
 
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 import { useEffect, useRef } from "react";
+import { isLowEndDevice } from "../../../utils/performanceOptimizations";
 
 interface BalatrProps {
   spinRotation?: number;
@@ -98,7 +99,8 @@ vec4 effect(vec2 screenSize, vec2 screen_coords) {
     
     vec2 uv2 = vec2(uv.x + uv.y);
     
-    for(int i = 0; i < 5; i++) {
+    // Reduced iterations from 5 to 3 for performance
+    for(int i = 0; i < 3; i++) {
         uv2 += sin(max(uv.x, uv.y)) + uv;
         uv += 0.5 * vec2(
             cos(5.1123314 + 0.353 * uv2.y + speed * 0.131121),
@@ -149,7 +151,11 @@ const Balatro: React.FC<BalatrProps> = ({
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
-    const renderer = new Renderer();
+    const renderer = new Renderer({
+      alpha: false, // We don't need alpha for background
+      depth: false, // We don't need depth buffer
+      antialias: false // Disable antialias for performance
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 1);
 
@@ -158,7 +164,13 @@ const Balatro: React.FC<BalatrProps> = ({
     function resize() {
       // Significantly reduce resolution for better performance
       // Lower pixel ratio = better performance with minimal visual quality loss
-      const pixelRatio = Math.min(window.devicePixelRatio, 1);
+      // Use 0.5 for high DPI screens, 0.75 for others, max 1
+      const dpr = window.devicePixelRatio;
+      const isLowEnd = isLowEndDevice();
+
+      // Even more aggressive optimization for low end devices
+      const pixelRatio = isLowEnd ? 0.5 : Math.min(dpr > 1 ? 0.5 : 0.75, 1);
+
       const width = Math.floor(container.offsetWidth * pixelRatio);
       const height = Math.floor(container.offsetHeight * pixelRatio);
 
@@ -209,45 +221,52 @@ const Balatro: React.FC<BalatrProps> = ({
     let lastFrameTime = 0;
     let pausedTime = 0; // Track time when paused
     let resumeTimeOffset = 0; // Offset to maintain animation continuity
-    const targetFPS = 24; // Limit to 24 FPS for better performance (reduced from 30)
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLowEnd = isLowEndDevice();
+
+    // Disable animation on low end devices or if reduced motion is preferred
+    // Or limit FPS severely
+    const targetFPS = prefersReducedMotion ? 0 : (isLowEnd ? 15 : 24);
     const frameInterval = 1000 / targetFPS;
 
     function update(time: number) {
-      if (!isVisible) {
-        // Stop the animation loop completely when not visible
+      if (!isVisible || prefersReducedMotion) {
+        // Stop the animation loop completely when not visible or reduced motion
         isAnimating = false;
         pausedTime = time;
         return;
       }
-      
+
       // Throttle frame rate
       if (time - lastFrameTime < frameInterval) {
         animationFrameId = requestAnimationFrame(update);
         return;
       }
       lastFrameTime = time;
-      
+
       // Continue the animation loop
       animationFrameId = requestAnimationFrame(update);
-      
+
       // Calculate adjusted time to maintain animation continuity
       const adjustedTime = (time - resumeTimeOffset) * 0.001;
       program.uniforms.iTime.value = adjustedTime;
       renderer.render({ scene: mesh });
     }
-    
+
     function startAnimation() {
-      if (isAnimating) return;
+      if (isAnimating || prefersReducedMotion) return;
       isAnimating = true;
-      
+
       // Calculate offset to maintain smooth animation when resuming
       if (pausedTime > 0) {
         resumeTimeOffset += (performance.now() - pausedTime);
       }
-      
+
       animationFrameId = requestAnimationFrame(update);
     }
-    
+
     function stopAnimation() {
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
@@ -255,22 +274,22 @@ const Balatro: React.FC<BalatrProps> = ({
       }
       isAnimating = false;
     }
-    
+
     // Store animation controls in ref for external access
     animationControlRef.current = {
       start: startAnimation,
       stop: stopAnimation,
       isRunning: isAnimating
     };
-    
+
     // Start animation based on initial visibility
-    if (isVisible) {
+    if (isVisible && !prefersReducedMotion) {
       startAnimation();
     }
     container.appendChild(gl.canvas);
 
     function handleMouseMove(e: MouseEvent) {
-      if (!mouseInteraction) return;
+      if (!mouseInteraction || prefersReducedMotion || isLowEnd) return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1.0 - (e.clientY - rect.top) / rect.height;
@@ -307,7 +326,7 @@ const Balatro: React.FC<BalatrProps> = ({
   // Effect to handle visibility changes
   useEffect(() => {
     if (!animationControlRef.current) return;
-    
+
     if (isVisible) {
       animationControlRef.current.start();
     } else {

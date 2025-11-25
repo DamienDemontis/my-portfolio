@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Github, Play, Code, Database, Lightbulb } from 'lucide-react'
+import { Github, ExternalLink, Code, Layers, Smartphone, Database, Server, Layout, Box, Cpu, Terminal, Cloud, Youtube } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { OptimizedImage } from '../components/ui/OptimizedImage'
+import { isLowEndDevice } from '../utils/performanceOptimizations'
 
 export const Projects = () => {
   const { t } = useTranslation()
@@ -11,28 +14,45 @@ export const Projects = () => {
     rootMargin: '0px 0px -10% 0px',
   })
 
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
+  const [isLowEnd, setIsLowEnd] = useState(false)
+
+  useEffect(() => {
+    setIsLowEnd(isLowEndDevice())
+  }, [])
+
   const projects = ['facial_recognition', 'leonart', 'intranet', 'inept_intruder', 'tank_game']
 
-  const getProjectComplexity = (project: string) => {
-    const complexities = {
-      facial_recognition: 'Advanced',
-      leonart: 'Expert',
-      intranet: 'Intermediate',
-      inept_intruder: 'Advanced',
-      tank_game: 'Intermediate'
-    }
-    return complexities[project as keyof typeof complexities] || 'Beginner'
+  const projectImages: Record<string, string> = {
+    facial_recognition: '/projects/facial_recognition.png',
+    leonart: '/projects/leonart.png',
+    intranet: '/projects/intranet.png',
+    inept_intruder: '/projects/inept_intruder.png',
+    tank_game: '/projects/tank_game.png'
   }
 
-  const getProjectColor = (project: string) => {
-    const colors = {
-      facial_recognition: 'from-blue-500 to-cyan-600',
-      leonart: 'from-blue-500 to-cyan-600',
-      intranet: 'from-green-500 to-emerald-600',
-      inept_intruder: 'from-orange-500 to-red-600',
-      tank_game: 'from-indigo-500 to-blue-600'
-    }
-    return colors[project as keyof typeof colors] || 'from-gray-400 to-gray-600'
+  const getProjectIcon = (tech: string) => {
+    const lowerTech = tech.toLowerCase()
+    if (lowerTech.includes('react') || lowerTech.includes('vue') || lowerTech.includes('front')) return Layout
+    if (lowerTech.includes('node') || lowerTech.includes('back') || lowerTech.includes('api')) return Server
+    if (lowerTech.includes('mobile') || lowerTech.includes('native')) return Smartphone
+    if (lowerTech.includes('data') || lowerTech.includes('sql') || lowerTech.includes('mongo')) return Database
+    if (lowerTech.includes('cloud') || lowerTech.includes('aws') || lowerTech.includes('docker')) return Cloud
+    if (lowerTech.includes('c++') || lowerTech.includes('c') || lowerTech.includes('rust')) return Cpu
+    if (lowerTech.includes('python') || lowerTech.includes('script')) return Terminal
+    return Box
+  }
+
+  const getProjectColor = (index: number) => {
+    const colors = [
+      'from-blue-500 to-cyan-500',
+      'from-purple-500 to-pink-500',
+      'from-orange-500 to-red-500',
+      'from-green-500 to-emerald-500',
+      'from-indigo-500 to-violet-500',
+      'from-rose-500 to-orange-500'
+    ]
+    return colors[index % colors.length]
   }
 
   const containerVariants = {
@@ -40,54 +60,34 @@ export const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05 // OPTIMIZED: Further reduced from 0.1
+        staggerChildren: 0.1
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 10 }, // OPTIMIZED: Reduced from 20
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.25, // OPTIMIZED: Reduced from 0.4
-        ease: "easeOut"
-      }
-    }
-  }
-
-  const tagVariants = {
-    hidden: { opacity: 0 }, // OPTIMIZED: Removed scale
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.2 } // OPTIMIZED: Reduced from 0.4
+      transition: { duration: 0.4, ease: "easeOut" }
     }
   }
 
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
-      {/* Innovation Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
-      
-      {/* Optimized static background elements */}
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-900"></div>
+
+      {/* Optimized background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-0 right-4 w-64 h-64 rounded-full opacity-10"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
-          }}
-        ></div>
-        <div
-          className="absolute bottom-4 left-8 w-72 h-72 rounded-3xl opacity-10"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
-          }}
-        ></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/20 via-transparent to-transparent dark:from-blue-900/20"></div>
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-100/20 via-transparent to-transparent dark:from-purple-900/20"></div>
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
+          ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
@@ -100,8 +100,8 @@ export const Projects = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
-              <Lightbulb className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg mx-auto">
+              <Layers className="w-6 h-6 text-white" />
             </div>
           </motion.div>
 
@@ -112,7 +112,7 @@ export const Projects = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
           >
-            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
               {t('projects.title')}
             </span>
           </motion.h2>
@@ -124,198 +124,163 @@ export const Projects = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="relative mb-6 flex items-center justify-center"
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full"></div>
-            <div className="absolute w-32 h-3 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-500/20 blur-sm rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 rounded-full"></div>
+            <div className="absolute w-32 h-3 bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-purple-500/20 blur-sm rounded-full"></div>
           </motion.div>
 
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+            {t('projects.subtitle')}
+          </p>
         </motion.div>
 
         <motion.div
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project, index) => {
-            const technologies = t(`projects.items.${project}.technologies`, { returnObjects: true }) as string[]
-            const features = t(`projects.items.${project}.features`, { returnObjects: true }) as string[]
-            const projectColor = getProjectColor(project)
-            const complexity = getProjectComplexity(project)
-            const hasVideo = t(`projects.items.${project}.video`) && t(`projects.items.${project}.video`) !== `projects.items.${project}.video`
-            const hasGithub = t(`projects.items.${project}.github`) && t(`projects.items.${project}.github`) !== `projects.items.${project}.github`
-            
+            const isHovered = hoveredProject === project
+            const gradientColor = getProjectColor(index)
+
             return (
               <motion.div
                 key={project}
                 variants={cardVariants}
-                whileHover={{
-                  scale: 1.005, // OPTIMIZED: Reduced from 1.01
-                  transition: { duration: 0.15 } // OPTIMIZED: Reduced from 0.2
-                }}
-                className="bg-white/80 dark:bg-black/40 rounded-3xl p-0 border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-shadow duration-200 group overflow-hidden"
+                onMouseEnter={() => !isLowEnd && setHoveredProject(project)}
+                onMouseLeave={() => !isLowEnd && setHoveredProject(null)}
+                className="group relative h-full"
                 style={{
                   willChange: 'transform',
-                  transform: 'translateZ(0)', // Force GPU acceleration
+                  transform: 'translateZ(0)'
                 }}
               >
-                {/* Header with gradient */}
-                <div className={`p-6 bg-gradient-to-br ${projectColor.replace('500', '50').replace('600', '100')} dark:from-gray-800/20 dark:to-gray-700/20 relative`}>
+                <div
+                  className="relative h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col"
+                  style={{
+                    willChange: 'transform',
+                    transform: 'translateZ(0)'
+                  }}
+                >
+                  {/* Project Image/Video Area */}
+                  <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${gradientColor} opacity-10 group-hover:opacity-20 transition-opacity duration-300 z-10`}></div>
 
-                  <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                    {/* Project Preview (Image or Placeholder) */}
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-600">
+                      <OptimizedImage
+                        src={projectImages[project]}
+                        alt={t(`projects.items.${project}.title`)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Floating Tech Badges */}
+                    <div className="absolute top-4 right-4 z-20 flex gap-2">
+                      <div className="bg-white/90 dark:bg-black/90 backdrop-blur-sm p-2 rounded-lg shadow-lg">
+                        <Github className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content Area */}
+                  <div className="p-6 flex-1 flex flex-col relative z-20 bg-white dark:bg-gray-800">
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {t(`projects.items.${project}.title`)}
                       </h3>
-                      <div className="flex items-center gap-2">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${projectColor} text-white shadow-lg`}>
-                          {complexity}
-                        </span>
-                        {index < 2 && (
-                          <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-yellow-900 rounded-full text-xs font-semibold shadow-lg">
-                            Featured
-                          </span>
-                        )}
+                      <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
+                        {t(`projects.items.${project}.description`)}
+                      </p>
+                    </div>
+
+                    {/* Tech Stack */}
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {(() => {
+                          const technologies = t(`projects.items.${project}.technologies`, { returnObjects: true });
+                          const techArray = Array.isArray(technologies) ? technologies : [];
+                          return techArray.slice(0, 3).map((tech, i) => {
+                            const Icon = getProjectIcon(tech)
+                            return (
+                              <span
+                                key={i}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                              >
+                                <Icon className="w-3 h-3" />
+                                {tech}
+                              </span>
+                            )
+                          })
+                        })()}
+                        {(() => {
+                          const technologies = t(`projects.items.${project}.technologies`, { returnObjects: true });
+                          const techArray = Array.isArray(technologies) ? technologies : [];
+                          return techArray.length > 3 && (
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                              +{techArray.length - 3}
+                            </span>
+                          )
+                        })()}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <div className="flex gap-4 flex-wrap">
+                          {(() => {
+                            const githubUrl = t(`projects.items.${project}.github`, { defaultValue: "" })
+                            const demoUrl = t(`projects.items.${project}.demo`, { defaultValue: "" })
+                            const videoUrl = t(`projects.items.${project}.video`, { defaultValue: "" })
+
+                            return (
+                              <>
+                                {githubUrl && (
+                                  <a
+                                    href={githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                                  >
+                                    <Github className="w-4 h-4" />
+                                    Code
+                                  </a>
+                                )}
+                                {demoUrl && (
+                                  <a
+                                    href={demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                                  >
+                                    <ExternalLink className="w-4 h-4" />
+                                    Live Demo
+                                  </a>
+                                )}
+                                {videoUrl && (
+                                  <a
+                                    href={videoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
+                                  >
+                                    <Youtube className="w-4 h-4" />
+                                    Watch Video
+                                  </a>
+                                )}
+                              </>
+                            )
+                          })()}
+                        </div>
                       </div>
                     </div>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {t(`projects.items.${project}.description`)}
-                    </p>
                   </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  {/* Technologies */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                      <Code className="w-4 h-4 text-blue-500" />
-                      {t('projects.technologiesUsed')}
-                    </h4>
-                    <motion.div 
-                      variants={containerVariants}
-                      className="flex flex-wrap gap-2"
-                    >
-                      {technologies.map((tech) => (
-                        <motion.span
-                          key={tech}
-                          variants={tagVariants}
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ duration: 0.1 }}
-                          className="px-3 py-1.5 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl text-xs font-medium border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </motion.div>
-                  </div>
-
-                  {/* Features */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                      <Database className="w-4 h-4 text-blue-500" />
-                      {t('projects.keyFeatures')}
-                    </h4>
-                    <div className="space-y-2">
-                      {features.map((feature, featureIndex) => (
-                        <motion.div
-                          key={featureIndex}
-                          initial={{ opacity: 0 }} // OPTIMIZED: Removed x translation
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.03 * featureIndex, duration: 0.15 }} // OPTIMIZED: Reduced delays
-                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors duration-200"
-                        >
-                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${projectColor} flex-shrink-0`}></div>
-                          <span className="text-sm text-gray-700 dark:text-gray-300">
-                            {feature}
-                          </span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Video section */}
-                  {hasVideo && (
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                        <Play className="w-4 h-4 text-red-500" />
-                        {t(`projects.items.${project}.videoTitle`)}
-                      </h4>
-                      <div className="relative overflow-hidden rounded-2xl border border-purple-200 dark:border-purple-800 shadow-lg">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${t(`projects.items.${project}.video`).split('/').pop()}`}
-                          title={t(`projects.items.${project}.videoTitle`)}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-48"
-                        ></iframe>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Action buttons */}
-                  <div className="flex gap-3">
-                    {hasGithub && (
-                      <motion.a
-                        href={t(`projects.items.${project}.github`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
-                      >
-                        <Github className="w-4 h-4" />
-                        Source Code
-                      </motion.a>
-                    )}
-                    {hasVideo && !hasGithub && (
-                      <motion.a
-                        href={t(`projects.items.${project}.video`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 rounded-xl font-semibold text-sm border border-white/50 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors duration-150"
-                      >
-                        <Play className="w-4 h-4" />
-                        Watch Demo
-                      </motion.a>
-                    )}
-                  </div>
-                </div>
-
-
               </motion.div>
             )
           })}
         </motion.div>
-
-        {/* Innovation summary */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 2 }}
-          className="text-center mt-16"
-        >
-          <div 
-            className="max-w-4xl mx-auto bg-white/90 dark:bg-black/50 rounded-3xl p-8 border border-white/40 dark:border-gray-700/40 shadow-xl"
-          >
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Lightbulb className="w-6 h-6 text-blue-600" />
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                {t('sections.projects.innovationThroughCode')}
-              </h3>
-            </div>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {t('sections.projects.innovationThroughCodeText')}
-              <span className="block mt-4 font-semibold text-blue-600 dark:text-blue-400">
-                {t('sections.projects.buildingTheFuture')}
-              </span>
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
-} 
+}
