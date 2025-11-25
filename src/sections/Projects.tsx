@@ -164,11 +164,7 @@ export const Projects = () => {
                   }}
                 >
                   {/* Project Image/Video Area */}
-                  <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${gradientColor} opacity-10 group-hover:opacity-20 transition-opacity duration-300 z-10`}></div>
-
-                    {/* Project Preview (Image or Placeholder) */}
+                  <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">                    {/* Project Preview (Image or Placeholder) */}
                     <div className="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-600">
                       <OptimizedImage
                         src={projectImages[project]}
@@ -202,7 +198,7 @@ export const Projects = () => {
                         {(() => {
                           const technologies = t(`projects.items.${project}.technologies`, { returnObjects: true });
                           const techArray = Array.isArray(technologies) ? technologies : [];
-                          return techArray.slice(0, 3).map((tech, i) => {
+                          return techArray.map((tech, i) => {
                             const Icon = getProjectIcon(tech)
                             return (
                               <span
@@ -214,15 +210,6 @@ export const Projects = () => {
                               </span>
                             )
                           })
-                        })()}
-                        {(() => {
-                          const technologies = t(`projects.items.${project}.technologies`, { returnObjects: true });
-                          const techArray = Array.isArray(technologies) ? technologies : [];
-                          return techArray.length > 3 && (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
-                              +{techArray.length - 3}
-                            </span>
-                          )
                         })()}
                       </div>
 

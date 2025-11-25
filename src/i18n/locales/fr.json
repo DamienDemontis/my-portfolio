@@ -91,7 +91,38 @@
         "period": "Mars 2024 - Août 2024",
         "location": "Nancy, France",
         "description": "Mentorat d'étudiants MSc sur des sujets avancés d'ingénierie logicielle incluant développement web moderne, architecture cloud, pratiques DevOps et fondamentaux de cybersécurité. Construction d'une plateforme de reconnaissance faciale basée cloud utilisant PyTorch, OpenCV et infrastructure cloud. Formation complète sur technologies d'entreprise, méthodologies agiles et bonnes pratiques industrielles avec création de contenu technique engageant.",
-        "technologies": ["Node.js", "Express", "NestJS", "React", "Vue.js", "Next.js", "Redux", "Pinia", "Jest", "Cypress", "GitLab CI", "GitHub Actions", "AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "PostgreSQL", "MongoDB", "Redis", "PyTorch", "OpenCV", "OWASP Top 10", "TensorFlow", "scikit-learn", "Scrum", "Kanban", "Jira"],
+        "technologies": [
+          "Node.js",
+          "Express",
+          "NestJS",
+          "React",
+          "Vue.js",
+          "Next.js",
+          "Redux",
+          "Pinia",
+          "Jest",
+          "Cypress",
+          "GitLab CI",
+          "GitHub Actions",
+          "AWS",
+          "GCP",
+          "Azure",
+          "Docker",
+          "Kubernetes",
+          "Terraform",
+          "Ansible",
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "PyTorch",
+          "OpenCV",
+          "OWASP Top 10",
+          "TensorFlow",
+          "scikit-learn",
+          "Scrum",
+          "Kanban",
+          "Jira"
+        ],
         "achievements": [
           "Construction d'une plateforme de reconnaissance faciale cloud de qualité production avec PyTorch/OpenCV",
           "Conception d'APIs REST évolutives avec rapports automatisés et capacités de traitement temps réel",
@@ -113,7 +144,23 @@
         "period": "Septembre 2024 - Présent",
         "location": "Nancy, France (Remote)",
         "description": "Fondateur de JobNeko, une plateforme open-source sophistiquée qui transforme la recherche d'emploi grâce à l'intelligence artificielle et l'automatisation intelligente. Conçue pour être auto-hébergeable avec un modèle SaaS à venir (similaire à n8n). Parallèlement, développement de sites web sur mesure pour des clients variés avec une expertise en architecture moderne et solutions scalables.",
-        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Vercel", "Git", "Docker"],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "OpenAI",
+          "Prisma",
+          "Node.js",
+          "React",
+          "Tailwind CSS",
+          "PostgreSQL",
+          "Chrome Extension API",
+          "RAG",
+          "Web Scraping",
+          "LLM Integration",
+          "Vercel",
+          "Git",
+          "Docker"
+        ],
         "achievements": [
           "Création de JobNeko : plateforme open-source full-stack d'analyse de marché de l'emploi avec IA (https://github.com/DamienDemontis/JobNeko)",
           "Architecture auto-hébergeable permettant un contrôle complet des données utilisateur",
@@ -135,7 +182,21 @@
         "period": "Fin 2021 - Août 2024",
         "location": "Nancy, France",
         "description": "Débuté comme Assistant Région pour le cursus PGE (fin 2021 - mars 2024), encadrant et enseignant aux étudiants des années inférieures. Transition vers le cursus MSc en mars 2024, apportant un soutien aux étudiants pré-Master en technologies avancées jusqu'en août 2024.",
-        "technologies": ["C", "CSFML", "C++", "SFML", "Design Patterns", "Docker", "Web Basics", "UNIX", "Python", "Java", "PHP", "Node.js", "JavaScript"],
+        "technologies": [
+          "C",
+          "CSFML",
+          "C++",
+          "SFML",
+          "Design Patterns",
+          "Docker",
+          "Web Basics",
+          "UNIX",
+          "Python",
+          "Java",
+          "PHP",
+          "Node.js",
+          "JavaScript"
+        ],
         "achievements": [
           "Mentorat d'étudiants du cursus PGE pendant 3 ans sur les concepts fondamentaux de programmation",
           "Enseignement du C, C++, programmation graphique SFML et design patterns",
@@ -152,7 +213,24 @@
         "period": "Avril 2023 - Mars 2025",
         "location": "Daegu, Corée",
         "description": "Architecture et développement de systèmes backend évolutifs utilisant Node.js, TypeScript et Express ; implémentation d'authentification sécurisée et traitement de paiements avec Stripe. Conception et maintenance d'APIs REST et flux webhooks pour événements temps réel, supportant fonctionnalités marketplace et interactions sociales. Direction d'équipe cross-fonctionnelle ; propriété de la conception base de données (MongoDB), infrastructure cloud (Google Cloud Platform) et déploiements avec Docker et Kubernetes.",
-        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "Docker", "Kubernetes", "Google Cloud Platform", "Firebase", "Jira", "CI/CD", "APIs REST", "WebSockets", "JWT", "OAuth 2.0"],
+        "technologies": [
+          "Node.js",
+          "TypeScript",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "React Native",
+          "Docker",
+          "Kubernetes",
+          "Google Cloud Platform",
+          "Firebase",
+          "Jira",
+          "CI/CD",
+          "APIs REST",
+          "WebSockets",
+          "JWT",
+          "OAuth 2.0"
+        ],
         "achievements": [
           "Architecture de systèmes backend évolutifs avec Node.js, TypeScript et Express",
           "Implémentation d'authentification sécurisée et traitement paiements avec intégration Stripe",
@@ -171,7 +249,14 @@
         "period": "Avril 2023 - Août 2023",
         "location": "Nancy, France",
         "description": "Direction de la migration d'une architecture Django monolithique vers un frontend Nuxt.js moderne.",
-        "technologies": ["Python", "Django", "Nuxt.js", "SQL", "Pinia", "GitLab CI/CD"],
+        "technologies": [
+          "Python",
+          "Django",
+          "Nuxt.js",
+          "SQL",
+          "Pinia",
+          "GitLab CI/CD"
+        ],
         "achievements": [
           "Réduction des temps de chargement de 50%",
           "Amélioration de la modularité et maintenabilité du code",
@@ -186,7 +271,13 @@
         "period": "Juillet 2021 - Décembre 2021",
         "location": "Nancy, France",
         "description": "Développement d'une solution intranet robuste utilisant WordPress et PHP.",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript", "CSS"],
+        "technologies": [
+          "PHP",
+          "WordPress",
+          "MySQL",
+          "JavaScript",
+          "CSS"
+        ],
         "achievements": [
           "Livraison d'un intranet fonctionnel améliorant l'efficacité de communication",
           "Direction du développement d'un module PHP personnalisé",
@@ -209,63 +300,90 @@
             "level": "expert",
             "experience": "4+ ans",
             "description": "Programmation JavaScript core, ES6+, async/await, et APIs web modernes.",
-            "projects": ["Tous les Projets Web", "Applications Interactives"]
+            "projects": [
+              "Tous les Projets Web",
+              "Applications Interactives"
+            ]
           },
           {
             "name": "HTML5",
             "level": "expert",
             "experience": "4+ ans",
             "description": "Balisage HTML sémantique, meilleures pratiques d'accessibilité et standards web modernes.",
-            "projects": ["Tous les Projets Web"]
+            "projects": [
+              "Tous les Projets Web"
+            ]
           },
           {
             "name": "CSS3",
             "level": "expert",
             "experience": "4+ ans",
             "description": "Stylisation CSS avancée, animations, grid, flexbox et principes de design réactif.",
-            "projects": ["Portfolio", "Projets UI/UX"]
+            "projects": [
+              "Portfolio",
+              "Projets UI/UX"
+            ]
           },
           {
             "name": "React",
             "level": "advanced",
             "experience": "3+ ans",
             "description": "Création d'applications web modernes et réactives avec React hooks, context API et composition de composants.",
-            "projects": ["Leon'Art", "Portfolio", "Système de Reconnaissance IA"]
+            "projects": [
+              "Leon'Art",
+              "Portfolio",
+              "Système de Reconnaissance IA"
+            ]
           },
           {
             "name": "TypeScript",
             "level": "advanced",
             "experience": "2+ ans",
             "description": "Développement JavaScript type-safe avec typage fort et fonctionnalités ES6+ modernes.",
-            "projects": ["Portfolio", "Applications Enterprise"]
+            "projects": [
+              "Portfolio",
+              "Applications Enterprise"
+            ]
           },
           {
             "name": "Tailwind CSS",
             "level": "advanced",
             "experience": "2+ ans",
             "description": "Framework CSS utility-first pour un développement UI rapide avec des systèmes de design personnalisés.",
-            "projects": ["Portfolio", "Apps Web Modernes"]
+            "projects": [
+              "Portfolio",
+              "Apps Web Modernes"
+            ]
           },
           {
             "name": "Vue.js",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Développement d'interfaces utilisateur interactives avec Vue.js et Vuex pour la gestion d'état.",
-            "projects": ["Leon'Art Mobile", "Projets Dashboard"]
+            "projects": [
+              "Leon'Art Mobile",
+              "Projets Dashboard"
+            ]
           },
           {
             "name": "Nuxt.js",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Rendu côté serveur et génération de sites statiques avec Nuxt.js pour l'optimisation des performances.",
-            "projects": ["Plateforme E-commerce", "Système de Blog"]
+            "projects": [
+              "Plateforme E-commerce",
+              "Système de Blog"
+            ]
           },
           {
             "name": "Next.js",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Framework basé sur React pour applications prêtes pour la production avec SSR et génération statique.",
-            "projects": ["Applications Web", "Sites Portfolio"]
+            "projects": [
+              "Applications Web",
+              "Sites Portfolio"
+            ]
           }
         ]
       },
@@ -277,84 +395,120 @@
             "level": "intermediate",
             "experience": "4+ ans",
             "description": "Développement Python full-stack, traitement de données, intégration IA/ML et scripts d'automatisation.",
-            "projects": ["Système de Reconnaissance IA", "Analyses de Données", "Applications Desktop"]
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Analyses de Données",
+              "Applications Desktop"
+            ]
           },
           {
             "name": "C",
             "level": "expert",
             "experience": "3+ ans",
             "description": "Programmation système, gestion mémoire, et développement bas niveau du cursus EPITECH.",
-            "projects": ["Projets Académiques", "Programmation Système"]
+            "projects": [
+              "Projets Académiques",
+              "Programmation Système"
+            ]
           },
           {
             "name": "Node.js",
             "level": "expert",
             "experience": "3+ ans",
             "description": "Développement JavaScript côté serveur avec Express.js, conception d'API et architecture microservices.",
-            "projects": ["API Leon'Art", "Services Web"]
+            "projects": [
+              "API Leon'Art",
+              "Services Web"
+            ]
           },
           {
             "name": "REST APIs",
             "level": "advanced",
             "experience": "3+ ans",
             "description": "Conception et implémentation d'API RESTful avec méthodes HTTP et codes de statut appropriés.",
-            "projects": ["API Leon'Art", "Microservices"]
+            "projects": [
+              "API Leon'Art",
+              "Microservices"
+            ]
           },
           {
             "name": "Java",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Programmation orientée objet avec Java, framework Spring et développement d'applications enterprise du cursus EPITECH.",
-            "projects": ["Projets Académiques", "Systèmes Enterprise"]
+            "projects": [
+              "Projets Académiques",
+              "Systèmes Enterprise"
+            ]
           },
           {
             "name": "C++",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Programmation orientée objet en C++, STL et concepts avancés du cursus EPITECH.",
-            "projects": ["Projets Académiques", "Développement Système"]
+            "projects": [
+              "Projets Académiques",
+              "Développement Système"
+            ]
           },
           {
             "name": "C#",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Développement .NET, programmation orientée objet et applications Windows du cursus EPITECH.",
-            "projects": ["Projets Académiques", "Applications Windows"]
+            "projects": [
+              "Projets Académiques",
+              "Applications Windows"
+            ]
           },
           {
             "name": "Django",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Framework web Django pour le développement rapide d'applications web sécurisées et évolutives.",
-            "projects": ["Applications Web", "Tableaux de Bord Admin"]
+            "projects": [
+              "Applications Web",
+              "Tableaux de Bord Admin"
+            ]
           },
           {
             "name": "PHP",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Développement PHP pour applications web, personnalisation WordPress et logique côté serveur.",
-            "projects": ["Intranet d'Entreprise", "Sites WordPress"]
+            "projects": [
+              "Intranet d'Entreprise",
+              "Sites WordPress"
+            ]
           },
           {
             "name": "Haskell",
             "level": "beginner",
             "experience": "1+ ans",
             "description": "Paradigme de programmation fonctionnelle, fonctions pures et systèmes de types du curriculum EPITECH.",
-            "projects": ["Projets Académiques", "Programmation Fonctionnelle"]
+            "projects": [
+              "Projets Académiques",
+              "Programmation Fonctionnelle"
+            ]
           },
           {
             "name": "ECS",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Architecture Entity Component System pour le développement de jeux et la conception de systèmes complexes.",
-            "projects": ["Développement de Jeux", "Architecture Système"]
+            "projects": [
+              "Développement de Jeux",
+              "Architecture Système"
+            ]
           },
           {
             "name": "GraphQL",
             "level": "beginner",
             "experience": "6+ mois",
             "description": "Langage de requête pour APIs avec conception de schéma type-safe et récupération de données efficace.",
-            "projects": ["Applications Web Modernes"]
+            "projects": [
+              "Applications Web Modernes"
+            ]
           }
         ]
       },
@@ -366,63 +520,90 @@
             "level": "advanced",
             "experience": "3+ ans",
             "description": "Administration système Linux, outils en ligne de commande, scripting shell et gestion de serveurs.",
-            "projects": ["Administration Serveur", "Environnement Développement"]
+            "projects": [
+              "Administration Serveur",
+              "Environnement Développement"
+            ]
           },
           {
             "name": "Firebase",
             "level": "advanced",
             "experience": "2+ ans",
             "description": "Plateforme Backend-as-a-Service avec base de données temps réel, authentification et cloud functions.",
-            "projects": ["Système de Reconnaissance IA", "Apps Temps Réel"]
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Apps Temps Réel"
+            ]
           },
           {
             "name": "Google Cloud Platform",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Services de cloud computing incluant Compute Engine, Cloud Storage et solutions de déploiement cloud.",
-            "projects": ["Déploiements Cloud", "Applications Scalables"]
+            "projects": [
+              "Déploiements Cloud",
+              "Applications Scalables"
+            ]
           },
           {
             "name": "Docker",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Conteneurisation d'applications, builds multi-étages et Docker Compose pour environnements de développement.",
-            "projects": ["Toutes les Apps Production", "Workflow Développement"]
+            "projects": [
+              "Toutes les Apps Production",
+              "Workflow Développement"
+            ]
           },
           {
             "name": "GitLab CI/CD",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Tests, builds et déploiements automatisés utilisant la plateforme CI/CD intégrée de GitLab.",
-            "projects": ["Contrôle de Version", "Déploiement Automatisé"]
+            "projects": [
+              "Contrôle de Version",
+              "Déploiement Automatisé"
+            ]
           },
           {
             "name": "Jenkins",
             "level": "intermediate",
             "experience": "1+ ans",
             "description": "Pipelines d'intégration et de déploiement continus avec workflows de tests et déploiement automatisés.",
-            "projects": ["Pipelines CI/CD", "Workflows Automatisés"]
+            "projects": [
+              "Pipelines CI/CD",
+              "Workflows Automatisés"
+            ]
           },
           {
             "name": "Bash",
             "level": "intermediate",
             "experience": "3+ ans",
             "description": "Scripting shell, automatisation et outils en ligne de commande pour administration système et workflows de développement.",
-            "projects": ["Scripts d'Automatisation", "Outils de Développement"]
+            "projects": [
+              "Scripts d'Automatisation",
+              "Outils de Développement"
+            ]
           },
           {
             "name": "Ansible",
             "level": "beginner",
             "experience": "1+ ans",
             "description": "Infrastructure as Code, gestion de configuration et déploiement automatisé du cursus EPITECH.",
-            "projects": ["Projets Académiques", "Gestion Infrastructure"]
+            "projects": [
+              "Projets Académiques",
+              "Gestion Infrastructure"
+            ]
           },
           {
             "name": "Kubernetes",
             "level": "beginner",
             "experience": "6+ mois",
             "description": "Orchestration de conteneurs, mise à l'échelle et gestion de microservices en environnements de production du cursus EPITECH.",
-            "projects": ["Projets d'Apprentissage", "Labs Académiques"]
+            "projects": [
+              "Projets d'Apprentissage",
+              "Labs Académiques"
+            ]
           }
         ]
       },
@@ -434,191 +615,264 @@
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Conception de bases de données relationnelles, requêtes complexes, indexation et optimisation des performances.",
-            "projects": ["Applications Web", "Analyses de Données"]
+            "projects": [
+              "Applications Web",
+              "Analyses de Données"
+            ]
           },
           {
             "name": "MongoDB",
             "level": "advanced",
             "experience": "2+ ans",
             "description": "Base de données NoSQL documentaire avec pipelines d'agrégation, indexation et modélisation de données évolutive.",
-            "projects": ["Leon'Art", "Applications Temps Réel"]
+            "projects": [
+              "Leon'Art",
+              "Applications Temps Réel"
+            ]
           },
           {
             "name": "Firestore",
             "level": "advanced",
             "experience": "2+ ans",
             "description": "Base de données NoSQL temps réel avec support hors ligne, synchronisation temps réel et règles de sécurité.",
-            "projects": ["Système de Reconnaissance IA", "Apps Mobiles"]
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Apps Mobiles"
+            ]
           },
           {
             "name": "MySQL",
             "level": "intermediate",
             "experience": "2+ ans",
             "description": "Gestion de bases de données relationnelles avec procédures stockées, triggers et techniques d'optimisation.",
-            "projects": ["Intranet d'Entreprise", "Applications Web"]
+            "projects": [
+              "Intranet d'Entreprise",
+              "Applications Web"
+            ]
           },
           {
             "name": "Redis",
             "level": "beginner",
             "experience": "6+ mois",
             "description": "Stockage de structures de données en mémoire pour la mise en cache, gestion de session et messagerie pub/sub.",
-            "projects": ["Optimisation Performance"]
+            "projects": [
+              "Optimisation Performance"
+            ]
           },
           {
             "name": "NoSQL",
             "level": "advanced",
             "experience": "3+ ans",
             "description": "Principes de conception de bases de données non-relationnelles, stockage de documents, paires clé-valeur et schéma flexible.",
-            "projects": ["Leon'Art", "Applications Temps Réel", "Système de Reconnaissance IA"]
+            "projects": [
+              "Leon'Art",
+              "Applications Temps Réel",
+              "Système de Reconnaissance IA"
+            ]
           }
         ]
       },
-             "tools": {
-         "title": "Outils & Autres",
-         "technologies": [
-           {
-             "name": "Git",
-             "level": "advanced",
-             "experience": "4+ ans",
-             "description": "Contrôle de version avec Git, stratégies de branchement, résolution de conflits et workflows collaboratifs.",
-             "projects": ["Tous les Projets", "Collaboration Équipe"]
-           },
-           {
-             "name": "Figma",
-             "level": "intermediate",
-             "experience": "2+ ans",
-             "description": "Design UI/UX, prototypage, systèmes de design et workflows de design collaboratifs.",
-             "projects": ["Design Portfolio", "Maquettes App"]
-           },
-           {
-             "name": "Unity",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Développement de jeux avec moteur Unity, scripting C#, systèmes de physique et implémentation IA.",
-             "projects": ["Jeu de Tank", "Inept Intruder"]
-           },
-           {
-             "name": "PyQt6",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Développement GUI multiplateforme avec Python, conception d'applications desktop et création d'interfaces utilisateur.",
-             "projects": ["Système de Reconnaissance IA", "Outils Desktop"]
-           },
-           {
-             "name": "Zapier",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Plateforme d'automatisation pour connecter applications et services avec automatisation de workflows et intégration.",
-             "projects": ["Automatisation Business", "Intégration Workflows"]
-           },
-           {
-             "name": "Blender",
-             "level": "beginner",
-             "experience": "6+ mois",
-             "description": "Modélisation 3D, animation et rendu pour le développement de jeux et la création de contenu visuel.",
-             "projects": ["Assets de Jeu", "Modélisation 3D"]
-           },
-           {
-             "name": "Unreal Engine",
-             "level": "beginner",
-             "experience": "6+ mois",
-             "description": "Moteur de développement de jeux pour créer des jeux de haute qualité avec graphismes et physique avancés.",
-             "projects": ["Développement de Jeux", "Projets 3D"]
-           },
-           {
-             "name": "Design Thinking",
-             "level": "intermediate",
-             "experience": "2+ ans",
-             "description": "Méthodologie de conception centrée sur l'humain pour la résolution de problèmes, l'empathie utilisateur et le développement de solutions innovantes.",
-             "projects": ["UX Leon'Art", "Contenu Éducatif", "Mentorat Étudiant"]
-           }
-         ]
-       },
-             "mobile": {
-         "title": "Développement Mobile",
-         "technologies": [
-           {
-             "name": "React Native",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Développement mobile multiplateforme avec React Native pour applications iOS et Android.",
-             "projects": ["Leon'Art Mobile", "Apps Mobiles"]
-           },
-           {
-             "name": "Expo",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Plateforme pour applications React universelles avec outils pour créer, déployer et itérer rapidement sur iOS et Android.",
-             "projects": ["Prototypes Mobiles", "Apps React Native"]
-           },
-           {
-             "name": "Android",
-             "level": "beginner",
-             "experience": "6+ mois",
-             "description": "Développement Android natif avec Java/Kotlin, SDK Android et architecture d'applications mobiles.",
-             "projects": ["Projets d'Apprentissage", "Développement Mobile"]
-           },
-           {
-             "name": "Flutter",
-             "level": "beginner",
-             "experience": "6+ mois",
-             "description": "Toolkit UI de Google pour créer des applications compilées nativement pour mobile à partir d'un seul code source.",
-             "projects": ["Projets d'Apprentissage", "Prototypes"]
-           }
-         ]
-       },
-       "testing": {
-         "title": "Tests & Assurance Qualité",
-         "technologies": [
-           {
-             "name": "Jest",
-             "level": "intermediate",
-             "experience": "2+ ans",
-             "description": "Framework de tests JavaScript pour tests unitaires, tests d'intégration et développement dirigé par les tests.",
-             "projects": ["Applications React", "APIs Node.js"]
-           },
-           {
-             "name": "Cypress",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Framework de tests end-to-end pour applications web avec tests en navigateur réel.",
-             "projects": ["Applications Web", "Tests E2E"]
-           },
-           {
-             "name": "Mocha",
-             "level": "beginner",
-             "experience": "1+ ans",
-             "description": "Framework de tests JavaScript pour programmes Node.js avec capacités de test flexibles.",
-             "projects": ["Tests Backend", "Tests API"]
-           }
-         ]
-       },
-       "aiml": {
-         "title": "IA & Machine Learning",
-         "technologies": [
-           {
-             "name": "TensorFlow",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Framework de machine learning pour construire et entraîner des réseaux de neurones et modèles d'apprentissage profond.",
-             "projects": ["Système de Reconnaissance IA", "Projets ML"]
-           },
-           {
-             "name": "PyTorch",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Framework d'apprentissage profond pour la recherche et la production avec graphes computationnels dynamiques.",
-             "projects": ["Système de Reconnaissance IA", "Projets de Recherche"]
-           },
-           {
-             "name": "OpenCV",
-             "level": "intermediate",
-             "experience": "1+ ans",
-             "description": "Bibliothèque de vision par ordinateur pour traitement d'image, reconnaissance faciale et applications visuelles IA.",
-             "projects": ["Système de Reconnaissance IA", "Vision par Ordinateur"]
-           }
-         ]
-       }
+      "tools": {
+        "title": "Outils & Autres",
+        "technologies": [
+          {
+            "name": "Git",
+            "level": "advanced",
+            "experience": "4+ ans",
+            "description": "Contrôle de version avec Git, stratégies de branchement, résolution de conflits et workflows collaboratifs.",
+            "projects": [
+              "Tous les Projets",
+              "Collaboration Équipe"
+            ]
+          },
+          {
+            "name": "Figma",
+            "level": "intermediate",
+            "experience": "2+ ans",
+            "description": "Design UI/UX, prototypage, systèmes de design et workflows de design collaboratifs.",
+            "projects": [
+              "Design Portfolio",
+              "Maquettes App"
+            ]
+          },
+          {
+            "name": "Unity",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Développement de jeux avec moteur Unity, scripting C#, systèmes de physique et implémentation IA.",
+            "projects": [
+              "Jeu de Tank",
+              "Inept Intruder"
+            ]
+          },
+          {
+            "name": "PyQt6",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Développement GUI multiplateforme avec Python, conception d'applications desktop et création d'interfaces utilisateur.",
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Outils Desktop"
+            ]
+          },
+          {
+            "name": "Zapier",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Plateforme d'automatisation pour connecter applications et services avec automatisation de workflows et intégration.",
+            "projects": [
+              "Automatisation Business",
+              "Intégration Workflows"
+            ]
+          },
+          {
+            "name": "Blender",
+            "level": "beginner",
+            "experience": "6+ mois",
+            "description": "Modélisation 3D, animation et rendu pour le développement de jeux et la création de contenu visuel.",
+            "projects": [
+              "Assets de Jeu",
+              "Modélisation 3D"
+            ]
+          },
+          {
+            "name": "Unreal Engine",
+            "level": "beginner",
+            "experience": "6+ mois",
+            "description": "Moteur de développement de jeux pour créer des jeux de haute qualité avec graphismes et physique avancés.",
+            "projects": [
+              "Développement de Jeux",
+              "Projets 3D"
+            ]
+          },
+          {
+            "name": "Design Thinking",
+            "level": "intermediate",
+            "experience": "2+ ans",
+            "description": "Méthodologie de conception centrée sur l'humain pour la résolution de problèmes, l'empathie utilisateur et le développement de solutions innovantes.",
+            "projects": [
+              "UX Leon'Art",
+              "Contenu Éducatif",
+              "Mentorat Étudiant"
+            ]
+          }
+        ]
+      },
+      "mobile": {
+        "title": "Développement Mobile",
+        "technologies": [
+          {
+            "name": "React Native",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Développement mobile multiplateforme avec React Native pour applications iOS et Android.",
+            "projects": [
+              "Leon'Art Mobile",
+              "Apps Mobiles"
+            ]
+          },
+          {
+            "name": "Expo",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Plateforme pour applications React universelles avec outils pour créer, déployer et itérer rapidement sur iOS et Android.",
+            "projects": [
+              "Prototypes Mobiles",
+              "Apps React Native"
+            ]
+          },
+          {
+            "name": "Android",
+            "level": "beginner",
+            "experience": "6+ mois",
+            "description": "Développement Android natif avec Java/Kotlin, SDK Android et architecture d'applications mobiles.",
+            "projects": [
+              "Projets d'Apprentissage",
+              "Développement Mobile"
+            ]
+          },
+          {
+            "name": "Flutter",
+            "level": "beginner",
+            "experience": "6+ mois",
+            "description": "Toolkit UI de Google pour créer des applications compilées nativement pour mobile à partir d'un seul code source.",
+            "projects": [
+              "Projets d'Apprentissage",
+              "Prototypes"
+            ]
+          }
+        ]
+      },
+      "testing": {
+        "title": "Tests & Assurance Qualité",
+        "technologies": [
+          {
+            "name": "Jest",
+            "level": "intermediate",
+            "experience": "2+ ans",
+            "description": "Framework de tests JavaScript pour tests unitaires, tests d'intégration et développement dirigé par les tests.",
+            "projects": [
+              "Applications React",
+              "APIs Node.js"
+            ]
+          },
+          {
+            "name": "Cypress",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Framework de tests end-to-end pour applications web avec tests en navigateur réel.",
+            "projects": [
+              "Applications Web",
+              "Tests E2E"
+            ]
+          },
+          {
+            "name": "Mocha",
+            "level": "beginner",
+            "experience": "1+ ans",
+            "description": "Framework de tests JavaScript pour programmes Node.js avec capacités de test flexibles.",
+            "projects": [
+              "Tests Backend",
+              "Tests API"
+            ]
+          }
+        ]
+      },
+      "aiml": {
+        "title": "IA & Machine Learning",
+        "technologies": [
+          {
+            "name": "TensorFlow",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Framework de machine learning pour construire et entraîner des réseaux de neurones et modèles d'apprentissage profond.",
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Projets ML"
+            ]
+          },
+          {
+            "name": "PyTorch",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Framework d'apprentissage profond pour la recherche et la production avec graphes computationnels dynamiques.",
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Projets de Recherche"
+            ]
+          },
+          {
+            "name": "OpenCV",
+            "level": "intermediate",
+            "experience": "1+ ans",
+            "description": "Bibliothèque de vision par ordinateur pour traitement d'image, reconnaissance faciale et applications visuelles IA.",
+            "projects": [
+              "Système de Reconnaissance IA",
+              "Vision par Ordinateur"
+            ]
+          }
+        ]
+      }
     },
     "summary": {
       "title": "Expertise Full-Stack",
@@ -716,40 +970,106 @@
       "facial_recognition": {
         "title": "Système de Reconnaissance Faciale IA",
         "description": "Plateforme d'assiduité basée cloud utilisant Firestore, PyQt6, OpenCV et Torch",
-        "technologies": ["Python", "OpenCV", "PyQt6", "Firestore", "IA/ML"],
-        "features": ["Reconnaissance faciale temps réel", "Intégration base de données cloud", "Rapports automatisés"],
+        "technologies": [
+          "Python",
+          "OpenCV",
+          "PyQt6",
+          "Firestore",
+          "IA/ML"
+        ],
+        "features": [
+          "Reconnaissance faciale temps réel",
+          "Intégration base de données cloud",
+          "Rapports automatisés"
+        ],
         "github": "https://github.com/DamienDemontis/proto-1-pr-smart"
       },
       "leonart": {
         "title": "Leon'Art - Marché de l'Art",
         "description": "Projet de startup terminé début 2025. Application mobile et web pour acheter et vendre de l'art avec fonctionnalités sociales",
-        "technologies": ["React Native", "Node.js", "MongoDB", "Express"],
-        "features": ["Marché de l'art", "Réseau social", "Intégration paiements"],
+        "technologies": [
+          "React Native",
+          "Node.js",
+          "MongoDB",
+          "Express"
+        ],
+        "features": [
+          "Marché de l'art",
+          "Réseau social",
+          "Intégration paiements"
+        ],
         "github": "https://github.com/Leon-Art-EIP"
       },
       "intranet": {
         "title": "Solution Intranet d'Entreprise",
         "description": "Intranet basé WordPress améliorant la communication d'entreprise",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
-        "features": ["Communication interne", "Gestion documentaire", "Authentification utilisateur"],
+        "technologies": [
+          "PHP",
+          "WordPress",
+          "MySQL",
+          "JavaScript"
+        ],
+        "features": [
+          "Communication interne",
+          "Gestion documentaire",
+          "Authentification utilisateur"
+        ],
         "video": "https://youtu.be/fSEylEdaZiM",
         "videoTitle": "Démo Intranet d'Entreprise"
       },
       "inept_intruder": {
         "title": "Inept-Intruder - Jeu Multijoueur",
         "description": "Jeu multijoueur où l'homme CCTV (joueur) aide un autre joueur à traverser un environnement d'usine piégé",
-        "technologies": ["Unity", "C#", "Multijoueur", "Développement Jeu"],
-        "features": ["Coopération multijoueur", "Environnement d'usine piégé", "Mécaniques d'assistance CCTV"],
-        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main"
+        "technologies": [
+          "Unity",
+          "C#",
+          "Multijoueur",
+          "Développement Jeu"
+        ],
+        "features": [
+          "Coopération multijoueur",
+          "Environnement d'usine piégé",
+          "Mécaniques d'assistance CCTV"
+        ],
+        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
+        "video": "https://youtu.be/S_0kDyYHLs0",
+        "videoTitle": "Gameplay Inept Intruder"
       },
       "tank_game": {
         "title": "Wii Tanks Remastered",
         "description": "Recréation du jeu classique Wii Play Tank avec graphismes et mécaniques améliorés",
-        "technologies": ["Unity", "C#", "Physique Jeu", "Graphiques 3D"],
-        "features": ["Gameplay tank classique", "Visuels améliorés", "Contrôles fluides"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Physique Jeu",
+          "Graphiques 3D"
+        ],
+        "features": [
+          "Gameplay tank classique",
+          "Visuels améliorés",
+          "Contrôles fluides"
+        ],
         "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
         "video": "https://youtu.be/jWfFh3oCJ2I",
         "videoTitle": "Démo Jeu Tank"
+      },
+      "msc_decouverte": {
+        "title": "MSC Découverte - Guide des Spécialités EPITECH",
+        "description": "Plateforme éducative développée pendant mon APE à EPITECH pour aider les étudiants à choisir leurs spécialités. Propose des informations complètes, des perspectives de carrière et des projets pratiques avec plus de 800 ressources externes. Vendu à EPITECH en 2025.",
+        "technologies": [
+          "Jekyll",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Markdown"
+        ],
+        "features": [
+          "800+ liens de ressources externes",
+          "Outils de comparaison de spécialités",
+          "Perspectives du marché du travail",
+          "Démos de projets interactifs"
+        ],
+        "demo": "https://decouverte-pmsc.vercel.app/"
       }
     }
   },
@@ -821,19 +1141,39 @@
     "items": {
       "technology": {
         "title": "Technologie & Innovation",
-        "items": ["Intelligence Artificielle & VR/AR", "Développement LLM", "Veille Technologique", "Contributions Open Source"]
+        "items": [
+          "Intelligence Artificielle & VR/AR",
+          "Développement LLM",
+          "Veille Technologique",
+          "Contributions Open Source"
+        ]
       },
       "world": {
         "title": "Perspective Globale",
-        "items": ["Géopolitique & Société", "Culture Asiatique", "Écologie & Durabilité", "Communication Interculturelle"]
+        "items": [
+          "Géopolitique & Société",
+          "Culture Asiatique",
+          "Écologie & Durabilité",
+          "Communication Interculturelle"
+        ]
       },
       "creativity": {
         "title": "Pursuits Créatives",
-        "items": ["Romans de Science-Fiction", "Développement de Jeux Vidéo", "Art Numérique & Design", "Apprentissage du Coréen"]
+        "items": [
+          "Romans de Science-Fiction",
+          "Développement de Jeux Vidéo",
+          "Art Numérique & Design",
+          "Apprentissage du Coréen"
+        ]
       },
       "community": {
         "title": "Communauté & Enseignement",
-        "items": ["Mentorat d'Étudiants", "Organisation de Meetups Tech", "Développement d'Ateliers", "Innovation Éducative"]
+        "items": [
+          "Mentorat d'Étudiants",
+          "Organisation de Meetups Tech",
+          "Développement d'Ateliers",
+          "Innovation Éducative"
+        ]
       }
     }
   },
@@ -903,7 +1243,7 @@
     "form": {
       "title": "Envoyer un Message",
       "name": "Nom Complet",
-              "email": "Mail",
+      "email": "Mail",
       "subject": "Sujet",
       "message": "Votre Message",
       "send": "Envoyer le Message",
@@ -1011,17 +1351,20 @@
         "description": "Inflige des dégâts émotionnels aux développeurs seniors"
       }
     },
-    "weaknesses": ["Conflits de Merge", "Déploiements en Prod"],
+    "weaknesses": [
+      "Conflits de Merge",
+      "Déploiements en Prod"
+    ],
     "resistance": "Caféine",
-          "status": "",
+    "status": "",
     "contactText": "Recruter",
     "flavorText": "Souvent trouvé en train de déboguer à 3h du matin. Communique principalement par GIFs et soupirs.",
     "stats": {
       "coding": "★★★★☆",
-      "debugging": "★★★☆☆", 
+      "debugging": "★★★☆☆",
       "documentation": "★☆☆☆☆",
       "social": "★★☆☆☆"
     },
     "catchyStats": "3+ Ans d'Expérience ☕ Propulsé par la Caféine 📚 Partageur de Savoir 🚀 Passionné de Tech"
   }
-} 
+}

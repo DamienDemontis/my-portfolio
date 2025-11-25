@@ -91,7 +91,23 @@
         "period": "September 2024 - Present",
         "location": "Nancy, France (Remote)",
         "description": "Founded JobNeko, a sophisticated open-source platform that transforms job searching through artificial intelligence and intelligent automation. Designed to be self-hostable with an upcoming SaaS model (similar to n8n). Simultaneously developing custom websites for various clients with expertise in modern architecture and scalable solutions.",
-        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Vercel", "Git", "Docker"],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "OpenAI",
+          "Prisma",
+          "Node.js",
+          "React",
+          "Tailwind CSS",
+          "PostgreSQL",
+          "Chrome Extension API",
+          "RAG",
+          "Web Scraping",
+          "LLM Integration",
+          "Vercel",
+          "Git",
+          "Docker"
+        ],
         "achievements": [
           "Created JobNeko: full-stack open-source AI-powered job market analysis platform (https://github.com/DamienDemontis/JobNeko)",
           "Self-hostable architecture allowing complete user data control",
@@ -113,7 +129,38 @@
         "period": "March 2024 - August 2024",
         "location": "Nancy, France",
         "description": "Mentored MSc students on advanced software engineering topics including modern web development, cloud architecture, DevOps practices, and cybersecurity fundamentals. Built a cloud-based facial recognition attendance platform using PyTorch, OpenCV, and cloud infrastructure. Delivered comprehensive training on enterprise-grade technologies, agile methodologies, and industry best practices while creating engaging technical content.",
-        "technologies": ["Node.js", "Express", "NestJS", "React", "Vue.js", "Next.js", "Redux", "Pinia", "Jest", "Cypress", "GitLab CI", "GitHub Actions", "AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "PostgreSQL", "MongoDB", "Redis", "PyTorch", "OpenCV", "OWASP Top 10", "TensorFlow", "scikit-learn", "Scrum", "Kanban", "Jira"],
+        "technologies": [
+          "Node.js",
+          "Express",
+          "NestJS",
+          "React",
+          "Vue.js",
+          "Next.js",
+          "Redux",
+          "Pinia",
+          "Jest",
+          "Cypress",
+          "GitLab CI",
+          "GitHub Actions",
+          "AWS",
+          "GCP",
+          "Azure",
+          "Docker",
+          "Kubernetes",
+          "Terraform",
+          "Ansible",
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "PyTorch",
+          "OpenCV",
+          "OWASP Top 10",
+          "TensorFlow",
+          "scikit-learn",
+          "Scrum",
+          "Kanban",
+          "Jira"
+        ],
         "achievements": [
           "Built production-grade cloud-based facial recognition attendance platform with PyTorch/OpenCV",
           "Designed scalable REST APIs with automated reporting and real-time processing capabilities",
@@ -135,7 +182,32 @@
         "period": "Late 2021 - August 2024",
         "location": "Nancy, France",
         "description": "Mentored students across fundamental and advanced programming concepts, from low-level C/C++ development to modern web technologies. Taught algorithmic problem-solving, data structures, software architecture principles, and industry development practices. Guided students through version control workflows, testing methodologies, and web development fundamentals while maintaining exceptional educational standards.",
-        "technologies": ["C", "C++", "SFML", "Data Structures", "Algorithms", "Memory Management", "Pointers", "Git", "Bash", "TCP/IP", "HTTP", "SQL", "HTML", "CSS", "JavaScript", "REST APIs", "JSON", "MVC", "Docker", "Linux", "UNIX", "CUnit", "GoogleTest", "Design Patterns"],
+        "technologies": [
+          "C",
+          "C++",
+          "SFML",
+          "Data Structures",
+          "Algorithms",
+          "Memory Management",
+          "Pointers",
+          "Git",
+          "Bash",
+          "TCP/IP",
+          "HTTP",
+          "SQL",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "REST APIs",
+          "JSON",
+          "MVC",
+          "Docker",
+          "Linux",
+          "UNIX",
+          "CUnit",
+          "GoogleTest",
+          "Design Patterns"
+        ],
         "achievements": [
           "Recognized as top-performing teaching assistant for three consecutive years across both curriculums",
           "Taught fundamental programming concepts including C/C++, memory management, and pointer manipulation",
@@ -158,7 +230,24 @@
         "period": "April 2023 - March 2025",
         "location": "Daegu, Korea",
         "description": "Architected and developed scalable backend systems using Node.js, TypeScript, and Express; implemented secure authentication and payment processing with Stripe. Designed and maintained REST APIs and webhook flows for real-time events, supporting marketplace features and social interactions. Led a cross-functional team; owned database design (MongoDB), cloud infrastructure (Google Cloud Platform), and deployments with Docker and Kubernetes.",
-        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "Docker", "Kubernetes", "Google Cloud Platform", "Firebase", "Jira", "CI/CD", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
+        "technologies": [
+          "Node.js",
+          "TypeScript",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "React Native",
+          "Docker",
+          "Kubernetes",
+          "Google Cloud Platform",
+          "Firebase",
+          "Jira",
+          "CI/CD",
+          "REST APIs",
+          "WebSockets",
+          "JWT",
+          "OAuth 2.0"
+        ],
         "achievements": [
           "Architected scalable backend systems with Node.js, TypeScript, and Express",
           "Implemented secure authentication and payment processing with Stripe integration",
@@ -177,7 +266,17 @@
         "period": "April 2023 - August 2023",
         "location": "Nancy, France",
         "description": "Migrated a monolithic Django application to a Nuxt front end with Django backend; cut page load times by 50% and increased test coverage by 30%. Improved scalability and maintainability using microservices principles; strengthened quality with unit, integration, and E2E tests and CI pipelines.",
-        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Testing (unit, integration, E2E)", "Microservices", "Python"],
+        "technologies": [
+          "Nuxt.js",
+          "Vue.js",
+          "Pinia",
+          "Django",
+          "PostgreSQL",
+          "GitLab CI/CD",
+          "Testing (unit, integration, E2E)",
+          "Microservices",
+          "Python"
+        ],
         "achievements": [
           "Migrated monolithic Django application to modern Nuxt.js frontend architecture",
           "Achieved 50% reduction in page load times through performance optimization",
@@ -195,7 +294,16 @@
         "period": "July 2021 - December 2021",
         "location": "Nancy, France",
         "description": "Developed front-end solutions using WordPress and PHP; created custom themes and plugins to enhance UX and functionality. Designed and maintained database structures in MySQL, ensuring data integrity and efficient queries for internal systems. Collaborated with cross-functional teams to gather requirements and deliver robust intranet solutions that improved workflow efficiency.",
-        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development", "Database Design"],
+        "technologies": [
+          "WordPress",
+          "PHP",
+          "MySQL",
+          "JavaScript",
+          "CSS",
+          "Custom Themes",
+          "Plugin Development",
+          "Database Design"
+        ],
         "achievements": [
           "Developed comprehensive front-end solutions with WordPress and PHP",
           "Created custom themes and plugins enhancing user experience and functionality",
@@ -222,63 +330,90 @@
             "level": "expert",
             "experience": "4+ years",
             "description": "Core JavaScript programming, ES6+, async/await, and modern web APIs.",
-            "projects": ["All Web Projects", "Interactive Applications"]
+            "projects": [
+              "All Web Projects",
+              "Interactive Applications"
+            ]
           },
           {
             "name": "HTML5",
             "level": "expert",
             "experience": "4+ years",
             "description": "Semantic HTML markup, accessibility best practices, and modern web standards.",
-            "projects": ["All Web Projects"]
+            "projects": [
+              "All Web Projects"
+            ]
           },
           {
             "name": "CSS3",
             "level": "expert",
             "experience": "4+ years",
             "description": "Advanced CSS styling, animations, grid, flexbox, and responsive design principles.",
-            "projects": ["Portfolio", "UI/UX Projects"]
+            "projects": [
+              "Portfolio",
+              "UI/UX Projects"
+            ]
           },
           {
             "name": "React",
             "level": "advanced",
             "experience": "3+ years",
             "description": "Building modern, responsive web applications with React hooks, context API, and component composition.",
-            "projects": ["Leon'Art", "Portfolio", "AI Recognition System"]
+            "projects": [
+              "Leon'Art",
+              "Portfolio",
+              "AI Recognition System"
+            ]
           },
           {
             "name": "TypeScript",
             "level": "advanced",
             "experience": "2+ years",
             "description": "Type-safe JavaScript development with strong typing and modern ES6+ features.",
-            "projects": ["Portfolio", "Enterprise Applications"]
+            "projects": [
+              "Portfolio",
+              "Enterprise Applications"
+            ]
           },
           {
             "name": "Tailwind CSS",
             "level": "advanced",
             "experience": "2+ years",
             "description": "Utility-first CSS framework for rapid UI development with custom design systems.",
-            "projects": ["Portfolio", "Modern Web Apps"]
+            "projects": [
+              "Portfolio",
+              "Modern Web Apps"
+            ]
           },
           {
             "name": "Vue.js",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Developing interactive user interfaces with Vue.js and Vuex for state management.",
-            "projects": ["Leon'Art Mobile", "Dashboard Projects"]
+            "projects": [
+              "Leon'Art Mobile",
+              "Dashboard Projects"
+            ]
           },
           {
             "name": "Nuxt.js",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Server-side rendering and static site generation with Nuxt.js for performance optimization.",
-            "projects": ["E-commerce Platform", "Blog System"]
+            "projects": [
+              "E-commerce Platform",
+              "Blog System"
+            ]
           },
           {
             "name": "Next.js",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "React-based framework for production-ready applications with SSR and static generation.",
-            "projects": ["Web Applications", "Portfolio Sites"]
+            "projects": [
+              "Web Applications",
+              "Portfolio Sites"
+            ]
           }
         ]
       },
@@ -290,84 +425,120 @@
             "level": "intermediate",
             "experience": "4+ years",
             "description": "Full-stack Python development, data processing, AI/ML integration, and automation scripts.",
-            "projects": ["AI Recognition System", "Data Analytics", "Desktop Applications"]
+            "projects": [
+              "AI Recognition System",
+              "Data Analytics",
+              "Desktop Applications"
+            ]
           },
           {
             "name": "C",
             "level": "expert",
             "experience": "3+ years",
             "description": "Systems programming, memory management, and low-level development from EPITECH curriculum.",
-            "projects": ["Academic Projects", "System Programming"]
+            "projects": [
+              "Academic Projects",
+              "System Programming"
+            ]
           },
           {
             "name": "Node.js",
             "level": "expert",
             "experience": "3+ years",
             "description": "Server-side JavaScript development with Express.js, API design, and microservices architecture.",
-            "projects": ["Leon'Art API", "Web Services"]
+            "projects": [
+              "Leon'Art API",
+              "Web Services"
+            ]
           },
           {
             "name": "REST APIs",
             "level": "advanced",
             "experience": "3+ years",
             "description": "RESTful API design, implementation, and documentation with proper HTTP methods and status codes.",
-            "projects": ["Leon'Art API", "Microservices"]
+            "projects": [
+              "Leon'Art API",
+              "Microservices"
+            ]
           },
           {
             "name": "Java",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Object-oriented programming with Java, Spring framework, and enterprise application development from EPITECH.",
-            "projects": ["Academic Projects", "Enterprise Systems"]
+            "projects": [
+              "Academic Projects",
+              "Enterprise Systems"
+            ]
           },
           {
             "name": "C++",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Object-oriented programming in C++, STL, and advanced programming concepts from EPITECH curriculum.",
-            "projects": ["Academic Projects", "System Development"]
+            "projects": [
+              "Academic Projects",
+              "System Development"
+            ]
           },
           {
             "name": "C#",
             "level": "intermediate",
             "experience": "2+ years",
             "description": ".NET development, object-oriented programming, and Windows application development from EPITECH.",
-            "projects": ["Academic Projects", "Windows Applications"]
+            "projects": [
+              "Academic Projects",
+              "Windows Applications"
+            ]
           },
           {
             "name": "Django",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Django web framework for rapid development of secure and scalable web applications.",
-            "projects": ["Web Applications", "Admin Dashboards"]
+            "projects": [
+              "Web Applications",
+              "Admin Dashboards"
+            ]
           },
           {
             "name": "PHP",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "PHP development for web applications, WordPress customization, and server-side logic.",
-            "projects": ["Corporate Intranet", "WordPress Sites"]
+            "projects": [
+              "Corporate Intranet",
+              "WordPress Sites"
+            ]
           },
           {
             "name": "Haskell",
             "level": "beginner",
             "experience": "1+ years",
             "description": "Functional programming paradigm, pure functions, and type systems from EPITECH curriculum.",
-            "projects": ["Academic Projects", "Functional Programming"]
+            "projects": [
+              "Academic Projects",
+              "Functional Programming"
+            ]
           },
           {
             "name": "ECS",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Entity Component System architecture for game development and complex systems design.",
-            "projects": ["Game Development", "System Architecture"]
+            "projects": [
+              "Game Development",
+              "System Architecture"
+            ]
           },
           {
             "name": "GraphQL",
             "level": "beginner",
             "experience": "6+ months",
             "description": "Query language for APIs with type-safe schema design and efficient data fetching.",
-            "projects": ["Modern Web Apps"]
+            "projects": [
+              "Modern Web Apps"
+            ]
           }
         ]
       },
@@ -379,63 +550,90 @@
             "level": "advanced",
             "experience": "3+ years",
             "description": "Linux system administration, command line tools, shell scripting, and server management.",
-            "projects": ["Server Administration", "Development Environment"]
+            "projects": [
+              "Server Administration",
+              "Development Environment"
+            ]
           },
           {
             "name": "Firebase",
             "level": "advanced",
             "experience": "2+ years",
             "description": "Backend-as-a-Service platform with real-time database, authentication, and cloud functions.",
-            "projects": ["AI Recognition System", "Real-time Apps"]
+            "projects": [
+              "AI Recognition System",
+              "Real-time Apps"
+            ]
           },
           {
             "name": "Google Cloud Platform",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Cloud computing services including Compute Engine, Cloud Storage, and cloud deployment solutions.",
-            "projects": ["Cloud Deployments", "Scalable Applications"]
+            "projects": [
+              "Cloud Deployments",
+              "Scalable Applications"
+            ]
           },
           {
             "name": "Docker",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Containerization of applications, multi-stage builds, and Docker Compose for development environments.",
-            "projects": ["All Production Apps", "Development Workflow"]
+            "projects": [
+              "All Production Apps",
+              "Development Workflow"
+            ]
           },
           {
             "name": "GitLab CI/CD",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Automated testing, building, and deployment using GitLab's integrated CI/CD platform.",
-            "projects": ["Version Control", "Automated Deployment"]
+            "projects": [
+              "Version Control",
+              "Automated Deployment"
+            ]
           },
           {
             "name": "Jenkins",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Continuous integration and deployment pipelines with automated testing and deployment workflows.",
-            "projects": ["CI/CD Pipelines", "Automated Workflows"]
+            "projects": [
+              "CI/CD Pipelines",
+              "Automated Workflows"
+            ]
           },
           {
             "name": "Bash",
             "level": "intermediate",
             "experience": "3+ years",
             "description": "Shell scripting, automation, and command-line tools for system administration and development workflows.",
-            "projects": ["Automation Scripts", "Development Tools"]
+            "projects": [
+              "Automation Scripts",
+              "Development Tools"
+            ]
           },
           {
             "name": "Ansible",
             "level": "beginner",
             "experience": "1+ years",
             "description": "Infrastructure as Code, configuration management, and automated deployment from EPITECH curriculum.",
-            "projects": ["Academic Projects", "Infrastructure Management"]
+            "projects": [
+              "Academic Projects",
+              "Infrastructure Management"
+            ]
           },
           {
             "name": "Kubernetes",
             "level": "beginner",
             "experience": "6+ months",
             "description": "Container orchestration, scaling, and management of microservices in production environments from EPITECH.",
-            "projects": ["Learning Projects", "Academic Labs"]
+            "projects": [
+              "Learning Projects",
+              "Academic Labs"
+            ]
           }
         ]
       },
@@ -447,42 +645,60 @@
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Relational database design, complex queries, indexing, and performance optimization.",
-            "projects": ["Web Applications", "Data Analytics"]
+            "projects": [
+              "Web Applications",
+              "Data Analytics"
+            ]
           },
           {
             "name": "MongoDB",
             "level": "advanced",
             "experience": "2+ years",
             "description": "NoSQL document database with aggregation pipelines, indexing, and scalable data modeling.",
-            "projects": ["Leon'Art", "Real-time Applications"]
+            "projects": [
+              "Leon'Art",
+              "Real-time Applications"
+            ]
           },
           {
             "name": "Firestore",
             "level": "advanced",
             "experience": "2+ years",
             "description": "Real-time NoSQL database with offline support, real-time synchronization, and security rules.",
-            "projects": ["AI Recognition System", "Mobile Apps"]
+            "projects": [
+              "AI Recognition System",
+              "Mobile Apps"
+            ]
           },
           {
             "name": "MySQL",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Relational database management with stored procedures, triggers, and optimization techniques.",
-            "projects": ["Corporate Intranet", "Web Applications"]
+            "projects": [
+              "Corporate Intranet",
+              "Web Applications"
+            ]
           },
           {
             "name": "Redis",
             "level": "beginner",
             "experience": "6+ months",
             "description": "In-memory data structure store for caching, session management, and pub/sub messaging.",
-            "projects": ["Performance Optimization"]
+            "projects": [
+              "Performance Optimization"
+            ]
           },
           {
             "name": "NoSQL",
             "level": "advanced",
             "experience": "3+ years",
             "description": "Non-relational database design principles, document stores, key-value pairs, and flexible schema design.",
-            "projects": ["Leon'Art", "Real-time Applications", "AI Recognition System"]
+            "projects": [
+              "Leon'Art",
+              "Real-time Applications",
+              "AI Recognition System"
+            ]
           }
         ]
       },
@@ -494,56 +710,81 @@
             "level": "advanced",
             "experience": "4+ years",
             "description": "Version control with Git, branching strategies, merge conflicts resolution, and collaborative workflows.",
-            "projects": ["All Projects", "Team Collaboration"]
+            "projects": [
+              "All Projects",
+              "Team Collaboration"
+            ]
           },
           {
             "name": "Figma",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "UI/UX design, prototyping, design systems, and collaborative design workflows.",
-            "projects": ["Portfolio Design", "App Mockups"]
+            "projects": [
+              "Portfolio Design",
+              "App Mockups"
+            ]
           },
           {
             "name": "Unity",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Game development with Unity engine, C# scripting, physics systems, and AI implementation.",
-            "projects": ["Tank Game", "Inept Intruder"]
+            "projects": [
+              "Tank Game",
+              "Inept Intruder"
+            ]
           },
           {
             "name": "PyQt6",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Cross-platform GUI development with Python, desktop application design, and user interface creation.",
-            "projects": ["AI Recognition System", "Desktop Tools"]
+            "projects": [
+              "AI Recognition System",
+              "Desktop Tools"
+            ]
           },
           {
             "name": "Zapier",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Automation platform for connecting apps and services with workflow automation and integration.",
-            "projects": ["Business Automation", "Workflow Integration"]
+            "projects": [
+              "Business Automation",
+              "Workflow Integration"
+            ]
           },
           {
             "name": "Blender",
             "level": "beginner",
             "experience": "6+ months",
             "description": "3D modeling, animation, and rendering for game development and visual content creation.",
-            "projects": ["Game Assets", "3D Modeling"]
+            "projects": [
+              "Game Assets",
+              "3D Modeling"
+            ]
           },
           {
             "name": "Unreal Engine",
             "level": "beginner",
             "experience": "6+ months",
             "description": "Game development engine for creating high-quality games with advanced graphics and physics.",
-            "projects": ["Game Development", "3D Projects"]
+            "projects": [
+              "Game Development",
+              "3D Projects"
+            ]
           },
           {
             "name": "Design Thinking",
             "level": "intermediate",
             "experience": "2+ years",
             "description": "Human-centered design methodology for problem-solving, user empathy, and innovative solution development.",
-            "projects": ["Leon'Art UX", "Educational Content", "Student Mentoring"]
+            "projects": [
+              "Leon'Art UX",
+              "Educational Content",
+              "Student Mentoring"
+            ]
           }
         ]
       },
@@ -555,28 +796,40 @@
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Cross-platform mobile development with React Native for iOS and Android applications.",
-            "projects": ["Leon'Art Mobile", "Mobile Apps"]
+            "projects": [
+              "Leon'Art Mobile",
+              "Mobile Apps"
+            ]
           },
           {
             "name": "Expo",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Platform for universal React applications with tools for building, deploying, and quickly iterating on iOS and Android.",
-            "projects": ["Mobile Prototypes", "React Native Apps"]
+            "projects": [
+              "Mobile Prototypes",
+              "React Native Apps"
+            ]
           },
           {
             "name": "Android",
             "level": "beginner",
             "experience": "6+ months",
             "description": "Native Android development with Java/Kotlin, Android SDK, and mobile app architecture.",
-            "projects": ["Learning Projects", "Mobile Development"]
+            "projects": [
+              "Learning Projects",
+              "Mobile Development"
+            ]
           },
           {
             "name": "Flutter",
             "level": "beginner",
             "experience": "6+ months",
             "description": "Google's UI toolkit for building natively compiled applications for mobile from a single codebase.",
-            "projects": ["Learning Projects", "Prototypes"]
+            "projects": [
+              "Learning Projects",
+              "Prototypes"
+            ]
           }
         ]
       },
@@ -588,21 +841,30 @@
             "level": "intermediate",
             "experience": "2+ years",
             "description": "JavaScript testing framework for unit tests, integration tests, and test-driven development.",
-            "projects": ["React Applications", "Node.js APIs"]
+            "projects": [
+              "React Applications",
+              "Node.js APIs"
+            ]
           },
           {
             "name": "Cypress",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "End-to-end testing framework for web applications with real browser testing.",
-            "projects": ["Web Applications", "E2E Testing"]
+            "projects": [
+              "Web Applications",
+              "E2E Testing"
+            ]
           },
           {
             "name": "Mocha",
             "level": "beginner",
             "experience": "1+ years",
             "description": "JavaScript test framework for Node.js programs with flexible testing capabilities.",
-            "projects": ["Backend Testing", "API Testing"]
+            "projects": [
+              "Backend Testing",
+              "API Testing"
+            ]
           }
         ]
       },
@@ -614,21 +876,30 @@
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Machine learning framework for building and training neural networks and deep learning models.",
-            "projects": ["AI Recognition System", "ML Projects"]
+            "projects": [
+              "AI Recognition System",
+              "ML Projects"
+            ]
           },
           {
             "name": "PyTorch",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Deep learning framework for research and production with dynamic computational graphs.",
-            "projects": ["AI Recognition System", "Research Projects"]
+            "projects": [
+              "AI Recognition System",
+              "Research Projects"
+            ]
           },
           {
             "name": "OpenCV",
             "level": "intermediate",
             "experience": "1+ years",
             "description": "Computer vision library for image processing, facial recognition, and AI-powered visual applications.",
-            "projects": ["AI Recognition System", "Computer Vision"]
+            "projects": [
+              "AI Recognition System",
+              "Computer Vision"
+            ]
           }
         ]
       }
@@ -729,37 +1000,103 @@
       "facial_recognition": {
         "title": "AI Facial Recognition Attendance System",
         "description": "Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and Torch",
-        "technologies": ["Python", "OpenCV", "PyQt6", "Firestore", "AI/ML"],
-        "features": ["Real-time facial recognition", "Cloud database integration", "Automated reporting"],
+        "technologies": [
+          "Python",
+          "OpenCV",
+          "PyQt6",
+          "Firestore",
+          "AI/ML"
+        ],
+        "features": [
+          "Real-time facial recognition",
+          "Cloud database integration",
+          "Automated reporting"
+        ],
         "github": "https://github.com/DamienDemontis/proto-1-pr-smart"
       },
       "leonart": {
         "title": "Leon'Art - Art Marketplace",
         "description": "Startup project that ended early 2025. Mobile and web application for buying and selling art with social features",
-        "technologies": ["React Native", "Node.js", "MongoDB", "Express"],
-        "features": ["Art marketplace", "Social networking", "Payment integration"],
+        "technologies": [
+          "React Native",
+          "Node.js",
+          "MongoDB",
+          "Express"
+        ],
+        "features": [
+          "Art marketplace",
+          "Social networking",
+          "Payment integration"
+        ],
         "github": "https://github.com/Leon-Art-EIP"
+      },
+      "msc_decouverte": {
+        "title": "MSC Découverte - EPITECH Specialty Guide",
+        "description": "Educational platform developed during my APE at EPITECH to help students choose their specialties. Features comprehensive information, job expectations, and hands-on projects with over 800 external resources. Sold to EPITECH in 2025.",
+        "technologies": [
+          "Jekyll",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Markdown"
+        ],
+        "features": [
+          "800+ external resource links",
+          "Specialty comparison tools",
+          "Job market insights",
+          "Interactive project demos"
+        ],
+        "demo": "https://decouverte-pmsc.vercel.app/"
       },
       "intranet": {
         "title": "Corporate Intranet Solution",
         "description": "WordPress-based intranet improving company-wide communication",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
-        "features": ["Internal communication", "Document management", "User authentication"],
+        "technologies": [
+          "PHP",
+          "WordPress",
+          "MySQL",
+          "JavaScript"
+        ],
+        "features": [
+          "Internal communication",
+          "Document management",
+          "User authentication"
+        ],
         "video": "https://youtu.be/fSEylEdaZiM",
         "videoTitle": "Corporate Intranet Demo"
       },
       "inept_intruder": {
         "title": "Inept-Intruder - Multiplayer Game",
         "description": "Multiplayer game where CCTV man (player) helps another player go through a trapped factory environment",
-        "technologies": ["Unity", "C#", "Multiplayer", "Game Development"],
-        "features": ["Multiplayer cooperation", "Trapped factory environment", "CCTV assistance mechanics"],
-        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main"
+        "technologies": [
+          "Unity",
+          "C#",
+          "Multiplayer",
+          "Game Development"
+        ],
+        "features": [
+          "Multiplayer cooperation",
+          "Trapped factory environment",
+          "CCTV assistance mechanics"
+        ],
+        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
+        "video": "https://youtu.be/S_0kDyYHLs0",
+        "videoTitle": "Inept Intruder Gameplay"
       },
       "tank_game": {
         "title": "Wii Tanks Remastered",
         "description": "Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics",
-        "technologies": ["Unity", "C#", "Game Physics", "3D Graphics"],
-        "features": ["Classic tank gameplay", "Enhanced visuals", "Smooth controls"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Game Physics",
+          "3D Graphics"
+        ],
+        "features": [
+          "Classic tank gameplay",
+          "Enhanced visuals",
+          "Smooth controls"
+        ],
         "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
         "video": "https://youtu.be/jWfFh3oCJ2I",
         "videoTitle": "Tank Game Demo"
@@ -834,19 +1171,39 @@
     "items": {
       "technology": {
         "title": "Technology & Innovation",
-        "items": ["Artificial Intelligence & VR/AR", "LLM Development", "Technological Watch", "Open Source Contributions"]
+        "items": [
+          "Artificial Intelligence & VR/AR",
+          "LLM Development",
+          "Technological Watch",
+          "Open Source Contributions"
+        ]
       },
       "world": {
         "title": "Global Perspective",
-        "items": ["Geopolitics & Society", "Asian Culture", "Ecology & Sustainability", "Cross-cultural Communication"]
+        "items": [
+          "Geopolitics & Society",
+          "Asian Culture",
+          "Ecology & Sustainability",
+          "Cross-cultural Communication"
+        ]
       },
       "creativity": {
         "title": "Creative Pursuits",
-        "items": ["Science Fiction Novels", "Video Game Development", "Digital Art & Design", "Korean Language Learning"]
+        "items": [
+          "Science Fiction Novels",
+          "Video Game Development",
+          "Digital Art & Design",
+          "Korean Language Learning"
+        ]
       },
       "community": {
         "title": "Community & Teaching",
-        "items": ["Mentoring Students", "Organizing Tech Meetups", "Workshop Development", "Educational Innovation"]
+        "items": [
+          "Mentoring Students",
+          "Organizing Tech Meetups",
+          "Workshop Development",
+          "Educational Innovation"
+        ]
       }
     }
   },
@@ -876,7 +1233,7 @@
     "elementaryLevel": "Elementary level from study abroad experience",
     "native": "Native",
     "c2Fluent": "C2 Fluent",
-    "conversational": "Conversational", 
+    "conversational": "Conversational",
     "a2Elementary": "A2 Elementary",
     "multilingualCommunication": "Multilingual Communication",
     "motherTongue": "Mother Tongue",
@@ -916,7 +1273,7 @@
     "form": {
       "title": "Send a Message",
       "name": "Full Name",
-              "email": "Mail",
+      "email": "Mail",
       "subject": "Subject",
       "message": "Your Message",
       "send": "Send Message",
@@ -1024,17 +1381,20 @@
         "description": "Deals emotional damage to senior developers"
       }
     },
-    "weaknesses": ["Merge Conflicts", "Production Deployments"],
+    "weaknesses": [
+      "Merge Conflicts",
+      "Production Deployments"
+    ],
     "resistance": "Caffeine",
-          "status": "",
+    "status": "",
     "contactText": "Recruit",
     "flavorText": "Often found debugging at 3 AM. Known to communicate primarily through GIFs and sighs.",
     "stats": {
       "coding": "★★★★☆",
-      "debugging": "★★★☆☆", 
+      "debugging": "★★★☆☆",
       "documentation": "★☆☆☆☆",
       "social": "★★☆☆☆"
     },
     "catchyStats": "3+ Years Experience ☕ Caffeine Powered 📚 Knowledge Sharer 🚀 Tech Enthusiast"
   }
-} 
+}
