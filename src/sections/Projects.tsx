@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Github, ExternalLink, Code, Layers, Smartphone, Database, Server, Layout, Box, Cpu, Terminal, Cloud, Youtube } from 'lucide-react'
+import { Github, ExternalLink, Layers, Smartphone, Database, Server, Layout, Box, Cpu, Terminal, Cloud, Youtube } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { OptimizedImage } from '../components/ui/OptimizedImage'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
@@ -14,7 +14,6 @@ export const Projects = () => {
     rootMargin: '0px 0px -10% 0px',
   })
 
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
   const [isLowEnd, setIsLowEnd] = useState(false)
 
   useEffect(() => {
@@ -42,18 +41,6 @@ export const Projects = () => {
     if (lowerTech.includes('c++') || lowerTech.includes('c') || lowerTech.includes('rust')) return Cpu
     if (lowerTech.includes('python') || lowerTech.includes('script')) return Terminal
     return Box
-  }
-
-  const getProjectColor = (index: number) => {
-    const colors = [
-      'from-blue-500 to-cyan-500',
-      'from-purple-500 to-pink-500',
-      'from-orange-500 to-red-500',
-      'from-green-500 to-emerald-500',
-      'from-indigo-500 to-violet-500',
-      'from-rose-500 to-orange-500'
-    ]
-    return colors[index % colors.length]
   }
 
   const containerVariants = {
@@ -140,16 +127,14 @@ export const Projects = () => {
           animate={inView ? "visible" : "hidden"}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project, index) => {
-            const isHovered = hoveredProject === project
-            const gradientColor = getProjectColor(index)
+          {projects.map((project) => {
 
             return (
               <motion.div
                 key={project}
                 variants={cardVariants}
-                onMouseEnter={() => !isLowEnd && setHoveredProject(project)}
-                onMouseLeave={() => !isLowEnd && setHoveredProject(null)}
+                onMouseEnter={() => !isLowEnd}
+                onMouseLeave={() => !isLowEnd}
                 className="group relative h-full"
                 style={{
                   willChange: 'transform',

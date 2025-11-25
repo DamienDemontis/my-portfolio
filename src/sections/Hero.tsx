@@ -41,7 +41,7 @@ export const Hero = () => {
   }
 
   return (
-    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-16 lg:pt-20 xl:pt-24">
+    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-32 md:pt-20 lg:pt-20">
       {/* Balatro Animated Background */}
       <div className="absolute inset-0 z-0">
         <Balatro
@@ -80,11 +80,11 @@ export const Hero = () => {
       </div>
 
       <div className="max-w-7xl mx-auto container-padding relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
           {/* Content Section */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Optimized container for text content */}
-            <div className="bg-white/10 dark:bg-black/15 rounded-3xl p-8 lg:p-12 border border-white/20 shadow-xl"
+            <div className="bg-white/10 dark:bg-black/15 rounded-3xl p-5 md:p-8 lg:p-10 border border-white/20 shadow-xl"
               style={{
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
                 willChange: 'transform',
@@ -95,7 +95,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="mb-6"
+                className="mb-3"
               >
                 <p className="text-lg md:text-xl text-white font-medium drop-shadow-lg">
                   {t('hero.greeting')}
@@ -107,7 +107,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2"
               >
                 <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
                   {t('hero.name')}
@@ -119,7 +119,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.2 }}
-                className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 drop-shadow-lg"
+                className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-4 drop-shadow-lg"
               >
                 {t('hero.title')}
               </motion.h2>
@@ -129,7 +129,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 }}
-                className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-lg"
+                className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl mx-auto drop-shadow-lg"
               >
                 {t('hero.subtitle')}
               </motion.p>
@@ -139,7 +139,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.4 }}
-                className="text-base md:text-lg text-white/80 mb-12 max-w-4xl mx-auto text-balance drop-shadow-lg"
+                className="text-base md:text-lg text-white/80 mb-8 max-w-4xl mx-auto text-balance drop-shadow-lg"
               >
                 {t('hero.description')}
               </motion.p>
@@ -149,7 +149,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-16"
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8"
               >
                 <button
                   onClick={scrollToContact}
@@ -196,7 +196,7 @@ export const Hero = () => {
           >
             <div className="relative">
               {/* Photo placeholder with artistic design */}
-              <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
+              <div className="w-48 h-48 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
                 {/* Main photo container */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl shadow-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-300 border border-white/20"
                   style={{ willChange: 'transform', transform: 'translateZ(0) rotate(3deg)' }}>
