@@ -21,14 +21,15 @@ export const Projects = () => {
     setIsLowEnd(isLowEndDevice())
   }, [])
 
-  const projects = ['facial_recognition', 'leonart', 'intranet', 'inept_intruder', 'tank_game']
+  const projects = ['facial_recognition', 'leonart', 'intranet', 'inept_intruder', 'tank_game', 'msc_decouverte']
 
   const projectImages: Record<string, string> = {
     facial_recognition: '/projects/facial_recognition.png',
     leonart: '/projects/leonart.png',
     intranet: '/projects/intranet.png',
     inept_intruder: '/projects/inept_intruder.png',
-    tank_game: '/projects/tank_game.png'
+    tank_game: '/projects/tank_game.png',
+    msc_decouverte: '/projects/msc_decouverte.png'
   }
 
   const getProjectIcon = (tech: string) => {
