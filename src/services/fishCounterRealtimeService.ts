@@ -1,21 +1,32 @@
 // Real-time fish counter using Supabase (free, lightweight, real-time)
-// Setup: https://supabase.com/docs/guides/realtime
+// Falls back to localStorage when Supabase is not configured.
 
-import { createClient, RealtimeChannel } from '@supabase/supabase-js'
+import { createClient, SupabaseClient, RealtimeChannel } from '@supabase/supabase-js'
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'YOUR_SUPABASE_URL'
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const isSupabaseConfigured = !!(
+  SUPABASE_URL &&
+  SUPABASE_ANON_KEY &&
+  SUPABASE_URL.startsWith('http')
+)
+
+let supabase: SupabaseClient | null = null
+if (isSupabaseConfigured) {
+  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+}
 
 let realtimeChannel: RealtimeChannel | null = null
 
+function getLocalCount(): number {
+  const localCount = localStorage.getItem('globalCatFishCount')
+  return localCount ? parseInt(localCount) : 0
+}
+
 export const fishCounterRealtimeService = {
-  // Subscribe to real-time fish count updates
   subscribeToFishCount(callback: (count: number) => void) {
-    if (realtimeChannel) {
-      return // Already subscribed
-    }
+    if (!supabase || realtimeChannel) return
 
     realtimeChannel = supabase
       .channel('fish-counter-channel')
@@ -40,8 +51,9 @@ export const fishCounterRealtimeService = {
     }
   },
 
-  // Fetch current fish count
   async getFishCount(): Promise<number> {
+    if (!supabase) return getLocalCount()
+
     try {
       const { data, error } = await supabase
         .from('fish_counter')
@@ -52,16 +64,18 @@ export const fishCounterRealtimeService = {
       return data?.count || 0
     } catch (error) {
       console.error('Failed to fetch fish count:', error)
-      // Fallback to localStorage
-      const localCount = localStorage.getItem('globalCatFishCount')
-      return localCount ? parseInt(localCount) : 0
+      return getLocalCount()
     }
   },
 
-  // Increment fish count
   async incrementFishCount(): Promise<number> {
+    if (!supabase) {
+      const newCount = getLocalCount() + 1
+      localStorage.setItem('globalCatFishCount', newCount.toString())
+      return newCount
+    }
+
     try {
-      // Call Supabase RPC function for atomic increment
       const { data, error } = await supabase.rpc('increment_fish_count')
 
       if (error) throw error
@@ -71,15 +85,12 @@ export const fishCounterRealtimeService = {
       return newCount
     } catch (error) {
       console.error('Failed to increment fish count:', error)
-      // Fallback to localStorage
-      const localCount = localStorage.getItem('globalCatFishCount')
-      const newCount = (localCount ? parseInt(localCount) : 0) + 1
+      const newCount = getLocalCount() + 1
       localStorage.setItem('globalCatFishCount', newCount.toString())
       return newCount
     }
   },
 
-  // Cleanup
   unsubscribe() {
     realtimeChannel?.unsubscribe()
     realtimeChannel = null

@@ -5,6 +5,74 @@ import { Code, Database, Cloud, Wrench, Smartphone, Zap, TestTube } from 'lucide
 import { useState, useEffect } from 'react'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
 
+const technologyLogos: Record<string, string> = {
+  'React': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
+  'Vue.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/vuedotjs.svg',
+  'Nuxt.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nuxtdotjs.svg',
+  'Next.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nextdotjs.svg',
+  'TypeScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/typescript.svg',
+  'JavaScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/javascript.svg',
+  'HTML5': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg',
+  'CSS3': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg',
+  'Tailwind CSS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tailwindcss.svg',
+  'Node.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nodedotjs.svg',
+  'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg',
+  'Django': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/django.svg',
+  'PHP': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/php.svg',
+  'Java': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/openjdk.svg',
+  'C': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/c.svg',
+  'C++': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cplusplus.svg',
+  'C#': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/csharp.svg',
+  'Haskell': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/haskell.svg',
+  'ECS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gamemaker.svg',
+  'REST APIs': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/fastapi.svg',
+  'GraphQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg',
+  'Docker': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg',
+  'Kubernetes': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kubernetes.svg',
+  'Jenkins': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jenkins.svg',
+  'GitLab CI/CD': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gitlab.svg',
+  'Firebase': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/firebase.svg',
+  'Google Cloud Platform': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googlecloud.svg',
+  'Linux': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg',
+  'Bash': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gnubash.svg',
+  'Ansible': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/ansible.svg',
+  'PostgreSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postgresql.svg',
+  'MongoDB': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
+  'Firestore': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/firebase.svg',
+  'MySQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mysql.svg',
+  'Redis': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/redis.svg',
+  'NoSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
+  'Jest': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jest.svg',
+  'Cypress': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cypress.svg',
+  'Mocha': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mocha.svg',
+  'TensorFlow': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tensorflow.svg',
+  'PyTorch': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg',
+  'OpenCV': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/opencv.svg',
+  'Git': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg',
+  'Figma': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
+  'Unity': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg',
+  'Unreal Engine': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unrealengine.svg',
+  'PyQt6': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/qt.svg',
+  'Blender': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/blender.svg',
+  'Zapier': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/zapier.svg',
+  'Design Thinking': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
+  'React Native': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
+  'Flutter': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg',
+  'Expo': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/expo.svg',
+  'Android': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/android.svg'
+}
+
+const skillCategories = [
+  { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500' },
+  { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'bg-green-500/10', borderColor: 'border-green-500' },
+  { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'bg-orange-500/10', borderColor: 'border-orange-500' },
+  { key: 'databases', icon: Database, color: 'from-cyan-500 to-cyan-600', bgColor: 'bg-cyan-500/10', borderColor: 'border-cyan-500' },
+  { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'bg-indigo-500/10', borderColor: 'border-indigo-500' },
+  { key: 'testing', icon: TestTube, color: 'from-emerald-500 to-emerald-600', bgColor: 'bg-emerald-500/10', borderColor: 'border-emerald-500' },
+  { key: 'aiml', icon: Zap, color: 'from-purple-500 to-purple-600', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500' },
+  { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'bg-gray-500/10', borderColor: 'border-gray-500' }
+]
+
 export const Skills = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
@@ -18,90 +86,6 @@ export const Skills = () => {
   useEffect(() => {
     setIsLowEnd(isLowEndDevice())
   }, [])
-
-  // Technology logos mapping
-  const technologyLogos: Record<string, string> = {
-    // Frontend
-    'React': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
-    'Vue.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/vuedotjs.svg',
-    'Nuxt.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nuxtdotjs.svg',
-    'Next.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nextdotjs.svg',
-    'TypeScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/typescript.svg',
-    'JavaScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/javascript.svg',
-    'HTML5': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg',
-    'CSS3': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg',
-    'Tailwind CSS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tailwindcss.svg',
-
-    // Backend
-    'Node.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/nodedotjs.svg',
-    'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg',
-    'Django': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/django.svg',
-    'PHP': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/php.svg',
-    'Java': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/openjdk.svg',
-    'C': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/c.svg',
-    'C++': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cplusplus.svg',
-    'C#': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/csharp.svg',
-    'Haskell': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/haskell.svg',
-    'ECS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gamemaker.svg',
-    'REST APIs': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/fastapi.svg',
-    'GraphQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg',
-
-    // DevOps & Cloud
-    'Docker': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/docker.svg',
-    'Kubernetes': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kubernetes.svg',
-    'Jenkins': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jenkins.svg',
-    'GitLab CI/CD': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gitlab.svg',
-    'Firebase': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/firebase.svg',
-    'Google Cloud Platform': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googlecloud.svg',
-    'Linux': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg',
-    'Bash': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gnubash.svg',
-    'Ansible': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/ansible.svg',
-
-    // Databases
-    'PostgreSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postgresql.svg',
-    'MongoDB': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
-    'Firestore': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/firebase.svg',
-    'MySQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mysql.svg',
-    'Redis': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/redis.svg',
-    'NoSQL': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mongodb.svg',
-
-    // Testing
-    'Jest': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jest.svg',
-    'Cypress': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cypress.svg',
-    'Mocha': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mocha.svg',
-
-    // AI/ML
-    'TensorFlow': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tensorflow.svg',
-    'PyTorch': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pytorch.svg',
-    'OpenCV': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/opencv.svg',
-
-    // Tools
-    'Git': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg',
-    'Figma': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
-    'Unity': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg',
-    'Unreal Engine': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unrealengine.svg',
-    'PyQt6': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/qt.svg',
-    'Blender': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/blender.svg',
-    'Zapier': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/zapier.svg',
-    'Design Thinking': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/figma.svg',
-
-    // Mobile
-    'React Native': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
-    'Flutter': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg',
-    'Expo': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/expo.svg',
-    'Android': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/android.svg'
-  }
-
-  const skillCategories = [
-    { key: 'frontend', icon: Code, color: 'from-blue-500 to-blue-600', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500' },
-    { key: 'backend', icon: Database, color: 'from-green-500 to-green-600', bgColor: 'bg-green-500/10', borderColor: 'border-green-500' },
-    { key: 'devops', icon: Cloud, color: 'from-orange-500 to-orange-600', bgColor: 'bg-orange-500/10', borderColor: 'border-orange-500' },
-    { key: 'databases', icon: Database, color: 'from-cyan-500 to-cyan-600', bgColor: 'bg-cyan-500/10', borderColor: 'border-cyan-500' },
-    { key: 'mobile', icon: Smartphone, color: 'from-indigo-500 to-indigo-600', bgColor: 'bg-indigo-500/10', borderColor: 'border-indigo-500' },
-    { key: 'testing', icon: TestTube, color: 'from-emerald-500 to-emerald-600', bgColor: 'bg-emerald-500/10', borderColor: 'border-emerald-500' },
-    { key: 'aiml', icon: Zap, color: 'from-purple-500 to-purple-600', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500' },
-    { key: 'tools', icon: Wrench, color: 'from-gray-500 to-gray-600', bgColor: 'bg-gray-500/10', borderColor: 'border-gray-500' }
-  ]
 
   const [activeCategory, setActiveCategory] = useState<string>(skillCategories[0].key)
 

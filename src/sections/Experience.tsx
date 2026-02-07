@@ -6,6 +6,54 @@ import { useState, useEffect } from 'react'
 import { LottieAnimation } from '../components/LottieAnimation'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
 
+const experiences = [
+  'pandalab',
+  'freelance_founder',
+  'epitech_mentor',
+  'epitech_assistant',
+  'leonart',
+  'simple',
+  'acoris'
+]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 }
+  }
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: "easeOut" }
+  }
+}
+
+const getCompanyKey = (exp: string) => {
+  if (exp === 'pandalab') return 'pandalab'
+  if (exp.includes('epitech')) return 'epitech'
+  if (exp === 'freelance_founder') return 'jobneko'
+  if (exp === 'leonart') return 'leonart'
+  if (exp === 'simple') return 'simple'
+  if (exp === 'acoris') return 'acoris'
+  return 'epitech'
+}
+
+const getIndustryBadgeColor = (industry: string) => {
+  switch (industry) {
+    case 'EdTech': return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800'
+    case 'Startup': return 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-200 border-cyan-200 dark:border-cyan-800'
+    case 'Enterprise': return 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200 border-green-200 dark:border-green-800'
+    case 'Fintech': return 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-800'
+    case 'HealthTech': return 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800'
+    default: return 'bg-gray-100 dark:bg-gray-900/40 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-800'
+  }
+}
+
 export const Experience = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
@@ -21,15 +69,6 @@ export const Experience = () => {
     setIsLowEnd(isLowEndDevice())
   }, [])
 
-  const experiences = [
-    'freelance_founder',
-    'epitech_mentor',
-    'epitech_assistant',
-    'leonart',
-    'simple',
-    'acoris'
-  ]
-
   const toggleCard = (exp: string) => {
     setExpandedCards(prev => {
       const newSet = new Set(prev)
@@ -40,44 +79,6 @@ export const Experience = () => {
       }
       return newSet
     })
-  }
-
-  const getCompanyKey = (exp: string) => {
-    if (exp.includes('epitech')) return 'epitech'
-    if (exp === 'freelance_founder') return 'jobneko'
-    if (exp === 'leonart') return 'leonart'
-    if (exp === 'simple') return 'simple'
-    if (exp === 'acoris') return 'acoris'
-    return 'epitech'
-  }
-
-  const getIndustryBadgeColor = (industry: string) => {
-    switch (industry) {
-      case 'EdTech': return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800'
-      case 'Startup': return 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-200 border-cyan-200 dark:border-cyan-800'
-      case 'Enterprise': return 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200 border-green-200 dark:border-green-800'
-      case 'Fintech': return 'bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-800'
-      default: return 'bg-gray-100 dark:bg-gray-900/40 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-800'
-    }
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08 // OPTIMIZED: Reduced from 0.2
-      }
-    }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 5 }, // OPTIMIZED: Reduced from 10, removed scale
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.25, ease: "easeOut" } // OPTIMIZED: Reduced from 0.3
-    }
   }
 
   return (
@@ -206,6 +207,7 @@ export const Experience = () => {
                             ) : (
                               <img
                                 src={
+                                  exp === 'pandalab' ? '/Logo_pandalab.png' :
                                   exp.includes('epitech') ? '/Epitech_Official_Logo.png' :
                                     exp === 'simple' ? '/Logo-plus-simple.png' :
                                       exp === 'acoris' ? '/acoris_logo.jpg' :
@@ -257,7 +259,7 @@ export const Experience = () => {
                               <div className="flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
                                 <span>{t(`experience.positions.${exp}.period`)}</span>
-                                {exp === 'freelance_founder' && (
+                                {(exp === 'pandalab' || exp === 'freelance_founder') && (
                                   <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium ml-2">
                                     {t('experience.current')}
                                   </span>

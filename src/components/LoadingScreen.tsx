@@ -10,31 +10,40 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     const optimizedLoading = async () => {
-      // Critical images for immediate display
+      // Critical images (AVIF = ~50% smaller than JPG/PNG)
       const criticalImages = [
-        '/Damien.jpg', // Hero image - highest priority
-        '/about_pfp.png' // About section image
+        '/Damien.avif',
+        '/about_pfp.avif'
       ]
 
-      // All photography images for slideshow
+      // All photography images used in PhotographyShowcase (AVIF format)
       const photographyImages = [
-        '/photography/IMG_20240701_151842.jpg',
-        '/photography/IMG_20231006_110254.jpg',
-        '/photography/IMG_20231117_160650.jpg',
-        '/photography/IMG_20230820_063353.jpg',
-        '/photography/IMG_20231004_104055.jpg',
-        '/photography/IMG_20231107_155400.jpg',
-        '/photography/IMG_20231107_164957.jpg',
-        '/photography/IMG_20240111_184858.jpg',
-        '/photography/IMG_20240116_170340.jpg',
-        '/photography/IMG_20240503_183702.jpg',
-        '/photography/IMG_20240504_110543.jpg',
-        '/photography/IMG_20240504_120923_1.jpg',
-        '/photography/IMG_20240622_123901.jpg',
-        '/photography/IMG_20240801_130109.jpg',
-        '/photography/IMG_20240801_130147.jpg',
-        '/photography/IMG_20240801_130205.jpg',
-        '/photography/IMG_20240801_130227.jpg'
+        '/photography/IMG_20240701_151842.avif',
+        '/photography/IMG_20231006_110254.avif',
+        '/photography/IMG_20231117_160650.avif',
+        '/photography/IMG_20230820_063353.avif',
+        '/photography/IMG_20231004_104055.avif',
+        '/photography/IMG_20231107_155400.avif',
+        '/photography/IMG_20231107_164957.avif',
+        '/photography/IMG_20240111_184858.avif',
+        '/photography/IMG_20240116_170340.avif',
+        '/photography/IMG_20240503_183702.avif',
+        '/photography/IMG_20240504_110543.avif',
+        '/photography/IMG_20240504_120923_1.avif',
+        '/photography/IMG_20240505_120320.avif',
+        '/photography/IMG_20240505_142203.avif',
+        '/photography/IMG_20240602_034858.avif',
+        '/photography/IMG_20240630_203416.avif',
+        '/photography/IMG_20240701_150338.avif',
+        '/photography/IMG_20240701_200211.avif',
+        '/photography/IMG_20240822_170729.avif',
+        '/photography/IMG_20240403_130655.avif',
+        '/photography/IMG_20240419_184403.avif',
+        '/photography/IMG_20240504_110833.avif',
+        '/photography/IMG_20240504_114735.avif',
+        '/photography/IMG_20240531_232815.avif',
+        '/photography/IMG_20240626_184532.avif',
+        '/photography/IMG_20240630_181716.avif'
       ]
 
       const allImages = [...criticalImages, ...photographyImages]

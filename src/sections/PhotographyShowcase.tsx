@@ -5,6 +5,45 @@ import { Camera, MapPin, Calendar, Heart, Globe, Sparkles, ChevronLeft, ChevronR
 import { useState, useEffect, useCallback } from 'react'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+}
+
+const photos = [
+  { src: '/photography/IMG_20240701_151842.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'A good meal in the heart of Seoul', category: 'city' },
+  { src: '/photography/IMG_20231006_110254.jpg', location: 'Gyeongju, South Korea', date: 'October 2023', description: 'Autumn colors in the university campus', category: 'nature' },
+  { src: '/photography/IMG_20231117_160650.jpg', location: 'Daegu, South Korea', date: 'November 2023', description: 'trees in the university campus', category: 'nature' },
+  { src: '/photography/IMG_20230820_063353.jpg', location: 'Keimyung University, South Korea', date: 'August 2023', description: 'Entrance of the university', category: 'nature' },
+  { src: '/photography/IMG_20231004_104055.jpg', location: 'KMU, South Korea', date: 'October 2023', description: 'Taekwondo class', category: 'culture' },
+  { src: '/photography/IMG_20231107_155400.jpg', location: 'KMU, South Korea', date: 'November 2023', description: 'University church', category: 'city' },
+  { src: '/photography/IMG_20231107_164957.jpg', location: 'KMU, South Korea', date: 'November 2023', description: 'University church', category: 'city' },
+  { src: '/photography/IMG_20240111_184858.jpg', location: 'Kyoto, Japan', date: 'January 2024', description: 'Animal Rescue Coffee shop', category: 'nature' },
+  { src: '/photography/IMG_20240116_170340.jpg', location: 'Kyoto, South Korea', date: 'January 2024', description: 'Mermaid statue', category: 'culture' },
+  { src: '/photography/IMG_20240503_183702.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Stroll (feat: the sun)', category: 'nature' },
+  { src: '/photography/IMG_20240504_110543.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Seoul sightseeing', category: 'culture' },
+  { src: '/photography/IMG_20240504_120923_1.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Traditional korean Hanbok', category: 'city' },
+  { src: '/photography/IMG_20240505_120320.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Lotte World', category: 'nature' },
+  { src: '/photography/IMG_20240505_142203.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'mmmmmh barbapapa', category: 'nature' },
+  { src: '/photography/IMG_20240602_034858.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'International friends', category: 'city' },
+  { src: '/photography/IMG_20240630_203416.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'Summer night and han river', category: 'city' },
+  { src: '/photography/IMG_20240701_150338.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'Library or Mall ? No one knows', category: 'city' },
+  { src: '/photography/IMG_20240701_200211.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'Traditional Korean Street', category: 'city' },
+  { src: '/photography/IMG_20240822_170729.jpg', location: 'KMU, Daegu, South Korea', date: 'August 2024', description: 'Keimyung main building', category: 'city' },
+  { src: '/photography/IMG_20240403_130655.jpg', location: 'Daegu, South Korea', date: 'April 2024', description: 'Spring awakening (feat: the rain)', category: 'nature' },
+  { src: '/photography/IMG_20240419_184403.jpg', location: 'Seoul, South Korea', date: 'April 2024', description: 'Korean Flag', category: 'nature' },
+  { src: '/photography/IMG_20240504_110833.jpg', location: 'Gyeongju, South Korea', date: 'May 2024', description: 'Historical sites in spring bloom', category: 'culture' },
+  { src: '/photography/IMG_20240504_114735.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Gardens and tranquility', category: 'nature' },
+  { src: '/photography/IMG_20240531_232815.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Those umbrella are not pointing the right way', category: 'city' },
+  { src: '/photography/IMG_20240626_184532.jpg', location: 'Near Seoul, South Korea', date: 'June 2024', description: 'Meal with international student association', category: 'nature' },
+  { src: '/photography/IMG_20240630_181716.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'One last Picnic with friends', category: 'city' }
+]
+
 /** Simple fade transition component - optimized for preloaded images */
 const FadeSlide: React.FC<{
   src: string
@@ -62,35 +101,6 @@ export const PhotographyShowcase = () => {
     setIsLowEnd(isLowEndDevice())
   }, [])
 
-  const photos = [
-    { src: '/photography/IMG_20240701_151842.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'A good meal in the heart of Seoul', category: 'city' },
-    { src: '/photography/IMG_20231006_110254.jpg', location: 'Gyeongju, South Korea', date: 'October 2023', description: 'Autumn colors in the university campus', category: 'nature' },
-    { src: '/photography/IMG_20231117_160650.jpg', location: 'Daegu, South Korea', date: 'November 2023', description: 'trees in the university campus', category: 'nature' },
-    { src: '/photography/IMG_20230820_063353.jpg', location: 'Keimyung University, South Korea', date: 'August 2023', description: 'Entrance of the university', category: 'nature' },
-    { src: '/photography/IMG_20231004_104055.jpg', location: 'KMU, South Korea', date: 'October 2023', description: 'Taekwondo class', category: 'culture' },
-    { src: '/photography/IMG_20231107_155400.jpg', location: 'KMU, South Korea', date: 'November 2023', description: 'University church', category: 'city' },
-    { src: '/photography/IMG_20231107_164957.jpg', location: 'KMU, South Korea', date: 'November 2023', description: 'University church', category: 'city' },
-    { src: '/photography/IMG_20240111_184858.jpg', location: 'Kyoto, Japan', date: 'January 2024', description: 'Animal Rescue Coffee shop', category: 'nature' },
-    { src: '/photography/IMG_20240116_170340.jpg', location: 'Kyoto, South Korea', date: 'January 2024', description: 'Mermaid statue', category: 'culture' },
-    { src: '/photography/IMG_20240503_183702.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Stroll (feat: the sun)', category: 'nature' },
-    { src: '/photography/IMG_20240504_110543.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Seoul sightseeing', category: 'culture' },
-    { src: '/photography/IMG_20240504_120923_1.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Traditional korean Hanbok', category: 'city' },
-    { src: '/photography/IMG_20240505_120320.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Lotte World', category: 'nature' },
-    { src: '/photography/IMG_20240505_142203.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'mmmmmh barbapapa', category: 'nature' },
-    { src: '/photography/IMG_20240602_034858.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'International friends', category: 'city' },
-    { src: '/photography/IMG_20240630_203416.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'Summer night and han river', category: 'city' },
-    { src: '/photography/IMG_20240701_150338.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'Library or Mall ? No one knows', category: 'city' },
-    { src: '/photography/IMG_20240701_200211.jpg', location: 'Seoul, South Korea', date: 'July 2024', description: 'Traditional Korean Street', category: 'city' },
-    { src: '/photography/IMG_20240822_170729.jpg', location: 'KMU, Daegu, South Korea', date: 'August 2024', description: 'Keimyung main building', category: 'city' },
-    { src: '/photography/IMG_20240403_130655.jpg', location: 'Daegu, South Korea', date: 'April 2024', description: 'Spring awakening (feat: the rain)', category: 'nature' },
-    { src: '/photography/IMG_20240419_184403.jpg', location: 'Seoul, South Korea', date: 'April 2024', description: 'Korean Flag', category: 'nature' },
-    { src: '/photography/IMG_20240504_110833.jpg', location: 'Gyeongju, South Korea', date: 'May 2024', description: 'Historical sites in spring bloom', category: 'culture' },
-    { src: '/photography/IMG_20240504_114735.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Gardens and tranquility', category: 'nature' },
-    { src: '/photography/IMG_20240531_232815.jpg', location: 'Seoul, South Korea', date: 'May 2024', description: 'Those umbrella are not pointing the right way', category: 'city' },
-    { src: '/photography/IMG_20240626_184532.jpg', location: 'Near Seoul, South Korea', date: 'June 2024', description: 'Meal with international student association', category: 'nature' },
-    { src: '/photography/IMG_20240630_181716.jpg', location: 'Seoul, South Korea', date: 'June 2024', description: 'One last Picnic with friends', category: 'city' }
-  ]
-
   // All images are preloaded during app loading screen for instant transitions
   useEffect(() => {
     // Reset transition state when photo changes - OPTIMIZED: reduced from 800ms to 400ms
@@ -141,17 +151,6 @@ export const PhotographyShowcase = () => {
       return () => clearInterval(interval)
     }
   }, [isHovered, isTransitioning, goToNext, inView, isLowEnd])
-
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
 
   return (
     <section id="photography" className="section-padding bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-cyan-900/20">

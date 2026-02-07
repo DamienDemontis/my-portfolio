@@ -6,6 +6,39 @@ import { PokemonProfileCard } from '../components/PokemonProfileCard'
 import { useState, useEffect } from 'react'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" }
+  }
+}
+
+const statsVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.3, ease: "easeOut" }
+  }
+}
+
+const STAT_STYLES = [
+  { icon: Code, color: 'from-blue-500 to-cyan-500', bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20', borderColor: 'border-blue-200 dark:border-blue-800', key: 'experience' },
+  { icon: Trophy, color: 'from-yellow-500 to-orange-500', bgColor: 'from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20', borderColor: 'border-yellow-200 dark:border-yellow-800', key: 'projects' },
+  { icon: BookOpen, color: 'from-blue-500 to-cyan-500', bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20', borderColor: 'border-blue-200 dark:border-blue-800', key: 'technologies' },
+  { icon: Users, color: 'from-green-500 to-emerald-500', bgColor: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20', borderColor: 'border-green-200 dark:border-green-800', key: 'mentoring' },
+]
+
 export const About = () => {
   const { t } = useTranslation()
   const [isHeartFilled, setIsHeartFilled] = useState(false)
@@ -21,64 +54,10 @@ export const About = () => {
     setIsLowEnd(isLowEndDevice())
   }, [])
 
-  const stats = [
-    {
-      icon: Code,
-      value: t('about.stats.experience'),
-      color: 'from-blue-500 to-cyan-500',
-      bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
-      borderColor: 'border-blue-200 dark:border-blue-800',
-    },
-    {
-      icon: Trophy,
-      value: t('about.stats.projects'),
-      color: 'from-yellow-500 to-orange-500',
-      bgColor: 'from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20',
-      borderColor: 'border-yellow-200 dark:border-yellow-800',
-    },
-    {
-      icon: BookOpen,
-      value: t('about.stats.technologies'),
-      color: 'from-blue-500 to-cyan-500',
-      bgColor: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20',
-      borderColor: 'border-blue-200 dark:border-blue-800',
-    },
-    {
-      icon: Users,
-      value: t('about.stats.mentoring'),
-      color: 'from-green-500 to-emerald-500',
-      bgColor: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
-      borderColor: 'border-green-200 dark:border-green-800',
-    }
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" }
-    }
-  }
-
-  const statsVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.3, ease: "easeOut" }
-    }
-  }
+  const stats = STAT_STYLES.map(s => ({
+    ...s,
+    value: t(`about.stats.${s.key}`),
+  }))
 
   return (
     <section id="about" className="section-padding relative overflow-hidden">

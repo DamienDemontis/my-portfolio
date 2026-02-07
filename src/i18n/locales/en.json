@@ -82,9 +82,48 @@
         "type": "Insurance",
         "size": "200+ employees",
         "scope": "Corporate intranet solutions"
+      },
+      "pandalab": {
+        "name": "PandaLab SAS",
+        "description": "French HealthTech company building a secure coordination platform for healthcare professionals, featuring teleconsultation, teleexpertise, and secure messaging. ISO 27001 & HDS certified.",
+        "industry": "HealthTech",
+        "type": "SaaS / E-Health",
+        "size": "Small team",
+        "scope": "Healthcare coordination platform"
       }
     },
     "positions": {
+      "pandalab": {
+        "title": "Lead Dev | Fullstack Developer",
+        "company": "PandaLab SAS",
+        "period": "December 2025 - Present",
+        "location": "Nancy, France (Hybrid)",
+        "description": "Leading fullstack development at PandaLab, a HealthTech company providing a comprehensive e-health coordination platform for healthcare professionals. The platform enables secure teleconsultation, teleexpertise, messaging, and patient management — certified ISO 27001 and HDS with 23,900+ users. Focused on building teleexpertise and teleconsultation features, as well as refactoring legacy functionalities for improved maintainability and performance.",
+        "technologies": [
+          "Vue 3",
+          "Vuex",
+          "Node.js",
+          "Fastify",
+          "Vite",
+          "MongoDB",
+          "Redis",
+          "RabbitMQ",
+          "Docker",
+          "Nomad",
+          "Security",
+          "Frontend Design",
+          "MCP"
+        ],
+        "achievements": [
+          "Lead development of teleexpertise features enabling healthcare professionals to request and provide expert medical opinions",
+          "Build teleconsultation modules for secure remote patient consultations and assisted teleconsultations",
+          "Refactor legacy functionalities to improve code maintainability, performance, and developer experience",
+          "Contribute to a platform serving 23,900+ healthcare professionals with 245,000+ monthly messages",
+          "Ensure compliance with ISO 27001 and HDS (Health Data Hosting) security standards",
+          "Work with Docker and Nomad for container orchestration and deployment pipelines"
+        ],
+        "impact": "Contributing to the modernization and feature expansion of a certified healthcare platform that facilitates coordination between healthcare professionals, improving care quality and reducing administrative burden across the French healthcare ecosystem."
+      },
       "freelance_founder": {
         "title": "Founder & Freelance Full Stack Developer",
         "company": "Freelance / JobNeko",

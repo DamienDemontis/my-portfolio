@@ -6,6 +6,46 @@ import { useState, useEffect } from 'react'
 import { OptimizedImage } from '../components/ui/OptimizedImage'
 import { isLowEndDevice } from '../utils/performanceOptimizations'
 
+const projects = ['facial_recognition', 'leonart', 'intranet', 'inept_intruder', 'tank_game', 'msc_decouverte']
+
+const projectImages: Record<string, string> = {
+  facial_recognition: '/projects/facial_recognition.png',
+  leonart: '/projects/leonart.png',
+  intranet: '/projects/intranet.png',
+  inept_intruder: '/projects/inept_intruder.png',
+  tank_game: '/projects/tank_game.png',
+  msc_decouverte: '/projects/msc_decouverte.png'
+}
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  }
+}
+
+const getProjectIcon = (tech: string) => {
+  const lowerTech = tech.toLowerCase()
+  if (lowerTech.includes('react') || lowerTech.includes('vue') || lowerTech.includes('front')) return Layout
+  if (lowerTech.includes('node') || lowerTech.includes('back') || lowerTech.includes('api')) return Server
+  if (lowerTech.includes('mobile') || lowerTech.includes('native')) return Smartphone
+  if (lowerTech.includes('data') || lowerTech.includes('sql') || lowerTech.includes('mongo')) return Database
+  if (lowerTech.includes('cloud') || lowerTech.includes('aws') || lowerTech.includes('docker')) return Cloud
+  if (lowerTech.includes('c++') || lowerTech.includes('c') || lowerTech.includes('rust')) return Cpu
+  if (lowerTech.includes('python') || lowerTech.includes('script')) return Terminal
+  return Box
+}
+
 export const Projects = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
@@ -19,48 +59,6 @@ export const Projects = () => {
   useEffect(() => {
     setIsLowEnd(isLowEndDevice())
   }, [])
-
-  const projects = ['facial_recognition', 'leonart', 'intranet', 'inept_intruder', 'tank_game', 'msc_decouverte']
-
-  const projectImages: Record<string, string> = {
-    facial_recognition: '/projects/facial_recognition.png',
-    leonart: '/projects/leonart.png',
-    intranet: '/projects/intranet.png',
-    inept_intruder: '/projects/inept_intruder.png',
-    tank_game: '/projects/tank_game.png',
-    msc_decouverte: '/projects/msc_decouverte.png'
-  }
-
-  const getProjectIcon = (tech: string) => {
-    const lowerTech = tech.toLowerCase()
-    if (lowerTech.includes('react') || lowerTech.includes('vue') || lowerTech.includes('front')) return Layout
-    if (lowerTech.includes('node') || lowerTech.includes('back') || lowerTech.includes('api')) return Server
-    if (lowerTech.includes('mobile') || lowerTech.includes('native')) return Smartphone
-    if (lowerTech.includes('data') || lowerTech.includes('sql') || lowerTech.includes('mongo')) return Database
-    if (lowerTech.includes('cloud') || lowerTech.includes('aws') || lowerTech.includes('docker')) return Cloud
-    if (lowerTech.includes('c++') || lowerTech.includes('c') || lowerTech.includes('rust')) return Cpu
-    if (lowerTech.includes('python') || lowerTech.includes('script')) return Terminal
-    return Box
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
-  }
 
   return (
     <section id="projects" className="section-padding relative overflow-hidden">

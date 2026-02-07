@@ -1,9 +1,69 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Menu, X, ChevronDown, User, Briefcase, GraduationCap, MapPin, Mail } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeToggle } from '../common/ThemeToggle'
 import { LanguageSwitcher } from '../common/LanguageSwitcher'
+
+// Static nav structure (icons and items never change)
+const NAV_GROUP_ITEMS = [
+  {
+    key: 'about',
+    iconType: 'user' as const,
+    items: [
+      { key: 'home', href: '#home', icon: '🏠' },
+      { key: 'about', href: '#about', icon: '👨‍💻' },
+      { key: 'interests', href: '#interests', icon: '🎯' },
+      { key: 'languages', href: '#languages', icon: '🌐' }
+    ]
+  },
+  {
+    key: 'experience',
+    iconType: 'briefcase' as const,
+    items: [
+      { key: 'experience', href: '#experience', icon: '💼' },
+      { key: 'skills', href: '#skills', icon: '⚡' },
+      { key: 'projects', href: '#projects', icon: '🚀' }
+    ]
+  },
+  {
+    key: 'education',
+    iconType: 'graduation' as const,
+    items: [
+      { key: 'education', href: '#education', icon: '🎓' },
+      { key: 'certifications', href: '#certifications', icon: '📜' }
+    ]
+  },
+  {
+    key: 'photography',
+    iconType: 'mappin' as const,
+    items: [
+      { key: 'photography', href: '#photography', icon: '📸' }
+    ]
+  },
+  {
+    key: 'contact',
+    iconType: 'mail' as const,
+    items: [
+      { key: 'contact', href: '#contact', icon: '📧' }
+    ]
+  }
+] as const
+
+const ICON_MAP = {
+  user: User,
+  briefcase: Briefcase,
+  graduation: GraduationCap,
+  mappin: MapPin,
+  mail: Mail,
+} as const
+
+const SECTION_IDS = ['home', 'about', 'experience', 'skills', 'education', 'photography', 'projects', 'contact'] as const
+
+const PLANE_ROTATIONS: Record<string, number> = {
+  home: 0, about: 45, experience: 90, skills: 135,
+  education: 180, photography: 225, projects: 270, contact: 315
+}
 
 export const Navbar = () => {
   const { t } = useTranslation()
@@ -12,40 +72,45 @@ export const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [currentSection, setCurrentSection] = useState('home')
 
+  // Cache DOM element refs to avoid querySelector on every scroll
+  const sectionRefsMap = useRef<Record<string, HTMLElement | null>>({})
+
+  useEffect(() => {
+    // Populate section refs once on mount
+    for (const id of SECTION_IDS) {
+      sectionRefsMap.current[id] = document.getElementById(id)
+    }
+  }, [])
+
   useEffect(() => {
     let rafId: number | null = null
     let lastScrollTop = 0
 
     const handleScroll = () => {
-      // Cancel any pending animation frame
       if (rafId) return
 
       rafId = requestAnimationFrame(() => {
         const scrollTop = window.scrollY
 
-        // Only update if scroll position changed significantly (reduce re-renders)
         if (Math.abs(scrollTop - lastScrollTop) < 10) {
           rafId = null
           return
         }
 
         lastScrollTop = scrollTop
-
-        // Change to trigger when leaving hero section (around viewport height)
         setIsScrolled(scrollTop > window.innerHeight * 0.8)
 
-        // Update current section for plane animation - throttle this expensive check
-        const sections = ['home', 'about', 'experience', 'skills', 'education', 'photography', 'projects', 'contact']
-        const currentSec = sections.find(section => {
-          const element = document.querySelector(`#${section}`)
-          if (element) {
-            const rect = element.getBoundingClientRect()
-            return rect.top <= 100 && rect.bottom >= 100
+        // Use cached refs instead of querySelector
+        const refs = sectionRefsMap.current
+        for (const id of SECTION_IDS) {
+          const el = refs[id]
+          if (el) {
+            const rect = el.getBoundingClientRect()
+            if (rect.top <= 100 && rect.bottom >= 100) {
+              setCurrentSection(id)
+              break
+            }
           }
-          return false
-        })
-        if (currentSec) {
-          setCurrentSection(currentSec)
         }
 
         rafId = null
@@ -59,81 +124,34 @@ export const Navbar = () => {
     }
   }, [])
 
-  const navGroups = [
-    {
-      key: 'about',
-      label: t('nav.about'),
-      icon: <User className="w-4 h-4" />,
-      items: [
-        { key: 'home', href: '#home', icon: '🏠' },
-        { key: 'about', href: '#about', icon: '👨‍💻' },
-        { key: 'interests', href: '#interests', icon: '🎯' },
-        { key: 'languages', href: '#languages', icon: '🌐' }
-      ]
-    },
-    {
-      key: 'experience',
-      label: t('nav.experience'),
-      icon: <Briefcase className="w-4 h-4" />,
-      items: [
-        { key: 'experience', href: '#experience', icon: '💼' },
-        { key: 'skills', href: '#skills', icon: '⚡' },
-        { key: 'projects', href: '#projects', icon: '🚀' }
-      ]
-    },
-    {
-      key: 'education',
-      label: t('nav.education'),
-      icon: <GraduationCap className="w-4 h-4" />,
-      items: [
-        { key: 'education', href: '#education', icon: '🎓' },
-        { key: 'certifications', href: '#certifications', icon: '📜' }
-      ]
-    },
-    {
-      key: 'photography',
-      label: t('nav.photography'),
-      icon: <MapPin className="w-4 h-4" />,
-      items: [
-        { key: 'photography', href: '#photography', icon: '📸' }
-      ]
-    },
-    {
-      key: 'contact',
-      label: t('nav.contact'),
-      icon: <Mail className="w-4 h-4" />,
-      items: [
-        { key: 'contact', href: '#contact', icon: '📧' }
-      ]
-    }
-  ]
+  // Only recompute labels when language changes
+  const navGroups = useMemo(() =>
+    NAV_GROUP_ITEMS.map(group => {
+      const IconComp = ICON_MAP[group.iconType]
+      return {
+        ...group,
+        label: t(`nav.${group.key}`),
+        icon: <IconComp className="w-4 h-4" />,
+      }
+    }),
+    [t]
+  )
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
+  const scrollToSection = useCallback((href: string) => {
+    const id = href.replace('#', '')
+    const element = sectionRefsMap.current[id] || document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
     setIsMenuOpen(false)
     setActiveDropdown(null)
-  }
+  }, [])
 
-  const handleDropdownToggle = (key: string) => {
-    setActiveDropdown(activeDropdown === key ? null : key)
-  }
+  const handleDropdownToggle = useCallback((key: string) => {
+    setActiveDropdown(prev => prev === key ? null : key)
+  }, [])
 
-  const getPlaneRotation = () => {
-    const rotations: { [key: string]: number } = {
-      'home': 0,
-      'about': 45,
-      'experience': 90,
-      'skills': 135,
-      'education': 180,
-      'photography': 225,
-      'projects': 270,
-      'contact': 315
-    }
-    return rotations[currentSection] || 0
-  }
+  const planeRotation = PLANE_ROTATIONS[currentSection] || 0
 
   return (
     <nav
@@ -171,7 +189,7 @@ export const Navbar = () => {
                 {/* Flying plane indicator */}
                 <motion.div
                   className="absolute -top-2 -right-2 text-xl filter drop-shadow-lg"
-                  animate={{ rotate: getPlaneRotation() }}
+                  animate={{ rotate: planeRotation }}
                   transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
                   ✈️

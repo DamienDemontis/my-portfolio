@@ -20,6 +20,35 @@ declare global {
   }
 }
 
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/damien-demontis/', icon: Linkedin, color: 'from-blue-500 to-blue-600' },
+  { name: 'GitHub', href: 'https://github.com/damiendemontis', icon: Github, color: 'from-gray-600 to-gray-800' },
+  { name: 'Instagram', href: 'https://www.instagram.com/damien.demontis/', icon: Instagram, color: 'from-blue-500 to-cyan-600' },
+]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.2, ease: "easeOut" }
+  }
+}
+
+const CONTACT_INFO_ITEMS = [
+  { icon: Mail, key: 'email', staticValue: 'damien.demontis@epitech.eu', href: 'mailto:damien.demontis@epitech.eu' as string | null },
+  { icon: MapPin, key: 'location', staticValue: 'Frouard, Grand Est, France', href: 'https://maps.google.com/maps?q=Frouard,+Grand+Est,+France' as string | null },
+  { icon: Clock, key: 'availabilityLabel', staticValue: null as string | null, href: null as string | null },
+]
+
 export const Contact = () => {
   const { t } = useTranslation()
   const [ref, inView] = useInView({
@@ -37,9 +66,7 @@ export const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Initialize Calendly widget when component mounts
   useEffect(() => {
-    // Check if Calendly script is loaded
     if (window.Calendly) {
       window.Calendly.initInlineWidget({
         url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1',
@@ -61,8 +88,7 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
+
     setTimeout(() => {
       alert(t('contact.form.success'))
       setFormData({ name: '', email: '', subject: '', message: '' })
@@ -71,11 +97,7 @@ export const Contact = () => {
   }
 
   const handleResumeDownload = (language: 'en' | 'fr') => {
-    const resumeUrls = {
-      en: '/CV_Damien_DEMONTIS_EN.pdf',
-      fr: '/CV_Damien_DEMONTIS_FR.pdf'
-    }
-    
+    const resumeUrls = { en: '/CV_Damien_DEMONTIS_EN.pdf', fr: '/CV_Damien_DEMONTIS_FR.pdf' }
     const link = document.createElement('a')
     link.href = resumeUrls[language]
     link.download = `Damien_Demontis_Resume_${language.toUpperCase()}.pdf`
@@ -84,66 +106,11 @@ export const Contact = () => {
     document.body.removeChild(link)
   }
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: t('contact.info.email'),
-      value: 'damien.demontis@epitech.eu',
-      href: 'mailto:damien.demontis@epitech.eu'
-    },
-    {
-      icon: MapPin,
-      label: t('contact.info.location'),
-      value: 'Frouard, Grand Est, France',
-      href: 'https://maps.google.com/maps?q=Frouard,+Grand+Est,+France'
-    },
-    {
-      icon: Clock,
-      label: t('contact.info.availabilityLabel'),
-      value: t('contact.info.availability'),
-      href: null
-    }
-  ]
-
-  const socialLinks = [
-    {
-      name: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/damien-demontis/',
-      icon: Linkedin,
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      name: 'GitHub',
-      href: 'https://github.com/damiendemontis',
-      icon: Github,
-      color: 'from-gray-600 to-gray-800'
-    },
-    {
-      name: 'Instagram',
-      href: 'https://www.instagram.com/damien.demontis/',
-      icon: Instagram,
-      color: 'from-blue-500 to-cyan-600'
-    }
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05 // OPTIMIZED: Reduced from 0.15
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 5 }, // OPTIMIZED: Reduced from 15
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.2, ease: "easeOut" } // OPTIMIZED: Reduced from 0.3
-    }
-  }
+  const contactInfo = CONTACT_INFO_ITEMS.map(c => ({
+    ...c,
+    label: t(`contact.info.${c.key}`),
+    value: c.staticValue ?? t('contact.info.availability'),
+  }))
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">

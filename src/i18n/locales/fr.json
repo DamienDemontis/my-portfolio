@@ -82,9 +82,48 @@
         "type": "Assurance",
         "size": "200+ employés",
         "scope": "Solutions intranet d'entreprise"
+      },
+      "pandalab": {
+        "name": "PandaLab SAS",
+        "description": "Entreprise HealthTech française développant une plateforme de coordination sécurisée pour les professionnels de santé, incluant téléconsultation, téléexpertise et messagerie sécurisée. Certifiée ISO 27001 & HDS.",
+        "industry": "HealthTech",
+        "type": "SaaS / E-Santé",
+        "size": "Petite équipe",
+        "scope": "Plateforme de coordination santé"
       }
     },
     "positions": {
+      "pandalab": {
+        "title": "Lead Dev | Développeur Fullstack",
+        "company": "PandaLab SAS",
+        "period": "Décembre 2025 - Présent",
+        "location": "Nancy, France (Hybride)",
+        "description": "Pilotage du développement fullstack chez PandaLab, une entreprise HealthTech proposant une plateforme complète de coordination e-santé pour les professionnels de santé. La plateforme permet la téléconsultation sécurisée, la téléexpertise, la messagerie et la gestion des patients — certifiée ISO 27001 et HDS avec plus de 23 900 utilisateurs. Focalisé sur le développement des fonctionnalités de téléexpertise et téléconsultation, ainsi que la refonte de fonctionnalités legacy pour améliorer la maintenabilité et les performances.",
+        "technologies": [
+          "Vue 3",
+          "Vuex",
+          "Node.js",
+          "Fastify",
+          "Vite",
+          "MongoDB",
+          "Redis",
+          "RabbitMQ",
+          "Docker",
+          "Nomad",
+          "Security",
+          "Frontend Design",
+          "MCP"
+        ],
+        "achievements": [
+          "Pilotage du développement des fonctionnalités de téléexpertise permettant aux professionnels de santé de demander et fournir des avis médicaux experts",
+          "Développement de modules de téléconsultation pour des consultations patients à distance sécurisées et des téléconsultations assistées",
+          "Refonte de fonctionnalités legacy pour améliorer la maintenabilité du code, les performances et l'expérience développeur",
+          "Contribution à une plateforme servant plus de 23 900 professionnels de santé avec plus de 245 000 messages mensuels",
+          "Garantie de la conformité aux normes de sécurité ISO 27001 et HDS (Hébergement de Données de Santé)",
+          "Travail avec Docker et Nomad pour l'orchestration de conteneurs et les pipelines de déploiement"
+        ],
+        "impact": "Contribution à la modernisation et à l'expansion fonctionnelle d'une plateforme de santé certifiée qui facilite la coordination entre professionnels de santé, améliorant la qualité des soins et réduisant la charge administrative dans l'écosystème de santé français."
+      },
       "epitech_mentor": {
         "title": "Accompagnateur Pédagogique | Cursus MSc",
         "company": "EPITECH",

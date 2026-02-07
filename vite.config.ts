@@ -41,6 +41,9 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'icons'
             }
+            if (id.includes('gsap')) {
+              return 'gsap'
+            }
             if (id.includes('react-intersection-observer')) {
               return 'utils'
             }
