@@ -171,8 +171,8 @@ export const Navbar = () => {
         transform: 'translateZ(0) translateX(-50%)'
       }}
     >
-      <div className="px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-20">
           {/* Logo with animated plane */}
           <motion.div 
             className="flex items-center space-x-4"
@@ -183,12 +183,12 @@ export const Navbar = () => {
               className="flex items-center space-x-3 group"
             >
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/20">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/20">
                   <span className="text-white text-xl font-bold">D²</span>
                 </div>
                 {/* Flying plane indicator */}
                 <motion.div
-                  className="absolute -top-2 -right-2 text-xl filter drop-shadow-lg"
+                  className="hidden sm:block absolute -top-2 -right-2 text-xl filter drop-shadow-lg"
                   animate={{ rotate: planeRotation }}
                   transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
@@ -286,17 +286,17 @@ export const Navbar = () => {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center space-x-3 ml-8">
-            <div className={`p-2 rounded-xl backdrop-blur-sm border ${
-              isScrolled 
-                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20' 
+          <div className="flex items-center space-x-2 sm:space-x-3 ml-4 sm:ml-8">
+            <div className={`p-1.5 sm:p-2 rounded-xl backdrop-blur-sm border ${
+              isScrolled
+                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20'
                 : 'bg-white/10 border-white/20'
             }`}>
               <ThemeToggle />
             </div>
-            <div className={`p-2 rounded-xl backdrop-blur-sm border ${
-              isScrolled 
-                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20' 
+            <div className={`p-1.5 sm:p-2 rounded-xl backdrop-blur-sm border ${
+              isScrolled
+                ? 'bg-gray-100/20 dark:bg-white/10 border-gray-300/20 dark:border-white/20'
                 : 'bg-white/10 border-white/20'
             }`}>
               <LanguageSwitcher />
@@ -323,54 +323,57 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
+      </div>
+
+      {/* Mobile Navigation - Full screen overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Backdrop */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`lg:hidden mt-4 border-t shadow-2xl rounded-2xl overflow-hidden max-h-[70vh] overflow-y-auto ${
-                isScrolled 
-                  ? 'bg-white/90 dark:bg-black/85 border-gray-300/30 dark:border-white/20' 
-                  : 'bg-white/80 dark:bg-black/80 border-white/20 dark:border-gray-700/30'
-              }`}
-              style={{
-                willChange: 'height, opacity',
-                transform: 'translateZ(0)'
-              }}
+              className="lg:hidden fixed inset-0 top-0 bg-black/40 backdrop-blur-sm z-[-1]"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            {/* Menu panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden fixed left-4 right-4 top-20 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 z-[-1] overflow-hidden"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="p-4">
-                {navGroups.map((group) => (
-                  <div key={group.key} className="mb-4">
-                    <div className="flex items-center space-x-2 mb-3 px-2">
-                      {group.icon}
-                      <span className="font-bold drop-shadow-lg text-gray-800 dark:text-white">
-                        {group.label}
-                      </span>
-                    </div>
-                    <div className="space-y-2 ml-6">
-                      {group.items.map((item) => (
-                        <motion.button
-                          key={item.key}
-                          onClick={() => scrollToSection(item.href)}
-                          className="flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-200 font-medium border text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 border-gray-300/10 dark:border-white/5 hover:border-gray-400/20 dark:hover:border-white/20"
-                          whileHover={{ x: 5 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <span className="text-lg drop-shadow-md">{item.icon}</span>
-                          <span className="drop-shadow-md">{t(`nav.${item.key}`)}</span>
-                        </motion.button>
-                      ))}
-                    </div>
+              <div className="py-3">
+                {NAV_GROUP_ITEMS.map((group, groupIndex) => (
+                  <div key={group.key}>
+                    {groupIndex > 0 && (
+                      <div className="mx-4 my-1 border-t border-gray-200/60 dark:border-gray-700/40" />
+                    )}
+                    {group.items.map((item) => (
+                      <button
+                        key={item.key}
+                        onClick={() => scrollToSection(item.href)}
+                        className={`flex items-center gap-3 w-full text-left py-3 px-5 transition-colors duration-150 ${
+                          currentSection === item.key
+                            ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                            : 'text-gray-700 dark:text-gray-200 active:bg-gray-100 dark:active:bg-gray-800'
+                        }`}
+                      >
+                        <span className="text-lg w-7 text-center">{item.icon}</span>
+                        <span className="font-medium text-[15px]">{t(`nav.${item.key}`)}</span>
+                      </button>
+                    ))}
                   </div>
                 ))}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   )
 } 

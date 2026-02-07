@@ -43,16 +43,16 @@ export const LanguageSwitcher = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+        className="flex items-center gap-0 sm:gap-2 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 min-w-[36px] min-h-[36px] justify-center"
         aria-label={t('language.toggle')}
         title={t('language.toggle')}
       >
-        <Languages className="w-4 h-4" />
-        <FlagIcon countryCode={currentLanguage.countryCode} size={20} />
-        <span className="text-sm font-medium">
+        <Languages className="hidden sm:block w-4 h-4" />
+        <FlagIcon countryCode={currentLanguage.countryCode} size={28} />
+        <span className="hidden sm:inline text-sm font-medium">
           {currentLanguage.label}
         </span>
-        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`hidden sm:block w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (

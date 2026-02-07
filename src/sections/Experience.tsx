@@ -191,7 +191,7 @@ export const Experience = () => {
                         <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
                           {/* Optimized company logo */}
                           <motion.div
-                            className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
                             whileHover={!isLowEnd ? { rotate: 2, scale: 1.02 } : {}}
                             transition={{ duration: 0.2 }}
                             style={{
@@ -283,8 +283,8 @@ export const Experience = () => {
                             transform: 'translateZ(0)',
                           }}
                         >
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/60 dark:bg-gray-800/60 flex items-center justify-center shadow-md border border-gray-200/50 dark:border-gray-600/50">
-                            <ChevronDown className="w-4 h-4 md:w-5 md:h-5 text-gray-500 dark:text-gray-400" />
+                          <div className="w-10 h-10 rounded-full bg-white/60 dark:bg-gray-800/60 flex items-center justify-center shadow-md border border-gray-200/50 dark:border-gray-600/50">
+                            <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                           </div>
                         </motion.div>
                       </div>
