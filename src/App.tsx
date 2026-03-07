@@ -7,6 +7,9 @@ import { WithProfiler } from './utils/ProfilerLog'
 import { LoadingScreen } from './components/LoadingScreen'
 import { isLowEndDevice } from './utils/performanceOptimizations'
 
+const V2Portfolio = lazy(() => import('./v2/V2Portfolio'))
+const ComponentShowcase = lazy(() => import('./v2/ComponentShowcase'))
+
 // Lazy load non-critical sections for better performance
 const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })))
 const Experience = lazy(() => import('./sections/Experience').then(m => ({ default: m.Experience })))
@@ -34,9 +37,11 @@ if (process.env.NODE_ENV === 'development') {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
+  const pathname = window.location.pathname
+  const isV2 = pathname === '/v2'
+  const isShowcase = pathname === '/v2/showcase'
 
   useEffect(() => {
-    // Check for low-end device and add class to body
     if (isLowEndDevice()) {
       document.body.classList.add('low-end-device');
     }
@@ -44,6 +49,18 @@ function App() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false)
+  }
+
+  if (isV2 || isShowcase) {
+    return (
+      <Suspense fallback={
+        <div className="min-h-screen bg-black flex items-center justify-center">
+          <div className="w-6 h-6 border border-[rgba(255,255,255,0.2)] border-t-white rounded-full animate-spin" />
+        </div>
+      }>
+        {isShowcase ? <ComponentShowcase /> : <V2Portfolio />}
+      </Suspense>
+    )
   }
 
   return (

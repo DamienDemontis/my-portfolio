@@ -4,7 +4,11 @@
       "Bash(npm run build:analyze:*)",
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(npx tsc --noEmit)",
+      "WebFetch(domain:www.reactbits.dev)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

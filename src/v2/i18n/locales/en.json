@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "education": "Education",
+    "certifications": "Certifications",
+    "languages": "Languages",
+    "interests": "Interests",
+    "photography": "Photography",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "Full Stack Developer & IT Specialist",
+    "description": "EPITECH Alumnus building modern web experiences",
+    "descriptionSuffix": "with precision and craft",
+    "cta": {
+      "contact": "Get in touch",
+      "resume": "Resume"
+    }
+  },
+  "about": {
+    "number": "01",
+    "title": "About",
+    "location": "Based in France",
+    "heading": "Full Stack Developer with a global perspective",
+    "description": "EPITECH Alumnus (graduated 2025) with expertise in web development, DevOps, and pedagogical mentorship. My academic and hands-on experiences have sharpened my skills in project management, team leadership, and building modern web applications with cutting-edge technologies.",
+    "international": "International experience through a study abroad program at Keimyung University in South Korea, where I served as certified EPITECH Ambassador. Passionate about merging technical expertise with innovation and cultural perspectives.",
+    "aspiration": "I'm actively seeking a full-time IT position from September 2025, aiming to merge technical expertise with my passion for Asian culture and technological innovations.",
+    "stats": {
+      "experience": "Years Experience",
+      "projects": "Projects Built",
+      "technologies": "Technologies",
+      "mentoring": "Students Mentored"
+    }
+  },
+  "experience": {
+    "number": "02",
+    "title": "Experience",
+    "keyAchievements": "Key Achievements",
+    "impact": "Impact",
+    "technologies": "Technologies",
+    "positions": [
+      {
+        "title": "Lead Dev | Fullstack Developer",
+        "company": "PandaLab SAS",
+        "period": "Dec 2025 — Present",
+        "location": "Nancy, France",
+        "industry": "HealthTech",
+        "current": true,
+        "description": "Leading fullstack development at a HealthTech company providing a comprehensive e-health coordination platform for healthcare professionals. The platform enables secure teleconsultation, teleexpertise, messaging, and patient management — certified ISO 27001 and HDS with 23,900+ users.",
+        "technologies": ["Vue 3", "Vuex", "Node.js", "Fastify", "Vite", "MongoDB", "Redis", "RabbitMQ", "Docker", "Nomad", "Security", "Frontend Design", "MCP"],
+        "achievements": [
+          "Lead development of teleexpertise features enabling healthcare professionals to request expert medical opinions",
+          "Build teleconsultation modules for secure remote patient consultations",
+          "Refactor legacy functionalities to improve maintainability and performance",
+          "Contribute to a platform serving 23,900+ professionals with 245,000+ monthly messages",
+          "Ensure compliance with ISO 27001 and HDS security standards"
+        ],
+        "impact": "Modernizing a certified healthcare platform that facilitates coordination between healthcare professionals across France."
+      },
+      {
+        "title": "Founder & Full Stack Developer",
+        "company": "JobNeko",
+        "period": "Sep 2024 — Present",
+        "location": "Remote",
+        "industry": "AI / Open Source",
+        "current": true,
+        "description": "Founded an open-source AI-powered job market analysis platform. Self-hostable with upcoming SaaS model. Simultaneously developing custom websites for clients.",
+        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Docker"],
+        "achievements": [
+          "Created full-stack open-source AI-powered job analysis platform",
+          "Self-hostable architecture allowing complete user data control",
+          "Automated job data extraction via advanced LLMs from any website",
+          "Intelligent salary analysis with affordability scoring",
+          "AI-powered resume-job matching with personalized compatibility scoring",
+          "Chrome extension for one-click job capture from any webpage",
+          "RAG implementation for contextual recommendations"
+        ],
+        "impact": "Launched an innovative open-source project transforming job search with AI, offering free self-hostable + premium SaaS options."
+      },
+      {
+        "title": "Pedagogical Mentor | MSc Curriculum",
+        "company": "EPITECH",
+        "period": "Mar 2024 — Aug 2024",
+        "location": "Nancy, France",
+        "industry": "EdTech",
+        "current": false,
+        "description": "Mentored MSc students on advanced software engineering including modern web development, cloud architecture, DevOps, and cybersecurity. Built a cloud-based facial recognition attendance platform using PyTorch, OpenCV, and cloud infrastructure.",
+        "technologies": ["React", "Vue.js", "Node.js", "NestJS", "Next.js", "Docker", "Kubernetes", "AWS", "GCP", "Azure", "PyTorch", "OpenCV", "OWASP Top 10", "Scrum", "Kanban"],
+        "achievements": [
+          "Built production-grade facial recognition attendance platform with PyTorch/OpenCV",
+          "Introduced modern full-stack technologies into MSc curriculum",
+          "Implemented comprehensive CI/CD workflows using GitLab CI and GitHub Actions",
+          "Delivered cybersecurity workshops covering OWASP Top 10",
+          "Created engaging content improving student engagement by 40%"
+        ],
+        "impact": "Revolutionized MSc curriculum with enterprise technologies, achieving 95% student satisfaction."
+      },
+      {
+        "title": "Regional Assistant | PGE & MSc",
+        "company": "EPITECH",
+        "period": "2021 — Aug 2024",
+        "location": "Nancy, France",
+        "industry": "EdTech",
+        "current": false,
+        "description": "Mentored 200+ students across fundamental and advanced programming concepts, from C/C++ to modern web technologies and DevOps practices.",
+        "technologies": ["C", "C++", "SFML", "Git", "Docker", "SQL", "JavaScript", "REST APIs", "Linux", "Design Patterns", "CUnit", "GoogleTest"],
+        "achievements": [
+          "Top-performing teaching assistant for three consecutive years",
+          "Taught fundamental C/C++, memory management, algorithms and data structures",
+          "Introduced web development stack and REST API design",
+          "Created practical training modules improving coding proficiency by 35%"
+        ],
+        "impact": "Recognized as top-performing assistant for 3 years, bridging fundamentals with modern development across 200+ students."
+      },
+      {
+        "title": "Technical Lead & Project Manager",
+        "company": "Leon'Art",
+        "period": "Apr 2023 — Mar 2025",
+        "location": "Daegu, Korea",
+        "industry": "Startup",
+        "current": false,
+        "description": "Architected scalable backend systems for an international art marketplace startup. Led a 7-person cross-functional team.",
+        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "GCP", "Docker", "Kubernetes", "Firebase", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
+        "achievements": [
+          "Architected scalable backend with Node.js, TypeScript, and Express",
+          "Implemented secure authentication and Stripe payment processing",
+          "Designed REST APIs and webhook flows for real-time marketplace events",
+          "Led cross-functional team and owned complete technical architecture",
+          "Delivered full-stack marketplace platform from concept to beta launch"
+        ],
+        "impact": "Successfully architected a complete commercial marketplace, demonstrating full-stack leadership in a startup environment."
+      },
+      {
+        "title": "Web Developer Intern",
+        "company": "+Simple",
+        "period": "Apr 2023 — Aug 2023",
+        "location": "Nancy, France",
+        "industry": "Fintech",
+        "current": false,
+        "description": "Migrated a monolithic Django application to Nuxt frontend. Cut page load times by 50% and increased test coverage by 30%.",
+        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Python", "Microservices"],
+        "achievements": [
+          "Migrated monolithic Django app to modern Nuxt.js frontend architecture",
+          "Achieved 50% reduction in page load times",
+          "Increased test coverage by 30% with comprehensive testing strategy",
+          "Improved scalability using microservices principles"
+        ],
+        "impact": "Dramatically improved system performance by 50%, positioning the platform for future growth."
+      },
+      {
+        "title": "Web Developer Intern",
+        "company": "ACORIS Mutuelles",
+        "period": "Jul 2021 — Dec 2021",
+        "location": "Nancy, France",
+        "industry": "Insurance",
+        "current": false,
+        "description": "Developed front-end solutions with WordPress/PHP. Designed MySQL database structures. Built robust intranet solutions improving workflow efficiency.",
+        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development"],
+        "achievements": [
+          "Created custom themes and plugins enhancing UX and functionality",
+          "Designed MySQL database structures with data integrity focus",
+          "Delivered intranet solutions improving company-wide workflow efficiency"
+        ],
+        "impact": "Delivered comprehensive intranet solution revolutionizing internal communication across all departments."
+      }
+    ]
+  },
+  "skills": {
+    "number": "03",
+    "title": "Skills",
+    "subtitle": "Always learning, always building, always innovating.",
+    "alsoExperienced": "Also experienced with: Haskell, ECS, GraphQL, GSAP, Zapier"
+  },
+  "projects": {
+    "number": "04",
+    "title": "Projects",
+    "featured": "Featured",
+    "source": "Source",
+    "demo": "Demo",
+    "video": "Video",
+    "items": [
+      {
+        "title": "AI Facial Recognition Attendance",
+        "description": "Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and PyTorch. Real-time facial recognition with automated reporting. Built as production-grade system adopted at EPITECH.",
+        "technologies": ["Python", "OpenCV", "PyTorch", "Firestore", "PyQt6"],
+        "image": "/projects/facial_recognition.png",
+        "github": "https://github.com/DamienDemontis/proto-1-pr-smart",
+        "featured": true
+      },
+      {
+        "title": "Leon'Art — Art Marketplace",
+        "description": "Mobile and web application for buying and selling art with social features. International startup project with 7-person cross-functional team. Full marketplace with Stripe payments.",
+        "technologies": ["React Native", "Node.js", "MongoDB", "Express", "Stripe", "GCP"],
+        "image": "/projects/leonart.png",
+        "github": "https://github.com/Leon-Art-EIP",
+        "featured": true
+      },
+      {
+        "title": "MSC Decouverte",
+        "description": "Educational platform helping EPITECH students choose specialties. 800+ external resources curated and organized. Sold to EPITECH in 2025.",
+        "technologies": ["Jekyll", "HTML", "CSS", "JavaScript"],
+        "image": "/projects/msc_decouverte.png",
+        "demo": "https://decouverte-pmsc.vercel.app/"
+      },
+      {
+        "title": "Corporate Intranet Solution",
+        "description": "WordPress-based intranet improving company-wide internal communication and workflow efficiency. Custom themes, plugins, and MySQL database design.",
+        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
+        "image": "/projects/intranet.png",
+        "video": "https://youtu.be/fSEylEdaZiM"
+      },
+      {
+        "title": "Inept-Intruder",
+        "description": "Multiplayer co-op game where a CCTV operator helps another player navigate through a trapped factory. Real-time communication and strategic gameplay.",
+        "technologies": ["Unity", "C#", "Multiplayer"],
+        "image": "/projects/inept_intruder.png",
+        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
+        "video": "https://youtu.be/S_0kDyYHLs0"
+      },
+      {
+        "title": "Wii Tanks Remastered",
+        "description": "Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics in Unity. Physics-based gameplay with AI opponents.",
+        "technologies": ["Unity", "C#", "Game Physics"],
+        "image": "/projects/tank_game.png",
+        "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
+        "video": "https://youtu.be/jWfFh3oCJ2I"
+      }
+    ]
+  },
+  "education": {
+    "number": "05",
+    "title": "Education",
+    "quote": "\"Education is not preparation for life; education is life itself.\" — John Dewey",
+    "schools": [
+      {
+        "school": "EPITECH",
+        "degree": "Expert in Information Technology",
+        "period": "2020 — 2025",
+        "location": "Nancy, France",
+        "gpa": "3.7/4.0",
+        "badge": "Master",
+        "highlights": [
+          "Major of Nancy campus — Campus Leader recognition",
+          "Teaching Assistant for 3 consecutive years",
+          "Project-based learning methodology",
+          "Core: C, C++, Java, Haskell, DevOps, Cloud",
+          "Startup Project Manager (Leon'Art)",
+          "Coding Club Member"
+        ]
+      },
+      {
+        "school": "Keimyung University",
+        "degree": "Study Abroad — Game Dev & AI",
+        "period": "Sep 2023 — Jul 2024",
+        "location": "Daegu, South Korea",
+        "badge": "Exchange",
+        "video": "https://youtu.be/s0AG0_PY93I",
+        "videoLabel": "My International Year in Korea",
+        "highlights": [
+          "Certified EPITECH Ambassador",
+          "Game development & AI studies",
+          "VR/AR technologies research",
+          "Korean language learning",
+          "International cultural exchange"
+        ]
+      },
+      {
+        "school": "Henri Poincare High School",
+        "degree": "Scientific Baccalaureate — High Honors",
+        "period": "2017 — 2020",
+        "location": "Nancy, France",
+        "badge": "Honors",
+        "highlights": [
+          "Specialization in Computer Science",
+          "High Honors graduation",
+          "Strong mathematics foundation",
+          "Physics fundamentals",
+          "Scientific methodology"
+        ]
+      }
+    ]
+  },
+  "certifications": {
+    "number": "06",
+    "title": "Certifications",
+    "verified": "Verified & Active",
+    "items": [
+      {
+        "title": "Agile Coaching",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "Coaching methodologies and agile team facilitation"
+      },
+      {
+        "title": "Team Management",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "Leadership and team management principles"
+      },
+      {
+        "title": "Crisis Communication",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "Communication strategies during crisis situations"
+      },
+      {
+        "title": "IT Project Management",
+        "issuer": "IonisX",
+        "year": "2022",
+        "description": "Project management in IT contexts"
+      }
+    ]
+  },
+  "languages": {
+    "number": "07",
+    "title": "Languages",
+    "items": [
+      { "name": "French", "level": "Native", "percent": 100, "detail": "Native speaker", "flag": "FR" },
+      { "name": "English", "level": "C1/C2 Fluent", "percent": 95, "detail": "TEPITECH 945/990", "flag": "GB" },
+      { "name": "Italian", "level": "Conversational", "percent": 60, "detail": "Half Italian heritage", "flag": "IT" },
+      { "name": "Korean", "level": "A2 Elementary", "percent": 40, "detail": "Study abroad at Keimyung", "flag": "KR" }
+    ]
+  },
+  "interests": {
+    "number": "08",
+    "title": "Interests",
+    "categories": [
+      {
+        "title": "Musical Tastes",
+        "items": ["Japanese Pop", "Electronic Music", "Jazz", "French Classics"]
+      },
+      {
+        "title": "Global Perspectives",
+        "items": ["Ecology", "Geopolitics", "Asian Culture"]
+      },
+      {
+        "title": "Tech Enthusiasm",
+        "items": ["Tech Innovation", "AI/ML", "Game Development"]
+      },
+      {
+        "title": "Personal Growth",
+        "items": ["Cultural Exchange", "Continuous Learning", "Community Building"]
+      }
+    ]
+  },
+  "photography": {
+    "number": "09",
+    "title": "Photography",
+    "subtitle": "Moments captured during my international year at Keimyung University, South Korea, and travels across Japan. Served as certified EPITECH Ambassador."
+  },
+  "contact": {
+    "number": "10",
+    "title": "Contact",
+    "heading": "Let's work together",
+    "description": "I'm actively seeking full-time IT positions. Whether you have a project in mind, a role to fill, or just want to connect — I'd love to hear from you.",
+    "email": "damien.demontis@epitech.eu",
+    "location": "Frouard, Grand Est, France",
+    "availability": "Available from September 2025",
+    "resumeEn": "Resume (EN)",
+    "resumeFr": "Resume (FR)",
+    "schedule": "Schedule a Meeting",
+    "bookCall": "Book a Meeting",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project or opportunity...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!"
+    },
+    "cat": {
+      "fish": "fish",
+      "fishes": "fishes",
+      "clickCat": "Click the cat to feed it!"
+    }
+  },
+  "footer": {
+    "copyright": "Damien Demontis",
+    "tagline": "Forged in metal"
+  }
+}

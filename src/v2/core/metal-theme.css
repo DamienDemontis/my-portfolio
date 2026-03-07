@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Metal+Mania&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --metal-black: #000000;
+  --metal-void: #050505;
+  --metal-dark: #0a0a0a;
+  --metal-surface: #111111;
+  --metal-surface-light: #1a1a1a;
+  --metal-surface-hover: #222222;
+  --metal-surface-elevated: #2a2a2a;
+  --metal-border: rgba(255, 255, 255, 0.06);
+  --metal-border-light: rgba(255, 255, 255, 0.12);
+  --metal-border-focus: rgba(255, 255, 255, 0.25);
+  --metal-text: #d4d4d4;
+  --metal-text-dim: #737373;
+  --metal-text-muted: #525252;
+  --metal-text-bright: #fafafa;
+  --metal-white: #ffffff;
+  --metal-silver: #a3a3a3;
+  --metal-chrome-start: #ffffff;
+  --metal-chrome-mid: #737373;
+  --metal-chrome-end: #d4d4d4;
+  --metal-glow: rgba(255, 255, 255, 0.04);
+  --metal-glow-strong: rgba(255, 255, 255, 0.08);
+  --metal-shadow: rgba(0, 0, 0, 0.6);
+  --metal-radius-none: 0px;
+  --metal-radius-sm: 2px;
+  --metal-radius-md: 4px;
+  --metal-radius-lg: 8px;
+  --metal-radius-pill: 9999px;
+  --metal-transition: cubic-bezier(0.4, 0, 0.2, 1);
+  --metal-transition-heavy: cubic-bezier(0.7, 0, 0.3, 1);
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-heading: 'Syne', 'Arial Black', sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-metal: 'Metal Mania', 'Bebas Neue', Impact, cursive;
+}
+
+.metal-page {
+  background: var(--metal-black);
+  color: var(--metal-text);
+  min-height: 100vh;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display { font-family: var(--font-display); }
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-metal { font-family: var(--font-metal); }
+
+.metal-shader-title {
+  position: relative;
+  display: inline-block;
+}
+
+.metal-shader-title .metallic-surface-wrapper {
+  pointer-events: none;
+}
+
+.metal-shader-title-text {
+  position: relative;
+  color: transparent;
+}
+
+.metal-gallery-color-reveal {
+  filter: grayscale(100%) brightness(0.7) contrast(1.1);
+  transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metal-gallery-color-reveal:hover {
+  filter: grayscale(0%) brightness(1) contrast(1);
+}
+
+.metal-gallery-lightbox-img {
+  animation: metal-color-wipe 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+@keyframes metal-color-wipe {
+  0% {
+    filter: grayscale(100%) brightness(0.85) contrast(1.1);
+  }
+  100% {
+    filter: grayscale(0%) brightness(1) contrast(1);
+  }
+}
+
+.metal-calendly-container {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--metal-surface);
+}
+
+@keyframes metal-shine-sweep {
+  0% { transform: translateX(-100%) skewX(-25deg); }
+  100% { transform: translateX(300%) skewX(-25deg); }
+}
+
+@keyframes metal-pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes metal-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes metal-float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-0.5deg); }
+}
+
+@keyframes metal-rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes metal-grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  20% { transform: translate(2%, 2%); }
+  30% { transform: translate(-1%, 1%); }
+  40% { transform: translate(1%, -1%); }
+  50% { transform: translate(-2%, 2%); }
+  60% { transform: translate(2%, -2%); }
+  70% { transform: translate(-1%, -1%); }
+  80% { transform: translate(1%, 1%); }
+  90% { transform: translate(-2%, -1%); }
+}
+
+@keyframes metal-liquid-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes metal-reveal-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes metal-scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(8px); opacity: 0.8; }
+}
+
+@keyframes metal-line-expand {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes metal-letter-reveal {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes metal-border-shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.metal-noise-overlay {
+  position: relative;
+}
+
+.metal-noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  animation: metal-grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.35;
+}
+
+.metal-brushed {
+  background: linear-gradient(
+    135deg,
+    var(--metal-surface) 0%,
+    var(--metal-surface-light) 25%,
+    var(--metal-surface) 50%,
+    var(--metal-surface-light) 75%,
+    var(--metal-surface) 100%
+  );
+}
+
+.metal-chrome-text {
+  background: linear-gradient(
+    180deg,
+    var(--metal-chrome-start) 0%,
+    var(--metal-chrome-mid) 45%,
+    var(--metal-chrome-end) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metal-chrome-text-animated {
+  background: linear-gradient(
+    180deg,
+    var(--metal-chrome-start) 0%,
+    var(--metal-chrome-mid) 35%,
+    var(--metal-chrome-start) 50%,
+    var(--metal-chrome-mid) 65%,
+    var(--metal-chrome-end) 100%
+  );
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: metal-liquid-flow 4s ease infinite;
+}
+
+.metal-text-gradient-subtle {
+  background: linear-gradient(180deg, #e0e0e0 0%, #888 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metal-border-gradient {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.metal-border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.1)
+  );
+  z-index: -1;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  padding: 1px;
+}
+
+.metal-shine-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.metal-shine-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.6s var(--metal-transition);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.metal-shine-hover:hover::after {
+  left: 200%;
+}
+
+.metal-inset-shadow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.metal-drop-shadow {
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 255, 255, 0.02);
+}
+
+.metal-glow-border {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+.metal-section {
+  position: relative;
+  padding: 6rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .metal-section {
+    padding: 8rem 2rem;
+  }
+}
+
+.metal-section-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.metal-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.metal-scrollbar::-webkit-scrollbar-track {
+  background: var(--metal-dark);
+}
+
+.metal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--metal-surface-light);
+  border-radius: 3px;
+}
+
+.metal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--metal-surface-hover);
+}
+
+.metal-grayscale {
+  filter: grayscale(100%) contrast(1.1) brightness(0.7);
+  transition: filter 0.5s var(--metal-transition);
+}
+
+.metal-grayscale:hover {
+  filter: grayscale(100%) contrast(1.15) brightness(0.85);
+}
+
+.metal-separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent);
+}
+
+.metal-vignette::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+@keyframes metal-shiny-slide {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metal-noise-overlay::before,
+  .metal-chrome-text-animated,
+  .metal-shine-hover::after {
+    animation: none !important;
+  }
+
+  .metal-page *,
+  .metal-page *::before,
+  .metal-page *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+*:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+.metal-page button:focus-visible,
+.metal-page a:focus-visible,
+.metal-page input:focus-visible,
+.metal-page textarea:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.metal-skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 99999;
+  padding: 8px 16px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #e0e0e0;
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: top 0.2s;
+}
+
+.metal-skip-link:focus {
+  top: 16px;
+}
+
+.metal-body-locked {
+  overflow: hidden !important;
+}

@@ -191,7 +191,7 @@ export const Experience = () => {
                         <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
                           {/* Optimized company logo */}
                           <motion.div
-                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
+                            className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-white/90 dark:bg-gray-800/90 p-2 sm:p-3 shadow-lg border border-gray-200/50 dark:border-gray-600/50 flex-shrink-0"
                             whileHover={!isLowEnd ? { rotate: 2, scale: 1.02 } : {}}
                             transition={{ duration: 0.2 }}
                             style={{

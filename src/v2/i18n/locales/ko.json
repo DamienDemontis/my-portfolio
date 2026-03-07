@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "about": "소개",
+    "experience": "경험",
+    "skills": "기술",
+    "projects": "프로젝트",
+    "education": "교육",
+    "certifications": "자격증",
+    "languages": "언어",
+    "interests": "관심사",
+    "photography": "사진",
+    "contact": "연락처"
+  },
+  "hero": {
+    "subtitle": "풀스택 개발자 & IT 전문가",
+    "description": "EPITECH 졸업생으로 현대적인 웹 경험을 구축",
+    "descriptionSuffix": "정밀함과 장인 정신으로",
+    "cta": {
+      "contact": "연락하기",
+      "resume": "이력서"
+    }
+  },
+  "about": {
+    "number": "01",
+    "title": "소개",
+    "location": "프랑스 거주",
+    "heading": "글로벌 시각을 가진 풀스택 개발자",
+    "description": "EPITECH 졸업생(2025년 졸업)으로 웹 개발, DevOps, 교육적 멘토링에 전문성을 보유하고 있습니다. 학업 및 실무 경험을 통해 프로젝트 관리, 팀 리더십, 최신 기술을 활용한 현대적인 웹 애플리케이션 구축 역량을 키워왔습니다.",
+    "international": "한국 계명대학교 교환 프로그램을 통한 국제 경험을 쌓았으며, 공인 EPITECH 대사로 활동했습니다. 기술적 전문성과 혁신, 문화적 관점의 융합에 열정을 가지고 있습니다.",
+    "aspiration": "2025년 9월부터 정규직 IT 포지션을 적극적으로 찾고 있으며, 기술적 전문성과 아시아 문화 및 기술 혁신에 대한 열정을 융합하는 것을 목표로 합니다.",
+    "stats": {
+      "experience": "경력 연수",
+      "projects": "완료된 프로젝트",
+      "technologies": "기술 스택",
+      "mentoring": "멘토링한 학생"
+    }
+  },
+  "experience": {
+    "number": "02",
+    "title": "경험",
+    "keyAchievements": "주요 성과",
+    "impact": "영향",
+    "technologies": "기술",
+    "positions": [
+      {
+        "title": "리드 개발자 | 풀스택 개발자",
+        "company": "PandaLab SAS",
+        "period": "2025년 12월 — 현재",
+        "location": "Nancy, France",
+        "industry": "HealthTech",
+        "current": true,
+        "description": "의료 전문가를 위한 종합 디지털 헬스 조정 플랫폼을 제공하는 헬스테크 기업에서 풀스택 개발을 주도하고 있습니다. 이 플랫폼은 보안 원격 진료, 원격 전문 상담, 메시징 및 환자 관리를 지원하며 — ISO 27001 및 HDS 인증을 받았고 23,900명 이상의 사용자를 보유하고 있습니다.",
+        "technologies": ["Vue 3", "Vuex", "Node.js", "Fastify", "Vite", "MongoDB", "Redis", "RabbitMQ", "Docker", "Nomad", "Security", "Frontend Design", "MCP"],
+        "achievements": [
+          "의료 전문가가 전문 의료 의견을 요청할 수 있는 원격 전문 상담 기능 개발 주도",
+          "보안 원격 환자 상담을 위한 원격 진료 모듈 구축",
+          "유지보수성과 성능 향상을 위한 레거시 기능 리팩토링",
+          "23,900명 이상의 전문가와 월 245,000건 이상의 메시지를 처리하는 플랫폼에 기여",
+          "ISO 27001 및 HDS 보안 표준 준수 보장"
+        ],
+        "impact": "프랑스 전역의 의료 전문가 간 조정을 촉진하는 인증된 의료 플랫폼을 현대화하고 있습니다."
+      },
+      {
+        "title": "창업자 & 풀스택 개발자",
+        "company": "JobNeko",
+        "period": "2024년 9월 — 현재",
+        "location": "원격",
+        "industry": "AI / 오픈소스",
+        "current": true,
+        "description": "AI 기반 오픈소스 구직 시장 분석 플랫폼을 창립했습니다. 자체 호스팅 가능하며 SaaS 모델 출시 예정입니다. 동시에 클라이언트를 위한 맞춤형 웹사이트를 개발하고 있습니다.",
+        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Docker"],
+        "achievements": [
+          "AI 기반 풀스택 오픈소스 구직 분석 플랫폼 개발",
+          "완전한 사용자 데이터 제어를 허용하는 자체 호스팅 아키텍처",
+          "고급 LLM을 통한 모든 웹사이트에서 자동화된 구직 데이터 추출",
+          "경제성 점수를 포함한 지능형 급여 분석",
+          "AI 기반 이력서-구직 매칭 및 개인화된 호환성 점수",
+          "모든 웹페이지에서 원클릭 구직 캡처를 위한 Chrome 확장 프로그램",
+          "맥락 기반 추천을 위한 RAG 구현"
+        ],
+        "impact": "AI로 구직을 혁신하는 혁신적인 오픈소스 프로젝트를 출시하여 무료 자체 호스팅 + 프리미엄 SaaS 옵션을 제공합니다."
+      },
+      {
+        "title": "교육 멘토 | MSc 커리큘럼",
+        "company": "EPITECH",
+        "period": "2024년 3월 — 2024년 8월",
+        "location": "Nancy, France",
+        "industry": "EdTech",
+        "current": false,
+        "description": "석사 과정 학생들에게 현대 웹 개발, 클라우드 아키텍처, DevOps, 사이버보안을 포함한 고급 소프트웨어 엔지니어링을 멘토링했습니다. PyTorch, OpenCV, 클라우드 인프라를 사용하여 클라우드 기반 얼굴 인식 출석 플랫폼을 구축했습니다.",
+        "technologies": ["React", "Vue.js", "Node.js", "NestJS", "Next.js", "Docker", "Kubernetes", "AWS", "GCP", "Azure", "PyTorch", "OpenCV", "OWASP Top 10", "Scrum", "Kanban"],
+        "achievements": [
+          "PyTorch/OpenCV를 사용한 프로덕션급 얼굴 인식 출석 플랫폼 구축",
+          "MSc 커리큘럼에 현대 풀스택 기술 도입",
+          "GitLab CI 및 GitHub Actions를 사용한 포괄적인 CI/CD 워크플로 구현",
+          "OWASP Top 10을 다루는 사이버보안 워크숍 진행",
+          "학생 참여도를 40% 향상시킨 매력적인 콘텐츠 제작"
+        ],
+        "impact": "엔터프라이즈 기술로 MSc 커리큘럼을 혁신하여 95% 학생 만족도를 달성했습니다."
+      },
+      {
+        "title": "지역 어시스턴트 | PGE & MSc",
+        "company": "EPITECH",
+        "period": "2021 — 2024년 8월",
+        "location": "Nancy, France",
+        "industry": "EdTech",
+        "current": false,
+        "description": "C/C++부터 현대 웹 기술 및 DevOps 실무까지 기본 및 고급 프로그래밍 개념에 대해 200명 이상의 학생을 멘토링했습니다.",
+        "technologies": ["C", "C++", "SFML", "Git", "Docker", "SQL", "JavaScript", "REST APIs", "Linux", "Design Patterns", "CUnit", "GoogleTest"],
+        "achievements": [
+          "3년 연속 최우수 교육 어시스턴트",
+          "기본 C/C++, 메모리 관리, 알고리즘 및 자료구조 교육",
+          "웹 개발 스택 및 REST API 설계 도입",
+          "코딩 숙련도를 35% 향상시킨 실습 훈련 모듈 제작"
+        ],
+        "impact": "3년간 최우수 어시스턴트로 인정받으며 200명 이상의 학생에게 기초부터 현대 개발까지 연결했습니다."
+      },
+      {
+        "title": "기술 리드 & 프로젝트 매니저",
+        "company": "Leon'Art",
+        "period": "2023년 4월 — 2025년 3월",
+        "location": "대구, 한국",
+        "industry": "스타트업",
+        "current": false,
+        "description": "국제 아트 마켓플레이스 스타트업을 위한 확장 가능한 백엔드 시스템을 설계했습니다. 7명의 다기능 팀을 이끌었습니다.",
+        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "GCP", "Docker", "Kubernetes", "Firebase", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
+        "achievements": [
+          "Node.js, TypeScript, Express로 확장 가능한 백엔드 설계",
+          "보안 인증 및 Stripe 결제 처리 구현",
+          "실시간 마켓플레이스 이벤트를 위한 REST API 및 웹훅 플로우 설계",
+          "다기능 팀 리드 및 완전한 기술 아키텍처 소유",
+          "컨셉부터 베타 출시까지 풀스택 마켓플레이스 플랫폼 전달"
+        ],
+        "impact": "스타트업 환경에서 풀스택 리더십을 보여주며 완전한 상업 마켓플레이스를 성공적으로 설계했습니다."
+      },
+      {
+        "title": "웹 개발자 인턴",
+        "company": "+Simple",
+        "period": "2023년 4월 — 2023년 8월",
+        "location": "Nancy, France",
+        "industry": "Fintech",
+        "current": false,
+        "description": "Django 모놀리식 애플리케이션을 Nuxt 프론트엔드로 마이그레이션했습니다. 페이지 로드 시간을 50% 단축하고 테스트 커버리지를 30% 증가시켰습니다.",
+        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Python", "Microservices"],
+        "achievements": [
+          "Django 모놀리식 앱을 현대적인 Nuxt.js 프론트엔드 아키텍처로 마이그레이션",
+          "페이지 로드 시간 50% 단축 달성",
+          "포괄적인 테스트 전략으로 테스트 커버리지 30% 증가",
+          "마이크로서비스 원칙을 활용한 확장성 향상"
+        ],
+        "impact": "시스템 성능을 50% 크게 개선하여 미래 성장을 위한 플랫폼을 마련했습니다."
+      },
+      {
+        "title": "웹 개발자 인턴",
+        "company": "ACORIS Mutuelles",
+        "period": "2021년 7월 — 2021년 12월",
+        "location": "Nancy, France",
+        "industry": "보험",
+        "current": false,
+        "description": "WordPress/PHP로 프론트엔드 솔루션을 개발했습니다. MySQL 데이터베이스 구조를 설계했습니다. 워크플로 효율성을 개선하는 견고한 인트라넷 솔루션을 구축했습니다.",
+        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development"],
+        "achievements": [
+          "UX와 기능성을 향상시키는 커스텀 테마 및 플러그인 제작",
+          "데이터 무결성에 초점을 맞춘 MySQL 데이터베이스 구조 설계",
+          "회사 전체 워크플로 효율성을 개선하는 인트라넷 솔루션 제공"
+        ],
+        "impact": "모든 부서의 내부 커뮤니케이션을 혁신하는 종합 인트라넷 솔루션을 제공했습니다."
+      }
+    ]
+  },
+  "skills": {
+    "number": "03",
+    "title": "기술",
+    "subtitle": "항상 배우고, 항상 만들고, 항상 혁신합니다.",
+    "alsoExperienced": "추가 경험: Haskell, ECS, GraphQL, GSAP, Zapier"
+  },
+  "projects": {
+    "number": "04",
+    "title": "프로젝트",
+    "featured": "주요 프로젝트",
+    "source": "소스",
+    "demo": "데모",
+    "video": "영상",
+    "items": [
+      {
+        "title": "AI 얼굴 인식 출석 시스템",
+        "description": "Firestore, PyQt6, OpenCV, PyTorch를 사용한 클라우드 기반 출석 플랫폼. 자동화된 보고서와 함께 실시간 얼굴 인식. EPITECH에서 채택된 프로덕션급 시스템.",
+        "technologies": ["Python", "OpenCV", "PyTorch", "Firestore", "PyQt6"],
+        "image": "/projects/facial_recognition.png",
+        "github": "https://github.com/DamienDemontis/proto-1-pr-smart",
+        "featured": true
+      },
+      {
+        "title": "Leon'Art — 아트 마켓플레이스",
+        "description": "소셜 기능이 포함된 미술 작품 구매 및 판매를 위한 모바일 및 웹 애플리케이션. 7명의 다기능 팀과 함께한 국제 스타트업 프로젝트. Stripe 결제가 포함된 완전한 마켓플레이스.",
+        "technologies": ["React Native", "Node.js", "MongoDB", "Express", "Stripe", "GCP"],
+        "image": "/projects/leonart.png",
+        "github": "https://github.com/Leon-Art-EIP",
+        "featured": true
+      },
+      {
+        "title": "MSC Decouverte",
+        "description": "EPITECH 학생들의 전공 선택을 돕는 교육 플랫폼. 800개 이상의 외부 리소스를 큐레이션하고 정리. 2025년 EPITECH에 매각.",
+        "technologies": ["Jekyll", "HTML", "CSS", "JavaScript"],
+        "image": "/projects/msc_decouverte.png",
+        "demo": "https://decouverte-pmsc.vercel.app/"
+      },
+      {
+        "title": "기업 인트라넷 솔루션",
+        "description": "회사 전체 내부 커뮤니케이션과 워크플로 효율성을 개선하는 WordPress 기반 인트라넷. 커스텀 테마, 플러그인, MySQL 데이터베이스 설계.",
+        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
+        "image": "/projects/intranet.png",
+        "video": "https://youtu.be/fSEylEdaZiM"
+      },
+      {
+        "title": "Inept-Intruder",
+        "description": "CCTV 운영자가 다른 플레이어의 함정 공장 탐색을 돕는 멀티플레이어 협동 게임. 실시간 커뮤니케이션과 전략적 게임플레이.",
+        "technologies": ["Unity", "C#", "Multiplayer"],
+        "image": "/projects/inept_intruder.png",
+        "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
+        "video": "https://youtu.be/S_0kDyYHLs0"
+      },
+      {
+        "title": "Wii Tanks Remastered",
+        "description": "Unity에서 향상된 그래픽과 메카닉으로 재현한 클래식 Wii Play Tank 게임. 물리 기반 게임플레이와 AI 적.",
+        "technologies": ["Unity", "C#", "Game Physics"],
+        "image": "/projects/tank_game.png",
+        "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
+        "video": "https://youtu.be/jWfFh3oCJ2I"
+      }
+    ]
+  },
+  "education": {
+    "number": "05",
+    "title": "교육",
+    "quote": "\"교육은 삶의 준비가 아니라 삶 그 자체이다.\" — John Dewey",
+    "schools": [
+      {
+        "school": "EPITECH",
+        "degree": "정보기술 전문가",
+        "period": "2020 — 2025",
+        "location": "Nancy, France",
+        "gpa": "3.7/4.0",
+        "badge": "석사",
+        "highlights": [
+          "Nancy 캠퍼스 수석 — Campus Leader 인정",
+          "3년 연속 교육 어시스턴트",
+          "프로젝트 기반 학습 방법론",
+          "핵심: C, C++, Java, Haskell, DevOps, Cloud",
+          "스타트업 프로젝트 매니저 (Leon'Art)",
+          "코딩 클럽 멤버"
+        ]
+      },
+      {
+        "school": "Keimyung University",
+        "degree": "교환 프로그램 — 게임 개발 & AI",
+        "period": "2023년 9월 — 2024년 7월",
+        "location": "대구, 한국",
+        "badge": "교환",
+        "video": "https://youtu.be/s0AG0_PY93I",
+        "videoLabel": "한국에서의 국제 교환 1년",
+        "highlights": [
+          "공인 EPITECH 대사",
+          "게임 개발 & AI 학습",
+          "VR/AR 기술 연구",
+          "한국어 학습",
+          "국제 문화 교류"
+        ]
+      },
+      {
+        "school": "Henri Poincare High School",
+        "degree": "이과 바칼로레아 — 최우수 졸업",
+        "period": "2017 — 2020",
+        "location": "Nancy, France",
+        "badge": "우등",
+        "highlights": [
+          "컴퓨터 과학 전공",
+          "최우수 등급 졸업",
+          "탄탄한 수학 기초",
+          "물리학 기초",
+          "과학적 방법론"
+        ]
+      }
+    ]
+  },
+  "certifications": {
+    "number": "06",
+    "title": "자격증",
+    "verified": "검증 및 유효",
+    "items": [
+      {
+        "title": "애자일 코칭",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "코칭 방법론 및 애자일 팀 퍼실리테이션"
+      },
+      {
+        "title": "팀 매니지먼트",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "리더십 및 팀 관리 원칙"
+      },
+      {
+        "title": "위기 커뮤니케이션",
+        "issuer": "IonisX",
+        "year": "2023",
+        "description": "위기 상황에서의 커뮤니케이션 전략"
+      },
+      {
+        "title": "IT 프로젝트 관리",
+        "issuer": "IonisX",
+        "year": "2022",
+        "description": "IT 환경에서의 프로젝트 관리"
+      }
+    ]
+  },
+  "languages": {
+    "number": "07",
+    "title": "언어",
+    "items": [
+      { "name": "프랑스어", "level": "원어민", "percent": 100, "detail": "모국어", "flag": "FR" },
+      { "name": "영어", "level": "C1/C2 유창", "percent": 95, "detail": "TEPITECH 945/990", "flag": "GB" },
+      { "name": "이탈리아어", "level": "일상 회화", "percent": 60, "detail": "이탈리아 혈통", "flag": "IT" },
+      { "name": "한국어", "level": "A2 초급", "percent": 40, "detail": "계명대학교 교환", "flag": "KR" }
+    ]
+  },
+  "interests": {
+    "number": "08",
+    "title": "관심사",
+    "categories": [
+      {
+        "title": "음악 취향",
+        "items": ["일본 팝", "일렉트로닉 음악", "재즈", "프랑스 클래식"]
+      },
+      {
+        "title": "글로벌 관점",
+        "items": ["생태학", "지정학", "아시아 문화"]
+      },
+      {
+        "title": "기술 열정",
+        "items": ["기술 혁신", "AI/ML", "게임 개발"]
+      },
+      {
+        "title": "자기 성장",
+        "items": ["문화 교류", "지속적 학습", "커뮤니티 구축"]
+      }
+    ]
+  },
+  "photography": {
+    "number": "09",
+    "title": "사진",
+    "subtitle": "한국 계명대학교에서의 국제 교환 학년과 일본 여행 중 포착한 순간들. 공인 EPITECH 대사로 활동."
+  },
+  "contact": {
+    "number": "10",
+    "title": "연락처",
+    "heading": "함께 일해요",
+    "description": "정규직 IT 포지션을 적극적으로 찾고 있습니다. 프로젝트 아이디어, 채용 포지션, 또는 단순히 연결하고 싶으시다면 — 연락 주세요.",
+    "email": "damien.demontis@epitech.eu",
+    "location": "Frouard, Grand Est, France",
+    "availability": "2025년 9월부터 가능",
+    "resumeEn": "이력서 (EN)",
+    "resumeFr": "이력서 (FR)",
+    "schedule": "미팅 예약",
+    "bookCall": "미팅 예약하기",
+    "form": {
+      "name": "이름",
+      "namePlaceholder": "이름을 입력하세요",
+      "email": "이메일",
+      "emailPlaceholder": "your@email.com",
+      "subject": "제목",
+      "subjectPlaceholder": "어떤 내용인가요?",
+      "message": "메시지",
+      "messagePlaceholder": "프로젝트나 기회에 대해 알려주세요...",
+      "send": "메시지 보내기",
+      "sending": "전송 중...",
+      "success": "메시지가 성공적으로 전송되었습니다!"
+    },
+    "cat": {
+      "fish": "물고기",
+      "fishes": "물고기",
+      "clickCat": "고양이를 클릭해서 먹이를 주세요!"
+    }
+  },
+  "footer": {
+    "copyright": "Damien Demontis",
+    "tagline": "메탈로 단조된"
+  }
+}
