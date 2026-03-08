@@ -5,12 +5,18 @@ interface MetalShaderTitleProps {
   children: ReactNode;
   as?: 'h1' | 'h2' | 'h3';
   className?: string;
+  tintColor?: string;
+  speed?: number;
+  brightness?: number;
 }
 
 export default function MetalShaderTitle({
   children,
   as: Tag = 'h2',
   className = '',
+  tintColor = '#ffffff',
+  speed = 0.3,
+  brightness = 2,
 }: MetalShaderTitleProps) {
   const textRef = useRef<HTMLElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -78,8 +84,8 @@ export default function MetalShaderTitle({
           refraction={0.01}
           blur={0.015}
           liquid={0.75}
-          speed={0.3}
-          brightness={2}
+          speed={speed}
+          brightness={brightness}
           contrast={0.5}
           fresnel={1}
           lightColor="#ffffff"
@@ -90,7 +96,7 @@ export default function MetalShaderTitle({
           chromaticSpread={2}
           distortion={1}
           contour={0.2}
-          tintColor="#ffffff"
+          tintColor={tintColor}
           edgeFade={0}
           style={{ position: 'absolute' as const, inset: 0 }}
         />

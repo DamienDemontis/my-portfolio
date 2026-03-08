@@ -3,40 +3,8 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import MetallicSurface from '../core/MetallicSurface';
 import MetalParticleField from '../components/MetalParticleField';
+import MetalShaderTitle from '../components/MetalShaderTitle';
 import DecryptedText from '../components/DecryptedText';
-
-const letterVariants = {
-  hidden: { y: '110%', opacity: 0 },
-  visible: (i: number) => ({
-    y: '0%',
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      delay: 0.8 + i * 0.04,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
-
-function AnimatedWord({ word, offset = 0 }: { word: string; offset?: number }) {
-  return (
-    <span className="inline-flex overflow-hidden" aria-hidden="true">
-      {word.split('').map((char, i) => (
-        <motion.span
-          key={i}
-          custom={i + offset}
-          variants={letterVariants}
-          initial="hidden"
-          animate="visible"
-          className="inline-block"
-          style={{ willChange: 'transform' }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
 
 export default function V2Hero() {
   const { t } = useTranslation();
@@ -87,14 +55,19 @@ export default function V2Hero() {
           />
         </motion.div>
 
-        <h1 className="font-metal leading-[0.85] tracking-[0.02em]" aria-label="Damien Demontis">
-          <div className="text-[clamp(3rem,15vw,10rem)] metal-chrome-text-animated">
-            <AnimatedWord word="DAMIEN" />
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          aria-label="Damien Demontis"
+        >
+          <div className="leading-none tracking-[0.02em]">
+            <MetalShaderTitle as="h1" className="text-[clamp(4rem,18vw,14rem)] leading-none" speed={0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
           </div>
-          <div className="text-[clamp(3rem,15vw,10rem)] metal-chrome-text">
-            <AnimatedWord word="DEMONTIS" offset={6} />
+          <div className="leading-none tracking-[0.08em] -mt-4 md:-mt-8">
+            <MetalShaderTitle as="h1" className="text-[clamp(2.5rem,10vw,8rem)] leading-none" speed={0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
           </div>
-        </h1>
+        </motion.div>
 
         <motion.div
           initial={{ width: 0 }}
