@@ -591,7 +591,9 @@ export default function MetallicSurface({
         mouse.y += (mouse.targetY - mouse.y) * 0.08;
         animTimeRef.current = mouse.x * 3000 + mouse.y * 1500;
       } else {
-        animTimeRef.current += delta * speedRef.current;
+        const t = animTimeRef.current * 0.0003;
+        const wobble = 1 + 0.4 * Math.sin(t * 1.3) + 0.25 * Math.sin(t * 3.7) + 0.15 * Math.sin(t * 7.1);
+        animTimeRef.current += delta * speedRef.current * wobble;
       }
 
       gl.uniform1f(u.u_time, animTimeRef.current);
