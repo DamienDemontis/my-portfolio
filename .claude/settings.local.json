@@ -8,7 +8,9 @@
       "Bash(npx tsc --noEmit)",
       "WebFetch(domain:www.reactbits.dev)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api repos/DavidHDev/react-bits/git/trees/main --jq '.tree[].path')"
     ],
     "deny": [],
     "ask": []

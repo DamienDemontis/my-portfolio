@@ -1,42 +1,14 @@
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import MetallicSurface from '../core/MetallicSurface';
 import MetalParticleField from '../components/MetalParticleField';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import DecryptedText from '../components/DecryptedText';
 
 export default function V2Hero() {
   const { t } = useTranslation();
-  const shaderParams = useMemo(() => ({
-    speed: 0.04 + Math.random() * 0.06,
-    angle: Math.random() * 360,
-    noiseScale: 0.2 + Math.random() * 0.4,
-    waveAmplitude: 0.3 + Math.random() * 0.4,
-    chromaticSpread: 0.02 + Math.random() * 0.03,
-    distortion: 0.1 + Math.random() * 0.2,
-  }), []);
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" aria-label="Hero">
-      <div className="absolute inset-0 opacity-20">
-        <MetallicSurface
-          mode="procedural"
-          pattern="wave"
-          interactive={true}
-          {...shaderParams}
-          brightness={1.4}
-          contrast={0.3}
-          scale={2}
-          liquid={0.04}
-          edgeFade={0}
-          lightColor="#ffffff"
-          darkColor="#000000"
-          tintColor="#ffffff"
-          style={{ width: '100%', height: '100%' }}
-        />
-      </div>
-
       <div className="absolute inset-0 z-[1]">
         <MetalParticleField count={30} speed={0.15} connected={false} />
       </div>
@@ -64,7 +36,7 @@ export default function V2Hero() {
           <div className="leading-none tracking-[0.02em]">
             <MetalShaderTitle as="h1" className="text-[clamp(4rem,18vw,14rem)] leading-none" speed={0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
           </div>
-          <div className="leading-none tracking-[0.08em] -mt-4 md:-mt-8">
+          <div className="leading-none tracking-[0.08em] -mt-6 md:-mt-12">
             <MetalShaderTitle as="h1" className="text-[clamp(2.5rem,10vw,8rem)] leading-none" speed={0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
           </div>
         </motion.div>

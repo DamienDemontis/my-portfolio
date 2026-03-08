@@ -6,6 +6,7 @@ import './core/metal-theme.css';
 import MetalCursor from './components/MetalCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
 import MetalNavbar from './components/MetalNavbar';
+import Dither from './components/Dither';
 
 import V2Hero from './sections/V2Hero';
 import V2About from './sections/V2About';
@@ -43,6 +44,18 @@ export default function V2Portfolio() {
   return (
     <I18nextProvider i18n={v2i18n}>
       <div className="metal-page metal-scrollbar metal-noise-overlay metal-vignette">
+        <div className="fixed inset-0" style={{ zIndex: 0 }}>
+          <Dither
+            waveSpeed={0.05}
+            waveFrequency={3}
+            waveAmplitude={0.3}
+            waveColor={[0.5, 0.5, 0.5]}
+            colorNum={4}
+            pixelSize={2}
+            enableMouseInteraction={true}
+            mouseRadius={1}
+          />
+        </div>
         <MetalCursor />
 
         {!loaded && <MetalLoadingScreen onComplete={handleLoadingComplete} duration={2200} />}
@@ -50,8 +63,9 @@ export default function V2Portfolio() {
         {loaded && (
           <>
             <MetalNavbar items={navItems} logo="DD" />
-            <main>
+            <main className="relative" style={{ zIndex: 1 }}>
               <V2Hero />
+              <div style={{ background: '#000000' }}>
               <div className="metal-separator" />
               <V2About />
               <div className="metal-separator" />
@@ -73,6 +87,7 @@ export default function V2Portfolio() {
               <div className="metal-separator" />
               <V2Contact />
               <V2Footer />
+              </div>
             </main>
           </>
         )}
