@@ -36,6 +36,9 @@ const V2Photography = lazy(() => import('./sections/V2Photography'));
 const V2Contact = lazy(() => import('./sections/V2Contact'));
 const V2Footer = lazy(() => import('./sections/V2Footer'));
 
+// Stable reference — avoids Dither useEffect re-running on every render
+const DITHER_COLOR: [number, number, number] = [0.5, 0.5, 0.5];
+
 const navItems = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
@@ -75,7 +78,7 @@ export default function V2Portfolio() {
             waveSpeed={0.05}
             waveFrequency={3}
             waveAmplitude={0.3}
-            waveColor={[0.5, 0.5, 0.5]}
+            waveColor={DITHER_COLOR}
             colorNum={4}
             pixelSize={2}
             enableMouseInteraction={true}
