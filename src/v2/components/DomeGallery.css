@@ -83,6 +83,7 @@
   margin: auto;
   transform-origin: 50% 50%;
   backface-visibility: hidden;
+  contain: layout style paint;
   transition: transform 300ms;
   transform: rotateY(calc(var(--rot-y) * (var(--offset-x) + ((var(--item-size-x) - 1) / 2)) + var(--rot-y-delta, 0deg)))
     rotateX(calc(var(--rot-x) * (var(--offset-y) - ((var(--item-size-y) - 1) / 2)) + var(--rot-x-delta, 0deg)))
@@ -130,6 +131,7 @@
   backdrop-filter: grayscale(1) brightness(0.78);
   -webkit-backdrop-filter: grayscale(1) brightness(0.78);
   background: rgba(0, 0, 0, 0.001);
+  will-change: backdrop-filter;
   mask-image: radial-gradient(
     circle var(--chroma-r) at var(--chroma-x) var(--chroma-y),
     transparent 0%,
@@ -162,6 +164,7 @@
   backdrop-filter: grayscale(1) brightness(0.78);
   -webkit-backdrop-filter: grayscale(1) brightness(0.78);
   background: rgba(0, 0, 0, 0.001);
+  will-change: backdrop-filter;
   mask-image: radial-gradient(
     circle var(--chroma-r) at var(--chroma-x) var(--chroma-y),
     white 0%,

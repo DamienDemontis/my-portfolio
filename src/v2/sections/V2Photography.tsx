@@ -48,7 +48,7 @@ export default function V2Photography() {
         </div>
       </MetalScrollReveal>
 
-      <div style={{ height: '100vh', position: 'relative' }}>
+      <div style={{ height: '100vh', position: 'relative', contentVisibility: 'auto', containIntrinsicSize: 'auto 100vh' } as React.CSSProperties}>
         <DomeGallery
           images={photos}
           overlayBlurColor="#000000"
