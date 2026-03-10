@@ -36,6 +36,14 @@
   --font-metal: 'Metal Mania', 'Bebas Neue', Impact, cursive;
 }
 
+html.metal-active {
+  scrollbar-width: none;
+}
+
+html.metal-active::-webkit-scrollbar {
+  display: none;
+}
+
 .metal-page {
   background: var(--metal-black);
   color: var(--metal-text);

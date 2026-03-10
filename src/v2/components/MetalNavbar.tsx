@@ -135,11 +135,13 @@ function DockItem({
   onClick,
   mouseX,
   isActive,
+  label,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   mouseX: MotionValue<number>;
   isActive?: boolean;
+  label: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
@@ -162,6 +164,7 @@ function DockItem({
       className="relative inline-flex items-center justify-center cursor-pointer"
       tabIndex={0}
       role="button"
+      aria-label={label}
       whileTap={{ scale: 0.85 }}
     >
       {/* Active dot */}
@@ -336,6 +339,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
             mouseX={mouseX}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             isActive={activeSection === 'home'}
+            label="Scroll to top"
           >
             <DockIcon isActive={activeSection === 'home'}>{homeIcon}</DockIcon>
             <DockLabel>{logo}</DockLabel>
@@ -353,6 +357,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
                 mouseX={mouseX}
                 onClick={() => scrollTo(item.href)}
                 isActive={isActive}
+                label={`Go to ${item.label}`}
               >
                 <DockIcon isActive={isActive}>
                   {sectionIcons[id] || <span className="text-xs font-medium">{item.label.slice(0, 2)}</span>}
@@ -373,6 +378,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
                 mouseX={mouseX}
                 onClick={() => i18n.changeLanguage(lang)}
                 isActive={isActive}
+                label={`Switch to ${lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : '한국어'}`}
               >
                 <DockFlag isActive={isActive}>{langFlags[lang]}</DockFlag>
                 <DockLabel>{lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : '한국어'}</DockLabel>
