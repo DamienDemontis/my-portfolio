@@ -10,7 +10,8 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(gh api repos/DavidHDev/react-bits/git/trees/main --jq '.tree[].path')"
+      "Bash(gh api repos/DavidHDev/react-bits/git/trees/main --jq '.tree[].path')",
+      "WebFetch(domain:api.github.com)"
     ],
     "deny": [],
     "ask": []
