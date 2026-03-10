@@ -20,6 +20,7 @@ export default function MetalShaderTitle({
 }: MetalShaderTitleProps) {
   const textRef = useRef<HTMLElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [visible, setVisible] = useState(false);
   const id = useId();
 
   const seed = useMemo(
@@ -27,7 +28,26 @@ export default function MetalShaderTitle({
     [id],
   );
 
+  // Only start expensive WebGL work when the title is near the viewport
   useEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
     const el = textRef.current;
     if (!el) return;
 
@@ -65,7 +85,7 @@ export default function MetalShaderTitle({
     };
 
     document.fonts.ready.then(render);
-  }, [children]);
+  }, [visible, children]);
 
   return (
     <span className="metal-shader-title">
@@ -75,7 +95,7 @@ export default function MetalShaderTitle({
       >
         {children}
       </Tag>
-      {imageSrc && (
+      {visible && imageSrc && (
         <MetallicSurface
           mode="image"
           imageSrc={imageSrc}

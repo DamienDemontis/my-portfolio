@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ColorRevealImage from './ColorRevealImage';
 
 interface GalleryImage {
   src: string;
@@ -74,11 +75,10 @@ export default function MetalGallery({
               }}
               aria-label={`View ${img.alt}${img.caption ? `: ${img.caption}` : ''}`}
             >
-              <img
+              <ColorRevealImage
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover transition-all duration-500 metal-gallery-color-reveal"
-                loading="lazy"
+                className="absolute inset-0"
               />
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
