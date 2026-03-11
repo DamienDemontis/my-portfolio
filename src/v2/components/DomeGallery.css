@@ -131,7 +131,6 @@
   backdrop-filter: grayscale(1) brightness(0.78);
   -webkit-backdrop-filter: grayscale(1) brightness(0.78);
   background: rgba(0, 0, 0, 0.001);
-  will-change: backdrop-filter;
   mask-image: radial-gradient(
     circle var(--chroma-r) at var(--chroma-x) var(--chroma-y),
     transparent 0%,
@@ -164,7 +163,6 @@
   backdrop-filter: grayscale(1) brightness(0.78);
   -webkit-backdrop-filter: grayscale(1) brightness(0.78);
   background: rgba(0, 0, 0, 0.001);
-  will-change: backdrop-filter;
   mask-image: radial-gradient(
     circle var(--chroma-r) at var(--chroma-x) var(--chroma-y),
     white 0%,

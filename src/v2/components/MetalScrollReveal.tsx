@@ -27,13 +27,11 @@ const getVariants = (direction: string, distance: number): { hidden: Variant; vi
       opacity: 0,
       x: offset.x,
       y: offset.y,
-      filter: 'blur(4px)',
     },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
-      filter: 'blur(0px)',
     },
   };
 };

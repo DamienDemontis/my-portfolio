@@ -28,10 +28,13 @@ export default function MetalParticleField({
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>();
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const visibleRef = useRef(true);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
 
     const ctx = canvas.getContext('2d')!;
     let width = 0;
@@ -75,7 +78,23 @@ export default function MetalParticleField({
     };
     canvas.addEventListener('mousemove', onMouse);
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && !rafRef.current) {
+          rafRef.current = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0 },
+    );
+    observer.observe(wrapper);
+
     const render = () => {
+      if (!visibleRef.current) {
+        rafRef.current = undefined;
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
@@ -141,11 +160,12 @@ export default function MetalParticleField({
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       window.removeEventListener('resize', onResize);
       canvas.removeEventListener('mousemove', onMouse);
+      observer.disconnect();
     };
   }, [count, speed, connected, connectionDistance]);
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+    <div ref={wrapperRef} className={`absolute inset-0 overflow-hidden ${className}`}>
       <canvas ref={canvasRef} className="absolute inset-0" />
     </div>
   );

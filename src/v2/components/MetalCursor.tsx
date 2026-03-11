@@ -9,6 +9,7 @@ export default function MetalCursor({ enabled = true }: MetalCursorProps) {
   const [visible, setVisible] = useState(false);
   const [clicking, setClicking] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const hoveringRef = useRef(false);
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
   const springX = useSpring(cursorX, { stiffness: 300, damping: 28 });
@@ -34,8 +35,11 @@ export default function MetalCursor({ enabled = true }: MetalCursorProps) {
 
     const onHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]');
-      setHovering(!!isHoverable);
+      const isHoverable = !!target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]');
+      if (hoveringRef.current !== isHoverable) {
+        hoveringRef.current = isHoverable;
+        setHovering(isHoverable);
+      }
     };
 
     const onLeave = () => setVisible(false);

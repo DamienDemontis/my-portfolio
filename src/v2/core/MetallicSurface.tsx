@@ -376,6 +376,7 @@ export default function MetallicSurface({
   const mouseRef = useRef({ x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 });
   const mouseAnimRef = useRef(mouseAnimation);
   const sizeRef = useRef({ width: 0, height: 0 });
+  const visibleRef = useRef(true);
 
   const [ready, setReady] = useState(false);
   const [textureReady, setTextureReady] = useState(false);
@@ -583,6 +584,11 @@ export default function MetallicSurface({
     }
 
     const render = (time: number) => {
+      if (!visibleRef.current) {
+        rafRef.current = null;
+        return;
+      }
+
       const delta = time - lastTimeRef.current;
       lastTimeRef.current = time;
 
@@ -601,12 +607,25 @@ export default function MetallicSurface({
       rafRef.current = requestAnimationFrame(render);
     };
 
+    const ioObserver = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && !rafRef.current) {
+          lastTimeRef.current = performance.now();
+          rafRef.current = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0 },
+    );
+    if (wrapperRef.current) ioObserver.observe(wrapperRef.current);
+
     lastTimeRef.current = performance.now();
     rafRef.current = requestAnimationFrame(render);
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       canvas.removeEventListener('mousemove', handleMouseMove);
+      ioObserver.disconnect();
     };
   }, [ready, textureReady, interactive, mouseAnimation]);
 
