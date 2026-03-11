@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
@@ -97,6 +97,209 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
 
   const { nodes, materials } = useGLTF('/card.glb') as any;
   const texture = useTexture('/lanyard.png');
+  const cardTexture = useMemo(() => {
+    const w = 1024;
+    const h = 1024;
+    const fw = w / 2; // each face is 512px wide
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d')!;
+
+    // Helper: brushed metal noise pattern
+    const drawNoise = (ox: number, oy: number, w2: number, h2: number, alpha: number) => {
+      for (let y = oy; y < oy + h2; y += 3) {
+        const a = (Math.random() * 0.5 + 0.5) * alpha;
+        ctx.fillStyle = `rgba(255,255,255,${a})`;
+        ctx.fillRect(ox, y, w2, 1);
+      }
+    };
+
+    // ============================================
+    // FRONT FACE (x: 0→512, y: 0→1024)
+    // ============================================
+    const drawFront = (ox: number) => {
+      // Base: pure black like site
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(ox, 0, fw, h);
+
+      // Subtle vertical gradient (like metal surface)
+      const bg = ctx.createLinearGradient(ox, 0, ox, h);
+      bg.addColorStop(0, 'rgba(255,255,255,0.02)');
+      bg.addColorStop(0.3, 'rgba(255,255,255,0)');
+      bg.addColorStop(0.7, 'rgba(255,255,255,0.01)');
+      bg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(ox, 0, fw, h);
+
+      // Brushed metal texture
+      drawNoise(ox, 0, fw, h, 0.012);
+
+      // Chrome accent line top
+      const chrome = ctx.createLinearGradient(ox, 0, ox + fw, 0);
+      chrome.addColorStop(0, 'transparent');
+      chrome.addColorStop(0.3, 'rgba(255,255,255,0.3)');
+      chrome.addColorStop(0.5, 'rgba(255,255,255,0.6)');
+      chrome.addColorStop(0.7, 'rgba(255,255,255,0.3)');
+      chrome.addColorStop(1, 'transparent');
+      ctx.fillStyle = chrome;
+      ctx.fillRect(ox, 0, fw, 2);
+
+      // Content below clip hole
+      const px = ox + 30;
+      const top = 60;
+
+      // ACCESS GRANTED - warm peach like hero title
+      ctx.fillStyle = '#ffe8d6';
+      ctx.font = 'bold 34px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('ACCESS', px, top);
+      ctx.fillText('GRANTED', px, top + 40);
+
+      // Chrome separator
+      const sepGrad = ctx.createLinearGradient(px, 0, ox + fw - 30, 0);
+      sepGrad.addColorStop(0, 'rgba(255,255,255,0.15)');
+      sepGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = sepGrad;
+      ctx.fillRect(px, top + 54, fw - 60, 1);
+
+      // Classification - dim text
+      ctx.fillStyle = '#525252';
+      ctx.font = 'bold 24px monospace';
+      ctx.fillText('MAXIMUM CLEARANCE', px, top + 82);
+
+      // Name - bright white like --metal-text-bright
+      ctx.fillStyle = '#fafafa';
+      ctx.font = 'bold 80px monospace';
+      ctx.fillText('DAMIEN', px, top + 195);
+      ctx.font = 'bold 56px monospace';
+      ctx.fillText('DEMONTIS', px, top + 265);
+
+      // Role - silver chrome gradient
+      const roleGrad = ctx.createLinearGradient(px, top + 300, px, top + 370);
+      roleGrad.addColorStop(0, '#d4d4d4');
+      roleGrad.addColorStop(1, '#737373');
+      ctx.fillStyle = roleGrad;
+      ctx.font = 'bold 30px monospace';
+      ctx.fillText('FULL STACK', px, top + 325);
+      ctx.fillText('DEVELOPER', px, top + 362);
+
+      // Divider - subtle white
+      ctx.fillStyle = 'rgba(255,255,255,0.06)';
+      ctx.fillRect(px, top + 388, fw - 60, 1);
+
+      // Info - proper contrast hierarchy
+      ctx.font = '22px monospace';
+      const infoY = top + 425;
+      const labels = [
+        ['ID', 'EPT-2025-0042'],
+        ['ORG', 'EPITECH'],
+        ['GPA', '3.7 / 4.0'],
+      ];
+      labels.forEach(([label, value], i) => {
+        const y = infoY + i * 40;
+        ctx.fillStyle = '#525252';
+        ctx.fillText(label, px, y);
+        ctx.fillStyle = '#a3a3a3';
+        ctx.fillText(value, px + 75, y);
+      });
+
+      // Status
+      const stsY = infoY + labels.length * 40 + 16;
+      ctx.fillStyle = '#525252';
+      ctx.font = '22px monospace';
+      ctx.fillText('STS', px, stsY);
+      ctx.fillStyle = '#d4d4d4';
+      ctx.beginPath();
+      ctx.arc(px + 82, stsY - 5, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = 'bold 22px monospace';
+      ctx.fillStyle = '#d4d4d4';
+      ctx.fillText('ACTIVE', px + 96, stsY);
+
+      // Barcode
+      const barcodeY = 660;
+      for (let i = 0; i < 28; i++) {
+        const bw = Math.random() > 0.5 ? 5 : 2;
+        ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.15 + 0.1})`;
+        ctx.fillRect(px + i * 14, barcodeY, bw, 30);
+      }
+      ctx.fillStyle = '#737373';
+      ctx.font = '20px monospace';
+      ctx.fillText('eW91J3JlIHRvbyBjdXJpb3Vz', px, barcodeY + 50);
+    };
+
+    // ============================================
+    // BACK FACE (x: 512→1024, y: 0→1024)
+    // ============================================
+    const drawBack = (ox: number) => {
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(ox, 0, fw, h);
+
+      // Metal texture
+      drawNoise(ox, 0, fw, h, 0.01);
+
+      // Subtle warm glow in center
+      const glow = ctx.createRadialGradient(ox + fw / 2, h / 2, 0, ox + fw / 2, h / 2, 300);
+      glow.addColorStop(0, 'rgba(255,232,214,0.03)');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fillRect(ox, 0, fw, h);
+
+      // Chrome line top
+      const chrome = ctx.createLinearGradient(ox, 0, ox + fw, 0);
+      chrome.addColorStop(0, 'transparent');
+      chrome.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+      chrome.addColorStop(1, 'transparent');
+      ctx.fillStyle = chrome;
+      ctx.fillRect(ox, 0, fw, 1);
+
+      const cx = ox + fw / 2;
+
+      // CLASSIFIED - warm peach accent
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffe8d6';
+      ctx.font = 'bold 48px monospace';
+      ctx.fillText('CLASSI-', cx, 280);
+      ctx.fillText('FIED', cx, 334);
+
+      // Separator
+      ctx.fillStyle = 'rgba(255,232,214,0.1)';
+      ctx.fillRect(ox + 60, 354, fw - 120, 1);
+
+      // Easter egg - secondary text color
+      ctx.fillStyle = '#d4d4d4';
+      ctx.font = 'bold 36px monospace';
+      ctx.fillText('i hacked', cx, 430);
+      ctx.fillText('nasa,', cx, 474);
+      ctx.font = '36px monospace';
+      ctx.fillStyle = '#8a8a8a';
+      ctx.fillText("don't tell", cx, 540);
+      ctx.fillText('my mom pls', cx, 584);
+
+      // Terminal block
+      ctx.fillStyle = 'rgba(255,255,255,0.03)';
+      ctx.fillRect(ox + 30, 630, fw - 60, 70);
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(ox + 30, 630, fw - 60, 70);
+      ctx.fillStyle = '#525252';
+      ctx.font = '18px monospace';
+      ctx.fillText('$ ssh root@nasa', cx, 658);
+      ctx.fillStyle = '#a3a3a3';
+      ctx.fillText('connected ✓', cx, 684);
+
+      ctx.textAlign = 'left';
+    };
+
+    drawFront(0);
+    drawBack(fw);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.flipY = false;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }, []);
   const [curve] = useState(
     () => new THREE.CatmullRomCurve3([
       new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(),
@@ -193,7 +396,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={materials.base.map}
+                map={cardTexture}
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
