@@ -20,7 +20,7 @@ export default function V2About() {
 
   const lanyardEl = (
     <Suspense fallback={null}>
-      <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} fov={40} />
+      <Lanyard position={[0, 0, 8.5]} gravity={[0, -40, 0]} fov={40} />
     </Suspense>
   );
 
@@ -32,8 +32,8 @@ export default function V2About() {
           position: 'absolute',
           top: 0,
           bottom: 0,
-          left: '15%',
-          right: '30%',
+          left: '11%',
+          right: '34%',
           zIndex: 10,
           overflow: 'visible',
         }}>
