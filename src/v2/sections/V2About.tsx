@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalShaderTitle from '../components/MetalShaderTitle';
-import MetalAvatar from '../components/MetalAvatar';
+const Lanyard = lazy(() => import('../components/Lanyard'));
 import MetalStatCard from '../components/MetalStatCard';
 import MetalDivider from '../components/MetalDivider';
 import DecryptedText from '../components/DecryptedText';
@@ -9,9 +10,38 @@ import SpotlightCard from '../components/SpotlightCard';
 
 export default function V2About() {
   const { t } = useTranslation();
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const lanyardEl = (
+    <Suspense fallback={null}>
+      <Lanyard position={[0, 0, 10]} gravity={[0, -40, 0]} fov={40} />
+    </Suspense>
+  );
+
   return (
-    <section id="about" className="metal-section">
-      <div className="metal-section-inner">
+    <section id="about" className="metal-section" style={{ position: 'relative', overflow: 'visible' }}>
+      {/* Desktop: absolute, left half, full height */}
+      {isDesktop && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: '15%',
+          right: '30%',
+          zIndex: 10,
+          overflow: 'visible',
+        }}>
+          {lanyardEl}
+        </div>
+      )}
+
+      <div className="metal-section-inner" style={{ position: 'relative', zIndex: 2 }}>
         <MetalScrollReveal>
           <div className="text-center mb-16">
             <span className="block mb-4"><DecryptedText text={t('about.number')} speed={60} className="text-[10px] uppercase tracking-[0.4em] text-[#6b6b6b] font-medium font-body" /></span>
@@ -19,17 +49,8 @@ export default function V2About() {
           </div>
         </MetalScrollReveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          <MetalScrollReveal className="lg:col-span-4 flex justify-center" direction="left">
-            <div className="relative">
-              <MetalAvatar src="/Damien.jpg" size="xl" ring />
-              <div className="mt-4 text-center">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#6b6b6b] font-medium">{t('about.location')}</span>
-              </div>
-            </div>
-          </MetalScrollReveal>
-
-          <MetalScrollReveal className="lg:col-span-8" direction="right" delay={0.15}>
+        <div className="lg:ml-auto lg:max-w-[55%]">
+          <MetalScrollReveal direction="right" delay={0.15}>
             <div className="space-y-5">
               <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#e0e0e0]">
                 {t('about.heading')}

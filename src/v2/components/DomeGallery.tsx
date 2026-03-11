@@ -132,8 +132,8 @@ export default function DomeGallery({
   dragDampening = 2,
   imageBorderRadius = '8px',
   openedImageBorderRadius = '8px',
-  openedImageWidth = '500px',
-  openedImageHeight = '400px',
+  openedImageWidth: _openedImageWidth = '500px',
+  openedImageHeight: _openedImageHeight = '400px',
   chromaRadius = 250,
   chromaDamping = 0.45,
 }: DomeGalleryProps) {
@@ -391,7 +391,7 @@ export default function DomeGallery({
 
     originalTilePositionRef.current = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
     el.style.visibility = 'hidden';
-    (el.style as Record<string, string>).zIndex = '0';
+    el.style.zIndex = '0';
 
     const rawSrc = parent.dataset.src || (el.querySelector('img') as HTMLImageElement)?.src || '';
 
@@ -545,7 +545,7 @@ export default function DomeGallery({
         parent.style.setProperty('--rot-y-delta', '0deg');
         parent.style.setProperty('--rot-x-delta', '0deg');
         el.style.visibility = '';
-        (el.style as Record<string, string>).zIndex = '0';
+        el.style.zIndex = '0';
         focusedElRef.current = null;
         rootRef.current?.removeAttribute('data-enlarging');
         openingRef.current = false;
@@ -611,7 +611,7 @@ export default function DomeGallery({
         requestAnimationFrame(() => {
           el.style.visibility = '';
           el.style.opacity = '0';
-          (el.style as Record<string, string>).zIndex = '0';
+          el.style.zIndex = '0';
           focusedElRef.current = null;
           rootRef.current?.removeAttribute('data-enlarging');
           requestAnimationFrame(() => {
