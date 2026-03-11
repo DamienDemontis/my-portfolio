@@ -119,6 +119,7 @@
   object-fit: cover;
   pointer-events: none;
   backface-visibility: hidden;
+  border-radius: var(--tile-radius, 12px);
 }
 
 .dome-item__image--reference {

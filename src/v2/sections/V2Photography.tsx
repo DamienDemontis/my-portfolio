@@ -52,8 +52,9 @@ export default function V2Photography() {
         <DomeGallery
           images={photos}
           overlayBlurColor="#000000"
-          imageBorderRadius="4px"
-          openedImageBorderRadius="4px"
+          imageBorderRadius="24px"
+          openedImageBorderRadius="24px"
+          segments={45}
           chromaRadius={280}
           chromaDamping={0.4}
         />
