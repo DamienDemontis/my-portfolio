@@ -11,8 +11,13 @@ const MetalLottie: React.FC<MetalLottieProps> = ({ animationPath, className = ''
   const isLoadingRef = useRef(false)
 
   useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    let observer: IntersectionObserver | null = null
+
     const loadLottie = async () => {
-      if (isLoadingRef.current || animationInstanceRef.current || !containerRef.current) {
+      if (isLoadingRef.current || animationInstanceRef.current) {
         return
       }
 
@@ -21,31 +26,44 @@ const MetalLottie: React.FC<MetalLottieProps> = ({ animationPath, className = ''
       try {
         const lottie = await import('lottie-web')
 
-        if (animationInstanceRef.current || !containerRef.current) {
+        if (animationInstanceRef.current || !container) {
           isLoadingRef.current = false
           return
         }
 
-        containerRef.current.innerHTML = ''
+        container.innerHTML = ''
 
         const response = await fetch(animationPath)
         const animationData = await response.json()
 
-        if (!containerRef.current || animationInstanceRef.current) {
+        if (!container || animationInstanceRef.current) {
           isLoadingRef.current = false
           return
         }
 
         animationInstanceRef.current = lottie.default.loadAnimation({
-          container: containerRef.current,
+          container,
           renderer: 'svg',
           loop: true,
-          autoplay: true,
+          autoplay: false,
           animationData: animationData,
           rendererSettings: {
             preserveAspectRatio: 'xMidYMid meet',
           },
         })
+
+        // Pause/play based on visibility
+        observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              animationInstanceRef.current?.play()
+            } else {
+              animationInstanceRef.current?.pause()
+            }
+          },
+          { threshold: 0 },
+        )
+        observer.observe(container)
       } catch (error) {
         console.error('Error loading Lottie animation:', error)
       } finally {
@@ -56,6 +74,7 @@ const MetalLottie: React.FC<MetalLottieProps> = ({ animationPath, className = ''
     loadLottie()
 
     return () => {
+      observer?.disconnect()
       if (animationInstanceRef.current) {
         animationInstanceRef.current.destroy()
         animationInstanceRef.current = null

@@ -198,8 +198,11 @@ export default function Dither({
     };
 
     const start = performance.now();
+    let frozen = false;
 
     const frame = () => {
+      if (frozen) { rafRef.current = 0; return; }
+
       resize();
       const t = disableAnimation ? 0 : (performance.now() - start) / 1000;
 
@@ -220,12 +223,29 @@ export default function Dither({
 
     rafRef.current = requestAnimationFrame(frame);
 
+    // Freeze animation when scrolled past the hero (canvas is behind content anyway)
+    const threshold = window.innerHeight * 1.2;
+    const onScroll = () => {
+      const shouldFreeze = window.scrollY > threshold;
+      if (shouldFreeze && !frozen) {
+        frozen = true;
+        // rAF loop will stop itself on next tick
+      } else if (!shouldFreeze && frozen) {
+        frozen = false;
+        if (!rafRef.current) {
+          rafRef.current = requestAnimationFrame(frame);
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     const el = canvas;
     el.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
       el.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', onScroll);
       gl.deleteProgram(prog);
       gl.deleteShader(vs);
       gl.deleteShader(fs);

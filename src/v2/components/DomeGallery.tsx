@@ -197,8 +197,14 @@ export default function DomeGallery({
     chromaSetY.current(chromaPos.current.y);
   }, []);
 
+  // Reuse a single tween ref to avoid creating/GCing a new gsap.to() on every pointer move
+  const chromaTweenRef = useRef<gsap.core.Tween | null>(null);
+
   const chromaMoveTo = useCallback((x: number, y: number) => {
-    gsap.to(chromaPos.current, {
+    if (chromaTweenRef.current) {
+      chromaTweenRef.current.kill();
+    }
+    chromaTweenRef.current = gsap.to(chromaPos.current, {
       x, y,
       duration: chromaDamping,
       ease: 'power3.out',
@@ -206,7 +212,6 @@ export default function DomeGallery({
         chromaSetX.current?.(chromaPos.current.x);
         chromaSetY.current?.(chromaPos.current.y);
       },
-      overwrite: true,
     });
   }, [chromaDamping]);
 
@@ -348,6 +353,7 @@ export default function DomeGallery({
     const parent = el.parentElement as HTMLElement;
     focusedElRef.current = el;
     el.setAttribute('data-focused', 'true');
+    parent.setAttribute('data-focusing', '');
 
     const offsetX = getDataNumber(parent, 'offsetX', 0);
     const offsetY = getDataNumber(parent, 'offsetY', 0);
@@ -535,6 +541,7 @@ export default function DomeGallery({
       if (!originalPos) {
         overlay.remove();
         if (refDiv) refDiv.remove();
+        parent.removeAttribute('data-focusing');
         parent.style.setProperty('--rot-y-delta', '0deg');
         parent.style.setProperty('--rot-x-delta', '0deg');
         el.style.visibility = '';
@@ -595,6 +602,7 @@ export default function DomeGallery({
         anim.remove();
         originalTilePositionRef.current = null;
         if (refDiv) refDiv.remove();
+        parent.removeAttribute('data-focusing');
         parent.style.transition = 'none';
         el.style.transition = 'none';
         parent.style.setProperty('--rot-y-delta', '0deg');
@@ -679,7 +687,7 @@ export default function DomeGallery({
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} loading="lazy" />
+                  <img src={it.src} draggable={false} alt={it.alt} loading="lazy" decoding="async" />
                 </div>
               </div>
             ))}

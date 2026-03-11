@@ -84,10 +84,14 @@
   transform-origin: 50% 50%;
   backface-visibility: hidden;
   contain: layout style paint;
-  transition: transform 300ms;
   transform: rotateY(calc(var(--rot-y) * (var(--offset-x) + ((var(--item-size-x) - 1) / 2)) + var(--rot-y-delta, 0deg)))
     rotateX(calc(var(--rot-x) * (var(--offset-y) - ((var(--item-size-y) - 1) / 2)) + var(--rot-x-delta, 0deg)))
     translateZ(var(--radius));
+}
+
+/* Only enable transitions on tiles being focused (open/close animation) */
+.dome-item[data-focusing] {
+  transition: transform 300ms;
 }
 
 .dome-item__image {
@@ -98,7 +102,6 @@
   background: transparent;
   overflow: hidden;
   backface-visibility: hidden;
-  transition: transform 300ms;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
