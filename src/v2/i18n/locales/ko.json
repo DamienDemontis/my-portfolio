@@ -327,6 +327,7 @@
   "interests": {
     "number": "08",
     "title": "관심사",
+    "musicSubtitle": "음악 취향",
     "categories": [
       {
         "title": "음악 취향",

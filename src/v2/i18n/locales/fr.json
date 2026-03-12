@@ -327,6 +327,7 @@
   "interests": {
     "number": "08",
     "title": "Centres d'Intérêt",
+    "musicSubtitle": "Goûts Musicaux",
     "categories": [
       {
         "title": "Goûts Musicaux",

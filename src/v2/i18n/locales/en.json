@@ -327,6 +327,7 @@
   "interests": {
     "number": "08",
     "title": "Interests",
+    "musicSubtitle": "Musical Tastes",
     "categories": [
       {
         "title": "Musical Tastes",

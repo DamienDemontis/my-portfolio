@@ -113,3 +113,9 @@ temp/
 *.sw? 
 .vercel
 .env*.local
+
+# Audio files (user-provided, not committed)
+public/music/*.mp3
+
+# Superpowers brainstorm artifacts
+.superpowers/

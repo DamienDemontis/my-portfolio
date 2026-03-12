@@ -172,6 +172,10 @@ html.metal-active::-webkit-scrollbar {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes music-spinner {
+  to { transform: rotate(360deg); }
+}
+
 .metal-noise-overlay {
   position: relative;
 }

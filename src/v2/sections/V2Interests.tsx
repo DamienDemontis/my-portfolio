@@ -3,13 +3,15 @@ import MetalShaderTitle from '../components/MetalShaderTitle';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalBadge from '../components/MetalBadge';
 import DecryptedText from '../components/DecryptedText';
+import { MusicPlayerProvider } from '../contexts/MusicPlayerContext';
+import MusicCarousel from '../components/MusicCarousel';
 
 export default function V2Interests() {
   const { t } = useTranslation();
   const categories = t('interests.categories', { returnObjects: true }) as any[];
 
   return (
-    <section id="interests" className="metal-section">
+    <section id="interests" className="metal-section" style={{ overflowX: 'clip' }}>
       <div className="metal-section-inner">
         <MetalScrollReveal>
           <div className="text-center mb-16">
@@ -25,7 +27,24 @@ export default function V2Interests() {
             </MetalShaderTitle>
           </div>
         </MetalScrollReveal>
+      </div>
 
+      {/* Music carousel — full viewport width, breaks out of metal-section-inner */}
+      <MusicPlayerProvider>
+        <MetalScrollReveal delay={0.1}>
+          <div className="mb-12">
+            <div className="metal-section-inner">
+              <h3 className="text-xs uppercase tracking-[0.2em] text-[#8a8a8a] font-heading font-semibold mb-6 flex items-center gap-3">
+                <span className="w-3 h-px bg-[rgba(255,255,255,0.15)]" />
+                {t('interests.musicSubtitle', 'Musical Tastes')}
+              </h3>
+            </div>
+            <MusicCarousel />
+          </div>
+        </MetalScrollReveal>
+      </MusicPlayerProvider>
+
+      <div className="metal-section-inner">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {categories.map((category: any, i: number) => (
             <MetalScrollReveal key={i} delay={i * 0.1}>
