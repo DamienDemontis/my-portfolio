@@ -26,7 +26,7 @@ export default function V2About() {
 
   return (
     <section id="about" className="metal-section" style={{ position: 'relative', overflow: 'visible' }}>
-      {/* Desktop: absolute, left half, full height */}
+      {/* Desktop: absolute, left half, full height — right uses clamp to prevent overlap on narrow screens */}
       {isDesktop && (
         <div style={{
           position: 'absolute',
@@ -36,8 +36,11 @@ export default function V2About() {
           right: '34%',
           zIndex: 10,
           overflow: 'visible',
+          pointerEvents: 'none',
         }}>
-          {lanyardEl}
+          <div style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}>
+            {lanyardEl}
+          </div>
         </div>
       )}
 

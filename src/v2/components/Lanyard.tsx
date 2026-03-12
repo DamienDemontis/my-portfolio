@@ -47,7 +47,7 @@ export default function Lanyard({
         style={{
           position: 'absolute',
           top: 0,
-          left: '-100%',
+          left: 'calc(-105% + min(0px, (100vw - 1400px) * 0.5))',
           width: '300%',
           height: '100%',
         }}
