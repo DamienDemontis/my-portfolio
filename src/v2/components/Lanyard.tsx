@@ -96,7 +96,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   };
 
   const { nodes, materials } = useGLTF('/card.glb') as any;
-  const texture = useTexture('/lanyard.png');
+  const texture = useTexture('/lanyard-band.png');
   const cardTexture = useMemo(() => {
     const w = 1024;
     const h = 1024;
@@ -419,8 +419,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           resolution={isMobile ? [1000, 2000] : [1000, 1000]}
           useMap
           map={texture}
-          repeat={[-4, 1]}
-          lineWidth={0.1}
+          repeat={[-3, 1.5]}
+          lineWidth={0.06}
         />
       </mesh>
     </>
