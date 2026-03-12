@@ -25,7 +25,7 @@ export default function V2About() {
   );
 
   return (
-    <section id="about" className="metal-section" style={{ position: 'relative', overflow: 'visible' }}>
+    <section id="about" className="metal-section" style={{ position: 'relative', overflowX: 'clip', overflowY: 'visible' }}>
       {/* Desktop: absolute, left half, full height — right uses clamp to prevent overlap on narrow screens */}
       {isDesktop && (
         <div style={{
