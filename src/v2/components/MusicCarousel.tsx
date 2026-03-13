@@ -445,7 +445,7 @@ function CarouselRow({
   }
 
   return (
-    <div style={{ overflow: 'hidden', width: '100%' }}>
+    <div style={{ overflowX: 'hidden', overflowY: 'visible', width: '100%', padding: '20px 0' }}>
       <div
         ref={rowRef}
         {...bind()}

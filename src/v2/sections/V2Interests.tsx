@@ -11,7 +11,7 @@ export default function V2Interests() {
   const categories = t('interests.categories', { returnObjects: true }) as any[];
 
   return (
-    <section id="interests" className="metal-section" style={{ overflowX: 'clip' }}>
+    <section id="interests" className="metal-section">
       <div className="metal-section-inner">
         <MetalScrollReveal>
           <div className="text-center mb-16">

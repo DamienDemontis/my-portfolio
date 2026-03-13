@@ -23,7 +23,7 @@ export default function MusicCard({ track, size = 200, onSelect }: MusicCardProp
     <div
       ref={cardRef}
       onClick={handleClick}
-      style={{ cursor: 'pointer', position: 'relative' }}
+      style={{ cursor: 'pointer', position: 'relative', zIndex: 1 }}
     >
       <TiltedCard
         imageSrc={track.coverUrl}
