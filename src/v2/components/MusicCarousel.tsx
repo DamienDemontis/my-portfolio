@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDrag } from '@use-gesture/react';
 import MusicCard from './MusicCard';
 import ParticleVisualizer from './ParticleVisualizer';
+import LyricsPanel from './LyricsPanel';
 import { useMusicPlayer } from '../contexts/MusicPlayerContext';
 import { row1Tracks, row2Tracks, type Track } from '../data/musicData';
 
@@ -20,10 +21,12 @@ function ExpandedView({
   track,
   sourceRect,
   onClose,
+  isMobile,
 }: {
   track: Track;
   sourceRect: DOMRect;
   onClose: () => void;
+  isMobile: boolean;
 }) {
   const { isPlaying, isLoading, progress, analyserRef, play, pause, resume, seek } =
     useMusicPlayer();
@@ -278,7 +281,9 @@ function ExpandedView({
           >
             {track.genre}
           </span>
+          {isMobile && <LyricsPanel track={track} isMobile />}
         </motion.div>
+        {!isMobile && <LyricsPanel track={track} isMobile={false} />}
       </motion.div>
     </>
   );
@@ -523,6 +528,7 @@ export default function MusicCarousel() {
             track={expandedTrack}
             sourceRect={expandedRect}
             onClose={handleClose}
+            isMobile={isMobile}
           />
         )}
       </AnimatePresence>

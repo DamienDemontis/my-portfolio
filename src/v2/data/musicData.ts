@@ -5,6 +5,7 @@ export interface Track {
   genre: string;
   coverUrl: string;
   audioUrl: string;
+  lyricsOffset?: number; // seconds to add to audio currentTime before matching LRC timestamps
 }
 
 export const tracks: Track[] = [
