@@ -24,6 +24,7 @@ export const tracks: Track[] = [
     genre: 'Hip House',
     coverUrl: '/music/covers/in-my-zone.webp',
     audioUrl: '/music/in-my-zone.mp3',
+    lyricsOffset: -1.5,
   },
   {
     id: 'touch-off',
@@ -64,6 +65,7 @@ export const tracks: Track[] = [
     genre: 'New Wave',
     coverUrl: '/music/covers/dancing-with-myself.webp',
     audioUrl: '/music/dancing-with-myself.mp3',
+    lyricsOffset: -0.5,
   },
   {
     id: 'naihishinsho',
@@ -72,6 +74,7 @@ export const tracks: Track[] = [
     genre: 'J-Rock',
     coverUrl: '/music/covers/naihishinsho.webp',
     audioUrl: '/music/naihishinsho.mp3',
+    lyricsOffset: -1.5,
   },
   {
     id: 'une-vie-a-taimer',
@@ -80,6 +83,7 @@ export const tracks: Track[] = [
     genre: 'Game OST',
     coverUrl: '/music/covers/une-vie-a-taimer.webp',
     audioUrl: '/music/une-vie-a-taimer.mp3',
+    lyricsOffset: 1.5,
   },
   {
     id: 'malas-decisiones',
@@ -88,6 +92,7 @@ export const tracks: Track[] = [
     genre: 'Latin Pop',
     coverUrl: '/music/covers/malas-decisiones.webp',
     audioUrl: '/music/malas-decisiones.mp3',
+    lyricsOffset: -17,
   },
   {
     id: 'echec-et-mat',
@@ -96,9 +101,75 @@ export const tracks: Track[] = [
     genre: 'Electronic Pop',
     coverUrl: '/music/covers/echec-et-mat.webp',
     audioUrl: '/music/echec-et-mat.mp3',
+    lyricsOffset: -2,
+  },
+  {
+    id: 'sotto-casa',
+    title: 'Sotto casa',
+    artist: 'Max Gazzè',
+    genre: 'Italian Pop',
+    coverUrl: '/music/covers/sotto-casa.webp',
+    audioUrl: '/music/sotto-casa.mp3',
+  },
+  {
+    id: 'everything-in-its-right-place',
+    title: 'Everything in Its Right Place',
+    artist: 'Radiohead',
+    genre: 'Art Rock',
+    coverUrl: '/music/covers/everything-in-its-right-place.webp',
+    audioUrl: '/music/everything-in-its-right-place.mp3',
+  },
+  {
+    id: 'big-bang-theory-theme',
+    title: 'The History of Everything',
+    artist: 'Barenaked Ladies',
+    genre: 'Pop Rock',
+    coverUrl: '/music/covers/big-bang-theory-theme.webp',
+    audioUrl: '/music/big-bang-theory-theme.mp3',
+  },
+  {
+    id: 'incense-and-iron',
+    title: 'Incense & Iron',
+    artist: 'Powerwolf',
+    genre: 'Power Metal',
+    coverUrl: '/music/covers/incense-and-iron.webp',
+    audioUrl: '/music/incense-and-iron.mp3',
+  },
+  {
+    id: 'next-semester',
+    title: 'Next Semester',
+    artist: 'Twenty One Pilots',
+    genre: 'Alt Rock',
+    coverUrl: '/music/covers/next-semester.webp',
+    audioUrl: '/music/next-semester.mp3',
+  },
+  {
+    id: 'rat',
+    title: 'Rät',
+    artist: 'Penelope Scott',
+    genre: 'Indie Pop',
+    coverUrl: '/music/covers/rat.webp',
+    audioUrl: '/music/rat.mp3',
+  },
+  {
+    id: 'il-solito-sesso',
+    title: 'Il solito sesso',
+    artist: 'Max Gazzè',
+    genre: 'Italian Pop',
+    coverUrl: '/music/covers/il-solito-sesso.webp',
+    audioUrl: '/music/il-solito-sesso.mp3',
+  },
+  {
+    id: 'red-birthmark',
+    title: 'red:birthmark',
+    artist: 'AINA the end',
+    genre: 'J-Rock',
+    coverUrl: '/music/covers/red-birthmark.webp',
+    audioUrl: '/music/red-birthmark.mp3',
   },
 ];
 
-/** Row 1: first 6 tracks, Row 2: last 5 + first track duplicate (6 each) */
-export const row1Tracks = tracks.slice(0, 6);
-export const row2Tracks = [...tracks.slice(6), tracks[0]];
+/** Row 1: first half, Row 2: second half */
+const half = Math.ceil(tracks.length / 2);
+export const row1Tracks = tracks.slice(0, half);
+export const row2Tracks = tracks.slice(half);

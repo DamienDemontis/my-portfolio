@@ -101,6 +101,60 @@ const tracks = [
     artist: 'Miki',
     ytQuery: 'Miki Échec et mat music',
   },
+  {
+    id: 'sotto-casa',
+    title: 'Sotto casa',
+    artist: 'Max Gazzè',
+    ytQuery: 'Max Gazzè Sotto casa official audio',
+    itunesQuery: 'Max Gazzè Sotto casa',
+  },
+  {
+    id: 'everything-in-its-right-place',
+    title: 'Everything in Its Right Place',
+    artist: 'Radiohead',
+    ytQuery: 'Radiohead Everything in Its Right Place official audio',
+  },
+  {
+    id: 'big-bang-theory-theme',
+    title: 'The History of Everything',
+    artist: 'Barenaked Ladies',
+    ytQuery: 'Barenaked Ladies Big Bang Theory theme song official',
+    itunesQuery: 'Barenaked Ladies History of Everything',
+  },
+  {
+    id: 'incense-and-iron',
+    title: 'Incense & Iron',
+    artist: 'Powerwolf',
+    ytQuery: 'Powerwolf Incense and Iron official audio',
+  },
+  {
+    id: 'next-semester',
+    title: 'Next Semester',
+    artist: 'Twenty One Pilots',
+    ytQuery: 'Twenty One Pilots Next Semester official audio',
+    itunesQuery: 'twenty one pilots next semester',
+  },
+  {
+    id: 'rat',
+    title: 'Rät',
+    artist: 'Penelope Scott',
+    ytQuery: 'Penelope Scott Rät official audio',
+    itunesQuery: 'Penelope Scott Rat',
+  },
+  {
+    id: 'il-solito-sesso',
+    title: 'Il solito sesso',
+    artist: 'Max Gazzè',
+    ytQuery: 'Max Gazzè Il solito sesso official audio',
+    itunesQuery: 'Max Gazzè Il solito sesso',
+  },
+  {
+    id: 'red-birthmark',
+    title: 'red:birthmark',
+    artist: 'AINA the end',
+    ytQuery: 'AINA the end red birthmark official',
+    itunesQuery: 'AINA the end red birthmark',
+  },
 ];
 
 // ─── Helpers ───

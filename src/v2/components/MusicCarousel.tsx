@@ -212,19 +212,27 @@ function ExpandedView({
             ✕
           </motion.button>
 
-          {/* Progress bar */}
+          {/* Progress bar — larger hover target */}
           <div
             onClick={handleSeek}
+            className="music-progress-bar"
             style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              height: 4,
+              height: 6,
               backgroundColor: 'rgba(255,255,255,0.1)',
               borderRadius: '0 0 20px 20px',
               cursor: 'pointer',
               overflow: 'hidden',
+              transition: 'height 0.2s ease, bottom 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.height = '14px';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.height = '6px';
             }}
           >
             <div
