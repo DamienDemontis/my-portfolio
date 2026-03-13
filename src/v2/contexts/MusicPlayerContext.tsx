@@ -26,6 +26,7 @@ interface MusicPlayerActions {
 
 interface MusicPlayerContextValue extends MusicPlayerState, MusicPlayerActions {
   amplitudeRef: React.MutableRefObject<number>;
+  analyserRef: React.RefObject<AnalyserNode | null>;
 }
 
 const MusicPlayerContext = createContext<MusicPlayerContextValue | null>(null);
@@ -219,6 +220,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         isLoading,
         progress,
         amplitudeRef,
+        analyserRef,
         play,
         pause,
         resume,

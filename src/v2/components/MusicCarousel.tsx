@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDrag } from '@use-gesture/react';
 import MusicCard from './MusicCard';
+import ParticleVisualizer from './ParticleVisualizer';
 import { useMusicPlayer } from '../contexts/MusicPlayerContext';
 import { row1Tracks, row2Tracks, type Track } from '../data/musicData';
 
@@ -24,11 +25,12 @@ function ExpandedView({
   sourceRect: DOMRect;
   onClose: () => void;
 }) {
-  const { isPlaying, isLoading, progress, amplitudeRef, play, pause, resume, seek } =
+  const { isPlaying, isLoading, progress, analyserRef, play, pause, resume, seek } =
     useMusicPlayer();
 
-  const glowRef = useRef<HTMLDivElement>(null);
-  const glowRafRef = useRef<number>(0);
+  const cardInnerRef = useRef<HTMLDivElement>(null);
+  const pulseRafRef = useRef<number>(0);
+  const smoothBassRef = useRef(0);
 
   // Auto-play on mount
   useEffect(() => {
@@ -36,24 +38,31 @@ function ExpandedView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Ambient glow
+  // Bass-driven cover pulse: subtle scale 1.0 → 1.03 on kicks
   useEffect(() => {
-    if (!isPlaying) {
-      if (glowRef.current) glowRef.current.style.boxShadow = 'none';
-      cancelAnimationFrame(glowRafRef.current);
-      return;
-    }
+    const analyser = analyserRef.current;
+    if (!analyser) return;
+    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
     const tick = () => {
-      const amp = amplitudeRef.current;
-      if (glowRef.current) {
-        glowRef.current.style.boxShadow =
-          `0 0 ${amp * 40}px ${amp * 20}px rgba(255, 232, 214, ${amp * 0.5})`;
+      if (!cardInnerRef.current) {
+        pulseRafRef.current = requestAnimationFrame(tick);
+        return;
       }
-      glowRafRef.current = requestAnimationFrame(tick);
+      analyser.getByteFrequencyData(dataArray);
+      // Bass energy from bins 0–15
+      let bassSum = 0;
+      for (let i = 0; i < 16; i++) bassSum += dataArray[i];
+      const rawBass = bassSum / 16 / 255;
+      // EMA smooth
+      smoothBassRef.current += (rawBass - smoothBassRef.current) * 0.3;
+      const scale = 1 + smoothBassRef.current * 0.07;
+      cardInnerRef.current.style.transform = `scale(${scale})`;
+      pulseRafRef.current = requestAnimationFrame(tick);
     };
-    glowRafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(glowRafRef.current);
-  }, [isPlaying, amplitudeRef]);
+    pulseRafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(pulseRafRef.current);
+  }, [analyserRef]);
 
   const handlePlayPause = useCallback(() => {
     if (isLoading) return;
@@ -94,11 +103,23 @@ function ExpandedView({
         }}
       />
 
+      {/* Particle visualizer */}
+      <ParticleVisualizer
+        analyserRef={analyserRef}
+        isPlaying={isPlaying}
+        coverUrl={track.coverUrl}
+        cardRect={{
+          cx: (typeof window !== 'undefined' ? window.innerWidth : 800) / 2,
+          cy: (typeof window !== 'undefined' ? window.innerHeight : 600) / 2 - 40,
+          size: expandedSize,
+        }}
+      />
+
       {/* Card container */}
       <motion.div
         initial={{
           position: 'fixed',
-          zIndex: 1001,
+          zIndex: 1002,
           left: sourceRect.left,
           top: sourceRect.top,
           width: sourceRect.width,
@@ -119,9 +140,9 @@ function ExpandedView({
         }}
         transition={{ type: 'spring', damping: 28, stiffness: 260, mass: 0.8 }}
         onClick={(e) => e.stopPropagation()}
-        style={{ position: 'fixed', zIndex: 1001 }}
+        style={{ position: 'fixed', zIndex: 1002 }}
       >
-        <div ref={glowRef} style={{ borderRadius: 20, width: '100%', height: '100%' }}>
+        <div ref={cardInnerRef} style={{ borderRadius: 20, width: '100%', height: '100%', transition: 'transform 0.05s ease-out' }}>
           {/* Album cover */}
           <img
             src={track.coverUrl}
