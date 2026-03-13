@@ -112,7 +112,7 @@ const tracks = [
     id: 'big-bang-theory-theme',
     title: 'The History of Everything',
     artist: 'Barenaked Ladies',
-    ytQuery: 'Barenaked Ladies Big Bang Theory theme song official',
+    ytQuery: 'Barenaked Ladies History of Everything Big Bang Theory full theme',
     itunesQuery: 'Barenaked Ladies History of Everything',
   },
   {

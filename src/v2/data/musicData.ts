@@ -134,6 +134,7 @@ export const tracks: Track[] = [
     genre: 'Alt Rock',
     coverUrl: '/music/covers/next-semester.webp',
     audioUrl: '/music/next-semester.mp3',
+    lyricsOffset: -7.5,
   },
   {
     id: 'rat',
