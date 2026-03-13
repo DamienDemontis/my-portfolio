@@ -65,12 +65,6 @@ const tracks = [
     itunesQuery: 'Ado usseewa',
   },
   {
-    id: 'glace',
-    title: 'Glace',
-    artist: 'Say',
-    ytQuery: 'Say Glace music',
-  },
-  {
     id: 'dancing-with-myself',
     title: 'Dancing with Myself',
     artist: 'Billy Idol',

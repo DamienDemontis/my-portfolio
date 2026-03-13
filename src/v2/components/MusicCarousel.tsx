@@ -11,7 +11,6 @@ const CARD_WIDTH = 200;
 const CARD_GAP = 16;
 const CARD_MOBILE_WIDTH = 160;
 const SCROLL_SPEED = 0.5; // px per frame (~30px/s at 60fps)
-const HOVER_SPEED = 0.15; // slow crawl when hovered
 const LERP_FACTOR = 0.07; // smoothness of speed transitions
 const SPEED_SNAP_THRESHOLD = 0.01; // snap to target when this close
 
@@ -476,7 +475,6 @@ function CarouselRow({
 
 export default function MusicCarousel() {
   const { isPlaying } = useMusicPlayer();
-  const [hovered, setHovered] = useState(false);
   const [expandedTrack, setExpandedTrack] = useState<Track | null>(null);
   const [expandedRect, setExpandedRect] = useState<DOMRect | null>(null);
   const [isMobile, setIsMobile] = useState(
@@ -489,8 +487,8 @@ export default function MusicCarousel() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Fully stop when expanded/playing; slow crawl on hover; full speed otherwise
-  const targetSpeed = expandedTrack || isPlaying ? 0 : hovered ? HOVER_SPEED : SCROLL_SPEED;
+  // Fully stop when expanded/playing; full speed otherwise
+  const targetSpeed = expandedTrack || isPlaying ? 0 : SCROLL_SPEED;
   const cardW = isMobile ? CARD_MOBILE_WIDTH : CARD_WIDTH;
 
   const handleCardSelect = useCallback((track: Track, rect: DOMRect) => {
@@ -508,8 +506,6 @@ export default function MusicCarousel() {
       role="region"
       aria-label="Music player carousel"
       style={{ width: '100%' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       <CarouselRow
         tracks={row1Tracks}

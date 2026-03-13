@@ -88,10 +88,6 @@ export default function LyricsPanel({
     ? VISIBLE_LINES * LINE_HEIGHT * 0.6
     : VISIBLE_LINES * LINE_HEIGHT;
 
-  // Center the active line in the container
-  const centerOffset = containerHeight / 2 - LINE_HEIGHT / 2;
-  const scrollY = activeIdx >= 0 ? centerOffset - activeIdx * LINE_HEIGHT : centerOffset;
-
   if (isMobile) {
     return (
       <div style={{ width: '100%', marginTop: 20 }}>
@@ -109,7 +105,6 @@ export default function LyricsPanel({
           <LyricsScroller
             lyrics={lyrics}
             activeIdx={activeIdx}
-            scrollY={scrollY}
             containerHeight={containerHeight}
             align="center"
           />
@@ -153,7 +148,6 @@ export default function LyricsPanel({
         <LyricsScroller
           lyrics={lyrics}
           activeIdx={activeIdx}
-          scrollY={scrollY}
           containerHeight={containerHeight}
           align="left"
         />
@@ -269,17 +263,31 @@ function OffsetDebugCard({
 function LyricsScroller({
   lyrics,
   activeIdx,
-  scrollY,
   containerHeight,
   align,
 }: {
   lyrics: LyricLine[];
   activeIdx: number;
-  scrollY: number;
   containerHeight: number;
   align: 'left' | 'center';
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const lineRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Measure actual DOM positions to compute scroll offset
+  useEffect(() => {
+    if (activeIdx < 0 || !lineRefs.current[activeIdx]) {
+      setScrollY(0);
+      return;
+    }
+    const el = lineRefs.current[activeIdx];
+    if (!el) return;
+    // Center the active element in the container
+    const elTop = el.offsetTop;
+    const elHeight = el.offsetHeight;
+    const target = containerHeight / 2 - elTop - elHeight / 2;
+    setScrollY(target);
+  }, [activeIdx, containerHeight]);
 
   // Top/bottom fade masks
   const maskImage =
@@ -287,7 +295,6 @@ function LyricsScroller({
 
   return (
     <div
-      ref={containerRef}
       style={{
         position: 'relative',
         height: containerHeight,
@@ -308,8 +315,9 @@ function LyricsScroller({
           return (
             <div
               key={line.time}
+              ref={(el) => { lineRefs.current[i] = el; }}
               style={{
-                height: LINE_HEIGHT,
+                padding: '8px 0',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: align === 'center' ? 'center' : 'flex-start',
@@ -319,7 +327,7 @@ function LyricsScroller({
                 fontFamily: 'var(--font-body)',
                 fontSize: isActive ? 17 : 15,
                 fontWeight: isActive ? 700 : 400,
-                lineHeight: 1.3,
+                lineHeight: 1.4,
                 letterSpacing: isActive ? '0.01em' : '0',
                 transform: isActive ? 'scale(1.02)' : 'scale(1)',
                 transformOrigin: align === 'center' ? 'center center' : 'left center',

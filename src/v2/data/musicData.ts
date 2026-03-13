@@ -51,14 +51,6 @@ export const tracks: Track[] = [
     audioUrl: '/music/usseewa.mp3',
   },
   {
-    id: 'glace',
-    title: 'Glace',
-    artist: 'Say',
-    genre: 'TBD',
-    coverUrl: '/music/covers/glace.webp',
-    audioUrl: '/music/glace.mp3',
-  },
-  {
     id: 'dancing-with-myself',
     title: 'Dancing with Myself',
     artist: 'Billy Idol',
