@@ -423,11 +423,14 @@ function CarouselRow({
       isDraggingRef.current = active;
       if (active) {
         let newPos = memo + mx;
-        // Wrap using modulo to stay in bounds
-        newPos = ((newPos % rowWidth) + rowWidth) % rowWidth;
-        // For left-scroll, position is negative
-        if (direction === 'left') newPos = -newPos || 0;
-        else newPos = -(rowWidth - newPos);
+        // Wrap to keep position within valid range
+        if (direction === 'left') {
+          while (newPos > 0) newPos -= rowWidth;
+          while (newPos <= -rowWidth) newPos += rowWidth;
+        } else {
+          while (newPos >= 0) newPos -= rowWidth;
+          while (newPos < -rowWidth) newPos += rowWidth;
+        }
         posRef.current = newPos;
         if (rowRef.current) {
           rowRef.current.style.transform = `translate3d(${newPos}px, 0, 0)`;
@@ -435,7 +438,7 @@ function CarouselRow({
       }
       return memo;
     },
-    { axis: 'x', filterTaps: true }
+    { axis: 'x', filterTaps: true, pointer: { capture: true } }
   );
 
   // Build repeated track list

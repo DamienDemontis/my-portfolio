@@ -327,10 +327,10 @@
   "interests": {
     "number": "08",
     "title": "Interests",
-    "musicSubtitle": "Musical Tastes",
+    "musicSubtitle": "Absolute Nonsense Musical Taste",
     "categories": [
       {
-        "title": "Musical Tastes",
+        "title": "Absolute Nonsense Musical Taste",
         "items": ["Japanese Pop", "Electronic Music", "Jazz", "French Classics"]
       },
       {

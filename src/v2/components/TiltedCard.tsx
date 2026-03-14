@@ -109,6 +109,7 @@ export default function TiltedCard({
           src={imageSrc}
           alt={altText}
           loading="lazy"
+          draggable={false}
           style={{
             position: 'absolute',
             top: 0,

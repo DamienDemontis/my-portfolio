@@ -36,7 +36,7 @@ export default function V2Interests() {
             <div className="metal-section-inner">
               <h3 className="text-xs uppercase tracking-[0.2em] text-[#8a8a8a] font-heading font-semibold mb-6 flex items-center gap-3">
                 <span className="w-3 h-px bg-[rgba(255,255,255,0.15)]" />
-                {t('interests.musicSubtitle', 'Musical Tastes')}
+                {t('interests.musicSubtitle', 'Absolute Nonsense Musical Taste')}
               </h3>
             </div>
             <MusicCarousel />
