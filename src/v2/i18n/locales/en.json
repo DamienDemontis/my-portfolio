@@ -328,24 +328,16 @@
     "number": "08",
     "title": "Interests",
     "musicSubtitle": "Absolute Nonsense Musical Taste",
-    "categories": [
-      {
-        "title": "Absolute Nonsense Musical Taste",
-        "items": ["Japanese Pop", "Electronic Music", "Jazz", "French Classics"]
-      },
-      {
-        "title": "Global Perspectives",
-        "items": ["Ecology", "Geopolitics", "Asian Culture"]
-      },
-      {
-        "title": "Tech Enthusiasm",
-        "items": ["Tech Innovation", "AI/ML", "Game Development"]
-      },
-      {
-        "title": "Personal Growth",
-        "items": ["Cultural Exchange", "Continuous Learning", "Community Building"]
-      }
-    ]
+    "ecologySubtitle": "Ecology & Collapse",
+    "ecologyDescription": "What happens when civilizations push past planetary boundaries? These talks shaped how I think about our future.",
+    "talksSubtitle": "Tech Talks",
+    "talksDescription": "I regularly give talks at Epitech on a wide range of subjects — from deep technical topics and new technology introductions to video game history and culture. Speaking about what fascinates me is one of the best ways I know to learn deeper and share that spark with others.",
+    "travelSubtitle": "Adventures Abroad",
+    "travelDescription": "As an Epitech Ambassador, I spent a year on exchange at Keimyung University in Daegu, South Korea. An experience that reshaped my worldview.",
+    "beyondMusicSubtitle": "Other",
+    "tab_ecology": "Ecology & Collapse",
+    "tab_talks": "Tech Talks",
+    "tab_travel": "Adventures Abroad"
   },
   "photography": {
     "number": "09",
