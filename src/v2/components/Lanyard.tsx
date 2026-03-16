@@ -298,6 +298,63 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
     const tex = new THREE.CanvasTexture(canvas);
     tex.flipY = false;
     tex.colorSpace = THREE.SRGBColorSpace;
+
+    // Load portrait and composite on front face right side
+    const portrait = new Image();
+    portrait.crossOrigin = 'anonymous';
+    portrait.onload = () => {
+      // Draw portrait on right portion of front face, fading into background
+      const portraitH = 480;
+      // Card mesh is taller than wide (~0.8:1.125 aspect), so horizontal gets stretched
+      // Compensate by drawing narrower: multiply by card aspect ratio (0.8/1.125 ≈ 0.71)
+      const portraitW = Math.round((portrait.width / portrait.height) * portraitH * 0.95);
+      const drawX = fw - portraitW + 120; // shift right so only left portion visible
+      const drawY = h - portraitH - 300; // higher up
+
+      // Draw portrait using an offscreen canvas with alpha mask for smooth edges
+      const offscreen = document.createElement('canvas');
+      offscreen.width = portraitW;
+      offscreen.height = portraitH;
+      const offCtx = offscreen.getContext('2d')!;
+
+      // Draw portrait at full opacity on offscreen canvas
+      offCtx.drawImage(portrait, 0, 0, portraitW, portraitH);
+
+      // Use destination-out to fade edges (left, top, bottom)
+      offCtx.globalCompositeOperation = 'destination-out';
+
+      // Fade left edge
+      const fadeLeft = offCtx.createLinearGradient(0, 0, 140, 0);
+      fadeLeft.addColorStop(0, 'rgba(0,0,0,1)');
+      fadeLeft.addColorStop(1, 'rgba(0,0,0,0)');
+      offCtx.fillStyle = fadeLeft;
+      offCtx.fillRect(0, 0, 140, portraitH);
+
+      // Fade top edge
+      const fadeTop = offCtx.createLinearGradient(0, 0, 0, 80);
+      fadeTop.addColorStop(0, 'rgba(0,0,0,1)');
+      fadeTop.addColorStop(1, 'rgba(0,0,0,0)');
+      offCtx.fillStyle = fadeTop;
+      offCtx.fillRect(0, 0, portraitW, 80);
+
+      // Fade bottom edge
+      const fadeBottom = offCtx.createLinearGradient(0, portraitH - 80, 0, portraitH);
+      fadeBottom.addColorStop(0, 'rgba(0,0,0,0)');
+      fadeBottom.addColorStop(1, 'rgba(0,0,0,1)');
+      offCtx.fillStyle = fadeBottom;
+      offCtx.fillRect(0, portraitH - 80, portraitW, 80);
+
+      // Composite onto main canvas with reduced opacity
+      ctx.save();
+      ctx.globalAlpha = 0.4;
+      ctx.drawImage(offscreen, drawX, drawY);
+      ctx.globalAlpha = 1.0;
+      ctx.restore();
+
+      tex.needsUpdate = true;
+    };
+    portrait.src = '/images/portrait.webp';
+
     return tex;
   }, []);
   const [curve] = useState(
