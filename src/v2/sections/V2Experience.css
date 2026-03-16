@@ -310,6 +310,44 @@
   border: 1px solid rgba(127, 168, 130, 0.2);
 }
 
+/* Content row: text left, logo right */
+.git-commit-content-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.git-commit-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.git-company-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 6px;
+  opacity: 0.6;
+  transition: opacity 0.3s, filter 0.3s;
+  flex-shrink: 0;
+}
+
+.git-commit-row:hover .git-company-logo {
+  opacity: 0.9;
+}
+
+.git-company-lottie {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.git-commit-row:hover .git-company-lottie {
+  opacity: 0.9;
+}
+
 /* Job title — prominent */
 .git-commit-title {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
@@ -317,7 +355,6 @@
   font-weight: 600;
   color: #ddd;
   line-height: 1.4;
-  margin-bottom: 2px;
   transition: color 0.2s;
 }
 

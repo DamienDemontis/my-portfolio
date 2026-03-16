@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalShaderTitle from '../components/MetalShaderTitle';
+import MetalLottie from '../components/MetalLottie';
 import DecryptedText from '../components/DecryptedText';
 import './V2Experience.css';
 
@@ -65,6 +66,8 @@ interface Position {
   impact: string;
   industry: string;
   current?: boolean;
+  logo?: string;
+  lottie?: string;
 }
 
 const positions: Position[] = [
@@ -75,6 +78,7 @@ const positions: Position[] = [
     location: 'Nancy, France',
     industry: 'HealthTech',
     current: true,
+    logo: '/Logo_pandalab.webp',
     description: 'Leading fullstack development at a HealthTech company providing a comprehensive e-health coordination platform for healthcare professionals. ISO 27001 & HDS certified with 23,900+ users.',
     technologies: ['Vue 3', 'Vuex', 'Node.js', 'Fastify', 'Vite', 'MongoDB', 'Redis', 'RabbitMQ', 'Docker', 'Nomad', 'Security', 'Frontend Design', 'MCP'],
     achievements: [
@@ -93,6 +97,7 @@ const positions: Position[] = [
     location: 'Remote',
     industry: 'AI / Open Source',
     current: true,
+    lottie: '/JobNeko.json',
     description: 'Founded an open-source AI-powered job market analysis platform. Self-hostable with upcoming SaaS model.',
     technologies: ['Next.js', 'TypeScript', 'OpenAI', 'Prisma', 'Node.js', 'React', 'Tailwind CSS', 'PostgreSQL', 'Chrome Extension API', 'RAG', 'Web Scraping', 'LLM Integration', 'Docker'],
     achievements: [
@@ -112,6 +117,7 @@ const positions: Position[] = [
     period: 'Mar 2024 — Aug 2024',
     location: 'Nancy, France',
     industry: 'EdTech',
+    logo: '/Epitech_Official_Logo.webp',
     description: 'Mentored MSc students on advanced software engineering. Built a cloud-based facial recognition attendance platform.',
     technologies: ['React', 'Vue.js', 'Node.js', 'NestJS', 'Next.js', 'Docker', 'Kubernetes', 'AWS', 'GCP', 'Azure', 'PyTorch', 'OpenCV', 'OWASP Top 10', 'Scrum', 'Kanban'],
     achievements: [
@@ -129,6 +135,7 @@ const positions: Position[] = [
     period: '2021 — Aug 2024',
     location: 'Nancy, France',
     industry: 'EdTech',
+    logo: '/Epitech_Official_Logo.webp',
     description: 'Mentored 200+ students across fundamental and advanced programming concepts, from C/C++ to modern web technologies and DevOps practices.',
     technologies: ['C', 'C++', 'SFML', 'Git', 'Docker', 'SQL', 'JavaScript', 'REST APIs', 'Linux', 'Design Patterns', 'CUnit', 'GoogleTest'],
     achievements: [
@@ -145,6 +152,7 @@ const positions: Position[] = [
     period: 'Apr 2023 — Mar 2025',
     location: 'Daegu, Korea',
     industry: 'Startup',
+    logo: '/images/leonart-logo.webp',
     description: 'Architected scalable backend systems for an international art marketplace startup. Led a 7-person cross-functional team.',
     technologies: ['Node.js', 'TypeScript', 'Express', 'MongoDB', 'Stripe', 'React Native', 'GCP', 'Docker', 'Kubernetes', 'Firebase', 'REST APIs', 'WebSockets', 'JWT', 'OAuth 2.0'],
     achievements: [
@@ -162,6 +170,7 @@ const positions: Position[] = [
     period: 'Apr 2023 — Aug 2023',
     location: 'Nancy, France',
     industry: 'Fintech',
+    logo: '/Logo-plus-simple.webp',
     description: 'Migrated a monolithic Django application to Nuxt frontend. Cut page load times by 50% and increased test coverage by 30%.',
     technologies: ['Nuxt.js', 'Vue.js', 'Pinia', 'Django', 'PostgreSQL', 'GitLab CI/CD', 'Python', 'Microservices'],
     achievements: [
@@ -178,6 +187,7 @@ const positions: Position[] = [
     period: 'Jul 2021 — Dec 2021',
     location: 'Nancy, France',
     industry: 'Insurance',
+    logo: '/acoris_logo.webp',
     description: 'Developed front-end solutions with WordPress/PHP. Designed MySQL database structures.',
     technologies: ['WordPress', 'PHP', 'MySQL', 'JavaScript', 'CSS', 'Custom Themes', 'Plugin Development'],
     achievements: [
@@ -470,20 +480,30 @@ function CommitRow({
           </div>
         ) : (
           <>
-            <div className="git-commit-title">{pos!.title}</div>
-            <div className="git-commit-message">
-              <TypingText text={commit.commitMsg} delay={index * 80 + 300} speed={20} />
-              {' '}<span className="company">— {pos!.company}</span>
-            </div>
-            <div className="git-commit-meta">
-              <span>{pos!.period}</span>
-              <span className="separator">·</span>
-              <span>{pos!.location}</span>
-              {pos!.current && (
-                <>
+            <div className="git-commit-content-row">
+              <div className="git-commit-text">
+                <div className="git-commit-title">{pos!.title}</div>
+                <div className="git-commit-message">
+                  <TypingText text={commit.commitMsg} delay={index * 80 + 300} speed={20} />
+                  {' '}<span className="company">— {pos!.company}</span>
+                </div>
+                <div className="git-commit-meta">
+                  <span>{pos!.period}</span>
                   <span className="separator">·</span>
-                  <span style={{ color: '#7fa882' }}>● active</span>
-                </>
+                  <span>{pos!.location}</span>
+                  {pos!.current && (
+                    <>
+                      <span className="separator">·</span>
+                      <span style={{ color: '#7fa882' }}>● active</span>
+                    </>
+                  )}
+                </div>
+              </div>
+              {pos!.logo && (
+                <img src={pos!.logo} alt={pos!.company} className="git-company-logo" />
+              )}
+              {pos!.lottie && (
+                <MetalLottie animationPath={pos!.lottie} className="git-company-lottie" />
               )}
             </div>
           </>
