@@ -157,7 +157,7 @@ const positions: Position[] = [
     impact: 'Successfully architected a complete commercial marketplace, demonstrating full-stack leadership in a startup environment.',
   },
   {
-    title: 'Web Developer Intern',
+    title: 'Fullstack Developer Intern',
     company: '+Simple',
     period: 'Apr 2023 — Aug 2023',
     location: 'Nancy, France',
@@ -470,6 +470,7 @@ function CommitRow({
           </div>
         ) : (
           <>
+            <div className="git-commit-title">{pos!.title}</div>
             <div className="git-commit-message">
               <TypingText text={commit.commitMsg} delay={index * 80 + 300} speed={20} />
               {' '}<span className="company">— {pos!.company}</span>

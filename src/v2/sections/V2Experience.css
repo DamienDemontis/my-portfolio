@@ -106,6 +106,7 @@
   padding-right: 20px;
   transition: background 0.25s ease;
   position: relative;
+  outline: none;
 }
 
 .git-commit-row:hover {
@@ -114,6 +115,7 @@
 
 .git-commit-row.is-expanded {
   background: rgba(255, 255, 255, 0.02);
+  outline: none;
 }
 
 .git-commit-row.is-bookend {
@@ -308,16 +310,31 @@
   border: 1px solid rgba(127, 168, 130, 0.2);
 }
 
+/* Job title — prominent */
+.git-commit-title {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+  line-height: 1.4;
+  margin-bottom: 2px;
+  transition: color 0.2s;
+}
+
+.git-commit-row:hover .git-commit-title {
+  color: #fff;
+}
+
 .git-commit-message {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 13px;
-  color: #bbb;
+  font-size: 12px;
+  color: #888;
   line-height: 1.5;
   transition: color 0.2s;
 }
 
 .git-commit-row:hover .git-commit-message {
-  color: #eee;
+  color: #aaa;
 }
 
 .git-commit-message .company {
