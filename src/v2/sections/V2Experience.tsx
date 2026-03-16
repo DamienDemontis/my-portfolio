@@ -179,7 +179,7 @@ export default function V2Experience() {
                   <div className="px-5 md:px-6 py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
                     <div className="flex items-center gap-3 md:w-[140px] shrink-0">
                       <span className="text-[10px] uppercase tracking-[0.12em] text-[#6b6b6b] font-medium whitespace-nowrap font-body">
-                        {pos.period.split('—')[0].trim()}
+                        {pos.period}
                       </span>
                       {pos.current && (
                         <span className="w-1.5 h-1.5 rounded-full bg-[#555] animate-pulse" />

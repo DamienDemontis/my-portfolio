@@ -307,7 +307,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
       const portraitH = 480;
       // Card mesh is taller than wide (~0.8:1.125 aspect), so horizontal gets stretched
       // Compensate by drawing narrower: multiply by card aspect ratio (0.8/1.125 ≈ 0.71)
-      const portraitW = Math.round((portrait.width / portrait.height) * portraitH * 0.95);
+      const portraitW = Math.round((portrait.width / portrait.height) * portraitH * 0.92 );
       const drawX = fw - portraitW + 120; // shift right so only left portion visible
       const drawY = h - portraitH - 300; // higher up
 
