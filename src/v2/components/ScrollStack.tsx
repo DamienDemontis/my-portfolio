@@ -51,8 +51,6 @@ export default function ScrollStack({
   const positionsCachedRef = useRef(false);
   const lastTransformsRef = useRef(new Map<number, { translateY: number; scale: number; rotation: number; blur: number }>());
 
-  // Store config in refs so the scroll handler always reads latest values
-  // without needing to recreate the callback
   const configRef = useRef({
     itemScale, itemStackDistance, stackPosition, scaleEndPosition,
     baseScale, rotationAmount, blurAmount, useWindowScroll,
@@ -71,7 +69,36 @@ export default function ScrollStack({
     return parseFloat(String(value));
   }, []);
 
-  // Stable callback that reads from refs — never changes identity
+  // Recache card positions — called on mount AND whenever layout changes
+  const recachePositions = useCallback(() => {
+    const cards = cardsRef.current;
+    if (!cards.length) return;
+
+    // Temporarily strip transforms so we read true DOM positions
+    const savedTransforms = cards.map(c => c.style.transform);
+    cards.forEach(c => { c.style.transform = 'none'; });
+
+    // Force reflow
+    void (scrollerRef.current?.offsetHeight ?? document.body.offsetHeight);
+
+    cardOriginalTopsRef.current = cards.map((card) => {
+      const rect = card.getBoundingClientRect();
+      return rect.top + window.scrollY;
+    });
+
+    const scroller = scrollerRef.current;
+    const endEl = scroller?.querySelector('.scroll-stack-end');
+    if (endEl) {
+      const rect = endEl.getBoundingClientRect();
+      endOriginalTopRef.current = rect.top + window.scrollY;
+    }
+
+    // Restore transforms
+    cards.forEach((c, i) => { c.style.transform = savedTransforms[i]; });
+
+    positionsCachedRef.current = true;
+  }, []);
+
   const updateCardTransforms = useCallback(() => {
     const cards = cardsRef.current;
     if (!cards.length || !positionsCachedRef.current) return;
@@ -156,7 +183,7 @@ export default function ScrollStack({
     });
   }, [parsePercentage]);
 
-  // Cache positions ONCE on mount — no dependency on updateCardTransforms
+  // Initialize cards on mount
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
@@ -164,7 +191,6 @@ export default function ScrollStack({
     const cards = Array.from(scroller.querySelectorAll('.scroll-stack-card')) as HTMLElement[];
     cardsRef.current = cards;
 
-    // Apply margins and styles (no transform reset needed — cards start clean)
     cards.forEach((card, i) => {
       if (i < cards.length - 1) card.style.marginBottom = `${itemDistance}px`;
       card.style.willChange = 'transform, filter';
@@ -172,22 +198,7 @@ export default function ScrollStack({
       card.style.backfaceVisibility = 'hidden';
     });
 
-    // Force reflow
-    void scroller.offsetHeight;
-
-    // Cache original positions
-    cardOriginalTopsRef.current = cards.map((card) => {
-      const rect = card.getBoundingClientRect();
-      return rect.top + window.scrollY;
-    });
-
-    const endEl = scroller.querySelector('.scroll-stack-end');
-    if (endEl) {
-      const rect = endEl.getBoundingClientRect();
-      endOriginalTopRef.current = rect.top + window.scrollY;
-    }
-
-    positionsCachedRef.current = true;
+    recachePositions();
     updateCardTransforms();
 
     return () => {
@@ -197,9 +208,56 @@ export default function ScrollStack({
       lastTransformsRef.current.clear();
       stackCompletedRef.current = false;
     };
-    // Only re-run if children change (itemDistance is stable across renders)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemDistance]);
+
+  // Watch for layout changes (images loading, sections expanding, etc.)
+  // and recache positions when the document height changes
+  useEffect(() => {
+    let lastBodyHeight = document.body.scrollHeight;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const checkAndRecache = () => {
+      const currentHeight = document.body.scrollHeight;
+      if (currentHeight !== lastBodyHeight) {
+        lastBodyHeight = currentHeight;
+        recachePositions();
+        updateCardTransforms();
+      }
+    };
+
+    // ResizeObserver on document body — fires when any content changes height
+    const resizeObserver = new ResizeObserver(() => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(checkAndRecache, 100);
+    });
+    resizeObserver.observe(document.body);
+
+    // Also recache on window resize
+    const onResize = () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        recachePositions();
+        updateCardTransforms();
+      }, 150);
+    };
+    window.addEventListener('resize', onResize);
+
+    // Recache a few times in the first seconds to catch late-loading content
+    const earlyRecacheTimers = [500, 1500, 3000, 6000].map(ms =>
+      setTimeout(() => {
+        recachePositions();
+        updateCardTransforms();
+      }, ms)
+    );
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', onResize);
+      if (debounceTimer) clearTimeout(debounceTimer);
+      earlyRecacheTimers.forEach(clearTimeout);
+    };
+  }, [recachePositions, updateCardTransforms]);
 
   // Scroll listener
   useEffect(() => {
