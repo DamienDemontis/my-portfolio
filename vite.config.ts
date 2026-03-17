@@ -26,7 +26,7 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor chunk for React and related core libraries
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('its-fine')) {
               return 'vendor'
             }
             if (id.includes('framer-motion')) {
