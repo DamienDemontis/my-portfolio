@@ -38,8 +38,9 @@ if (process.env.NODE_ENV === 'development') {
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   const pathname = window.location.pathname
-  const isV2 = pathname === '/v2'
+  const isV1 = pathname === '/v1'
   const isShowcase = pathname === '/v2/showcase'
+  const isV2 = !isV1 && !isShowcase
 
   useEffect(() => {
     if (isLowEndDevice()) {
