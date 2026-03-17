@@ -4,6 +4,20 @@ import MetalParticleField from '../components/MetalParticleField';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import DecryptedText from '../components/DecryptedText';
 
+// Black halo: multiple tight shadows that knock out the background right behind each glyph
+// Hard black knockout — no blur, just solid black offsets in all directions
+const blackKnockout = [
+  '0 0 0 #000',
+  '1px 0 0 #000', '-1px 0 0 #000',
+  '0 1px 0 #000', '0 -1px 0 #000',
+  '1px 1px 0 #000', '-1px -1px 0 #000',
+  '1px -1px 0 #000', '-1px 1px 0 #000',
+  '2px 0 0 #000', '-2px 0 0 #000',
+  '0 2px 0 #000', '0 -2px 0 #000',
+  '2px 2px 0 #000', '-2px -2px 0 #000',
+  '2px -2px 0 #000', '-2px 2px 0 #000',
+].join(', ');
+
 export default function V2Hero() {
   const { t } = useTranslation();
 
@@ -20,11 +34,13 @@ export default function V2Hero() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mb-6"
         >
-          <DecryptedText
-            text={t('hero.subtitle')}
-            speed={40}
-            className="text-[11px] md:text-xs uppercase tracking-[0.4em] text-[#6b6b6b] font-body font-medium"
-          />
+          <span style={{ textShadow: blackKnockout }}>
+            <DecryptedText
+              text={t('hero.subtitle')}
+              speed={40}
+              className="text-sm md:text-base uppercase tracking-[0.4em] text-[#999] font-body font-medium"
+            />
+          </span>
         </motion.div>
 
         <motion.div
@@ -34,10 +50,10 @@ export default function V2Hero() {
           aria-label="Damien Demontis"
         >
           <div className="leading-none tracking-[0.02em]">
-            <MetalShaderTitle as="h1" className="text-[clamp(4rem,18vw,14rem)] leading-none" speed={0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
           </div>
           <div className="leading-none tracking-[0.08em] -mt-6 md:-mt-12">
-            <MetalShaderTitle as="h1" className="text-[clamp(2.5rem,10vw,8rem)] leading-none" speed={0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
           </div>
         </motion.div>
 
@@ -54,11 +70,12 @@ export default function V2Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.8, ease: [0.4, 0, 0.2, 1] }}
-          className="text-[#8a8a8a] text-sm md:text-base font-light tracking-[0.06em] font-body max-w-lg mx-auto"
+          className="text-[#bbb] text-lg md:text-xl font-light tracking-[0.06em] font-body max-w-xl mx-auto"
+          style={{ textShadow: blackKnockout }}
         >
           {t('hero.description')}
           <br className="hidden md:block" />
-          <span className="text-[#6b6b6b]">{t('hero.descriptionSuffix')}</span>
+          <span className="text-[#888]">{t('hero.descriptionSuffix')}</span>
         </motion.p>
 
         <motion.div
@@ -66,10 +83,11 @@ export default function V2Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.2 }}
           className="mt-8 flex items-center justify-center gap-6"
+          style={{ textShadow: blackKnockout }}
         >
           <a
             href="#contact"
-            className="text-[11px] uppercase tracking-[0.18em] text-[#8a8a8a] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
+            className="text-sm uppercase tracking-[0.18em] text-[#aaa] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
           >
             {t('hero.cta.contact')}
           </a>
@@ -78,7 +96,7 @@ export default function V2Hero() {
             href="/CV_Damien_DEMONTIS_EN.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] uppercase tracking-[0.18em] text-[#8a8a8a] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
+            className="text-sm uppercase tracking-[0.18em] text-[#aaa] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
           >
             {t('hero.cta.resume')}
           </a>
