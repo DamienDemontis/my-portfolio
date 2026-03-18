@@ -12,7 +12,8 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(gh api repos/DavidHDev/react-bits/git/trees/main --jq '.tree[].path')",
       "WebFetch(domain:api.github.com)",
-      "WebFetch(domain:pandalab.fr)"
+      "WebFetch(domain:pandalab.fr)",
+      "WebFetch(domain:reactbits.dev)"
     ],
     "deny": [],
     "ask": []

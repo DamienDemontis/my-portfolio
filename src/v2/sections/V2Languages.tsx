@@ -1,17 +1,37 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import DecryptedText from '../components/DecryptedText';
 import MetalProgressRing from '../components/MetalProgressRing';
 import MetalDivider from '../components/MetalDivider';
+import SoftAurora from '../components/SoftAurora';
 
 export default function V2Languages() {
   const { t } = useTranslation();
   const items = t('languages.items', { returnObjects: true }) as any[];
+  const [hoveredFlag, setHoveredFlag] = useState<string | null>(null);
 
   return (
-    <section id="languages" className="metal-section">
-      <div className="metal-section-inner">
+    <section id="languages" className="metal-section relative overflow-hidden">
+      {/* Aurora — full viewport width, behind everything */}
+      <SoftAurora
+        activeFlag={hoveredFlag}
+        speed={0.6}
+        scale={1.1}
+        brightness={1.3}
+        noiseFrequency={2.5}
+        noiseAmplitude={3}
+        bandHeight={0.5}
+        bandSpread={1}
+        octaveDecay={0.1}
+        layerOffset={0}
+        colorSpeed={1}
+        mouseInteraction
+        mouseInfluence={0.25}
+      />
+
+      <div className="metal-section-inner relative z-10">
         <MetalScrollReveal>
           <div className="text-center mb-16">
             <span className="block mb-4">
@@ -31,13 +51,16 @@ export default function V2Languages() {
           {items.map((lang: any, i: number) => (
             <MetalScrollReveal key={i} delay={i * 0.1}>
               <div
-                className="group p-6 text-center metal-shine-hover transition-all duration-300 hover:border-[rgba(255,255,255,0.1)]"
+                className="group p-6 text-center metal-shine-hover transition-all duration-300 hover:border-[rgba(255,255,255,0.12)]"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(17,17,17,0.7), rgba(10,10,10,0.9))',
+                  background: 'linear-gradient(135deg, rgba(17,17,17,0.75), rgba(10,10,10,0.92))',
                   border: '1px solid rgba(255,255,255,0.05)',
                   borderRadius: 4,
                   boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                  backdropFilter: 'blur(8px)',
                 }}
+                onMouseEnter={() => setHoveredFlag(lang.flag)}
+                onMouseLeave={() => setHoveredFlag(null)}
               >
                 <span
                   className="inline-flex items-center justify-center w-8 h-5 mb-4 text-[10px] font-bold uppercase tracking-wider text-[#888] border border-[rgba(255,255,255,0.1)]"
