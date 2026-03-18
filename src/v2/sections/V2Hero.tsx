@@ -74,7 +74,7 @@ export default function V2Hero() {
           style={{ textShadow: blackKnockout }}
         >
           {t('hero.description')}
-          <br className="hidden md:block" />
+          <br />
           <span className="text-[#888]">{t('hero.descriptionSuffix')}</span>
         </motion.p>
 

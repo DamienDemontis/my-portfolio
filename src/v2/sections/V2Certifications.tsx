@@ -33,12 +33,14 @@ export default function V2Certifications() {
             <MetalScrollReveal key={i} delay={i * 0.1}>
               <SpotlightCard className="p-6 md:p-8 h-full">
                 <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-lg font-heading font-semibold text-[#e0e0e0]">
+                  <h3 className="text-base sm:text-lg font-heading font-semibold text-[#e0e0e0]">
                     {cert.title}
                   </h3>
-                  <MetalBadge variant="chrome" size="sm">
-                    {t('certifications.verified')}
-                  </MetalBadge>
+                  <div className="hidden sm:block flex-shrink-0">
+                    <MetalBadge variant="chrome" size="sm">
+                      {t('certifications.verified')}
+                    </MetalBadge>
+                  </div>
                 </div>
                 <MetalDivider variant="thin" className="mb-3" />
                 <div className="flex items-center gap-3 mb-3">
