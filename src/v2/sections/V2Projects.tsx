@@ -77,7 +77,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           borderRadius: 4,
         }}
       >
-        <div className="relative overflow-hidden" style={{ height: project.featured ? 300 : 180 }}>
+        <div className="relative overflow-hidden" style={{ height: project.featured ? 'clamp(180px, 40vw, 300px)' : 'clamp(140px, 30vw, 180px)' }}>
           <img
             src={project.image}
             alt={project.title}

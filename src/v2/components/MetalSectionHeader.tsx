@@ -41,7 +41,7 @@ export default function MetalSectionHeader({
             style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }}
           />
         )}
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight metal-chrome-text">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight metal-chrome-text">
           {title}
         </h2>
       </div>

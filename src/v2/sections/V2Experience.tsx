@@ -213,7 +213,10 @@ const B = {
 };
 
 // Col pixel positions (must match CSS left values + 1px for center)
-const CX = [33, 65];
+const CX_DESKTOP = [33, 65];
+const CX_MOBILE  = [21, 45];
+const GUTTER_DESKTOP = 100;
+const GUTTER_MOBILE  = 64;
 
 interface Line { col: number; color: string; dashed?: boolean; noBottom?: boolean; noTop?: boolean }
 
@@ -325,7 +328,24 @@ const connectors: Connector[] = [
 // Sub-components
 // ============================================
 
+function useIsMobile(breakpoint = 640) {
+  const [mobile, setMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= breakpoint
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    setMobile(mq.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [breakpoint]);
+  return mobile;
+}
+
 function ConnectorRow({ connector }: { connector: Connector }) {
+  const isMobile = useIsMobile();
+  const CX = isMobile ? CX_MOBILE : CX_DESKTOP;
+  const gutterW = isMobile ? GUTTER_MOBILE : GUTTER_DESKTOP;
   const hasBoth = connector.merge && connector.fork;
   const h = hasBoth ? 48 : 36;
   const mid = h / 2;
@@ -333,7 +353,7 @@ function ConnectorRow({ connector }: { connector: Connector }) {
   return (
     <div className="git-connector">
       <div className="git-connector-gutter">
-        <svg width="100" height={h} viewBox={`0 0 100 ${h}`}>
+        <svg width={gutterW} height={h} viewBox={`0 0 ${gutterW} ${h}`}>
           {/* Main vertical line always runs full height */}
           {connector.lines.map((l, i) => (
             <line key={i} x1={CX[l.col]} y1={0} x2={CX[l.col]} y2={h}

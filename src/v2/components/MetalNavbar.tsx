@@ -429,7 +429,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}
                   onClick={() => scrollTo(item.href)}
-                  className={`text-lg tracking-[0.2em] uppercase font-light cursor-pointer ${
+                  className={`text-base sm:text-lg tracking-[0.1em] sm:tracking-[0.2em] uppercase font-light cursor-pointer ${
                     activeSection === item.href.slice(1) ? 'text-white' : 'text-[#6b6b6b]'
                   }`}
                 >

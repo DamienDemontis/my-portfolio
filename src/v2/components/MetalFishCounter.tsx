@@ -112,11 +112,11 @@ export default function MetalFishCounter({ onFeedCat }: MetalFishCounterProps) {
             {fishCount.toLocaleString()}
           </span>
           <span className="text-[#8a8a8a] text-sm">
-            {fishCount === 1 ? t('contact.form.fishCounter.fish') : t('contact.form.fishCounter.fishes')}
+            {fishCount === 1 ? t('contact.cat.fish') : t('contact.cat.fishes')}
           </span>
         </motion.div>
         <p className="text-[#6b6b6b] text-xs mt-2 select-none">
-          {t('contact.form.fishCounter.clickCat')}
+          {t('contact.cat.clickCat')}
         </p>
       </div>
     </div>

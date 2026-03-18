@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect, lazy, Suspense, Profiler } from 'react';
+import { useState, useCallback, useEffect, lazy, Suspense, Profiler, useMemo } from 'react';
 import type { ProfilerOnRenderCallback } from 'react';
-import { I18nextProvider } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 import v2i18n from './i18n/config';
 import './core/metal-theme.css';
 
@@ -39,20 +39,29 @@ const V2Footer = lazy(() => import('./sections/V2Footer'));
 // Stable reference — avoids Dither useEffect re-running on every render
 const DITHER_COLOR: [number, number, number] = [0.5, 0.5, 0.5];
 
-const navItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Certifications', href: '#certifications' },
-  { label: 'Languages', href: '#languages' },
-  { label: 'Interests', href: '#interests' },
-  { label: 'Photography', href: '#photography' },
-  { label: 'Contact', href: '#contact' },
+const NAV_KEYS = [
+  { key: 'about', href: '#about' },
+  { key: 'experience', href: '#experience' },
+  { key: 'skills', href: '#skills' },
+  { key: 'projects', href: '#projects' },
+  { key: 'education', href: '#education' },
+  { key: 'certifications', href: '#certifications' },
+  { key: 'languages', href: '#languages' },
+  { key: 'interests', href: '#interests' },
+  { key: 'photography', href: '#photography' },
+  { key: 'contact', href: '#contact' },
 ];
 
-export default function V2Portfolio() {
+function useNavItems() {
+  const { t } = useTranslation();
+  return useMemo(
+    () => NAV_KEYS.map(({ key, href }) => ({ label: t(`nav.${key}`), href })),
+    [t]
+  );
+}
+
+function V2PortfolioInner() {
+  const navItems = useNavItems();
   const [loaded, setLoaded] = useState(false);
   const [restReady, setRestReady] = useState(false);
 
@@ -60,8 +69,6 @@ export default function V2Portfolio() {
     setLoaded(true);
   }, []);
 
-  // Mount below-fold sections early (while loader is still visible)
-  // so everything is ready by the time the loader fades out
   useEffect(() => {
     const id = setTimeout(() => {
       setRestReady(true);
@@ -69,7 +76,6 @@ export default function V2Portfolio() {
     return () => clearTimeout(id);
   }, []);
 
-  // Add scrollbar-gutter class + lock scroll while loader is active
   useEffect(() => {
     const html = document.documentElement;
     html.classList.add('metal-active');
@@ -90,61 +96,65 @@ export default function V2Portfolio() {
   }, [loaded]);
 
   return (
-    <I18nextProvider i18n={v2i18n}>
-      <div
-        className="metal-page metal-scrollbar metal-noise-overlay metal-vignette"
-        style={!loaded ? { maxHeight: '100vh', overflow: 'hidden' } : undefined}
-      >
-        <div className="fixed inset-0" style={{ zIndex: 0 }}>
-          <Dither
-            waveSpeed={0.05}
-            waveFrequency={3}
-            waveAmplitude={0.3}
-            waveColor={DITHER_COLOR}
-            colorNum={4}
-            pixelSize={2}
-            enableMouseInteraction={true}
-            mouseRadius={1}
-          />
-        </div>
-        <MetalCursor />
-
-        {/* Loader overlays on top — content renders behind it */}
-        {!loaded && <MetalLoadingScreen onComplete={handleLoadingComplete} duration={2200} />}
-
-        {/* Always render content — hidden behind loader until it fades out */}
-        <MetalNavbar items={navItems} logo="DD" />
-        <main className="relative" style={{ zIndex: 1 }}>
-          <Profiler id="Hero" onRender={onRender}><V2Hero /></Profiler>
-          <div style={{ background: '#000000' }}>
-            {restReady && (
-              <Suspense fallback={null}>
-                <div className="metal-separator" />
-                <Profiler id="About" onRender={onRender}><V2About /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Experience" onRender={onRender}><V2Experience /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Skills" onRender={onRender}><V2Skills /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Projects" onRender={onRender}><V2Projects /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Education" onRender={onRender}><V2Education /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Certifications" onRender={onRender}><V2Certifications /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Languages" onRender={onRender}><V2Languages /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Interests" onRender={onRender}><V2Interests /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Photography" onRender={onRender}><V2Photography /></Profiler>
-                <div className="metal-separator" />
-                <Profiler id="Contact" onRender={onRender}><V2Contact /></Profiler>
-                <Profiler id="Footer" onRender={onRender}><V2Footer /></Profiler>
-              </Suspense>
-            )}
-          </div>
-        </main>
+    <div
+      className="metal-page metal-scrollbar metal-noise-overlay metal-vignette"
+      style={!loaded ? { maxHeight: '100vh', overflow: 'hidden' } : undefined}
+    >
+      <div className="fixed inset-0" style={{ zIndex: 0 }}>
+        <Dither
+          waveSpeed={0.05}
+          waveFrequency={3}
+          waveAmplitude={0.3}
+          waveColor={DITHER_COLOR}
+          colorNum={4}
+          pixelSize={2}
+          enableMouseInteraction={true}
+          mouseRadius={1}
+        />
       </div>
+      <MetalCursor />
+
+      {!loaded && <MetalLoadingScreen onComplete={handleLoadingComplete} duration={2200} />}
+
+      <MetalNavbar items={navItems} logo="DD" />
+      <main className="relative" style={{ zIndex: 1 }}>
+        <Profiler id="Hero" onRender={onRender}><V2Hero /></Profiler>
+        <div style={{ background: '#000000' }}>
+          {restReady && (
+            <Suspense fallback={null}>
+              <div className="metal-separator" />
+              <Profiler id="About" onRender={onRender}><V2About /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Experience" onRender={onRender}><V2Experience /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Skills" onRender={onRender}><V2Skills /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Projects" onRender={onRender}><V2Projects /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Education" onRender={onRender}><V2Education /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Certifications" onRender={onRender}><V2Certifications /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Languages" onRender={onRender}><V2Languages /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Interests" onRender={onRender}><V2Interests /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Photography" onRender={onRender}><V2Photography /></Profiler>
+              <div className="metal-separator" />
+              <Profiler id="Contact" onRender={onRender}><V2Contact /></Profiler>
+              <Profiler id="Footer" onRender={onRender}><V2Footer /></Profiler>
+            </Suspense>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function V2Portfolio() {
+  return (
+    <I18nextProvider i18n={v2i18n}>
+      <V2PortfolioInner />
     </I18nextProvider>
   );
 }

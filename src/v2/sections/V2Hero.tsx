@@ -111,7 +111,7 @@ export default function V2Hero() {
         aria-hidden="true"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-[9px] uppercase tracking-[0.3em] text-[#555]">Scroll</span>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-[#555]">{t('hero.scroll')}</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

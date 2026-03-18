@@ -5,7 +5,7 @@
 
 /* Only create own scroll context when NOT using window scroll */
 .scroll-stack-scroller:not(.scroll-stack-window) {
-  height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
   overflow-x: visible;
   overscroll-behavior: contain;
@@ -14,7 +14,7 @@
 }
 
 .scroll-stack-inner {
-  padding: 5vh 0 15rem;
+  padding: 5vh 0 clamp(80px, 15vh, 240px);
 }
 
 .scroll-stack-card {

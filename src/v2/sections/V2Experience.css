@@ -524,6 +524,20 @@
 /* ============================================
    Responsive
    ============================================ */
+@media (max-width: 1024px) {
+  .git-terminal-cmd { font-size: clamp(10px, 2vw, 11px); }
+  .git-graph-gutter,
+  .git-connector-gutter {
+    width: clamp(64px, 12vw, 100px);
+    min-width: 64px;
+  }
+  .git-company-logo,
+  .git-company-lottie {
+    width: 56px;
+    height: 56px;
+  }
+}
+
 @media (max-width: 640px) {
   .git-graph-gutter,
   .git-connector-gutter {
@@ -539,7 +553,13 @@
   .git-commit-row { padding-right: 12px; }
   .git-commit-info { padding-left: 8px; }
   .git-commit-message { font-size: 12px; }
+  .git-commit-title { font-size: 13px; }
   .git-hash { font-size: 11px; }
   .git-diff-container { font-size: 11px; }
   .git-ref { font-size: 9px; padding: 1px 5px; }
+  .git-company-logo,
+  .git-company-lottie {
+    width: 48px;
+    height: 48px;
+  }
 }

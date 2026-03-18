@@ -37,7 +37,14 @@ const loadLang = async (lng: string) => {
   }
 };
 
+// Preload the initially-detected language bundle before anything renders
 loadLang(v2i18n.language);
-v2i18n.on('languageChanged', loadLang);
+
+// Wrap changeLanguage so the bundle is loaded BEFORE the switch happens
+const originalChangeLanguage = v2i18n.changeLanguage.bind(v2i18n);
+v2i18n.changeLanguage = async (lng?: string, callback?: Parameters<typeof originalChangeLanguage>[1]) => {
+  if (lng) await loadLang(lng);
+  return originalChangeLanguage(lng, callback);
+};
 
 export default v2i18n;

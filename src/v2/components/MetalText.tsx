@@ -19,10 +19,10 @@ const variantClasses: Record<string, string> = {
 };
 
 const sizeDefaults: Record<string, string> = {
-  h1: 'text-5xl md:text-7xl font-bold tracking-tight',
-  h2: 'text-3xl md:text-5xl font-bold tracking-tight',
-  h3: 'text-xl md:text-2xl font-semibold',
-  h4: 'text-lg font-semibold',
+  h1: 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight',
+  h2: 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight',
+  h3: 'text-lg sm:text-xl md:text-2xl font-semibold',
+  h4: 'text-base sm:text-lg font-semibold',
   p: 'text-base leading-relaxed',
   span: '',
 };

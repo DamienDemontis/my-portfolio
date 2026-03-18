@@ -9,7 +9,7 @@ import { row1Tracks, row2Tracks, type Track } from '../data/musicData';
 
 const CARD_WIDTH = 200;
 const CARD_GAP = 16;
-const CARD_MOBILE_WIDTH = 160;
+const CARD_MOBILE_WIDTH = 140;
 const SCROLL_SPEED = 0.5; // px per frame (~30px/s at 60fps)
 const LERP_FACTOR = 0.07; // smoothness of speed transitions
 const SPEED_SNAP_THRESHOLD = 0.01; // snap to target when this close
@@ -84,7 +84,7 @@ function ExpandedView({
   }, [pause, onClose]);
 
   // Compute animation origin from sourceRect
-  const expandedSize = Math.min(400, typeof window !== 'undefined' ? window.innerWidth - 48 : 400);
+  const expandedSize = Math.min(400, typeof window !== 'undefined' ? window.innerWidth - 32 : 400);
 
   return (
     <>

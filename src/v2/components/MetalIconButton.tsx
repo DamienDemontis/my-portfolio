@@ -9,8 +9,8 @@ interface MetalIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const sizeMap = {
-  sm: 'w-8 h-8 text-sm',
-  md: 'w-10 h-10 text-base',
+  sm: 'w-10 h-10 text-sm',
+  md: 'w-11 h-11 text-base',
   lg: 'w-12 h-12 text-lg',
 };
 

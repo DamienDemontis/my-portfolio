@@ -239,6 +239,18 @@
   }
 }
 
+@media (max-width: 768px) {
+  .dome-viewer {
+    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  }
+  .dome-enlarge-caption {
+    padding: 1.5rem 1rem 1rem;
+  }
+  .dome-enlarge-caption .dome-caption-title {
+    font-size: 13px;
+  }
+}
+
 .dome-viewer .dome-scrim {
   position: absolute;
   inset: 0;
