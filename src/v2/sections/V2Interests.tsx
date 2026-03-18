@@ -56,8 +56,8 @@ function SectionCard({
 }) {
   return (
     <div
+      className="p-5 sm:p-7 md:p-9"
       style={{
-        padding: '36px 32px',
         background: `linear-gradient(135deg, ${accentColor}, #0a0a0a)`,
         border: '1px solid rgba(255,255,255,0.04)',
         borderRadius: 20,
@@ -89,19 +89,19 @@ function EcologyCard() {
   return (
     <SectionCard accentColor="#0f1a14">
       <SubtitleBar>{t('interests.ecologySubtitle', 'Ecology & Collapse')}</SubtitleBar>
-      <p className="text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-10 max-w-xl italic">
+      <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-6 sm:mb-10 max-w-xl italic">
         {t('interests.ecologyDescription', 'What happens when civilizations push past planetary boundaries? These talks shaped how I think about our future.')}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
         <div>
           <YouTubeEmbed videoId="IESYMFtLIis" title="Jared Diamond — Why do societies collapse?" />
-          <p className="text-[13px] text-[#5a5a5a] font-body mt-3 tracking-wide">
+          <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
             Jared Diamond — Why do societies collapse?
           </p>
         </div>
-        <div>
+        <div className="hidden md:block">
           <YouTubeEmbed videoId="W93XyXHI8Nw" title="Is Civilization on the Brink of Collapse?" />
-          <p className="text-[13px] text-[#5a5a5a] font-body mt-3 tracking-wide">
+          <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
             Kurzgesagt — Is Civilization on the Brink of Collapse?
           </p>
         </div>
@@ -112,41 +112,16 @@ function EcologyCard() {
 
 function TechTalksCard() {
   const { t } = useTranslation();
-  const topics = [
-    'Deep technical dives',
-    'Video game history & culture',
-    'Emerging technologies',
-    'Knowledge sharing sessions',
-  ];
-
   return (
     <SectionCard accentColor="#0e1120">
       <SubtitleBar>{t('interests.talksSubtitle', 'Tech Talks')}</SubtitleBar>
-      <div className="flex flex-col md:flex-row gap-10 items-center">
-        <div className="flex-1 space-y-5">
-          <p className="text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed italic">
+      <div className="flex flex-col md:flex-row gap-5 sm:gap-10 items-center">
+        <div className="flex-1">
+          <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed italic">
             {t('interests.talksDescription', 'I regularly give talks at Epitech on a wide range of subjects — from deep technical topics and new technology introductions to video game history and culture. Speaking about what fascinates me is one of the best ways I know to learn deeper and share that spark with others.')}
           </p>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {topics.map((topic) => (
-              <span
-                key={topic}
-                style={{
-                  padding: '4px 12px',
-                  fontSize: 13,
-                  fontFamily: 'var(--font-body)',
-                  color: '#6b6b6b',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: 20,
-                  letterSpacing: '0.05em',
-                }}
-              >
-                {topic}
-              </span>
-            ))}
-          </div>
         </div>
-        <div className="w-full md:w-[420px] flex-shrink-0">
+        <div className="w-full max-w-[280px] md:w-[420px] md:max-w-none flex-shrink-0">
           <div
             style={{
               position: 'relative',
@@ -182,12 +157,12 @@ function TravelCard() {
   return (
     <SectionCard accentColor="#171008">
       <SubtitleBar>{t('interests.travelSubtitle', 'Adventures Abroad')}</SubtitleBar>
-      <p className="text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-10 max-w-xl italic">
+      <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-6 sm:mb-10 max-w-xl italic">
         {t('interests.travelDescription', 'As an Epitech Ambassador, I spent a year on exchange at Keimyung University in Daegu, South Korea. An experience that reshaped my worldview.')}
       </p>
       <div className="max-w-3xl">
         <YouTubeEmbed videoId="s0AG0_PY93I" title="Exchange year in South Korea — Epitech Ambassador" />
-        <p className="text-[13px] text-[#5a5a5a] font-body mt-3 tracking-wide">
+        <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
           My year in South Korea — Epitech Ambassador
         </p>
       </div>
@@ -238,16 +213,14 @@ export default function V2Interests() {
         </MetalScrollReveal>
       </div>
 
-      <div className="metal-section-inner" style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div className="metal-section-inner px-4 sm:px-6" style={{ maxWidth: 900, margin: '0 auto' }}>
         <ScrollStack
-          useWindowScroll
-          itemDistance={80}
+          itemDistance={60}
           itemScale={0.04}
-          itemStackDistance={25}
-          stackPosition="10%"
-          scaleEndPosition="5%"
-          baseScale={0.88}
-          rotationAmount={1.5}
+          itemStackDistance={20}
+          stackPosition="8%"
+          baseScale={0.9}
+          rotationAmount={1}
           blurAmount={2}
         >
           <ScrollStackItem>
