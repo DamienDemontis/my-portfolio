@@ -357,10 +357,12 @@ function CarouselRow({
   onCardSelect: (track: Track, rect: DOMRect) => void;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const posRef = useRef(0);
   const currentSpeedRef = useRef(targetSpeed);
   const targetSpeedRef = useRef(targetSpeed);
   const isDraggingRef = useRef(false);
+  const visibleRef = useRef(true);
   targetSpeedRef.current = targetSpeed;
 
   // One "set" width = tracks.length cards
@@ -385,10 +387,14 @@ function CarouselRow({
     }
   }, [direction, rowWidth]);
 
-  // RAF scroll loop with gradual speed transitions
+  // RAF scroll loop with gradual speed transitions + IO visibility pause
   useEffect(() => {
-    let raf: number;
+    const el = wrapperRef.current;
+    let raf = 0;
+
     const tick = () => {
+      if (!visibleRef.current) { raf = 0; return; }
+
       // Lerp current speed toward target
       const target = isDraggingRef.current ? 0 : targetSpeedRef.current;
       const diff = target - currentSpeedRef.current;
@@ -412,8 +418,24 @@ function CarouselRow({
       }
       raf = requestAnimationFrame(tick);
     };
+
+    // Pause/resume loop based on visibility
+    const io = el ? new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && !raf) {
+          raf = requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0 },
+    ) : null;
+    if (el) io!.observe(el);
+
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      io?.disconnect();
+    };
   }, [direction, rowWidth]);
 
   // Drag
@@ -448,7 +470,7 @@ function CarouselRow({
   }
 
   return (
-    <div style={{ overflowX: 'hidden', overflowY: 'visible', width: '100%', padding: '20px 0' }}>
+    <div ref={wrapperRef} style={{ overflowX: 'hidden', overflowY: 'visible', width: '100%', padding: '20px 0' }}>
       <div
         ref={rowRef}
         {...bind()}

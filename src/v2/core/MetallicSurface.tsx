@@ -583,6 +583,8 @@ export default function MetallicSurface({
       canvas.addEventListener('mousemove', handleMouseMove);
     }
 
+    const FRAME_INTERVAL = 1000 / 30; // 30fps is plenty for slow metallic shimmer
+
     const render = (time: number) => {
       if (!visibleRef.current) {
         rafRef.current = null;
@@ -590,6 +592,12 @@ export default function MetallicSurface({
       }
 
       const delta = time - lastTimeRef.current;
+
+      // Throttle to 30fps — skip frames when not enough time has passed
+      if (delta < FRAME_INTERVAL) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
       lastTimeRef.current = time;
 
       if (mouseAnimRef.current) {

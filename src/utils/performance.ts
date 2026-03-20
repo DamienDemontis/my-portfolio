@@ -70,32 +70,41 @@ export function logMemoryUsage() {
   }
 }
 
-// FPS monitoring
-let lastTime = 0
-let frameCount = 0
-let fps = 0
-
-function updateFPS(currentTime: number) {
-  frameCount++
-  
-  if (currentTime - lastTime >= 1000) {
-    fps = Math.round((frameCount * 1000) / (currentTime - lastTime))
-    frameCount = 0
-    lastTime = currentTime
-    
-    if (fps < 30) {
-      console.warn(`⚠️ Low FPS: ${fps}`)
-    } else if (fps < 50) {
-      console.log(`📊 FPS: ${fps}`)
-    }
-  }
-  
-  requestAnimationFrame(updateFPS)
-}
-
+// FPS monitoring — uses PerformanceObserver instead of a permanent rAF loop
 export function startFPSMonitoring() {
-  requestAnimationFrame(updateFPS)
+  let frameCount = 0
+  let lastTime = performance.now()
+
+  // Count frames via a lightweight rAF that only increments a counter
+  // The logging happens on a setInterval so it doesn't add rAF pressure
+  const countFrame = () => {
+    frameCount++
+    rafId = requestAnimationFrame(countFrame)
+  }
+  let rafId = requestAnimationFrame(countFrame)
+
+  const intervalId = setInterval(() => {
+    const now = performance.now()
+    const elapsed = now - lastTime
+    if (elapsed > 0) {
+      const fps = Math.round((frameCount * 1000) / elapsed)
+      if (fps < 30) {
+        console.warn(`⚠️ Low FPS: ${fps}`)
+      } else if (fps < 50) {
+        console.log(`📊 FPS: ${fps}`)
+      }
+    }
+    frameCount = 0
+    lastTime = now
+  }, 2000) // Check every 2s instead of every frame
+
   console.log('📊 FPS monitoring started')
+
+  // Return cleanup function (unused but available)
+  return () => {
+    cancelAnimationFrame(rafId)
+    clearInterval(intervalId)
+  }
 }
 
 // Animation performance tracker

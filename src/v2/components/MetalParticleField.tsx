@@ -99,6 +99,10 @@ export default function MetalParticleField({
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
 
+      const mouseRepelSq = 150 * 150;
+      const maxSpeed = speed * 2;
+      const maxSpeedSq = maxSpeed * maxSpeed;
+
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -109,16 +113,17 @@ export default function MetalParticleField({
 
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
+        const distSq = dx * dx + dy * dy;
+        if (distSq < mouseRepelSq && distSq > 0) {
+          const dist = Math.sqrt(distSq);
           const force = (150 - dist) / 150 * 0.02;
           p.vx -= dx * force;
           p.vy -= dy * force;
         }
 
-        const maxSpeed = speed * 2;
-        const currentSpeed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (currentSpeed > maxSpeed) {
+        const currentSpeedSq = p.vx * p.vx + p.vy * p.vy;
+        if (currentSpeedSq > maxSpeedSq) {
+          const currentSpeed = Math.sqrt(currentSpeedSq);
           p.vx = (p.vx / currentSpeed) * maxSpeed;
           p.vy = (p.vy / currentSpeed) * maxSpeed;
         }
@@ -133,18 +138,19 @@ export default function MetalParticleField({
       }
 
       if (connected) {
+        const connDistSq = connectionDistance * connectionDistance;
+        ctx.lineWidth = 0.5;
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < connectionDistance) {
-              const alpha = (1 - dist / connectionDistance) * 0.08;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < connDistSq) {
+              const alpha = (1 - Math.sqrt(distSq) / connectionDistance) * 0.08;
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
               ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-              ctx.lineWidth = 0.5;
               ctx.stroke();
             }
           }

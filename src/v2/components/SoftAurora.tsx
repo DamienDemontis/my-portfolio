@@ -264,7 +264,10 @@ export default function SoftAurora({
     const MOUSE_LERP = 0.05;
 
     let raf = 0;
+    let visible = false;
+
     const update = (t: number) => {
+      if (!visible) { raf = 0; return; }
       raf = requestAnimationFrame(update);
       const p = propsRef.current;
 
@@ -300,10 +303,22 @@ export default function SoftAurora({
 
       renderer.render({ scene: mesh });
     };
-    raf = requestAnimationFrame(update);
+
+    // Pause rAF when off-screen
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !raf) {
+          raf = requestAnimationFrame(update);
+        }
+      },
+      { threshold: 0 },
+    );
+    io.observe(ctn);
 
     return () => {
       cancelAnimationFrame(raf);
+      io.disconnect();
       window.removeEventListener('resize', resize);
       ctn.removeEventListener('mousemove', onMouseMove);
       if (ctn && gl.canvas.parentNode === ctn) ctn.removeChild(gl.canvas);

@@ -199,12 +199,20 @@ export default function Dither({
 
     const start = performance.now();
     let frozen = false;
+    const FRAME_INTERVAL = 1000 / 30; // 30fps — waveSpeed=0.05 is too slow to need 60fps
+    let lastFrameTime = 0;
 
-    const frame = () => {
+    const frame = (now: number) => {
       if (frozen) { rafRef.current = 0; return; }
 
+      rafRef.current = requestAnimationFrame(frame);
+
+      // Throttle to 30fps
+      if (now - lastFrameTime < FRAME_INTERVAL) return;
+      lastFrameTime = now;
+
       resize();
-      const t = disableAnimation ? 0 : (performance.now() - start) / 1000;
+      const t = disableAnimation ? 0 : (now - start) / 1000;
 
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, t);
@@ -218,7 +226,6 @@ export default function Dither({
       gl.uniform1f(uPixelSize, pixelSize);
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      rafRef.current = requestAnimationFrame(frame);
     };
 
     rafRef.current = requestAnimationFrame(frame);

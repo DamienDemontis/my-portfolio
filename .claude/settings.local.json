@@ -13,7 +13,8 @@
       "Bash(gh api repos/DavidHDev/react-bits/git/trees/main --jq '.tree[].path')",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:pandalab.fr)",
-      "WebFetch(domain:reactbits.dev)"
+      "WebFetch(domain:reactbits.dev)",
+      "Bash(find /c/Users/elswift/Desktop/projets/my-portfolio/src -name \"*.tsx\" -type f -exec wc -l {} +)"
     ],
     "deny": [],
     "ask": []
