@@ -26,7 +26,8 @@ export default defineConfig({
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
             // Order matters: check specific packages BEFORE broad 'react' match
-            if (id.includes('@react-three/') || id.includes('/three/')) {
+            // three ecosystem must stay together to avoid circular dependency issues
+            if (id.includes('@react-three/') || id.includes('/three/') || id.includes('three-stdlib') || id.includes('@monogrid')) {
               return 'three'
             }
             if (id.includes('framer-motion')) {

@@ -29,11 +29,9 @@
     <meta name="theme-color" content="#6366f1" />
     <link rel="canonical" href="https://www.demontis.dev" />
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/Damien.avif" as="image" importance="high">
-    <link rel="preload" href="/Damien.webp" as="image" importance="high">
-    <link rel="preload" href="/Damien.jpg" as="image" importance="high">
-    <link rel="preload" href="/about_pfp.avif" as="image" importance="low">
+    <!-- Prefetch images — not preload, since the loading screen delays their use -->
+    <link rel="prefetch" href="/Damien.avif" as="image">
+    <link rel="prefetch" href="/about_pfp.avif" as="image">
     
     <!-- Critical CSS for faster FCP -->
     <style>

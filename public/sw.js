@@ -34,8 +34,10 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache first, then network
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests
+  // Only cache GET requests over http(s)
   if (event.request.method !== 'GET') return
+  const url = new URL(event.request.url)
+  if (url.protocol !== 'https:' && url.protocol !== 'http:') return
 
   // Cache strategy: Cache First for images, Network First for HTML/API
   if (event.request.destination === 'image') {
