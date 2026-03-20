@@ -1,9 +1,7 @@
 // Service Worker for caching static assets
-const CACHE_NAME = 'portfolio-v1'
+const CACHE_NAME = 'portfolio-v2'
 const STATIC_ASSETS = [
   '/',
-  '/Damien.jpg',
-  '/photography/IMG_20240701_151842.jpg', // First photo only
 ]
 
 // Install event - cache essential assets
@@ -34,49 +32,47 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache first, then network
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests over http(s)
+  // Only handle GET requests
   if (event.request.method !== 'GET') return
+
   const url = new URL(event.request.url)
+
+  // Skip non-http(s) schemes (chrome-extension, etc.)
   if (url.protocol !== 'https:' && url.protocol !== 'http:') return
 
-  // Cache strategy: Cache First for images, Network First for HTML/API
+  // Skip external API calls — don't intercept supabase, calendly, stripe, etc.
+  if (url.origin !== self.location.origin) return
+
+  // Only cache same-origin static assets and images
   if (event.request.destination === 'image') {
     event.respondWith(
       caches.match(event.request)
-        .then((response) => {
-          if (response) {
-            return response
-          }
-          return fetch(event.request)
-            .then((fetchResponse) => {
-              const responseClone = fetchResponse.clone()
-              caches.open(CACHE_NAME)
-                .then((cache) => cache.put(event.request, responseClone))
-              return fetchResponse
-            })
-        })
-        .catch(() => {
-          // Fallback for offline
-          return new Response('Image not available offline')
-        })
+        .then((response) => response || fetch(event.request)
+          .then((fetchResponse) => {
+            if (fetchResponse.ok) {
+              const clone = fetchResponse.clone()
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone))
+            }
+            return fetchResponse
+          })
+        )
+        .catch(() => new Response('', { status: 408 }))
     )
-  } else {
-    // Network first for other resources
+  } else if (url.pathname.startsWith('/assets/')) {
+    // Cache immutable hashed assets
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          // Cache successful responses
-          if (response.status === 200) {
-            const responseClone = response.clone()
-            caches.open(CACHE_NAME)
-              .then((cache) => cache.put(event.request, responseClone))
-          }
-          return response
-        })
-        .catch(() => {
-          // Fallback to cache
-          return caches.match(event.request)
-        })
+      caches.match(event.request)
+        .then((response) => response || fetch(event.request)
+          .then((fetchResponse) => {
+            if (fetchResponse.ok) {
+              const clone = fetchResponse.clone()
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone))
+            }
+            return fetchResponse
+          })
+        )
+        .catch(() => new Response('', { status: 408 }))
     )
   }
+  // All other requests (HTML, etc.) go straight to network — no SW interception
 })

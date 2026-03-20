@@ -125,6 +125,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             )}
             {project.video && (
               <a href={project.video} target="_blank" rel="noopener noreferrer"
+                aria-label={`${t('projects.video')} - ${project.title}`}
                 className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.12em] text-[#6b6b6b] hover:text-white transition-colors font-medium">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 {t('projects.video')}

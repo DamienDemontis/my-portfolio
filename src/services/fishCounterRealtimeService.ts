@@ -62,8 +62,7 @@ export const fishCounterRealtimeService = {
 
       if (error) throw error
       return data?.count || 0
-    } catch (error) {
-      console.error('Failed to fetch fish count:', error)
+    } catch {
       return getLocalCount()
     }
   },
@@ -83,8 +82,7 @@ export const fishCounterRealtimeService = {
       const newCount = data as number
       localStorage.setItem('globalCatFishCount', newCount.toString())
       return newCount
-    } catch (error) {
-      console.error('Failed to increment fish count:', error)
+    } catch {
       const newCount = getLocalCount() + 1
       localStorage.setItem('globalCatFishCount', newCount.toString())
       return newCount
