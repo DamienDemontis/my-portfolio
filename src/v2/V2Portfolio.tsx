@@ -11,17 +11,19 @@ import Dither from './components/Dither';
 
 import V2Hero from './sections/V2Hero';
 
-// ── Perf profiler (check console after page loads) ──
-const onRender: ProfilerOnRenderCallback = (id, phase, actualDuration) => {
-  if (phase === 'mount') {
-    const style = actualDuration > 100
-      ? 'color: red; font-weight: bold'
-      : actualDuration > 30
-        ? 'color: orange'
-        : 'color: green';
-    console.log(`%c[PERF] ${id} mounted in ${actualDuration.toFixed(1)}ms`, style);
-  }
-};
+// ── Perf profiler (dev only) ──
+const onRender: ProfilerOnRenderCallback = process.env.NODE_ENV === 'development'
+  ? (id, phase, actualDuration) => {
+      if (phase === 'mount') {
+        const style = actualDuration > 100
+          ? 'color: red; font-weight: bold'
+          : actualDuration > 30
+            ? 'color: orange'
+            : 'color: green';
+        console.log(`%c[PERF] ${id} mounted in ${actualDuration.toFixed(1)}ms`, style);
+      }
+    }
+  : () => {};
 
 // Lazy-load below-fold sections so they don't block the first paint
 const V2About = lazy(() => import('./sections/V2About'));

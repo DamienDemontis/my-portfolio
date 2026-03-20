@@ -33,7 +33,6 @@ export default function MetalFishCounter({ onFeedCat }: MetalFishCounterProps) {
       setFishCount(count)
       setLoading(false)
     } catch (error) {
-      console.error('Failed to fetch fish count:', error)
       setLoading(false)
     }
   }
@@ -65,7 +64,7 @@ export default function MetalFishCounter({ onFeedCat }: MetalFishCounterProps) {
     try {
       await fishCounterRealtimeService.incrementFishCount()
     } catch (error) {
-      console.error('Failed to update fish count:', error)
+      // silently fail — non-critical feature
     }
   }
 
@@ -96,7 +95,7 @@ export default function MetalFishCounter({ onFeedCat }: MetalFishCounterProps) {
             transition={{ duration: 1.5, ease: 'easeOut' }}
             className="absolute top-1/2 left-1/2 pointer-events-none z-50 select-none"
           >
-            <img src="/fish.svg" alt="fish" className="w-10 h-10 select-none" draggable="false" />
+            <img src="/fish.svg" alt="fish" className="w-10 h-10 select-none" draggable="false" width={40} height={40} />
           </motion.div>
         ))}
       </AnimatePresence>
@@ -107,7 +106,7 @@ export default function MetalFishCounter({ onFeedCat }: MetalFishCounterProps) {
           transition={{ duration: 0.3 }}
           className="inline-flex items-center gap-2 px-6 py-3 bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-full select-none"
         >
-          <img src="/fish.svg" alt="fish" className="w-6 h-6 select-none" draggable="false" />
+          <img src="/fish.svg" alt="fish" className="w-6 h-6 select-none" draggable="false" width={24} height={24} />
           <span className="metal-chrome-text text-2xl font-bold">
             {fishCount.toLocaleString()}
           </span>

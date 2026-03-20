@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalInput from '../components/MetalInput';
@@ -57,25 +57,24 @@ export default function V2Contact() {
   const { t } = useTranslation();
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
   const [, setSubmitting] = useState(false);
+  const calendlyRef = useRef<HTMLDivElement>(null);
 
   // Lazy-load Calendly script only when this section mounts (bottom of page)
   useEffect(() => {
-    if (window.Calendly) {
-      window.Calendly.initInlineWidget({
-        url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff',
-        parentElement: document.querySelector('.calendly-inline-widget'),
-      });
-      return;
-    }
+    const el = calendlyRef.current;
+    if (!el) return;
+    const CALENDLY_URL = 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff';
+
+    const init = () => {
+      window.Calendly?.initInlineWidget({ url: CALENDLY_URL, parentElement: el });
+    };
+
+    if (window.Calendly) { init(); return; }
+
     const script = document.createElement('script');
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
-    script.onload = () => {
-      window.Calendly?.initInlineWidget({
-        url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff',
-        parentElement: document.querySelector('.calendly-inline-widget'),
-      });
-    };
+    script.onload = init;
     document.head.appendChild(script);
   }, []);
 
@@ -243,7 +242,7 @@ export default function V2Contact() {
             <div className="mt-8">
               <h3 className="text-lg font-heading font-semibold text-[#e0e0e0] mb-4">{t('contact.bookCall')}</h3>
               <div className="metal-calendly-container">
-                <div className="calendly-inline-widget" style={{ minWidth: 320, height: 700 }} />
+                <div ref={calendlyRef} className="calendly-inline-widget" style={{ minWidth: 320, height: 700 }} />
               </div>
             </div>
           </MetalScrollReveal>

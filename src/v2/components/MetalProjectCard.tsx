@@ -45,6 +45,8 @@ export default function MetalProjectCard({
           <img
             src={image}
             alt={title}
+            width={600}
+            height={300}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             style={{ filter: 'grayscale(100%) contrast(1.1) brightness(0.7)' }}
           />

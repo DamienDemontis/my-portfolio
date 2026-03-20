@@ -520,7 +520,7 @@ function CommitRow({
                 </div>
               </div>
               {pos!.logo && (
-                <img src={pos!.logo} alt={pos!.company} className="git-company-logo" />
+                <img src={pos!.logo} alt={pos!.company} className="git-company-logo" width={40} height={40} />
               )}
               {pos!.lottie && (
                 <MetalLottie animationPath={pos!.lottie} className="git-company-lottie" />

@@ -135,7 +135,9 @@ function TechTalksCard() {
               alt="Giving a tech talk at Epitech"
               loading="lazy"
               draggable={false}
-              style={{ width: '100%', display: 'block' }}
+              width={800}
+              height={450}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
             />
             <div
               style={{
