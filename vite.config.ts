@@ -24,19 +24,19 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Vendor chunk for React and related core libraries
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('its-fine')) {
-              return 'vendor'
+            // Order matters: check specific packages BEFORE broad 'react' match
+            if (id.includes('@react-three/') || id.includes('/three/')) {
+              return 'three'
             }
             if (id.includes('framer-motion')) {
               return 'animations'
             }
-            if (id.includes('three') || id.includes('@react-three/')) {
-              return 'three'
-            }
             if (id.includes('i18next') || id.includes('react-i18next')) {
               return 'i18n'
+            }
+            if (id.includes('react-intersection-observer')) {
+              return 'utils'
             }
             if (id.includes('lucide-react')) {
               return 'icons'
@@ -44,12 +44,22 @@ export default defineConfig({
             if (id.includes('gsap')) {
               return 'gsap'
             }
-            if (id.includes('react-intersection-observer')) {
-              return 'utils'
+            if (id.includes('ogl')) {
+              return 'ogl'
             }
-            // Split other node_modules into smaller chunks
-            const chunks = id.split('node_modules/')[1].split('/')[0]
-            return `vendor-${chunks}`
+            if (id.includes('@use-gesture')) {
+              return 'gestures'
+            }
+            if (id.includes('lottie-web')) {
+              return 'lottie'
+            }
+            // React core — now safe since specific react-* packages are already matched
+            if (id.includes('react-dom') || id.includes('react/') || id.includes('/react/') || id.includes('scheduler') || id.includes('its-fine')) {
+              return 'vendor'
+            }
+            // Remaining node_modules get their own chunk
+            const pkg = id.split('node_modules/')[1]?.split('/')[0]
+            if (pkg) return `vendor-${pkg}`
           }
         },
         // Add file name hashing for better caching

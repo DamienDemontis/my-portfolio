@@ -58,13 +58,25 @@ export default function V2Contact() {
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
   const [, setSubmitting] = useState(false);
 
+  // Lazy-load Calendly script only when this section mounts (bottom of page)
   useEffect(() => {
     if (window.Calendly) {
       window.Calendly.initInlineWidget({
         url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff',
         parentElement: document.querySelector('.calendly-inline-widget'),
       });
+      return;
     }
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => {
+      window.Calendly?.initInlineWidget({
+        url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff',
+        parentElement: document.querySelector('.calendly-inline-widget'),
+      });
+    };
+    document.head.appendChild(script);
   }, []);
 
   const handleSubmit = (e: FormEvent) => {

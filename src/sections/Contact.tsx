@@ -66,15 +66,22 @@ export const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // Lazy-load Calendly script only when this section mounts
   useEffect(() => {
-    if (window.Calendly) {
-      window.Calendly.initInlineWidget({
+    const initCalendly = () => {
+      window.Calendly?.initInlineWidget({
         url: 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1',
         parentElement: document.querySelector('.calendly-inline-widget'),
         prefill: {},
         utm: {}
       })
     }
+    if (window.Calendly) { initCalendly(); return }
+    const script = document.createElement('script')
+    script.src = 'https://assets.calendly.com/assets/external/widget.js'
+    script.async = true
+    script.onload = initCalendly
+    document.head.appendChild(script)
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
