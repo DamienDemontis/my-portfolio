@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Damien Demontis - Full Stack Developer & IT Specialist passionate about modern technologies and innovation" />
     <meta name="author" content="Damien Demontis" />
@@ -13,20 +14,22 @@
     <meta property="og:description" content="Professional portfolio of Damien Demontis, a passionate Full Stack Developer specializing in modern web technologies" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.demontis.dev" />
-    <meta property="og:image" content="https://www.demontis.dev/Damien.jpg" />
+    <meta property="og:image" content="https://www.demontis.dev/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Damien Demontis Portfolio" />
     
     <!-- Twitter Card tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Damien Demontis - Full Stack Developer" />
     <meta name="twitter:description" content="Professional portfolio of Damien Demontis, a passionate Full Stack Developer specializing in modern web technologies" />
-    <meta name="twitter:image" content="https://www.demontis.dev/Damien.jpg" />
+    <meta name="twitter:image" content="https://www.demontis.dev/og-card.png" />
     
     <!-- Additional SEO meta tags -->
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
     <meta name="revisit-after" content="7 days" />
-    <meta name="theme-color" content="#6366f1" />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="canonical" href="https://www.demontis.dev" />
     
     <!-- Prefetch images — not preload, since the loading screen delays their use -->
@@ -36,7 +39,7 @@
     <!-- Critical CSS for faster FCP -->
     <style>
       /* Critical styles for initial rendering */
-      body { margin: 0; font-family: system-ui, sans-serif; background: #ffffff; }
+      body { margin: 0; font-family: system-ui, sans-serif; background: #000000; color: #fff; }
       #root { min-height: 100vh; }
       .container-padding { padding-left: 1rem; padding-right: 1rem; }
       @media (min-width: 640px) { .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } }
@@ -50,10 +53,6 @@
       .animate-spin { animation: spin 1s linear infinite; }
       @keyframes spin { to { transform: rotate(360deg); } }
       
-      /* Dark mode support */
-      @media (prefers-color-scheme: dark) {
-        body { background: #111827; color: #f9fafb; }
-      }
     </style>
     
     <!-- Optimized font loading -->

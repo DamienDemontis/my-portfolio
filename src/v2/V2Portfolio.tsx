@@ -8,6 +8,7 @@ import MetalCursor from './components/MetalCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
 import MetalNavbar from './components/MetalNavbar';
 import Dither from './components/Dither';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import V2Hero from './sections/V2Hero';
 
@@ -123,29 +124,53 @@ function V2PortfolioInner() {
         <Profiler id="Hero" onRender={onRender}><V2Hero /></Profiler>
         <div style={{ background: '#000000' }}>
           {restReady && (
-            <Suspense fallback={null}>
-              <div className="metal-separator" />
-              <Profiler id="About" onRender={onRender}><V2About /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Experience" onRender={onRender}><V2Experience /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Skills" onRender={onRender}><V2Skills /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Projects" onRender={onRender}><V2Projects /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Education" onRender={onRender}><V2Education /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Certifications" onRender={onRender}><V2Certifications /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Languages" onRender={onRender}><V2Languages /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Interests" onRender={onRender}><V2Interests /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Photography" onRender={onRender}><V2Photography /></Profiler>
-              <div className="metal-separator" />
-              <Profiler id="Contact" onRender={onRender}><V2Contact /></Profiler>
-              <Profiler id="Footer" onRender={onRender}><V2Footer /></Profiler>
-            </Suspense>
+            <ErrorBoundary sectionName="Portfolio">
+              <Suspense fallback={null}>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="About">
+                  <Profiler id="About" onRender={onRender}><V2About /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Experience">
+                  <Profiler id="Experience" onRender={onRender}><V2Experience /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Skills">
+                  <Profiler id="Skills" onRender={onRender}><V2Skills /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Projects">
+                  <Profiler id="Projects" onRender={onRender}><V2Projects /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Education">
+                  <Profiler id="Education" onRender={onRender}><V2Education /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Certifications">
+                  <Profiler id="Certifications" onRender={onRender}><V2Certifications /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Languages">
+                  <Profiler id="Languages" onRender={onRender}><V2Languages /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Interests">
+                  <Profiler id="Interests" onRender={onRender}><V2Interests /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Photography">
+                  <Profiler id="Photography" onRender={onRender}><V2Photography /></Profiler>
+                </ErrorBoundary>
+                <div className="metal-separator" />
+                <ErrorBoundary sectionName="Contact">
+                  <Profiler id="Contact" onRender={onRender}><V2Contact /></Profiler>
+                </ErrorBoundary>
+                <ErrorBoundary sectionName="Footer">
+                  <Profiler id="Footer" onRender={onRender}><V2Footer /></Profiler>
+                </ErrorBoundary>
+              </Suspense>
+            </ErrorBoundary>
           )}
         </div>
       </main>

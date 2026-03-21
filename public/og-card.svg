@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Metallic text gradient (diagonal for chrome feel) -->
+    <linearGradient id="metalTitle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a4a4a"/>
+      <stop offset="15%" stop-color="#a8a8a8"/>
+      <stop offset="30%" stop-color="#e0e0e0"/>
+      <stop offset="45%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#d0d0d0"/>
+      <stop offset="70%" stop-color="#b0b0b0"/>
+      <stop offset="85%" stop-color="#808080"/>
+      <stop offset="100%" stop-color="#505050"/>
+    </linearGradient>
+
+    <!-- Subtitle metallic -->
+    <linearGradient id="metalSub" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#555555"/>
+      <stop offset="50%" stop-color="#999999"/>
+      <stop offset="100%" stop-color="#555555"/>
+    </linearGradient>
+
+    <!-- Divider line gradient -->
+    <linearGradient id="dividerLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#555555"/>
+      <stop offset="100%" stop-color="#222222"/>
+    </linearGradient>
+
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="none"/>
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+    </pattern>
+
+    <!-- Noise dots -->
+    <pattern id="noise" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none"/>
+      <circle cx="1" cy="1" r="0.4" fill="#ffffff" opacity="0.03"/>
+      <circle cx="4" cy="4" r="0.3" fill="#ffffff" opacity="0.02"/>
+    </pattern>
+
+    <!-- Radial vignette -->
+    <radialGradient id="vignette" cx="30%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#0d0d0d"/>
+      <stop offset="60%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#040404"/>
+    </radialGradient>
+
+    <!-- Brushed metal texture -->
+    <pattern id="brushed" width="200" height="2" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="200" y2="0" stroke="#ffffff" stroke-width="0.3" opacity="0.015"/>
+      <line x1="0" y1="1" x2="200" y2="1" stroke="#ffffff" stroke-width="0.2" opacity="0.01"/>
+    </pattern>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+
+  <!-- Grid texture overlay -->
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Noise texture -->
+  <rect width="1200" height="630" fill="url(#noise)"/>
+
+  <!-- Brushed metal strip -->
+  <rect x="0" y="140" width="600" height="350" fill="url(#brushed)"/>
+
+  <!-- Main title — extra large, left-aligned -->
+  <text x="80" y="260" font-family="'Impact', 'Arial Black', sans-serif" font-size="108" font-weight="bold" fill="url(#metalTitle)" letter-spacing="5">DAMIEN</text>
+  <text x="80" y="380" font-family="'Impact', 'Arial Black', sans-serif" font-size="108" font-weight="bold" fill="url(#metalTitle)" letter-spacing="5">DEMONTIS</text>
+
+  <!-- Horizontal divider -->
+  <rect x="80" y="405" width="120" height="1" fill="url(#dividerLine)"/>
+
+  <!-- Role subtitle -->
+  <text x="80" y="450" font-family="'Arial', 'Helvetica', sans-serif" font-size="20" fill="url(#metalSub)" letter-spacing="6" font-weight="400">FULL STACK DEVELOPER</text>
+
+  <!-- Domain, bottom-left -->
+  <text x="80" y="575" font-family="'Courier New', monospace" font-size="14" fill="#444444" letter-spacing="3">demontis.dev</text>
+
+  <!-- Scan lines -->
+  <g opacity="0.02">
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="#ffffff" stroke-width="0.5"/>
+  </g>
+</svg>

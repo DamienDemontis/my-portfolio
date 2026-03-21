@@ -27,8 +27,8 @@ export default function V2Languages() {
         octaveDecay={0.1}
         layerOffset={0}
         colorSpeed={1}
-        mouseInteraction
-        mouseInfluence={0.25}
+        mouseInteraction={false}
+        mouseInfluence={0}
       />
 
       <div className="metal-section-inner relative z-10">
