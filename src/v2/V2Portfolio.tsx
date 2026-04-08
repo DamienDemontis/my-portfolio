@@ -3,6 +3,7 @@ import type { ProfilerOnRenderCallback } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import v2i18n from './i18n/config';
 import './core/metal-theme.css';
+import { initAnimatedFavicon } from './core/animatedFavicon';
 
 import MetalCursor from './components/MetalCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
@@ -84,6 +85,8 @@ function V2PortfolioInner() {
     html.classList.add('metal-active');
     return () => { html.classList.remove('metal-active'); };
   }, []);
+
+  useEffect(() => { initAnimatedFavicon(); }, []);
 
   useEffect(() => {
     const html = document.documentElement;

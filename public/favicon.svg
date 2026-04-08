@@ -1,50 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <!-- Metallic chrome gradient - left to right with hard highlights -->
     <linearGradient id="chrome" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3a3a3a"/>
-      <stop offset="18%" stop-color="#b8b8b8"/>
-      <stop offset="35%" stop-color="#e8e8e8"/>
-      <stop offset="50%" stop-color="#ffffff"/>
-      <stop offset="65%" stop-color="#c0c0c0"/>
-      <stop offset="82%" stop-color="#808080"/>
+      <stop offset="0%" stop-color="#4a4a4a"/>
+      <stop offset="20%" stop-color="#999999"/>
+      <stop offset="35%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#888888"/>
+      <stop offset="65%" stop-color="#dddddd"/>
+      <stop offset="80%" stop-color="#888888"/>
       <stop offset="100%" stop-color="#4a4a4a"/>
     </linearGradient>
-    <!-- Secondary gradient for depth -->
-    <linearGradient id="chrome2" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#505050"/>
-      <stop offset="25%" stop-color="#a0a0a0"/>
-      <stop offset="50%" stop-color="#d8d8d8"/>
-      <stop offset="75%" stop-color="#909090"/>
-      <stop offset="100%" stop-color="#383838"/>
-    </linearGradient>
-    <!-- Bevel highlight -->
-    <linearGradient id="bevel" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.4"/>
-    </linearGradient>
   </defs>
-
-  <!-- Background -->
   <rect width="64" height="64" rx="8" fill="#0a0a0a"/>
-
-  <!-- Subtle border ring -->
-  <rect x="2" y="2" width="60" height="60" rx="6" fill="none" stroke="#2a2a2a" stroke-width="1"/>
-
-  <!-- Mirrored DD monogram: two D's facing each other, sharing the vertical bar -->
-  <!-- Left D (normal orientation) -->
-  <path d="M 14,14 L 14,50 L 32,50 C 44,50 44,14 32,14 Z M 21,21 L 30,21 C 37,21 37,43 30,43 L 21,43 Z" fill="url(#chrome)" fill-rule="evenodd"/>
-
-  <!-- Right D (mirrored, facing left) -->
-  <path d="M 50,14 L 50,50 L 32,50 C 20,50 20,14 32,14 Z M 43,21 L 34,21 C 27,21 27,43 34,43 L 43,43 Z" fill="url(#chrome2)" fill-rule="evenodd"/>
-
-  <!-- Center seam line for interlocking effect -->
-  <line x1="32" y1="12" x2="32" y2="52" stroke="#0a0a0a" stroke-width="1.5"/>
-
-  <!-- Highlight accents on the shared edge -->
-  <line x1="31" y1="14" x2="31" y2="50" stroke="#ffffff" stroke-width="0.5" opacity="0.25"/>
-  <line x1="33" y1="14" x2="33" y2="50" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
-
-  <!-- Top bevel highlight -->
-  <rect x="14" y="14" width="36" height="2" rx="1" fill="#ffffff" opacity="0.12"/>
+  <text x="32" y="46" font-family="'Impact','Arial Black',sans-serif" font-size="40" font-weight="bold" fill="url(#chrome)" text-anchor="middle" letter-spacing="1">/D</text>
 </svg>

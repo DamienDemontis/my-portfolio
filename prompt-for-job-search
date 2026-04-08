@@ -1,0 +1,627 @@
+══════════════════════════════════════════════════════════════════════════════════
+MISSION : TROUVER DES OFFRES D'EMPLOI CONCRÈTES QUI MATCHENT PARFAITEMENT MON PROFIL
+══════════════════════════════════════════════════════════════════════════════════
+
+Tu es mon agent de recherche d'emploi. Ta mission est de fouiller EXHAUSTIVEMENT internet pour trouver des OFFRES D'EMPLOI SPÉCIFIQUES actuellement publiées (pas des entreprises, pas des conseils génériques — des LIENS vers des offres réelles) qui correspondent quasi-parfaitement à mon profil. Je veux un minimum de 20-30 offres concrètes, classées par pertinence.
+
+PRIORITÉ ABSOLUE : offres internationales (US, UK, EU, monde entier) en full remote acceptant un employé/contractor basé en France. Les offres françaises sont un bonus, pas la priorité.
+
+Lis TOUT ce qui suit attentivement — chaque détail compte pour évaluer le match.
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 1 — QUI JE SUIS
+══════════════════════════════════════════════════════════════════════════════════
+
+■ IDENTITÉ
+- Nom : Damien Demontis
+- Âge : 25 ans
+- Localisation : Frouard, Grand Est, France (à côté de Nancy)
+- Nationalité : Française, moitié italien par héritage familial
+- Mobilité : full remote uniquement, basé en France, timezone CET/CEST (UTC+1/+2)
+
+■ LANGUES (atout majeur pour les postes internationaux)
+- Français : Langue maternelle (100%)
+- Anglais : C1/C2 fluent — TEPITECH 945/990 (équivalent TOEIC quasi-parfait) (95%)
+- Italien : Conversationnel — héritage familial, moitié italien (60%)
+- Coréen : A2 élémentaire — appris pendant mon année en Corée du Sud (40%)
+
+→ Ce profil linguistique est RARE : très peu de développeurs sont bilingues FR/EN à ce niveau avec des bases en italien ET coréen. C'est un atout décisif pour des entreprises avec des marchés européens (FR/IT), asiatiques (KR), ou simplement des équipes internationales anglophones.
+
+■ FORMATION ACADÉMIQUE
+
+1. EPITECH — Expert en Technologies de l'Information (Master, Bac+5)
+   - Période : 2020 → 2025
+   - Lieu : Nancy, France
+   - GPA : 3.7/4.0
+   - Distinction : MAJOR de la promotion du campus de Nancy (Campus Leader)
+   - Teaching Assistant pendant 3 années consécutives (reconnu top-performer)
+   - Méthodologie : apprentissage par projets (pédagogie active)
+   - Cursus technique : C, C++, Java, Haskell, DevOps, Cloud, Algorithms, Data Structures
+   - Activités : Startup Project Manager (Leon'Art), Coding Club Member
+   - EPITECH est l'école d'informatique #1 en France par la pédagogie par projets — les diplômés sont réputés pour leur autonomie et leur capacité à résoudre des problèmes complexes sans supervision.
+
+2. Keimyung University — Programme d'échange (Game Dev & IA)
+   - Période : Septembre 2023 → Juillet 2024 (1 an complet)
+   - Lieu : Daegu, Corée du Sud
+   - Statut : Ambassadeur EPITECH certifié (seuls les meilleurs étudiants sont sélectionnés)
+   - Spécialisations : développement de jeux vidéo, intelligence artificielle, technologies VR/AR
+   - Apprentissage du coréen
+   - Échange culturel international profond — cette expérience a "reshaped my worldview"
+   - J'y ai également dirigé à distance Leon'Art (startup internationale) pendant cette période
+
+3. Lycée Henri Poincaré — Baccalauréat Scientifique mention Très Bien
+   - Période : 2017 → 2020, Nancy
+   - Spécialisation informatique, fondations solides en mathématiques et physique
+
+■ CERTIFICATIONS PROFESSIONNELLES (toutes vérifiées, IonisX)
+- Agile Coaching (2023) — Méthodologies de coaching et facilitation d'équipes agiles
+- Team Management (2023) — Principes de leadership et gestion d'équipes
+- Crisis Communication (2023) — Stratégies de communication en situation de crise
+- IT Project Management (2022) — Gestion de projets IT, planification, suivi
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 2 — EXPÉRIENCES PROFESSIONNELLES DÉTAILLÉES
+══════════════════════════════════════════════════════════════════════════════════
+
+J'ai 7 expériences professionnelles couvrant HealthTech, IA, EdTech, FinTech, Assurance, Startup internationale, et Game Dev. Voici CHAQUE détail.
+
+───────────────────────────────────────────
+POSTE 1 (ACTUEL) : Lead Dev / Fullstack Developer — PandaLab SAS
+───────────────────────────────────────────
+- Période : Décembre 2025 → Présent
+- Lieu : Nancy, France
+- Secteur : HealthTech / e-Santé
+- Rôle : Lead Développeur Fullstack
+
+CONTEXTE : PandaLab développe une plateforme complète de coordination e-santé pour les professionnels de santé en France. La plateforme permet la téléconsultation sécurisée, la téléexpertise, la messagerie entre professionnels, et la gestion des patients. Elle est certifiée ISO 27001 et HDS (Hébergeur de Données de Santé) — les deux certifications les plus exigeantes du secteur santé en France.
+
+CHIFFRES CLÉS :
+- 23 900+ professionnels de santé utilisateurs actifs
+- 245 000+ messages mensuels transitant par la plateforme
+- Certification ISO 27001 (sécurité de l'information)
+- Certification HDS (Hébergement de Données de Santé — équivalent français de HIPAA)
+
+MES RESPONSABILITÉS ET RÉALISATIONS :
+1. Lead du développement fullstack — je prends les décisions techniques majeures
+2. Développement des fonctionnalités de téléexpertise : les médecins peuvent demander des avis d'experts médicaux via la plateforme
+3. Construction de modules de téléconsultation : consultations patient-médecin à distance, sécurisées et conformes
+4. Refactoring massif de fonctionnalités legacy pour améliorer la maintenabilité et les performances
+5. Garantie de conformité avec les standards de sécurité ISO 27001 et HDS à chaque développement
+
+STACK TECHNIQUE :
+Vue 3, Vuex, Node.js, Fastify, Vite, MongoDB, Redis, RabbitMQ, Docker, Nomad, MCP, Frontend Design, Security
+
+POURQUOI C'EST RARE : Très peu de développeurs ont une expérience Lead sur une plateforme certifiée ISO 27001 + HDS. Cette double certification exige une rigueur extrême en sécurité, chiffrement, gestion des accès, audit trail, et conformité RGPD santé. Les entreprises HealthTech internationales (HIPAA aux US, MDR en EU) recherchent exactement ce profil.
+
+───────────────────────────────────────────
+POSTE 2 (ACTUEL) : Founder & Full Stack Developer — JobNeko
+───────────────────────────────────────────
+- Période : Septembre 2024 → Présent
+- Lieu : Full Remote
+- Secteur : IA / Open Source
+- Rôle : Fondateur, architecte, développeur unique
+
+CONTEXTE : J'ai fondé JobNeko, une plateforme open-source d'analyse du marché de l'emploi alimentée par l'IA. Le produit est self-hostable (l'utilisateur contrôle 100% de ses données) avec un modèle SaaS premium à venir. C'est un produit complet que j'ai conçu, architecturé et développé de A à Z, seul.
+
+MES RÉALISATIONS TECHNIQUES :
+1. Plateforme fullstack open-source complète d'analyse d'emploi par IA
+2. Architecture self-hostable permettant un contrôle total des données utilisateur (privacy-first)
+3. Extraction automatique de données d'offres d'emploi via LLMs avancés depuis n'importe quel site web
+4. Analyse salariale intelligente avec scoring d'accessibilité (coût de la vie vs salaire)
+5. Matching CV-offre par IA avec scoring de compatibilité personnalisé
+6. Extension Chrome pour capture d'offres en un clic depuis n'importe quelle page web
+7. Implémentation RAG (Retrieval-Augmented Generation) pour des recommandations contextuelles
+8. Web scraping avancé pour l'extraction de données structurées
+
+STACK TECHNIQUE :
+Next.js, TypeScript, OpenAI API, Prisma ORM, Node.js, React, Tailwind CSS, PostgreSQL, Chrome Extension API, RAG, Web Scraping, LLM Integration, Docker
+
+POURQUOI C'EST IMPORTANT : Ça démontre que je sais concevoir un PRODUIT complet — pas juste coder des features. Architecture, UX, business model, open-source community, DevOps, IA — tout en une seule personne. C'est le profil type d'un "Founding Engineer".
+
+───────────────────────────────────────────
+POSTE 3 : Pedagogical Mentor | MSc Curriculum — EPITECH
+───────────────────────────────────────────
+- Période : Mars 2024 → Août 2024
+- Lieu : Nancy, France
+- Secteur : EdTech
+- Rôle : Mentor pédagogique pour le cursus MSc (Master of Science)
+
+CONTEXTE : J'ai été recruté pour moderniser le curriculum MSc d'EPITECH Nancy en y introduisant des technologies d'entreprise modernes. En parallèle, j'ai construit un système de reconnaissance faciale de production.
+
+MES RÉALISATIONS :
+1. Construction d'une plateforme de reconnaissance faciale de production avec PyTorch et OpenCV — système adopté par EPITECH pour le suivi de présence. Architecture cloud-based avec Firestore, interface PyQt6, reconnaissance en temps réel.
+2. Introduction des technologies fullstack modernes dans le curriculum MSc (React, Vue.js, Node.js, NestJS, Next.js)
+3. Mise en place de workflows CI/CD complets avec GitLab CI et GitHub Actions
+4. Délivrance de workshops cybersécurité couvrant le OWASP Top 10
+5. Création de contenus pédagogiques qui ont amélioré l'engagement étudiant de 40%
+6. 95% de satisfaction étudiante sur mon enseignement
+
+STACK TECHNIQUE :
+React, Vue.js, Node.js, NestJS, Next.js, Docker, Kubernetes, AWS, GCP, Azure, PyTorch, OpenCV, OWASP Top 10, Scrum, Kanban
+
+───────────────────────────────────────────
+POSTE 4 : Regional Assistant | PGE & MSc — EPITECH
+───────────────────────────────────────────
+- Période : 2021 → Août 2024 (3 ans)
+- Lieu : Nancy, France
+- Secteur : EdTech
+- Rôle : Assistant pédagogique régional
+
+CONTEXTE : Pendant 3 ans, j'ai mentoré 200+ étudiants depuis les fondamentaux (C/C++, mémoire, algorithmes) jusqu'aux technologies web modernes et DevOps.
+
+MES RÉALISATIONS :
+1. Reconnu "top-performing teaching assistant" pendant 3 années consécutives
+2. Enseignement du C/C++ fondamental : gestion mémoire, algorithmes, structures de données
+3. Introduction au développement web et conception d'APIs REST
+4. Création de modules de formation pratiques ayant amélioré les compétences de codage de 35%
+5. Mentorat de 200+ étudiants de tous niveaux
+
+STACK : C, C++, SFML, Git, Docker, SQL, JavaScript, REST APIs, Linux, Design Patterns, CUnit, GoogleTest
+
+POURQUOI C'EST IMPORTANT : 3 ans de mentorat intensif m'ont donné des compétences rares en communication technique, leadership, et transmission de connaissances. C'est exactement ce que recherchent les rôles Staff Engineer / Tech Lead avec composante mentorat.
+
+───────────────────────────────────────────
+POSTE 5 : Technical Lead & Project Manager — Leon'Art
+───────────────────────────────────────────
+- Période : Avril 2023 → Mars 2025 (2 ans)
+- Lieu : Daegu, Corée du Sud (startup internationale)
+- Secteur : Marketplace / E-commerce Art
+- Rôle : Tech Lead + Chef de projet
+
+CONTEXTE : Leon'Art est une startup internationale de marketplace d'art (achat/vente d'œuvres avec fonctionnalités sociales). J'ai dirigé une équipe cross-fonctionnelle de 7 personnes et architecturé l'intégralité de la plateforme, du concept au lancement beta. Le tout depuis la Corée du Sud pendant mon année d'échange.
+
+MES RÉALISATIONS :
+1. Architecture backend scalable avec Node.js, TypeScript, Express
+2. Implémentation de l'authentification sécurisée (JWT, OAuth 2.0) et du paiement Stripe
+3. Conception d'APIs REST et de flux webhook pour des événements marketplace en temps réel
+4. Direction d'une équipe cross-fonctionnelle de 7 personnes — ownership de l'architecture technique complète
+5. Livraison de la plateforme marketplace fullstack du concept au beta launch
+
+STACK : Node.js, TypeScript, Express, MongoDB, Stripe, React Native, GCP, Docker, Kubernetes, Firebase, REST APIs, WebSockets, JWT, OAuth 2.0
+
+POURQUOI C'EST IMPORTANT : Leadership technique international depuis la Corée du Sud, gestion d'équipe, architecture complète d'une marketplace avec paiements — c'est le profil type recherché par les startups internationales.
+
+───────────────────────────────────────────
+POSTE 6 : Fullstack Developer Intern — +Simple (FinTech)
+───────────────────────────────────────────
+- Période : Avril 2023 → Août 2023
+- Lieu : Nancy, France
+- Secteur : FinTech
+
+CONTEXTE : Migration d'une application monolithique Django vers une architecture frontend moderne Nuxt.js dans une startup FinTech.
+
+MES RÉALISATIONS :
+1. Migration d'un monolithe Django vers une architecture frontend Nuxt.js moderne
+2. Réduction de 50% des temps de chargement des pages
+3. Augmentation de 30% de la couverture de tests
+4. Amélioration de la scalabilité via des principes microservices
+
+STACK : Nuxt.js, Vue.js, Pinia, Django, PostgreSQL, GitLab CI/CD, Python, Microservices
+
+───────────────────────────────────────────
+POSTE 7 : Web Developer Intern — ACORIS Mutuelles (Assurance)
+───────────────────────────────────────────
+- Période : Juillet 2021 → Décembre 2021
+- Lieu : Nancy, France
+- Secteur : Assurance/Mutuelle
+
+MES RÉALISATIONS :
+1. Création de thèmes et plugins WordPress personnalisés
+2. Conception de structures de base de données MySQL
+3. Livraison d'une solution intranet complète révolutionnant la communication interne
+
+STACK : WordPress, PHP, MySQL, JavaScript, CSS, Custom Themes, Plugin Development
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 3 — COMPÉTENCES TECHNIQUES DÉTAILLÉES AVEC NIVEAUX
+══════════════════════════════════════════════════════════════════════════════════
+
+■ TOP 5 COMPÉTENCES PRINCIPALES (niveau expert) :
+- JavaScript : 95%
+- Node.js : 92%
+- React : 90%
+- TypeScript : 88%
+- HTML5/CSS3 : 95%
+
+■ FRONTEND (mon point fort) :
+- React / Next.js : 90%
+- Vue.js / Nuxt.js : 78%
+- TypeScript : 88%
+- Tailwind CSS : 85%
+- HTML5 / CSS3 : 95%
+- Animation : Framer Motion, GSAP, Three.js, WebGL, React Three Fiber, React Three Rapier (physique 3D)
+- J'ai construit un portfolio entier avec un design system "metal/chrome" custom de 40+ composants avec des shaders, des animations liquides, des particules, et des effets 3D. Ce n'est PAS un dev qui clone des templates Bootstrap.
+
+■ BACKEND (très solide) :
+- Node.js / Express / Fastify / NestJS : 92%
+- Python / Django : 72%
+- C / C++ : 80%
+- REST APIs : 90%
+- Java / C# : 65%
+- Message queues : RabbitMQ, WebSockets
+- Auth : JWT, OAuth 2.0
+- ORM : Prisma
+
+■ BASES DE DONNÉES :
+- MongoDB / NoSQL : 85%
+- PostgreSQL / MySQL : 78%
+- Redis : 55%
+- Firebase / Firestore
+
+■ DEVOPS & CLOUD :
+- Docker : 78%
+- Linux / Bash : 82%
+- CI/CD Pipelines (GitLab CI, GitHub Actions) : 75%
+- AWS / GCP : 65%
+- Azure : connaissances
+- Kubernetes : 50%
+- Nomad (HashiCorp) — utilisé en production chez PandaLab
+
+■ IA / MACHINE LEARNING (compétence émergente forte) :
+- Intégration LLM (OpenAI API) : 72%
+- RAG (Retrieval-Augmented Generation) : 68%
+- PyTorch : 60%
+- TensorFlow : 55%
+- OpenCV : 58%
+- Web Scraping avancé + extraction de données par LLM
+- J'ai SHIPPÉ en production : un système de reconnaissance faciale (PyTorch/OpenCV) et une plateforme RAG complète (JobNeko). Ce ne sont pas des projets tutoriels.
+
+■ MOBILE :
+- React Native : 70%
+- Expo : 65%
+- Flutter : 45%
+
+■ TESTING & QUALITÉ :
+- Jest : 82%
+- Cypress : 70%
+- Mocha : 60%
+- Tests unitaires / E2E : 80%
+
+■ OUTILS & DESIGN :
+- Git : 92%
+- Figma : 60%
+- Unity : 55%
+- Blender : 35%
+
+■ AUSSI EXPÉRIMENTÉ AVEC : Haskell, ECS (Entity Component System), GraphQL, Zapier, SFML, CUnit, GoogleTest, PyQt6
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 4 — PROJETS PERSONNELS NOTABLES
+══════════════════════════════════════════════════════════════════════════════════
+
+1. JOBNEKO — Plateforme IA open-source d'analyse d'emploi (voir expérience #2)
+   GitHub : projet open-source actif
+   Stack : Next.js, TypeScript, OpenAI, Prisma, PostgreSQL, Chrome Extension, RAG, Docker
+
+2. SYSTÈME DE RECONNAISSANCE FACIALE IA — Plateforme de suivi de présence
+   Cloud-based, PyTorch, OpenCV, Firestore, PyQt6. Reconnaissance en temps réel. Adopté en production par EPITECH.
+   GitHub : https://github.com/DamienDemontis/proto-1-pr-smart
+
+3. LEON'ART — Marketplace d'art (mobile + web)
+   React Native, Node.js, MongoDB, Express, Stripe, GCP. Startup internationale, équipe de 7.
+   GitHub : https://github.com/Leon-Art-EIP
+
+4. MSC DECOUVERTE — Plateforme éducative
+   800+ ressources externes organisées pour aider les étudiants EPITECH à choisir leur spécialité.
+   Vendu à EPITECH en 2025 (l'école a acheté mon projet).
+   Stack : Jekyll, HTML, CSS, JavaScript
+
+5. INEPT-INTRUDER — Jeu multijoueur coopératif
+   Un opérateur CCTV aide un joueur à naviguer dans une usine piégée. Communication temps réel.
+   Stack : Unity, C#, Multiplayer
+
+6. WII TANKS REMASTERED — Remake de jeu
+   Recréation du jeu Wii Play Tanks avec graphismes améliorés, physique réaliste, IA ennemie.
+   Stack : Unity, C#, Game Physics
+
+7. MON PORTFOLIO — Site web avec design system "metal" custom
+   40+ composants custom avec shaders, animations liquides, particules, galerie 3D, lecteur musique avec synchronisation de paroles, i18n (FR/EN/KO), React Three Fiber, GSAP, Framer Motion.
+   Stack : React, TypeScript, Three.js, WebGL, Tailwind CSS, Framer Motion, GSAP, i18next
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 5 — MA PERSONNALITÉ ET MES CENTRES D'INTÉRÊT
+══════════════════════════════════════════════════════════════════════════════════
+
+(Important pour le culture fit — les recruteurs évaluent aussi la personnalité)
+
+■ VOYAGES & EXPÉRIENCE INTERNATIONALE
+- 1 an complet en Corée du Sud (Daegu) comme Ambassadeur EPITECH certifié
+- Voyages extensifs en Corée du Sud (Seoul, Daegu, Gyeongju) et au Japon (Kyoto)
+- Photographe amateur passionné — 26+ photos de voyage de haute qualité sur mon portfolio
+- Cette expérience a profondément transformé ma vision du monde
+- Je suis à l'aise dans des environnements multiculturels et des équipes distribuées internationalement
+
+■ GOÛTS MUSICAUX (auto-décrit comme "Absolute Nonsense Musical Taste")
+Un éclectisme total qui reflète ma curiosité et mon ouverture d'esprit :
+- J-Rock : UVERworld, ONE OK ROCK, AINA the end
+- J-Pop : Ado
+- Indie R&B : Blood Orange
+- Alternative : Gorillaz, Radiohead
+- New Wave : Billy Idol
+- Power Metal : Powerwolf
+- Latin Pop : Kenia Os
+- Italian Pop : Max Gazzè (2 titres — héritage italien)
+- Electronic Pop, Game OST, Alt Rock (Twenty One Pilots), Indie Pop (Penelope Scott)
+→ 18 artistes de 10+ genres différents, en 5 langues (anglais, japonais, italien, espagnol, français)
+
+■ ÉCOLOGIE & EFFONDREMENT — RÉFLEXION INTELLECTUELLE
+"What happens when civilizations push past planetary boundaries?"
+- Passionné par les théories de l'effondrement sociétal (Jared Diamond)
+- Suit Kurzgesagt sur les sujets climatiques et civilisationnels
+- Réflexion philosophique sur les limites planétaires et l'avenir des civilisations
+
+■ CONFÉRENCES TECH / TECH TALKS
+- Conférencier régulier à EPITECH sur des sujets variés :
+  • Sujets techniques profonds et nouvelles technologies
+  • Histoire et culture du jeu vidéo
+  • Philosophie de la technologie
+- "Speaking about what fascinates me is one of the best ways I know to learn deeper and share that spark with others"
+→ Capacité prouvée de communication technique publique — atout pour des rôles de Developer Advocate / DevRel
+
+■ PROFIL PSYCHOLOGIQUE DÉDUIT DE MON TRAVAIL
+- Autodidacte et autonome (fondateur produit solo, projets personnels variés)
+- Curieux et polyvalent (HealthTech, IA, Game Dev, Art Marketplace, EdTech, FinTech)
+- Leadership naturel (Tech Lead, mentor, major de promo, ambassadeur)
+- Sensibilité design (portfolio avec 40+ composants custom, pas du bootstrap générique)
+- International et ouvert (année en Corée, 4 langues, goûts musicaux mondiaux)
+- Rigueur technique (certifications sécurité, CI/CD, testing, conformité)
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 6 — CE QUE JE CHERCHE (CRITÈRES DE RECHERCHE)
+══════════════════════════════════════════════════════════════════════════════════
+
+■ CONDITIONS NON-NÉGOCIABLES (filtre éliminatoire)
+1. FULL REMOTE OBLIGATOIRE — ou remote-first avec maximum 0-1 jour/mois en présentiel
+2. SALAIRE MINIMUM :
+   - France/EU : 65K€ brut/an minimum, idéalement 75-95K€+
+   - UK : £60K+ minimum, idéalement £70-90K+
+   - US (remote-friendly depuis la France) : $90K-$150K+ (ajusté si equity significative)
+   - Suisse (remote) : 100K CHF+
+   - Ouvert à des packages avec equity significative si startup early-stage prometteuse
+3. CDI ou contrat long terme (pas de missions freelance courtes de 1-3 mois)
+4. L'entreprise doit accepter un employé ou contractor basé en France (timezone CET/CEST)
+5. Stack technique compatible avec mes compétences (pas de stack que je ne connais pas du tout)
+
+■ TYPES DE POSTES RECHERCHÉS (par ordre de préférence)
+
+Tier 1 — Perfect fit :
+- Senior Fullstack Developer / Engineer (React + Node.js ou Vue + Node.js)
+- Lead Developer / Tech Lead (avec composante hands-on coding)
+- Founding Engineer (startup early-stage, equity + impact + salaire)
+- Staff Engineer (fullstack ou frontend-leaning)
+
+Tier 2 — Très bon fit :
+- AI Engineer / AI Fullstack Engineer (intégration LLM, RAG, pas ML research pure)
+- Platform Engineer (si orienté developer tooling)
+- Developer Experience Engineer / DevRel Engineer (profil technique + pédagogique)
+- Engineering Manager (si encore très technique, pas 100% management)
+
+Tier 3 — Bon fit si l'offre est exceptionnelle :
+- Senior Frontend Engineer (React/Vue, si le projet est techniquement passionnant)
+- Senior Backend Engineer (Node.js, si l'offre est très bien payée)
+- Solutions Engineer / Sales Engineer (si très technique et bien rémunéré)
+
+■ SECTEURS PRIORITAIRES ET POURQUOI
+
+1. 🏥 HEALTHTECH / MEDTECH / E-SANTÉ — FIT PARFAIT
+   Pourquoi : C'est mon domaine ACTUEL. J'ai une expérience Lead sur plateforme certifiée ISO 27001 + HDS. Très peu de candidats dans le monde ont ce combo "fullstack senior + conformité santé". Les entreprises HealthTech US cherchant la conformité HIPAA valoriseront mon expérience HDS (équivalent européen). Exemples : Doctolib, Alan, Withings, Huma, Babylon Health, Noom, Teladoc, Cerebral, etc.
+
+2. 🤖 AI-NATIVE PRODUCTS / LLM TOOLING — FIT EXCELLENT
+   Pourquoi : J'ai shippé un produit RAG complet (JobNeko) + intégration LLM en production. Ce n'est pas du prompt engineering, c'est de l'architecture AI fullstack. Exemples : entreprises qui construisent des outils AI, des wrappers LLM, des produits AI-first. Mistral AI, Hugging Face, Dust.tt, Cohere, Anthropic, LangChain, Vercel (AI SDK), etc.
+
+3. 🛠 DEVTOOLS / DEVELOPER EXPERIENCE — FIT NATUREL
+   Pourquoi : Mon profil technique + 3 ans de pédagogie + conférences tech = profil idéal pour améliorer l'expérience développeur. Exemples : Vercel, Netlify, Supabase, Railway, Render, Prisma, PlanetScale, Turso, etc.
+
+4. 📚 EDTECH — EXPÉRIENCE DIRECTE
+   Pourquoi : 3+ ans d'enseignement, 200+ étudiants mentorés, 95% satisfaction, modules créés. Exemples : Coursera, Udemy, Codecademy, OpenClassrooms, etc.
+
+5. 💰 FINTECH — EXPÉRIENCE DIRECTE
+   Pourquoi : Migration technique réussie chez +Simple (FinTech), réduction 50% temps de chargement. Exemples : Qonto, Pennylane, Spendesk, Stripe, Revolut, N26, etc.
+
+6. 🏢 SAAS B2B — EXPÉRIENCE PRODUIT
+   Pourquoi : Expérience complète de construction produit avec JobNeko. Exemples : toute entreprise SaaS B2B avec stack React/Node/Vue.
+
+7. 🌐 OPEN SOURCE COMPANIES
+   Pourquoi : Je maintiens déjà un projet open-source (JobNeko). Exemples : GitLab, Supabase, Directus, Strapi, Medusa, etc.
+
+8. 🎮 GAMING / CREATIVE TECH
+   Pourquoi : Projets Unity, WebGL/Three.js, année d'études en Game Dev. Fit si rôle web/fullstack dans l'industrie gaming.
+
+■ CE QUI ME REND UNIQUE — MES AVANTAGES COMPÉTITIFS (NICHES)
+
+NICHE 1 : HealthTech + Conformité Sécurité + Fullstack Modern
+→ Lead Dev sur plateforme certifiée ISO 27001 + HDS avec Vue 3/Node.js/MongoDB/Redis/RabbitMQ
+→ TRÈS peu de développeurs fullstack ont cette triple compétence
+→ Immédiatement opérationnel sur tout produit santé nécessitant conformité HIPAA/SOC2/ISO27001
+
+NICHE 2 : AI/LLM/RAG Production + Fullstack
+→ Pas juste des POC — j'ai shippé un produit RAG complet avec extraction LLM, matching IA, Chrome extension
+→ Rare : la plupart des "AI Engineers" sont soit ML purs (pas fullstack) soit des prompt engineers (pas production)
+
+NICHE 3 : Leadership Technique + Pédagogie Prouvée
+→ Tech Lead (7 personnes), 3 ans de mentorat (200+ étudiants), conférences régulières, major de promo
+→ Parfait pour Staff/Lead/Principal avec composante mentorat ou DevRel
+
+NICHE 4 : International + Multilingue + Remote-Native
+→ FR/EN bilingue, bases IT/KR, 1 an en Corée, startup dirigée depuis l'étranger
+→ Immédiatement productif dans des équipes distribuées internationales, pas besoin d'adaptation
+
+NICHE 5 : Fondateur Produit + Salarié
+→ Je comprends le BUSINESS et la TECHNIQUE — j'ai fondé un produit, designé le business model, développé, déployé
+→ Profil "Founding Engineer" idéal pour startups early-stage
+
+══════════════════════════════════════════════════════════════════════════════════
+SECTION 7 — INSTRUCTIONS DE RECHERCHE DÉTAILLÉES
+══════════════════════════════════════════════════════════════════════════════════
+
+■ FORMAT DE SORTIE ATTENDU
+
+Pour CHAQUE offre trouvée, donne-moi :
+1. 🏷 Titre exact du poste
+2. 🏢 Nom de l'entreprise + brève description (secteur, taille, stage, funding)
+3. 🔗 Lien direct vers l'offre (URL)
+4. 💰 Salaire affiché ou fourchette estimée (si non affiché, estime basé sur le marché)
+5. 🌍 Localisation + politique remote (full remote, hybrid, timezone requirements)
+6. 🛠 Stack technique requise
+7. ✅ Pourquoi je MATCH (liste des skills alignés point par point)
+8. 🏆 Mon avantage compétitif SPÉCIFIQUE sur cette offre (ce qui me différencie des autres candidats)
+9. ⚠️ Gaps éventuels (skills demandés que je n'ai pas — sois honnête)
+10. 📊 Score de match estimé (X/100)
+
+■ REQUÊTES DE RECHERCHE SUGGÉRÉES (utilise-les ET va au-delà)
+
+HEALTHTECH (ma niche #1) :
+- "senior fullstack developer" healthtech remote (React OR Vue) Node.js
+- "lead developer" health (ISO 27001 OR HIPAA OR SOC2 OR HDS) remote
+- "staff engineer" healthtech remote (TypeScript OR JavaScript)
+- "founding engineer" healthtech remote
+- "senior software engineer" telemedicine remote
+- "fullstack engineer" digital health remote
+- "senior developer" ehealth remote Europe
+
+AI / LLM (ma niche #2) :
+- "AI engineer" fullstack (RAG OR LLM) (React OR Next.js) remote
+- "senior fullstack developer" AI (OpenAI OR LLM OR GPT) remote
+- "founding engineer" AI remote (TypeScript OR Node.js)
+- "AI product engineer" remote fullstack
+- "LLM engineer" (React OR Next.js) remote
+- "machine learning engineer" fullstack (Python OR TypeScript) remote
+
+DEVTOOLS / DX (ma niche #3) :
+- "developer experience engineer" remote (React OR TypeScript OR Node.js)
+- "developer advocate" remote (fullstack OR React OR Node.js)
+- "platform engineer" remote (TypeScript OR Node.js)
+- "devtools engineer" remote
+
+FULLSTACK GÉNÉRIQUE BIEN PAYÉ :
+- "senior fullstack engineer" remote $100k+ (React OR Vue) Node.js
+- "staff engineer" remote (React OR Vue) (Node.js OR TypeScript)
+- "lead engineer" remote (React OR Vue) Node.js
+- "senior software engineer" remote (TypeScript) (React OR Vue OR Next.js)
+- "founding engineer" remote (React OR Next.js) (Node.js OR TypeScript)
+- "principal engineer" remote fullstack
+
+INTERNATIONAL SPÉCIFIQUE :
+- "senior developer" remote UK (React OR Vue) Node.js £70k+
+- "senior engineer" remote Germany (React OR Vue) Node.js
+- "fullstack developer" remote Netherlands (React OR Vue)
+- "senior developer" remote Switzerland (React OR Vue)
+- "software engineer" remote US timezone-flexible (React OR Vue) Node.js
+- "senior developer" remote Canada (React OR Vue) Node.js
+- "senior developer" remote Australia (React OR Vue)
+- "fullstack engineer" remote Singapore
+- "senior developer" remote "South Korea" (React OR Vue)
+- "senior engineer" remote Scandinavia (React OR Vue) Node.js
+- "senior developer" remote Ireland (React OR Vue) Node.js
+- "senior developer" remote Israel (React OR Vue) Node.js
+
+VUE.JS SPÉCIFIQUE (combo rare = moins de concurrence) :
+- "senior Vue.js developer" remote Node.js
+- "Vue 3" developer remote senior
+- "lead developer" Vue remote
+- "fullstack developer" Vue Node.js remote
+
+■ PLATEFORMES À FOUILLER EXHAUSTIVEMENT
+
+Job Boards Internationaux Remote-First :
+- RemoteOK (remoteok.com)
+- We Work Remotely (weworkremotely.com)
+- Arc.dev (arc.dev)
+- Turing (turing.com)
+- Toptal (toptal.com)
+- Remotive (remotive.com)
+- FlexJobs (flexjobs.com)
+- Remote.co (remote.co)
+- JustRemote (justremote.co)
+- Himalayas (himalayas.app)
+- Pangian (pangian.com)
+- Working Nomads (workingnomads.com)
+- Nodesk (nodesk.co)
+- DailyRemote (dailyremote.com)
+- RemoteFR (remotefr.com) — spécifique France
+
+Job Boards Tech Majeurs :
+- LinkedIn Jobs (global)
+- Indeed (global)
+- Glassdoor (global)
+- StackOverflow Jobs / Developer Jobs
+- HackerNews "Who's Hiring" (monthly thread — April 2026)
+- Y Combinator "Work at a Startup" (workatastartup.com)
+- AngelList / Wellfound (wellfound.com) — startups
+- Dice (dice.com) — tech US
+- Hired (hired.com) — tech US/UK
+
+Job Boards Européens :
+- Welcome to the Jungle (welcometothejungle.com) — FR + EU
+- Talent.io (talent.io) — EU tech
+- Landing.jobs (landing.jobs) — EU tech
+- Station F Jobs (stationf.co) — startups françaises
+- French Tech Jobs
+- SwissDevJobs (swissdevjobs.ch) — Suisse
+- Berlin Startup Jobs (berlinstartupjobs.com) — Allemagne
+- WorkInTech.fr — France
+- FrenchTech Central
+- EuroTechJobs (eurotechjobs.com)
+
+Job Boards Spécialisés :
+- HealthTechJobs / Digital Health Jobs
+- AI Jobs (ai-jobs.net)
+- MLJobs
+- Crypto/Web3 Jobs (si offres fullstack intéressantes)
+- Climate Tech Jobs / GreenJobs (vu mon intérêt écologie)
+
+■ ENTREPRISES SPÉCIFIQUES À VÉRIFIER (pages carrières)
+
+HealthTech EU/US :
+Doctolib, Alan, Withings, Lifen, Nabla, Qare, ManoMano Health, Huma, Babylon Health, Noom, Teladoc, Cerebral, Ro, Hims & Hers, Calm, Headspace, Zocdoc, Veeva Systems, Flatiron Health, Tempus, Color Health, Olive AI, Akeso Health
+
+AI-Native :
+Mistral AI, Hugging Face, Dust.tt, LightOn, Cohere, Anthropic, OpenAI, Jasper, Writer, Copy.ai, Glean, Perplexity, Cursor (Anysphere), Vercel (AI SDK team), LangChain/LangSmith, Pinecone, Weaviate, Qdrant
+
+DevTools/DX :
+Vercel, Netlify, Supabase, Railway, Render, Prisma, PlanetScale, Turso, Neon, Fly.io, Deno, Bun, Astro, Storybook, Chromatic
+
+French/EU Tech (bien payé, remote) :
+Datadog, Algolia, ContentSquare, Qonto, Pennylane, Spendesk, Malt, Platform.sh, Scaleway, OVHcloud, Believe, Mirakl, PayFit, Swile, Ledger, Sorare, BlaBlaCar, Criteo, Deezer, Aircall, Front, Pigment, Akeneo
+
+Open Source :
+GitLab, Supabase, Directus, Strapi, Medusa, Meilisearch, PostHog, Cal.com, Appwrite, Nhost, Amplication
+
+Remote-First Companies bien connues :
+GitLab, Automattic (WordPress), Zapier, Buffer, Doist (Todoist), InVision, Toptal, Hashicorp, Elastic, Grafana Labs, Canonical, Mozilla, Wikimedia, Ghost
+
+UK Tech (remote-friendly) :
+Monzo, Starling Bank, Revolut, GoCardless, Paddle, Checkout.com, Improbable, DeepMind (web teams), Wise, Cazoo
+
+US Tech (remote-friendly avec EU) :
+Stripe, Shopify, Twilio, Cloudflare, Figma, Linear, Notion, Loom, Miro, Airtable, Retool, Webflow
+
+■ CRITÈRES DE TRI (classe les offres dans cet ordre)
+
+1. Score de match technique (mes skills vs requirements) — minimum 80%
+2. Salaire / compensation totale
+3. Full remote confirmé
+4. Secteur (HealthTech et AI en priorité)
+5. Taille de l'entreprise (startup funded > scale-up > big tech)
+6. Potentiel equity / upside
+7. Culture fit (international, innovation, open-source friendly)
+
+■ QUANTITÉ ET QUALITÉ
+
+- Minimum 20-30 offres concrètes avec liens
+- Classe-les en 3 tiers :
+  • TIER S (match 90%+) — je postule immédiatement
+  • TIER A (match 80-90%) — très intéressant, je postule cette semaine
+  • TIER B (match 70-80%) — intéressant si le salaire/projet compense
+- Pour chaque tier, mets les offres internationales EN PREMIER
+
+■ NOTES IMPORTANTES
+
+- Ne me propose PAS d'offres nécessitant des compétences que je n'ai pas du tout (Rust, Scala, Elixir, Go avancé, ML Research pure, etc.)
+- Priorise les offres où mon combo de compétences est RARE (ex: HealthTech + fullstack + conformité, ou AI/RAG + fullstack production, ou Vue.js + Node.js senior + remote)
+- Si une offre dit "React OR Vue" — c'est un match parfait car je maîtrise les DEUX
+- Mon expérience HealthTech avec ISO 27001/HDS est un DEAL-BREAKER différenciateur pour tout poste santé — mets-le en avant systématiquement
+- Pour les startups early-stage, je suis ouvert à un salaire légèrement inférieur SI l'equity est significative (0.5%+)
+- Je suis en France = timezone CET/CEST = overlap naturel avec toute l'Europe ET 4-6h d'overlap avec la côte Est US (parfait pour "US remote avec overlap")
+
+LANCE LA RECHERCHE. SOIS EXHAUSTIF. JE VEUX DES RÉSULTATS CONCRETS.

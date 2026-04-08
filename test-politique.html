@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Théo SOYER">
+		<meta name="description" content="Test politique en français, anonyme, gratuit et précis.">
+		<meta name="viewport" content="width=device-width, initial-scale=0.75">
+		<title> Théo SOYER - Test politique </title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+		
+		<!-- BootStrap Links-->
+		<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+		
+		<!-- Local Links -->
+		<link rel="stylesheet" type="text/css" href="CSS/navigation.css">
+		<link rel="stylesheet" type="text/css" href="CSS/resultats.css">
+		
+
+		<script>
+		// Liste des idéologies
+		ideologies = [
+			{
+				"nom": "Trotskisme",
+				"image1": "Images/LO.png",
+				"lien1": "https://www.lutte-ouvriere.org/",
+				"image2": "Images/POI.png",
+				"lien2": "http://partiouvrierindependant-poi.fr/",
+				"stats": {
+					"communisme": 95,
+					"cosmopolitisme": 55,
+					"etatisme": 79,
+					"progressisme": 86
+				}
+			},
+			{
+				"nom": "Anticapitalisme",
+				"image1": "Images/NPA.png",
+				"lien1": "https://nouveaupartianticapitaliste.org/",
+				"image2": "Images/LO.png",
+				"lien2": "https://www.lutte-ouvriere.org/",
+				"stats": {
+					"communisme": 95,
+					"cosmopolitisme": 67.5,
+					"etatisme": 70,
+					"progressisme": 95
+				}
+			},
+			{
+				"nom": "Atlantisme",
+				"image1": "Images/LREM.png",
+				"lien1": "https://en-marche.fr/",
+				"image2": "Images/UDI.png",
+				"lien2": "https://www.parti-udi.fr/",
+				"stats": {
+					"communisme": 40,
+					"cosmopolitisme": 80,
+					"etatisme": 21,
+					"progressisme": 64
+				}
+			},
+			{
+				"nom": "Bonapartisme",
+				"image1": "Images/AAP.png",
+				"lien1": "https://lappelaupeuple.fr/",
+				"image2": "Images/AR.png",
+				"lien2": "https://allianceroyale.fr/",
+				"stats": {
+					"communisme": 60,
+					"cosmopolitisme": 15,
+					"etatisme": 82,
+					"progressisme": 32
+				}
+			},
+			{
+				"nom": "Marxisme-Leninisme",
+				"image1": "Images/PRCF.png",
+				"lien1": "https://www.initiative-communiste.fr/",
+				"image2": "Images/PCOF.png",
+				"lien2": "https://www.pcof.net/",
+				"stats": {
+					"communisme": 90,
+					"cosmopolitisme": 25,
+					"etatisme": 96,
+					"progressisme": 61
+				}
+			},
+			{
+				// Souverainisme de gauche.
+				"nom": "Souverainisme",
+				"image1": "Images/UPR.png",
+				"lien1": "https://www.upr.fr/",
+				"image2": "Images/RS.png",
+				"lien2": "https://www.republique-souveraine.fr/",
+				"stats": {
+					"communisme": 62.5,
+					"cosmopolitisme": 35,
+					"etatisme": 70,
+					"progressisme": 48
+				}
+			},
+			{
+				// Souverainisme de droite.
+				"nom": "Gaullisme",
+				"image1": "Images/LP.png",
+				"lien1": "https://les-patriotes.fr/",
+				"image2": "Images/DLF.png",
+				"lien2": "https://www.debout-la-france.fr/",
+				"stats": {
+					"communisme": 50,
+					"cosmopolitisme": 30,
+					"etatisme": 64,
+					"progressisme": 36
+				}
+			},
+			{
+				"nom": "Protectionnisme",
+				"image1": "Images/Resistons.png",
+				"lien1": "https://resistons-france.fr/",
+				"image2": "Images/DLF.png",
+				"lien2": "https://www.debout-la-france.fr/",
+				"stats": {
+					"communisme": 50,
+					"cosmopolitisme": 37.5,
+					"etatisme": 59,
+					"progressisme": 41
+				}
+			},
+			{
+				// Alliance NDA / MLP.
+				"nom": "Souverainisme & Gaullisme",
+				"image1": "Images/RN.png",
+				"lien1": "https://rassemblementnational.fr/",
+				"image2": "Images/DLF.png",
+				"lien2": "https://www.debout-la-france.fr/",
+				"stats": {
+					"communisme": 45,
+					"cosmopolitisme": 35,
+					"etatisme": 61,
+					"progressisme": 39
+				}
+			},
+			{
+				"nom": "Stalinisme & Maoisme",
+				"image1": "Images/INTERDIT.png",
+				"lien1": "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Parti_politique_interdit",
+				"image2": "Images/INTERDIT.png",
+				"lien2": "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Parti_politique_interdit",
+				"stats": {
+					"communisme": 75,
+					"cosmopolitisme": 5,
+					"etatisme": 100,
+					"progressisme":  32
+				}
+			},
+			{
+				"nom": "Socialisme d'État",
+				"image1": "Images/PRCF.png",
+				"lien1": "https://www.initiative-communiste.fr",
+				"image2": "Images/RS.png",
+				"lien2": "https://www.republique-souveraine.fr/",
+				"stats": {
+					"communisme": 82.5,
+					"cosmopolitisme": 35,
+					"etatisme": 84,
+					"progressisme": 63
+				}
+			},
+			{
+				"nom": "Socialisme démocratique",
+				"image1": "Images/PCF.png",
+				"lien1": "https://www.pcf.fr/",
+				"image2": "Images/GRS.png",
+				"lien2": "https://g-r-s.fr/",
+				"stats": {
+					"communisme": 80,
+					"cosmopolitisme": 45,
+					"etatisme": 75,
+					"progressisme": 68
+				}
+			},
+			{
+				"nom": "Écosocialisme",
+				"image1": "Images/LFI.png",
+				"lien1": "https://lafranceinsoumise.fr/",
+				"image2": "Images/GRS.png",
+				"lien2": "https://g-r-s.fr/",
+				"stats": {
+					"communisme": 80,
+					"cosmopolitisme": 55,
+					"etatisme": 65,
+					"progressisme": 71
+				}
+			},
+			{
+				"nom": "Gauchisme",
+				"image1": "Images/LFI.png",
+				"lien1": "https://lafranceinsoumise.fr/",
+				"image2": "Images/NPA.png",
+				"lien2": "https://nouveaupartianticapitaliste.org/",
+				"stats": {
+					"communisme": 80,
+					"cosmopolitisme": 70,
+					"etatisme": 57,
+					"progressisme": 86
+				}
+			},
+			{
+				"nom": "Socialisme libertaire",
+				"image1": "Images/NPA.png",
+				"lien1": "https://nouveaupartianticapitaliste.org/",
+				"image2": "Images/FA.png",
+				"lien2": "https://federation-anarchiste.org/",
+				"stats": {
+					"communisme": 80,
+					"cosmopolitisme": 80,
+					"etatisme": 50,
+					"progressisme": 93
+				}
+			},
+			{
+				"nom": "Social-libéralisme",
+				"image1": "Images/MODEM.png",
+				"lien1": "https://www.mouvementdemocrate.fr/",
+				"image2": "Images/UDI.png",
+				"lien2": "https://www.parti-udi.fr/",
+				"stats": {
+					"communisme": 40,
+					"cosmopolitisme": 55,
+					"etatisme": 40,
+					"progressisme": 50
+				}
+			},
+			{
+				"nom": "Social-démocratie",
+				"image1": "Images/PS.png",
+				"lien1": "https://www.parti-socialiste.fr",
+				"image2": "Images/GRS.png",
+				"lien2": "https://g-r-s.fr/",
+				"stats": {
+					"communisme": 60,
+					"cosmopolitisme": 50,
+					"etatisme": 57,
+					"progressisme": 57
+				}
+			},
+			{
+				"nom": "Social-écologie",
+				"image1": "Images/PP.png",
+				"lien1": "https://place-publique.eu/",
+				"image2": "Images/PS.png",
+				"lien2": "https://www.parti-socialiste.fr",
+				"stats": {
+					"communisme": 65,
+					"cosmopolitisme": 60,
+					"etatisme": 54,
+					"progressisme": 68
+				}
+			},
+			{
+				"nom": "Centrisme",
+				"image1": "Images/Resistons.png",
+				"lien1": "https://resistons-france.fr/",
+				"image2": "Images/MODEM.png",
+				"lien2": "https://www.mouvementdemocrate.fr/",
+				"stats": {
+					"communisme": 50,
+					"cosmopolitisme": 50,
+					"etatisme": 50,
+					"progressisme": 50
+				}
+			},
+			{
+				"nom": "Libéralisme",
+				"image1": "Images/LREM.png",
+				"lien1": "https://en-marche.fr/",
+				"image2": "Images/UDI.png",
+				"lien2": "https://www.parti-udi.fr/",
+				"stats": {
+					"communisme": 35,
+					"cosmopolitisme": 65,
+					"etatisme": 33,
+					"progressisme": 50
+				}
+			},
+			{
+				"nom": "Libéral-conservatisme",
+				"image1": "Images/LR.png",
+				"lien1": "https://republicains.fr/",
+				"image2": "Images/NE.png",
+				"lien2": "https://www.unenouvelleenergie.fr/",
+				"stats": {
+					"communisme": 35,
+					"cosmopolitisme": 40,
+					"etatisme": 46,
+					"progressisme": 32
+				}
+			},
+			{
+				"nom": "Anarchisme",
+				"image1": "Images/FA.png",
+				"lien1": "https://federation-anarchiste.org/",
+				"image2": "Images/CNT.png",
+				"lien2": "http://www.cnt-f.org/",
+				"stats": {
+					"communisme": 65,
+					"cosmopolitisme": 90,
+					"etatisme": 32,
+					"progressisme": 89
+				}
+			},
+			{
+				"nom": "Libertarianisme",
+				"image1": "Images/PLIB.png",
+				"lien1": "https://www.partiliberal.fr/",
+				"image2": "Images/PL.png",
+				"lien2": "http://www.parti-libertarien.com/",
+				"stats": {
+					"communisme": 20,
+					"cosmopolitisme": 80,
+					"etatisme": 7,
+					"progressisme": 50
+				}
+			},
+			{
+				"nom": "Fascisme",
+				"image1": "Images/INTERDIT.png",
+				"lien1": "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Parti_politique_interdit",
+				"image2": "Images/INTERDIT.png",
+				"lien2": "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Parti_politique_interdit",
+				"stats": {
+					"communisme": 50,
+					"cosmopolitisme": 0,
+					"etatisme": 86,
+					"progressisme": 0
+				}
+			},
+			{
+				"nom": "National-conservatisme",
+				"image1": "Images/RN.png",
+				"lien1": "https://rassemblementnational.fr/",
+				"image2": "Images/R.png",
+				"lien2": "https://www.parti-reconquete.fr/",
+				"stats": {
+					"communisme": 35,
+					"cosmopolitisme": 25,
+					"etatisme": 57,
+					"progressisme": 21
+				}
+			},
+			{
+				"nom": "Royalisme",
+				"image1": "Images/AF.png",
+				"lien1": "https://www.actionfrancaise.net/",
+				"image2": "Images/AR.png",
+				"lien2": "http://www.allianceroyale.fr/",
+				"stats": {
+					"communisme": 20,
+					"cosmopolitisme": 15,
+					"etatisme": 54,
+					"progressisme": 4
+				}
+			},
+			{
+				"nom": "Écologisme",
+				"image1": "Images/EELV.png",
+				"lien1": "https://www.eelv.fr/",
+				"image2": "Images/GS.png",
+				"lien2": "https://www.generation-s.fr/",
+				"stats": {
+					"communisme": 60,
+					"cosmopolitisme": 70,
+					"etatisme": 43,
+					"progressisme": 71
+				}
+			},
+			{
+				"nom": "National-libéralisme",
+				"image1": "Images/UDR.jpg",
+				"lien1": "https://www.udr.fr/",
+				"image2": "Images/R.png",
+				"lien2": "https://www.parti-reconquete.fr/",
+				"stats": {
+					"communisme": 30,
+					"cosmopolitisme": 30,
+					"etatisme": 50,
+					"progressisme": 21
+				}
+			},
+			{
+				"nom": "National-libéralisme",
+				"image1": "Images/PNL.png",
+				"lien1": "https://www.natlib.fr/",
+				"image2": "Images/R.png",
+				"lien2": "https://www.parti-reconquete.fr/",
+				"stats": {
+					"communisme": 10,
+					"cosmopolitisme": 30,
+					"etatisme": 36,
+					"progressisme": 7
+				}
+			},
+		];
+
+		// Liste des positions par axes
+		ideologies_economie = ["Communiste", "Socialiste", "Social-démocrate", "Centriste", "Social-libéral", "Libéral", "Capitaliste"]
+		ideologies_diplomatie = ["Anarchiste", "Cosmopolite", "Pacifiste", "Neutre", "Patriote", "Nationaliste", "Totalitariste"]
+		ideologies_civil = ["Autoritariste", "Collectiviste", "Etatiste", "Centriste", "Libéral", "Libertarien", "Individualiste"]
+		ideologies_societal = ["Révolutionnaire", "Woke", "Progressiste", "Réformiste", "Conservateur", "Conservateur", "Réactionnaire"]
+
+		function mettre_pourcentage(nom, valeur) {
+			innerel = document.getElementById(nom)
+			outerel = document.getElementById("bar-" + nom)
+			outerel.style.width = (valeur + "%")
+			innerel.innerHTML = (valeur + "%")
+			if (innerel.offsetWidth + 20 > outerel.offsetWidth) {
+				innerel.style.visibility = "hidden"
+			}
+		}
+
+		function attribuer_ideologies(val,ary) {
+			if (val >= 90) { return ary[0] } 
+			else if (val >= 70) { return ary[1] } 
+			else if (val > 53 ) { return ary[2] } 
+			else if (val >= 47) { return ary[3] } 
+			else if (val > 30) { return ary[4] } 
+			else if (val > 10) { return ary[5] } 
+			else { return ary[6] } 
+		}
+
+		function recuperer_resultat(variable) {
+			var query = window.location.search.substring(1)
+			var vars = query.split("&")
+			for (var i = 0; i < vars.length; i++) {
+				var pair = vars[i].split("=")
+				if (pair[0] == variable) { return pair[1] }
+			}
+			return(NaN);
+		}
+
+		//Fonction qui affiche les résultats.
+		function fonction_resultat() {
+			//Récupération des résultats.
+			var x = window.location.search.slice(7);
+			var eco = recuperer_resultat("eco");
+			var diplo = recuperer_resultat("diplo");
+			
+			//Max valeur = (3 * 6) * 16
+			var mi = eco * 6.75;
+			var ni = diplo * -6.75;
+			
+			//Définition des propriétés de l'image.
+			ImageDiv.style.marginLeft = mi + '%';
+			ImageDiv.style.marginTop = ni + '%';
+			
+			var communisme = 50 - 5 * eco;
+			var capitalisme = 100 - communisme;
+			var cosmopolitisme = 50 - 5 * diplo;
+			var nationalisme = 100 - cosmopolitisme;
+			var etatisme = Math.round(50 - 50/7 * (eco - diplo) / 2);
+			var individualisme = 100 - etatisme;
+			var progressisme = Math.round(50 - 50/7 * (eco / 2 + diplo / 2));
+			var conservatisme = 100 - progressisme;
+
+			mettre_pourcentage("communisme", communisme)
+			mettre_pourcentage("capitalisme", capitalisme)
+			mettre_pourcentage("cosmopolitisme", cosmopolitisme)
+			mettre_pourcentage("nationalisme", nationalisme)
+			mettre_pourcentage("etatisme", etatisme)
+			mettre_pourcentage("individualisme", individualisme)
+			mettre_pourcentage("progressisme", progressisme)
+			mettre_pourcentage("conservatisme", conservatisme)
+
+			document.getElementById("titre-economie").innerHTML = attribuer_ideologies(communisme, ideologies_economie)
+			document.getElementById("titre-diplomatie").innerHTML = attribuer_ideologies(cosmopolitisme, ideologies_diplomatie)
+			document.getElementById("titre-civil").innerHTML = attribuer_ideologies(etatisme, ideologies_civil)
+			document.getElementById("titre-societal").innerHTML = attribuer_ideologies(progressisme, ideologies_societal)
+
+			ideologie = ""
+			image1 = ""
+			lien1 = ""
+			image2 = ""
+			lien2 = ""
+			ideodist = Infinity
+			for (var i = 0; i < ideologies.length; i++) {
+				dist = 0
+				dist += Math.pow(Math.abs(ideologies[i].stats.communisme - communisme), 2)
+				dist += Math.pow(Math.abs(ideologies[i].stats.cosmopolitisme - cosmopolitisme), 2)
+				dist += Math.pow(Math.abs(ideologies[i].stats.etatisme - etatisme), 1.73856063)
+				dist += Math.pow(Math.abs(ideologies[i].stats.progressisme - progressisme), 1.73856063)
+				if (dist < ideodist) {
+					ideologie = ideologies[i].nom
+					image1 = ideologies[i].image1
+					lien1 = ideologies[i].lien1
+					image2 = ideologies[i].image2
+					lien2 = ideologies[i].lien2
+					ideodist = dist
+				}
+			}
+			document.getElementById("ideologie").innerHTML = ideologie
+			document.getElementById("image1").src = image1
+			document.getElementById("lien1").href = lien1
+			document.getElementById("image2").src = image2
+			document.getElementById("lien2").href = lien2
+		}
+		</script>
+	</head>
+		
+	<body onload="fonction_resultat()">
+		<div class="header">
+		  <li><a href="index.html"><div class="nom"> Théo SOYER </div></a></li>
+		  <li><div class="active"> Résultats </div></li>
+		  <li><a class="autre" href="index.html"> Recommencer </a></li>
+		</div>
+		<div id="contenu">
+			<div id="Text">
+				<!-- Affichage de l'idéologie -->
+				<div class="ideo-cadre">
+					<span id="ideologie"></span>
+				</div>
+				<hr>
+				
+				<!-- Images et liens vers les sites des partis -->
+				<a id="lien1" target="_blank">
+					<!-- Image du parti -->
+					<img id="image1" height="80pt"/>
+				</a>
+				
+				<a id="lien2" target="_blank">
+					<!-- Image du parti -->
+					<img id="image2" height="80pt"/>
+				</a>
+			</div>
+			
+			<hr>
+			
+			<div id="bordures">
+				<div id="Main">
+					<div id="ImageBorder">
+						<div id="ImageDiv"></div>
+					</div>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div id="pourcentages">
+				<h2>Économie : <span class="weight-300" id="titre-economie"></span></h2>
+				<div class="axes">
+					<img id="img-communisme" src="Images/communisme.png" height="128pt"/>
+					<div class="bar communisme" id="bar-communisme"><div class="text-wrapper" id="communisme"></div></div>
+					<div class="bar capitalisme" id="bar-capitalisme"><div class="text-wrapper" id="capitalisme"></div></div>
+					<img id="img-capitalisme" src="Images/capitalisme.png" height="128pt"/>
+				</div>
+				
+				<h2>Diplomatie : <span class="weight-300" id="titre-diplomatie"></span></h2>
+				<div class="axes">
+					<img id="img-cosmopolitisme" src="Images/cosmopolitisme.png" height="128pt"/>
+					<div class="bar cosmopolitisme" id="bar-cosmopolitisme"><div class="text-wrapper" id="cosmopolitisme"></div></div>
+					<div class="bar nationalisme" id="bar-nationalisme"><div class="text-wrapper" id="nationalisme"></div></div>
+					<img id="img-nationalisme" src="Images/nationalisme.png" height="128pt"/>
+				</div>
+				
+				<h2>Civil : <span class="weight-300" id="titre-civil"></span></h2>
+				<div class="axes">
+					<img id="img-etatisme" src="Images/etatisme.png" height="128pt"/>
+					<div class="bar etatisme" id="bar-etatisme"><div class="text-wrapper" id="etatisme"></div></div>
+					<div class="bar individualisme" id="bar-individualisme"><div class="text-wrapper" id="individualisme"></div></div>
+					<img id="img-individualisme" src="Images/individualisme.png" height="128pt"/>
+				</div>
+				
+				<h2>Sociétal : <span class="weight-300" id="titre-societal"></span></h2>
+				<div class="axes">
+					<img id="img-progressisme" src="Images/progressisme.png" height="128pt"/>
+					<div class="bar progressisme" id="bar-progressisme"><div class="text-wrapper" id="progressisme"></div></div>
+					<div class="bar conservatisme" id="bar-conservatisme"><div class="text-wrapper" id="conservatisme"></div></div>
+					<img id="img-conservatisme" src="Images/conservatisme.png" height="128pt"/>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

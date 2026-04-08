@@ -17,7 +17,8 @@
       "Bash(find /c/Users/elswift/Desktop/projets/my-portfolio/src -name \"*.tsx\" -type f -exec wc -l {} +)",
       "Bash(npx lighthouse:*)",
       "Bash(wc -l /c/Users/elswift/Desktop/projets/my-portfolio/src/**/*.tsx)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebFetch(domain:www.theosoyer.fr)"
     ],
     "deny": [],
     "ask": []
