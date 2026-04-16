@@ -83,6 +83,23 @@ const homeIcon = (
 /* ── Language flag SVGs imported from shared module (rendered monochrome via CSS filter in DockFlag) ── */
 const LANG_TO_FLAG = { en: 'GB', fr: 'FR', ko: 'KR' } as const;
 
+/* Keep the URL in sync with the selected language so shared links preserve locale
+   and analytics can distinguish per-locale pageviews. */
+function syncLangUrl(lang: 'en' | 'fr' | 'ko') {
+  const url = new URL(window.location.href);
+  if (lang === 'en') url.searchParams.delete('lng');
+  else url.searchParams.set('lng', lang);
+  const next = url.pathname + (url.search ? url.search : '') + url.hash;
+  window.history.replaceState(null, '', next);
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+  w.gtag?.('event', 'page_view', {
+    page_location: url.href,
+    page_path: url.pathname + url.search,
+    page_title: document.title,
+    language: lang,
+  });
+}
+
 /* ── Dock sub-components ── */
 
 const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
@@ -337,7 +354,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
               <DockItem
                 key={lang}
                 mouseX={mouseX}
-                onClick={() => i18n.changeLanguage(lang)}
+                onClick={() => { i18n.changeLanguage(lang); syncLangUrl(lang); }}
                 isActive={isActive}
                 label={t('nav.switchTo', { language: name })}
               >
@@ -401,7 +418,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
                 {(['en', 'fr', 'ko'] as const).map((lang) => (
                   <button
                     key={lang}
-                    onClick={() => { i18n.changeLanguage(lang); setMobileOpen(false); }}
+                    onClick={() => { i18n.changeLanguage(lang); syncLangUrl(lang); setMobileOpen(false); }}
                     className={`text-sm tracking-[0.15em] uppercase cursor-pointer ${
                       i18n.language === lang ? 'text-white font-medium' : 'text-[#6b6b6b]'
                     }`}

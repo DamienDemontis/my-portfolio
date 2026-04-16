@@ -10,6 +10,7 @@ import MetalLoadingScreen from './components/MetalLoadingScreen';
 import MetalNavbar from './components/MetalNavbar';
 import Dither from './components/Dither';
 import ErrorBoundary from './components/ErrorBoundary';
+import SEO from './components/SEO';
 
 import V2Hero from './sections/V2Hero';
 
@@ -106,6 +107,7 @@ function V2PortfolioInner() {
       className="metal-page metal-scrollbar metal-noise-overlay metal-vignette"
       style={!loaded ? { maxHeight: '100vh', overflow: 'hidden' } : undefined}
     >
+      <SEO />
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
         <Dither
           waveSpeed={0.05}

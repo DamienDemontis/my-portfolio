@@ -2,69 +2,202 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Damien Demontis - Full Stack Developer & IT Specialist passionate about modern technologies and innovation" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ── Primary meta ── -->
+    <title>Damien Demontis — Full Stack Developer &amp; IT Specialist</title>
+    <meta name="description" content="Full Stack Developer building modern web experiences with React, TypeScript, Vue, and Node.js. EPITECH alumnus with international experience across France and South Korea." />
     <meta name="author" content="Damien Demontis" />
-    <meta name="keywords" content="full stack developer, web developer, react, typescript, node.js, python, epitech, portfolio" />
-    
-    <!-- Open Graph meta tags -->
-    <meta property="og:title" content="Damien Demontis - Full Stack Developer" />
-    <meta property="og:description" content="Professional portfolio of Damien Demontis, a passionate Full Stack Developer specializing in modern web technologies" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.demontis.dev" />
+    <meta name="keywords" content="Damien Demontis, full stack developer, web developer, react, typescript, vue, node.js, epitech, nancy france, pandalab, jobneko, frontend engineer, backend developer" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- ── Canonical &amp; hreflang ── -->
+    <link rel="canonical" href="https://www.demontis.dev/" />
+    <link rel="alternate" hreflang="en" href="https://www.demontis.dev/" />
+    <link rel="alternate" hreflang="fr" href="https://www.demontis.dev/?lng=fr" />
+    <link rel="alternate" hreflang="ko" href="https://www.demontis.dev/?lng=ko" />
+    <link rel="alternate" hreflang="x-default" href="https://www.demontis.dev/" />
+
+    <!-- ── Open Graph ── -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Damien Demontis" />
+    <meta property="og:title" content="Damien Demontis — Full Stack Developer" />
+    <meta property="og:description" content="Full Stack Developer building modern web experiences with React, TypeScript, Vue, and Node.js. EPITECH alumnus with international experience across France and South Korea." />
+    <meta property="og:url" content="https://www.demontis.dev/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="ko_KR" />
     <meta property="og:image" content="https://www.demontis.dev/og-card.png" />
+    <meta property="og:image:secure_url" content="https://www.demontis.dev/og-card.png" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Damien Demontis Portfolio" />
-    
-    <!-- Twitter Card tags -->
+    <meta property="og:image:alt" content="Damien Demontis — Full Stack Developer portfolio" />
+    <meta property="profile:first_name" content="Damien" />
+    <meta property="profile:last_name" content="Demontis" />
+    <meta property="profile:username" content="DamienDemontis" />
+    <meta property="profile:gender" content="male" />
+
+    <!-- ── Twitter (X) Cards ── -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Damien Demontis - Full Stack Developer" />
-    <meta name="twitter:description" content="Professional portfolio of Damien Demontis, a passionate Full Stack Developer specializing in modern web technologies" />
+    <meta name="twitter:title" content="Damien Demontis — Full Stack Developer" />
+    <meta name="twitter:description" content="Full Stack Developer building modern web experiences with React, TypeScript, Vue, and Node.js. EPITECH alumnus with international experience." />
     <meta name="twitter:image" content="https://www.demontis.dev/og-card.png" />
-    
-    <!-- Additional SEO meta tags -->
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <link rel="canonical" href="https://www.demontis.dev" />
-    
-    <!-- Prefetch images — not preload, since the loading screen delays their use -->
+    <meta name="twitter:image:alt" content="Damien Demontis — Full Stack Developer portfolio" />
+
+    <!-- ── Icons &amp; PWA ── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/favicon-32.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="application-name" content="Damien Demontis" />
+    <meta name="apple-mobile-web-app-title" content="Damien Demontis" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
+
+    <!-- ── Structured data (JSON-LD) ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.demontis.dev/#damien",
+          "name": "Damien Demontis",
+          "givenName": "Damien",
+          "familyName": "Demontis",
+          "url": "https://www.demontis.dev/",
+          "image": "https://www.demontis.dev/Damien.webp",
+          "jobTitle": "Full Stack Developer",
+          "description": "Full Stack Developer building modern web experiences with React, TypeScript, Vue, and Node.js. EPITECH alumnus with international experience across France and South Korea.",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "PandaLab SAS",
+            "url": "https://pandalab.eu/"
+          },
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "EPITECH",
+              "url": "https://www.epitech.eu/"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Keimyung University",
+              "url": "https://www.kmu.ac.kr/"
+            }
+          ],
+          "knowsLanguage": [
+            { "@type": "Language", "name": "French", "alternateName": "fr" },
+            { "@type": "Language", "name": "English", "alternateName": "en" },
+            { "@type": "Language", "name": "Italian", "alternateName": "it" },
+            { "@type": "Language", "name": "Korean", "alternateName": "ko" }
+          ],
+          "knowsAbout": [
+            "React",
+            "TypeScript",
+            "Vue.js",
+            "Node.js",
+            "Next.js",
+            "Full Stack Development",
+            "Web Development",
+            "DevOps",
+            "Docker",
+            "Kubernetes",
+            "PostgreSQL",
+            "MongoDB",
+            "AI / LLM Integration",
+            "Frontend Design"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Frouard",
+            "addressRegion": "Grand Est",
+            "addressCountry": "FR"
+          },
+          "nationality": {
+            "@type": "Country",
+            "name": "France"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/damien-demontis/",
+            "https://github.com/DamienDemontis"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.demontis.dev/#website",
+          "url": "https://www.demontis.dev/",
+          "name": "Damien Demontis — Portfolio",
+          "description": "Portfolio of Damien Demontis, Full Stack Developer.",
+          "inLanguage": ["en", "fr", "ko"],
+          "publisher": { "@id": "https://www.demontis.dev/#damien" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://www.demontis.dev/#profile",
+          "url": "https://www.demontis.dev/",
+          "name": "Damien Demontis — Full Stack Developer",
+          "mainEntity": { "@id": "https://www.demontis.dev/#damien" },
+          "inLanguage": "en",
+          "about": { "@id": "https://www.demontis.dev/#damien" }
+        }
+      ]
+    }
+    </script>
+
+    <!-- ── Performance: prefetch and font loading ── -->
     <link rel="prefetch" href="/Damien.avif" as="image">
     <link rel="prefetch" href="/about_pfp.avif" as="image">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+
+    <!-- ── Google Analytics (GA4) ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-07J1RJ70K6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-07J1RJ70K6', { anonymize_ip: true });
+    </script>
+
     <!-- Critical CSS for faster FCP -->
     <style>
-      /* Critical styles for initial rendering */
       body { margin: 0; font-family: system-ui, sans-serif; background: #000000; color: #fff; }
       #root { min-height: 100vh; }
       .container-padding { padding-left: 1rem; padding-right: 1rem; }
       @media (min-width: 640px) { .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } }
       @media (min-width: 1024px) { .container-padding { padding-left: 2rem; padding-right: 2rem; } }
-      
-      /* Prevent layout shifts */
       img { height: auto; max-width: 100%; }
       .hero-image-container { aspect-ratio: 3/4; }
-      
-      /* Loading states */
       .animate-spin { animation: spin 1s linear infinite; }
       @keyframes spin { to { transform: rotate(360deg); } }
-      
     </style>
-    
-    <!-- Optimized font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
-    
-    <title>Damien Demontis - Full Stack Developer</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding:2rem;max-width:640px;margin:0 auto;font-family:system-ui,sans-serif;color:#ddd">
+        <h1 style="margin:0 0 .5rem">Damien Demontis — Full Stack Developer</h1>
+        <p>This portfolio requires JavaScript. You can still reach me:</p>
+        <ul>
+          <li><a href="mailto:damien.demontis@epitech.eu" style="color:#9cf">damien.demontis@epitech.eu</a></li>
+          <li><a href="https://www.linkedin.com/in/damien-demontis/" style="color:#9cf">LinkedIn</a></li>
+          <li><a href="https://github.com/DamienDemontis" style="color:#9cf">GitHub</a></li>
+          <li><a href="/CV_Damien_DEMONTIS_EN.pdf" style="color:#9cf">Resume (EN, PDF)</a> · <a href="/CV_Damien_DEMONTIS_FR.pdf" style="color:#9cf">CV (FR, PDF)</a></li>
+        </ul>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-</html> 
+</html>

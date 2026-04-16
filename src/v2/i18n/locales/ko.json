@@ -471,5 +471,11 @@
     "nextImage": "다음 이미지",
     "openImage": "이미지 열기",
     "closePlayer": "플레이어 닫기"
+  },
+  "seo": {
+    "title": "Damien Demontis — 풀스택 개발자 & IT 전문가",
+    "description": "React, TypeScript, Vue, Node.js로 현대적인 웹 경험을 구축하는 풀스택 개발자. 프랑스와 한국에서 국제 경험을 쌓은 EPITECH 졸업생.",
+    "keywords": "Damien Demontis, 풀스택 개발자, 웹 개발자, React, TypeScript, Vue, Node.js, EPITECH, 프랑스 낭시, PandaLab, JobNeko, 프론트엔드 엔지니어, 백엔드 개발자",
+    "ogAlt": "Damien Demontis — 풀스택 개발자 포트폴리오"
   }
 }

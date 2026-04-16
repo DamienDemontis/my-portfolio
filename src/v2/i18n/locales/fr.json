@@ -471,5 +471,11 @@
     "nextImage": "Image suivante",
     "openImage": "Ouvrir l'image",
     "closePlayer": "Fermer le lecteur"
+  },
+  "seo": {
+    "title": "Damien Demontis — Développeur Full Stack & Spécialiste IT",
+    "description": "Développeur Full Stack construisant des expériences web modernes avec React, TypeScript, Vue et Node.js. Alumnus EPITECH avec une expérience internationale entre la France et la Corée du Sud.",
+    "keywords": "Damien Demontis, développeur full stack, développeur web, react, typescript, vue, node.js, epitech, nancy france, pandalab, jobneko, développeur frontend, développeur backend",
+    "ogAlt": "Damien Demontis — Portfolio Développeur Full Stack"
   }
 }

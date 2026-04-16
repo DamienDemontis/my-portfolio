@@ -18,8 +18,9 @@ v2i18n
     fallbackLng: 'en',
     debug: false,
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['querystring', 'localStorage', 'navigator'],
       caches: ['localStorage'],
+      lookupQuerystring: 'lng',
       lookupLocalStorage: 'v2-lang',
       convertDetectedLanguage: (lng: string) => lng.split('-')[0],
     },

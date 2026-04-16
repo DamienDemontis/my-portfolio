@@ -1,23 +1,18 @@
+# Damien Demontis — https://www.demontis.dev/
+# Allow all well-behaved crawlers
+
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.demontis.dev/sitemap.xml
-
-# Allow access to important assets
-Allow: /assets/
-Allow: /photography/
-Allow: /*.css
-Allow: /*.js
-Allow: /*.png
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.svg
-Allow: /*.webp
-Allow: /*.avif
-
-# Block unnecessary paths
+# Block build artefacts, source, and developer-only files
 Disallow: /src/
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /stats.html
+Disallow: /sw.js
+
+# Crawl-delay hint (most crawlers ignore; harmless)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://www.demontis.dev/sitemap.xml
