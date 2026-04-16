@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDrag } from '@use-gesture/react';
+import { useTranslation } from 'react-i18next';
 import MusicCard from './MusicCard';
 import ParticleVisualizer from './ParticleVisualizer';
 import LyricsPanel from './LyricsPanel';
@@ -27,6 +28,7 @@ function ExpandedView({
   onClose: () => void;
   isMobile: boolean;
 }) {
+  const { t } = useTranslation();
   const { isPlaying, isLoading, progress, analyserRef, play, pause, resume, seek } =
     useMusicPlayer();
 
@@ -208,7 +210,7 @@ function ExpandedView({
               fontSize: 14,
               zIndex: 10,
             }}
-            aria-label="Close player"
+            aria-label={t('a11y.closePlayer')}
           >
             ✕
           </motion.button>

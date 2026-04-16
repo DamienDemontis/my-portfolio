@@ -225,7 +225,7 @@ function DockSeparator() {
 import React from 'react';
 
 export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeSection, setActiveSection] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const mouseX = useMotionValue(Infinity);
@@ -292,14 +292,14 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
             marginBottom: 12,
           }}
           role="navigation"
-          aria-label="Navigation dock"
+          aria-label={t('nav.dockLabel')}
         >
           {/* Home */}
           <DockItem
             mouseX={mouseX}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             isActive={activeSection === 'home'}
-            label="Scroll to top"
+            label={t('nav.scrollToTop')}
           >
             <DockIcon isActive={activeSection === 'home'}>{homeIcon}</DockIcon>
             <DockLabel>{logo}</DockLabel>
@@ -317,7 +317,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
                 mouseX={mouseX}
                 onClick={() => scrollTo(item.href)}
                 isActive={isActive}
-                label={`Go to ${item.label}`}
+                label={t('nav.goTo', { label: item.label })}
               >
                 <DockIcon isActive={isActive}>
                   {sectionIcons[id] || <span className="text-xs font-medium">{item.label.slice(0, 2)}</span>}
@@ -332,16 +332,17 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
           {/* Language switcher */}
           {(['en', 'fr', 'ko'] as const).map((lang) => {
             const isActive = i18n.language === lang;
+            const name = t(`nav.languageNames.${lang}`);
             return (
               <DockItem
                 key={lang}
                 mouseX={mouseX}
                 onClick={() => i18n.changeLanguage(lang)}
                 isActive={isActive}
-                label={`Switch to ${lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : '한국어'}`}
+                label={t('nav.switchTo', { language: name })}
               >
                 <DockFlag isActive={isActive}>{FLAGS[LANG_TO_FLAG[lang]]}</DockFlag>
-                <DockLabel>{lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : '한국어'}</DockLabel>
+                <DockLabel>{name}</DockLabel>
               </DockItem>
             );
           })}
@@ -358,7 +359,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255,255,255,0.06)',
           }}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-label={mobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
           aria-expanded={mobileOpen}
         >
           <motion.span animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 7 : 0 }} className="block w-5 h-px bg-[#999]" />
@@ -378,7 +379,7 @@ export default function MetalNavbar({ items, logo = 'DD' }: MetalNavbarProps) {
             className="fixed inset-0 z-40 md:hidden"
             role="dialog"
             aria-modal="true"
-            aria-label="Navigation menu"
+            aria-label={t('nav.menuLabel')}
             style={{ background: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(30px)' }}
           >
             <div className="flex flex-col items-center justify-center h-full gap-6">

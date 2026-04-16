@@ -9,7 +9,19 @@
     "languages": "Languages",
     "interests": "Interests",
     "photography": "Photography",
-    "contact": "Contact"
+    "contact": "Contact",
+    "scrollToTop": "Scroll to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuLabel": "Navigation menu",
+    "dockLabel": "Navigation dock",
+    "goTo": "Go to {{label}}",
+    "switchTo": "Switch to {{language}}",
+    "languageNames": {
+      "en": "English",
+      "fr": "Français",
+      "ko": "한국어"
+    }
   },
   "hero": {
     "subtitle": "Full Stack Developer & IT Specialist",
@@ -338,12 +350,53 @@
     "beyondMusicSubtitle": "Other",
     "tab_ecology": "Ecology & Collapse",
     "tab_talks": "Tech Talks",
-    "tab_travel": "Adventures Abroad"
+    "tab_travel": "Adventures Abroad",
+    "ecology": {
+      "video1Title": "Jared Diamond — Why do societies collapse?",
+      "video1Caption": "Jared Diamond — Why do societies collapse?",
+      "video2Title": "Is Civilization on the Brink of Collapse?",
+      "video2Caption": "Kurzgesagt — Is Civilization on the Brink of Collapse?"
+    },
+    "talks": {
+      "imageAlt": "Giving a tech talk at Epitech"
+    },
+    "travel": {
+      "videoTitle": "Exchange year in South Korea — Epitech Ambassador",
+      "videoCaption": "My year in South Korea — Epitech Ambassador"
+    }
   },
   "photography": {
     "number": "09",
     "title": "Photography",
-    "subtitle": "Moments captured during my international year at Keimyung University, South Korea, and travels across Japan. Served as certified EPITECH Ambassador."
+    "subtitle": "Moments captured during my international year at Keimyung University, South Korea, and travels across Japan. Served as certified EPITECH Ambassador.",
+    "photos": [
+      { "alt": "Seoul, South Korea", "caption": "A good meal in the heart of Seoul" },
+      { "alt": "Gyeongju, South Korea", "caption": "Autumn colors in the university campus" },
+      { "alt": "Daegu, South Korea", "caption": "trees in the university campus" },
+      { "alt": "Keimyung University, South Korea", "caption": "Entrance of the university" },
+      { "alt": "KMU, South Korea", "caption": "Taekwondo class" },
+      { "alt": "KMU, South Korea", "caption": "University church" },
+      { "alt": "KMU, South Korea", "caption": "University church" },
+      { "alt": "Kyoto, Japan", "caption": "Animal Rescue Coffee shop" },
+      { "alt": "Kyoto, South Korea", "caption": "Mermaid statue" },
+      { "alt": "Seoul, South Korea", "caption": "Stroll (feat: the sun)" },
+      { "alt": "Seoul, South Korea", "caption": "Seoul sightseeing" },
+      { "alt": "Seoul, South Korea", "caption": "Traditional korean Hanbok" },
+      { "alt": "Seoul, South Korea", "caption": "Lotte World" },
+      { "alt": "Seoul, South Korea", "caption": "mmmmmh barbapapa" },
+      { "alt": "Seoul, South Korea", "caption": "International friends" },
+      { "alt": "Seoul, South Korea", "caption": "Summer night and han river" },
+      { "alt": "Seoul, South Korea", "caption": "Library or Mall ? No one knows" },
+      { "alt": "Seoul, South Korea", "caption": "Traditional Korean Street" },
+      { "alt": "KMU, Daegu, South Korea", "caption": "Keimyung main building" },
+      { "alt": "Daegu, South Korea", "caption": "Spring awakening (feat: the rain)" },
+      { "alt": "Seoul, South Korea", "caption": "Korean Flag" },
+      { "alt": "Gyeongju, South Korea", "caption": "Historical sites in spring bloom" },
+      { "alt": "Seoul, South Korea", "caption": "Gardens and tranquility" },
+      { "alt": "Seoul, South Korea", "caption": "Those umbrella are not pointing the right way" },
+      { "alt": "Near Seoul, South Korea", "caption": "Meal with international student association" },
+      { "alt": "Seoul, South Korea", "caption": "One last Picnic with friends" }
+    ]
   },
   "contact": {
     "number": "10",
@@ -379,5 +432,26 @@
   "footer": {
     "copyright": "Damien Demontis",
     "tagline": "Forged in metal"
+  },
+  "common": {
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "view": "View",
+    "tryAgain": "Try again"
+  },
+  "errors": {
+    "sectionFailed": "Failed to load {{section}}",
+    "generic": "Something went wrong"
+  },
+  "a11y": {
+    "photoGallery": "Photo gallery",
+    "viewImage": "View {{title}}",
+    "viewingImage": "Viewing {{title}}",
+    "closeGallery": "Close gallery",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "openImage": "Open image",
+    "closePlayer": "Close player"
   }
 }

@@ -9,7 +9,19 @@
     "languages": "언어",
     "interests": "관심사",
     "photography": "사진",
-    "contact": "연락처"
+    "contact": "연락처",
+    "scrollToTop": "맨 위로",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "menuLabel": "내비게이션 메뉴",
+    "dockLabel": "내비게이션 도크",
+    "goTo": "{{label}}(으)로 이동",
+    "switchTo": "{{language}}(으)로 전환",
+    "languageNames": {
+      "en": "English",
+      "fr": "Français",
+      "ko": "한국어"
+    }
   },
   "hero": {
     "subtitle": "풀스택 개발자 & IT 전문가",
@@ -328,7 +340,30 @@
   "interests": {
     "number": "08",
     "title": "관심사",
-    "musicSubtitle": "음악 취향",
+    "musicSubtitle": "완전 무질서한 음악 취향",
+    "ecologySubtitle": "생태학 & 붕괴",
+    "ecologyDescription": "문명이 행성의 한계를 넘을 때 무슨 일이 일어날까요? 이 강연들은 제가 우리의 미래를 바라보는 방식을 형성했습니다.",
+    "talksSubtitle": "기술 강연",
+    "talksDescription": "저는 Epitech에서 심층 기술 주제와 신기술 소개부터 비디오 게임 역사와 문화에 이르기까지 다양한 주제로 정기적으로 강연을 합니다. 저를 매료시키는 것에 대해 이야기하는 것은 더 깊이 배우고 그 불꽃을 다른 사람들과 나누는 가장 좋은 방법 중 하나입니다.",
+    "travelSubtitle": "해외 모험",
+    "travelDescription": "Epitech 대사로서, 저는 한국 대구의 계명대학교에서 1년간 교환 학생으로 지냈습니다. 제 세계관을 재구성한 경험이었습니다.",
+    "beyondMusicSubtitle": "기타",
+    "tab_ecology": "생태학 & 붕괴",
+    "tab_talks": "기술 강연",
+    "tab_travel": "해외 모험",
+    "ecology": {
+      "video1Title": "재레드 다이아몬드 — 왜 사회는 붕괴하는가?",
+      "video1Caption": "재레드 다이아몬드 — 왜 사회는 붕괴하는가?",
+      "video2Title": "문명은 붕괴 직전인가?",
+      "video2Caption": "Kurzgesagt — 문명은 붕괴 직전인가?"
+    },
+    "talks": {
+      "imageAlt": "Epitech에서 기술 강연 진행"
+    },
+    "travel": {
+      "videoTitle": "한국에서의 교환 학년 — Epitech 대사",
+      "videoCaption": "한국에서의 1년 — Epitech 대사"
+    },
     "categories": [
       {
         "title": "음악 취향",
@@ -351,7 +386,35 @@
   "photography": {
     "number": "09",
     "title": "사진",
-    "subtitle": "한국 계명대학교에서의 국제 교환 학년과 일본 여행 중 포착한 순간들. 공인 EPITECH 대사로 활동."
+    "subtitle": "한국 계명대학교에서의 국제 교환 학년과 일본 여행 중 포착한 순간들. 공인 EPITECH 대사로 활동.",
+    "photos": [
+      { "alt": "서울, 대한민국", "caption": "서울 중심의 맛있는 식사" },
+      { "alt": "경주, 대한민국", "caption": "대학 캠퍼스의 가을 풍경" },
+      { "alt": "대구, 대한민국", "caption": "대학 캠퍼스의 나무들" },
+      { "alt": "계명대학교, 대한민국", "caption": "대학교 입구" },
+      { "alt": "KMU, 대한민국", "caption": "태권도 수업" },
+      { "alt": "KMU, 대한민국", "caption": "대학 교회" },
+      { "alt": "KMU, 대한민국", "caption": "대학 교회" },
+      { "alt": "교토, 일본", "caption": "동물 구조 카페" },
+      { "alt": "교토, 대한민국", "caption": "인어 동상" },
+      { "alt": "서울, 대한민국", "caption": "산책 (feat. 햇살)" },
+      { "alt": "서울, 대한민국", "caption": "서울 관광" },
+      { "alt": "서울, 대한민국", "caption": "전통 한복" },
+      { "alt": "서울, 대한민국", "caption": "롯데월드" },
+      { "alt": "서울, 대한민국", "caption": "mmmmmh 솜사탕" },
+      { "alt": "서울, 대한민국", "caption": "국제 친구들" },
+      { "alt": "서울, 대한민국", "caption": "여름밤과 한강" },
+      { "alt": "서울, 대한민국", "caption": "도서관? 쇼핑몰? 아무도 모른다" },
+      { "alt": "서울, 대한민국", "caption": "전통 한국 거리" },
+      { "alt": "KMU, 대구, 대한민국", "caption": "계명대 본관" },
+      { "alt": "대구, 대한민국", "caption": "봄의 기지개 (feat. 비)" },
+      { "alt": "서울, 대한민국", "caption": "태극기" },
+      { "alt": "경주, 대한민국", "caption": "봄꽃이 핀 역사 유적지" },
+      { "alt": "서울, 대한민국", "caption": "정원과 고요함" },
+      { "alt": "서울, 대한민국", "caption": "이 우산들은 방향이 맞지 않아" },
+      { "alt": "서울 근교, 대한민국", "caption": "국제 학생회와의 식사" },
+      { "alt": "서울, 대한민국", "caption": "친구들과의 마지막 소풍" }
+    ]
   },
   "contact": {
     "number": "10",
@@ -387,5 +450,26 @@
   "footer": {
     "copyright": "Damien Demontis",
     "tagline": "메탈로 단조된"
+  },
+  "common": {
+    "close": "닫기",
+    "previous": "이전",
+    "next": "다음",
+    "view": "보기",
+    "tryAgain": "다시 시도"
+  },
+  "errors": {
+    "sectionFailed": "{{section}} 로드 실패",
+    "generic": "문제가 발생했습니다"
+  },
+  "a11y": {
+    "photoGallery": "사진 갤러리",
+    "viewImage": "{{title}} 보기",
+    "viewingImage": "{{title}} 보는 중",
+    "closeGallery": "갤러리 닫기",
+    "previousImage": "이전 이미지",
+    "nextImage": "다음 이미지",
+    "openImage": "이미지 열기",
+    "closePlayer": "플레이어 닫기"
   }
 }

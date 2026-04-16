@@ -9,7 +9,19 @@
     "languages": "Langues",
     "interests": "Centres d'Intérêt",
     "photography": "Photographie",
-    "contact": "Contact"
+    "contact": "Contact",
+    "scrollToTop": "Retour en haut",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "menuLabel": "Menu de navigation",
+    "dockLabel": "Dock de navigation",
+    "goTo": "Aller à {{label}}",
+    "switchTo": "Passer en {{language}}",
+    "languageNames": {
+      "en": "English",
+      "fr": "Français",
+      "ko": "한국어"
+    }
   },
   "hero": {
     "subtitle": "Développeur Full Stack & Spécialiste IT",
@@ -328,7 +340,30 @@
   "interests": {
     "number": "08",
     "title": "Centres d'Intérêt",
-    "musicSubtitle": "Goûts Musicaux",
+    "musicSubtitle": "Goûts Musicaux Absolument N'Importe Quoi",
+    "ecologySubtitle": "Écologie & Effondrement",
+    "ecologyDescription": "Que se passe-t-il quand les civilisations dépassent les limites planétaires ? Ces conférences ont façonné ma vision de notre avenir.",
+    "talksSubtitle": "Conférences Tech",
+    "talksDescription": "Je donne régulièrement des conférences à Epitech sur une grande variété de sujets — des thèmes techniques pointus aux nouvelles technologies, en passant par l'histoire et la culture du jeu vidéo. Parler de ce qui me fascine est l'une des meilleures façons que je connaisse d'approfondir et de partager cette étincelle.",
+    "travelSubtitle": "Aventures à l'Étranger",
+    "travelDescription": "En tant qu'Ambassadeur Epitech, j'ai passé un an en échange à l'Université Keimyung à Daegu, en Corée du Sud. Une expérience qui a redéfini ma vision du monde.",
+    "beyondMusicSubtitle": "Autres",
+    "tab_ecology": "Écologie & Effondrement",
+    "tab_talks": "Conférences Tech",
+    "tab_travel": "Aventures à l'Étranger",
+    "ecology": {
+      "video1Title": "Jared Diamond — Pourquoi les sociétés s'effondrent-elles ?",
+      "video1Caption": "Jared Diamond — Pourquoi les sociétés s'effondrent-elles ?",
+      "video2Title": "La civilisation est-elle au bord de l'effondrement ?",
+      "video2Caption": "Kurzgesagt — La civilisation est-elle au bord de l'effondrement ?"
+    },
+    "talks": {
+      "imageAlt": "Conférence technique à Epitech"
+    },
+    "travel": {
+      "videoTitle": "Année d'échange en Corée du Sud — Ambassadeur Epitech",
+      "videoCaption": "Mon année en Corée du Sud — Ambassadeur Epitech"
+    },
     "categories": [
       {
         "title": "Goûts Musicaux",
@@ -351,7 +386,35 @@
   "photography": {
     "number": "09",
     "title": "Photographie",
-    "subtitle": "Moments capturés durant mon année internationale à l'Université Keimyung, Corée du Sud, et mes voyages à travers le Japon. Ambassadeur EPITECH certifié."
+    "subtitle": "Moments capturés durant mon année internationale à l'Université Keimyung, Corée du Sud, et mes voyages à travers le Japon. Ambassadeur EPITECH certifié.",
+    "photos": [
+      { "alt": "Séoul, Corée du Sud", "caption": "Un bon repas au cœur de Séoul" },
+      { "alt": "Gyeongju, Corée du Sud", "caption": "Couleurs d'automne sur le campus universitaire" },
+      { "alt": "Daegu, Corée du Sud", "caption": "Arbres du campus universitaire" },
+      { "alt": "Université Keimyung, Corée du Sud", "caption": "Entrée de l'université" },
+      { "alt": "KMU, Corée du Sud", "caption": "Cours de taekwondo" },
+      { "alt": "KMU, Corée du Sud", "caption": "Église de l'université" },
+      { "alt": "KMU, Corée du Sud", "caption": "Église de l'université" },
+      { "alt": "Kyoto, Japon", "caption": "Café de sauvetage animalier" },
+      { "alt": "Kyoto, Corée du Sud", "caption": "Statue de sirène" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Balade (feat. le soleil)" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Visite de Séoul" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Hanbok coréen traditionnel" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Lotte World" },
+      { "alt": "Séoul, Corée du Sud", "caption": "mmmmmh barbapapa" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Amis internationaux" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Nuit d'été et rivière Han" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Bibliothèque ou centre commercial ? Nul ne sait" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Rue traditionnelle coréenne" },
+      { "alt": "KMU, Daegu, Corée du Sud", "caption": "Bâtiment principal de Keimyung" },
+      { "alt": "Daegu, Corée du Sud", "caption": "Réveil printanier (feat. la pluie)" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Drapeau coréen" },
+      { "alt": "Gyeongju, Corée du Sud", "caption": "Sites historiques en fleurs printanières" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Jardins et tranquillité" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Ces parapluies ne pointent pas dans le bon sens" },
+      { "alt": "Près de Séoul, Corée du Sud", "caption": "Repas avec l'association d'étudiants internationaux" },
+      { "alt": "Séoul, Corée du Sud", "caption": "Dernier pique-nique entre amis" }
+    ]
   },
   "contact": {
     "number": "10",
@@ -387,5 +450,26 @@
   "footer": {
     "copyright": "Damien Demontis",
     "tagline": "Forgé dans le métal"
+  },
+  "common": {
+    "close": "Fermer",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "view": "Voir",
+    "tryAgain": "Réessayer"
+  },
+  "errors": {
+    "sectionFailed": "Échec du chargement de {{section}}",
+    "generic": "Quelque chose s'est mal passé"
+  },
+  "a11y": {
+    "photoGallery": "Galerie photo",
+    "viewImage": "Voir {{title}}",
+    "viewingImage": "Affichage de {{title}}",
+    "closeGallery": "Fermer la galerie",
+    "previousImage": "Image précédente",
+    "nextImage": "Image suivante",
+    "openImage": "Ouvrir l'image",
+    "closePlayer": "Fermer le lecteur"
   }
 }

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import MetalBadge from './MetalBadge';
 
 interface MetalProjectCardProps {
@@ -21,6 +22,7 @@ export default function MetalProjectCard({
   featured = false,
   className = '',
 }: MetalProjectCardProps) {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -71,7 +73,7 @@ export default function MetalProjectCard({
             {title}
           </h3>
           {featured && (
-            <MetalBadge variant="chrome">Featured</MetalBadge>
+            <MetalBadge variant="chrome">{t('projects.featured')}</MetalBadge>
           )}
         </div>
 

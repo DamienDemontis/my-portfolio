@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import { gsap } from 'gsap';
+import { useTranslation } from 'react-i18next';
 import './DomeGallery.css';
 
 /* ── Types ── */
@@ -137,6 +138,7 @@ export default function DomeGallery({
   chromaRadius = 250,
   chromaDamping = 0.45,
 }: DomeGalleryProps) {
+  const { t } = useTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const sphereRef = useRef<HTMLDivElement>(null);
@@ -683,7 +685,7 @@ export default function DomeGallery({
                   className="dome-item__image"
                   role="button"
                   tabIndex={0}
-                  aria-label={it.caption || it.alt || 'Open image'}
+                  aria-label={it.caption || it.alt || t('a11y.openImage')}
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >

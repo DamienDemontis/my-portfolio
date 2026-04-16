@@ -88,21 +88,21 @@ function EcologyCard() {
   const { t } = useTranslation();
   return (
     <SectionCard accentColor="#0f1a14">
-      <SubtitleBar>{t('interests.ecologySubtitle', 'Ecology & Collapse')}</SubtitleBar>
+      <SubtitleBar>{t('interests.ecologySubtitle')}</SubtitleBar>
       <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-6 sm:mb-10 max-w-xl italic">
-        {t('interests.ecologyDescription', 'What happens when civilizations push past planetary boundaries? These talks shaped how I think about our future.')}
+        {t('interests.ecologyDescription')}
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
         <div>
-          <YouTubeEmbed videoId="IESYMFtLIis" title="Jared Diamond — Why do societies collapse?" />
+          <YouTubeEmbed videoId="IESYMFtLIis" title={t('interests.ecology.video1Title')} />
           <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
-            Jared Diamond — Why do societies collapse?
+            {t('interests.ecology.video1Caption')}
           </p>
         </div>
         <div className="hidden md:block">
-          <YouTubeEmbed videoId="W93XyXHI8Nw" title="Is Civilization on the Brink of Collapse?" />
+          <YouTubeEmbed videoId="W93XyXHI8Nw" title={t('interests.ecology.video2Title')} />
           <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
-            Kurzgesagt — Is Civilization on the Brink of Collapse?
+            {t('interests.ecology.video2Caption')}
           </p>
         </div>
       </div>
@@ -114,11 +114,11 @@ function TechTalksCard() {
   const { t } = useTranslation();
   return (
     <SectionCard accentColor="#0e1120">
-      <SubtitleBar>{t('interests.talksSubtitle', 'Tech Talks')}</SubtitleBar>
+      <SubtitleBar>{t('interests.talksSubtitle')}</SubtitleBar>
       <div className="flex flex-col md:flex-row gap-5 sm:gap-10 items-center">
         <div className="flex-1">
           <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed italic">
-            {t('interests.talksDescription', 'I regularly give talks at Epitech on a wide range of subjects — from deep technical topics and new technology introductions to video game history and culture. Speaking about what fascinates me is one of the best ways I know to learn deeper and share that spark with others.')}
+            {t('interests.talksDescription')}
           </p>
         </div>
         <div className="w-full max-w-[280px] md:w-[420px] md:max-w-none flex-shrink-0">
@@ -132,7 +132,7 @@ function TechTalksCard() {
           >
             <img
               src="/images/tech-talk.webp"
-              alt="Giving a tech talk at Epitech"
+              alt={t('interests.talks.imageAlt')}
               loading="lazy"
               draggable={false}
               width={800}
@@ -158,14 +158,14 @@ function TravelCard() {
   const { t } = useTranslation();
   return (
     <SectionCard accentColor="#171008">
-      <SubtitleBar>{t('interests.travelSubtitle', 'Adventures Abroad')}</SubtitleBar>
+      <SubtitleBar>{t('interests.travelSubtitle')}</SubtitleBar>
       <p className="text-sm sm:text-[16px] text-[#8a8a8a] font-body font-light leading-relaxed mb-6 sm:mb-10 max-w-xl italic">
-        {t('interests.travelDescription', 'As an Epitech Ambassador, I spent a year on exchange at Keimyung University in Daegu, South Korea. An experience that reshaped my worldview.')}
+        {t('interests.travelDescription')}
       </p>
       <div className="max-w-3xl">
-        <YouTubeEmbed videoId="s0AG0_PY93I" title="Exchange year in South Korea — Epitech Ambassador" />
+        <YouTubeEmbed videoId="s0AG0_PY93I" title={t('interests.travel.videoTitle')} />
         <p className="text-[12px] sm:text-[13px] text-[#5a5a5a] font-body mt-2 sm:mt-3 tracking-wide">
-          My year in South Korea — Epitech Ambassador
+          {t('interests.travel.videoCaption')}
         </p>
       </div>
     </SectionCard>
@@ -201,7 +201,7 @@ export default function V2Interests() {
         <MetalScrollReveal delay={0.1}>
           <div className="mb-20">
             <div className="metal-section-inner">
-              <SubtitleBar>{t('interests.musicSubtitle', 'Absolute Nonsense Musical Taste')}</SubtitleBar>
+              <SubtitleBar>{t('interests.musicSubtitle')}</SubtitleBar>
             </div>
             <MusicCarousel />
           </div>
@@ -211,7 +211,7 @@ export default function V2Interests() {
       {/* Beyond Music — scroll stack cards */}
       <div className="metal-section-inner">
         <MetalScrollReveal delay={0.15}>
-          <SubtitleBar>{t('interests.beyondMusicSubtitle', 'Other')}</SubtitleBar>
+          <SubtitleBar>{t('interests.beyondMusicSubtitle')}</SubtitleBar>
         </MetalScrollReveal>
       </div>
 

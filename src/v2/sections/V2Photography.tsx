@@ -1,40 +1,50 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import DecryptedText from '../components/DecryptedText';
 import DomeGallery from '../components/DomeGallery';
 
-const photos = [
-  { src: '/photography/IMG_20240701_151842.webp', alt: 'Seoul, South Korea', caption: 'A good meal in the heart of Seoul' },
-  { src: '/photography/IMG_20231006_110254.webp', alt: 'Gyeongju, South Korea', caption: 'Autumn colors in the university campus' },
-  { src: '/photography/IMG_20231117_160650.webp', alt: 'Daegu, South Korea', caption: 'trees in the university campus' },
-  { src: '/photography/IMG_20230820_063353.webp', alt: 'Keimyung University, South Korea', caption: 'Entrance of the university' },
-  { src: '/photography/IMG_20231004_104055.webp', alt: 'KMU, South Korea', caption: 'Taekwondo class' },
-  { src: '/photography/IMG_20231107_155400.webp', alt: 'KMU, South Korea', caption: 'University church' },
-  { src: '/photography/IMG_20231107_164957.webp', alt: 'KMU, South Korea', caption: 'University church' },
-  { src: '/photography/IMG_20240111_184858.webp', alt: 'Kyoto, Japan', caption: 'Animal Rescue Coffee shop' },
-  { src: '/photography/IMG_20240116_170340.webp', alt: 'Kyoto, South Korea', caption: 'Mermaid statue' },
-  { src: '/photography/IMG_20240503_183702.webp', alt: 'Seoul, South Korea', caption: 'Stroll (feat: the sun)' },
-  { src: '/photography/IMG_20240504_110543.webp', alt: 'Seoul, South Korea', caption: 'Seoul sightseeing' },
-  { src: '/photography/IMG_20240504_120923_1.webp', alt: 'Seoul, South Korea', caption: 'Traditional korean Hanbok' },
-  { src: '/photography/IMG_20240505_120320.webp', alt: 'Seoul, South Korea', caption: 'Lotte World' },
-  { src: '/photography/IMG_20240505_142203.webp', alt: 'Seoul, South Korea', caption: 'mmmmmh barbapapa' },
-  { src: '/photography/IMG_20240602_034858.webp', alt: 'Seoul, South Korea', caption: 'International friends' },
-  { src: '/photography/IMG_20240630_203416.webp', alt: 'Seoul, South Korea', caption: 'Summer night and han river' },
-  { src: '/photography/IMG_20240701_150338.webp', alt: 'Seoul, South Korea', caption: 'Library or Mall ? No one knows' },
-  { src: '/photography/IMG_20240701_200211.webp', alt: 'Seoul, South Korea', caption: 'Traditional Korean Street' },
-  { src: '/photography/IMG_20240822_170729.webp', alt: 'KMU, Daegu, South Korea', caption: 'Keimyung main building' },
-  { src: '/photography/IMG_20240403_130655.webp', alt: 'Daegu, South Korea', caption: 'Spring awakening (feat: the rain)' },
-  { src: '/photography/IMG_20240419_184403.webp', alt: 'Seoul, South Korea', caption: 'Korean Flag' },
-  { src: '/photography/IMG_20240504_110833.webp', alt: 'Gyeongju, South Korea', caption: 'Historical sites in spring bloom' },
-  { src: '/photography/IMG_20240504_114735.webp', alt: 'Seoul, South Korea', caption: 'Gardens and tranquility' },
-  { src: '/photography/IMG_20240531_232815.webp', alt: 'Seoul, South Korea', caption: 'Those umbrella are not pointing the right way' },
-  { src: '/photography/IMG_20240626_184532.webp', alt: 'Near Seoul, South Korea', caption: 'Meal with international student association' },
-  { src: '/photography/IMG_20240630_181716.webp', alt: 'Seoul, South Korea', caption: 'One last Picnic with friends' },
+const photoSrcs = [
+  '/photography/IMG_20240701_151842.webp',
+  '/photography/IMG_20231006_110254.webp',
+  '/photography/IMG_20231117_160650.webp',
+  '/photography/IMG_20230820_063353.webp',
+  '/photography/IMG_20231004_104055.webp',
+  '/photography/IMG_20231107_155400.webp',
+  '/photography/IMG_20231107_164957.webp',
+  '/photography/IMG_20240111_184858.webp',
+  '/photography/IMG_20240116_170340.webp',
+  '/photography/IMG_20240503_183702.webp',
+  '/photography/IMG_20240504_110543.webp',
+  '/photography/IMG_20240504_120923_1.webp',
+  '/photography/IMG_20240505_120320.webp',
+  '/photography/IMG_20240505_142203.webp',
+  '/photography/IMG_20240602_034858.webp',
+  '/photography/IMG_20240630_203416.webp',
+  '/photography/IMG_20240701_150338.webp',
+  '/photography/IMG_20240701_200211.webp',
+  '/photography/IMG_20240822_170729.webp',
+  '/photography/IMG_20240403_130655.webp',
+  '/photography/IMG_20240419_184403.webp',
+  '/photography/IMG_20240504_110833.webp',
+  '/photography/IMG_20240504_114735.webp',
+  '/photography/IMG_20240531_232815.webp',
+  '/photography/IMG_20240626_184532.webp',
+  '/photography/IMG_20240630_181716.webp',
 ];
 
 export default function V2Photography() {
   const { t } = useTranslation();
+
+  const photos = useMemo(() => {
+    const captions = t('photography.photos', { returnObjects: true }) as { alt: string; caption: string }[];
+    return photoSrcs.map((src, i) => ({
+      src,
+      alt: captions[i]?.alt ?? '',
+      caption: captions[i]?.caption ?? '',
+    }));
+  }, [t]);
 
   return (
     <section id="photography">

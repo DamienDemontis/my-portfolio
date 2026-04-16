@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import ColorRevealImage from './ColorRevealImage';
 
 interface GalleryImage {
@@ -19,6 +20,7 @@ export default function MetalGallery({
   columns = 3,
   className = '',
 }: MetalGalleryProps) {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<number | null>(null);
 
   const colClass = {
@@ -54,7 +56,7 @@ export default function MetalGallery({
 
   return (
     <>
-      <div className={`grid ${colClass[columns]} gap-2 ${className}`} role="list" aria-label="Photo gallery">
+      <div className={`grid ${colClass[columns]} gap-2 ${className}`} role="list" aria-label={t('a11y.photoGallery')}>
         {images.map((img, i) => (
           <motion.div
             key={i}
@@ -73,7 +75,7 @@ export default function MetalGallery({
                 borderRadius: 2,
                 border: '1px solid rgba(255,255,255,0.04)',
               }}
-              aria-label={`View ${img.alt}${img.caption ? `: ${img.caption}` : ''}`}
+              aria-label={t('a11y.viewImage', { title: img.caption ? `${img.alt}: ${img.caption}` : img.alt })}
             >
               <ColorRevealImage
                 src={img.src}
@@ -109,7 +111,7 @@ export default function MetalGallery({
             style={{ background: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(20px)' }}
             role="dialog"
             aria-modal="true"
-            aria-label={`Viewing ${images[selected].alt}`}
+            aria-label={t('a11y.viewingImage', { title: images[selected].alt })}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -141,7 +143,7 @@ export default function MetalGallery({
                 <button
                   onClick={close}
                   className="text-[#666] hover:text-white transition-colors cursor-pointer p-1"
-                  aria-label="Close gallery"
+                  aria-label={t('a11y.closeGallery')}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" /></svg>
                 </button>
@@ -150,14 +152,14 @@ export default function MetalGallery({
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(-1); }}
                 className="absolute left-2 md:left-[-50px] top-1/2 -translate-y-1/2 text-[#666] hover:text-white transition-colors cursor-pointer p-2"
-                aria-label="Previous image"
+                aria-label={t('a11y.previousImage')}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(1); }}
                 className="absolute right-2 md:right-[-50px] top-1/2 -translate-y-1/2 text-[#666] hover:text-white transition-colors cursor-pointer p-2"
-                aria-label="Next image"
+                aria-label={t('a11y.nextImage')}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
               </button>
