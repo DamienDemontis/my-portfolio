@@ -121,9 +121,9 @@ void main() {
 /* ── Flag color palettes ── */
 const FLAG_COLORS: Record<string, [string, string, string]> = {
   FR: ['#002395', '#ffffff', '#ED2939'],
-  GB: ['#3C3B6E', '#B22234', '#ffffff'],
+  GB: ['#012169', '#C8102E', '#ffffff'],
   IT: ['#009246', '#ffffff', '#CE2B37'],
-  KR: ['#003478', '#CD2E3A', '#ffffff'],
+  KR: ['#0047A0', '#CD2E3A', '#1A1A1A'],
 };
 
 const DEFAULT_COLORS: [string, string, string] = ['#444455', '#666677', '#444455'];

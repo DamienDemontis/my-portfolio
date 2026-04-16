@@ -6,8 +6,7 @@ const PARTICLE_COUNT = 200;
 const MAX_LINE_DISTANCE = 120;
 const MAX_CONNECTIONS = 3;
 const LINE_BASE_OPACITY = 0.3;
-const PARTICLE_MIN_RADIUS = 1;
-const PARTICLE_MAX_RADIUS = 3;
+// Radius is now per-band (see spawnParticle)
 const SPAWN_MARGIN = 20;
 const FADE_IN_RATIO = 0.1;
 const FADE_OUT_RATIO = 0.2;
@@ -21,12 +20,21 @@ const DECEL_FACTOR = 0.97;
 // The key insight: smoothly interpolate a "force" value each frame (EMA),
 // so movement feels organic rather than frame-to-frame jerky.
 
-const BASS_FORCE_SCALE = 8.0;     // radial push strength from bass — big kicks = big push
-const MID_TURBULENCE_SCALE = 2.5; // lateral swirl from mids
-const HIGH_JITTER_SCALE = 1.8;    // vibration from highs
-const FORCE_SMOOTHING = 0.35;     // snappier EMA — feel every beat
+const BASS_FORCE_SCALE = 10.0;    // radial push strength from bass — big kicks = big push
+const MID_TURBULENCE_SCALE = 3.5; // lateral swirl from mids
+const HIGH_JITTER_SCALE = 2.5;    // vibration from highs
 const BASE_DRIFT = 0.08;          // near-still when quiet — maximizes contrast
 const MAX_SPEED_CAP = 10.0;       // let particles really fly on drops
+
+// Per-band asymmetric smoothing: fast attack (feel the transient), slow decay (visual persistence)
+const BASS_ATTACK = 0.5;
+const BASS_DECAY = 0.06;
+const MID_ATTACK = 0.25;
+const MID_DECAY = 0.04;
+const HIGH_ATTACK = 0.55;
+const HIGH_DECAY = 0.12;
+
+type ParticleBand = 'bass' | 'mid' | 'treble';
 
 const FALLBACK_PALETTE: [number, number, number][] = [
   [255, 232, 214],
@@ -38,8 +46,8 @@ const FALLBACK_PALETTE: [number, number, number][] = [
 const RING_MAX_RADIUS = 350;       // how far rings expand before fading
 const RING_EXPAND_SPEED = 3;       // px per frame
 const RING_FADE_RATE = 0.012;      // opacity decay per frame
-const RING_BASS_THRESHOLD = 0.45;  // min bass level to trigger a ring
-const RING_DELTA_THRESHOLD = 0.08; // min bass jump (transient detection)
+const RING_BASS_THRESHOLD = 0.25;  // min bass level to trigger a ring (lower for precise FFT 2048 bands)
+const RING_DELTA_THRESHOLD = 0.04; // min bass jump (transient detection)
 const RING_COOLDOWN = 12;          // min frames between ring spawns
 const MAX_RINGS = 4;
 
@@ -62,8 +70,8 @@ interface Particle {
   frequencyBin: number;
   radius: number;
   color: [number, number, number];
-  // Physics state
-  angle: number; // angle from card center (for radial force direction)
+  angle: number;
+  band: ParticleBand;
 }
 
 interface ParticleVisualizerProps {
@@ -136,6 +144,11 @@ function bandEnergy(dataArray: Uint8Array<ArrayBuffer>, from: number, to: number
 
 // ─── Particle helpers ───
 
+// Asymmetric smooth helper
+function asymSmooth(current: number, target: number, attack: number, decay: number): number {
+  return current + (target - current) * (target > current ? attack : decay);
+}
+
 function spawnParticle(
   cx: number,
   cy: number,
@@ -174,18 +187,48 @@ function spawnParticle(
   const spread = (Math.random() - 0.5) * 0.8;
   const maxLife = Math.floor(Math.random() * 300) + 300;
 
+  // Assign band: 35% bass, 35% mid, 30% treble
+  const r = Math.random();
+  const band: ParticleBand = r < 0.35 ? 'bass' : r < 0.7 ? 'mid' : 'treble';
+
+  // Per-band radius and speed
+  let radius: number, baseSpeed: number;
+  switch (band) {
+    case 'bass':
+      radius = 2 + Math.random() * 2;       // 2-4px — large, heavy
+      baseSpeed = 0.25 + Math.random() * 0.5; // slower drift
+      break;
+    case 'mid':
+      radius = 1.5 + Math.random() * 1.5;   // 1.5-3px — medium
+      baseSpeed = 0.3 + Math.random() * 0.7;
+      break;
+    case 'treble':
+      radius = 0.5 + Math.random() * 1.5;   // 0.5-2px — small, sparkly
+      baseSpeed = 0.5 + Math.random() * 1.0;  // fast
+      break;
+  }
+
+  // Frequency bin for individual pulse — scoped to the particle's band
+  // With FFT 2048 (1024 bins): bass=1-14, mid=14-100, treble=100-512
+  let frequencyBin: number;
+  switch (band) {
+    case 'bass':   frequencyBin = 1 + Math.floor(Math.random() * 13); break;
+    case 'mid':    frequencyBin = 14 + Math.floor(Math.random() * 86); break;
+    case 'treble': frequencyBin = 100 + Math.floor(Math.random() * 412); break;
+  }
+
   return {
-    x,
-    y,
+    x, y,
     vx: Math.cos(angle + spread),
     vy: Math.sin(angle + spread),
-    baseSpeed: 0.3 + Math.random() * 0.9,
+    baseSpeed,
     life: maxLife,
     maxLife,
-    frequencyBin: Math.floor(Math.random() * 128),
-    radius: PARTICLE_MIN_RADIUS + Math.random() * (PARTICLE_MAX_RADIUS - PARTICLE_MIN_RADIUS),
+    frequencyBin,
+    radius,
     color: palette[Math.floor(Math.random() * palette.length)],
     angle: angle + spread,
+    band,
   };
 }
 
@@ -293,25 +336,23 @@ export default function ParticleVisualizer({
         analyser.getByteFrequencyData(dataArray);
       }
 
-      // ─── Compute band energies with EMA smoothing ───
-      // This is the heart: instead of raw per-frame values (twitchy),
-      // we exponentially smooth so forces ramp up/down organically.
-      const rawBass = dataArray ? bandEnergy(dataArray, 0, 16) : 0;
-      const rawMid = dataArray ? bandEnergy(dataArray, 16, 64) : 0;
-      const rawHigh = dataArray ? bandEnergy(dataArray, 64, 128) : 0;
+      // ─── Compute band energies with per-band asymmetric smoothing ───
+      // FFT 2048 → 1024 bins, ~21.5 Hz/bin at 44.1kHz
+      // Precise frequency ranges so each band is musically meaningful:
+      const rawBass = dataArray ? bandEnergy(dataArray, 1, 14) : 0;    // 21-301 Hz (kick, bass guitar)
+      const rawMid = dataArray ? bandEnergy(dataArray, 14, 100) : 0;   // 301-2150 Hz (vocals, melody)
+      const rawHigh = dataArray ? bandEnergy(dataArray, 100, 512) : 0; // 2150-11kHz (hi-hats, cymbals)
 
-      const a = FORCE_SMOOTHING;
-      smoothBassRef.current += (rawBass - smoothBassRef.current) * a;
-      smoothMidRef.current += (rawMid - smoothMidRef.current) * a;
-      smoothHighRef.current += (rawHigh - smoothHighRef.current) * a;
+      // Asymmetric smoothing: fast attack to feel transients, slow decay for persistence
+      smoothBassRef.current = asymSmooth(smoothBassRef.current, rawBass, BASS_ATTACK, BASS_DECAY);
+      smoothMidRef.current = asymSmooth(smoothMidRef.current, rawMid, MID_ATTACK, MID_DECAY);
+      smoothHighRef.current = asymSmooth(smoothHighRef.current, rawHigh, HIGH_ATTACK, HIGH_DECAY);
 
       const bass = smoothBassRef.current;
       const mid = smoothMidRef.current;
       const high = smoothHighRef.current;
 
-      // Overall intensity (0–1) drives global behaviors
       const avgAmp = (bass + mid + high) / 3;
-      // intensity² makes the contrast between quiet and loud more dramatic
       const intensity = avgAmp * avgAmp;
 
       // ─── Ring ripple spawning (bass transient detection) ───
@@ -347,32 +388,35 @@ export default function ParticleVisualizer({
         const p = particles[i];
 
         if (isPlayingRef.current) {
-          // ─── Physics-based audio-reactive movement ───
+          // ─── Band-specific physics ───
+          // Each particle group reacts to ITS frequency band only,
+          // so bass hits produce visible radial bursts while mids swirl and treble sparkles.
 
-          // 1. Bass → radial push (particles accelerate outward on kicks/bass)
-          const bassForce = bass * BASS_FORCE_SCALE;
+          if (p.band === 'bass') {
+            // Bass → radial push outward from card center (kick drums, bass drops)
+            const bassForce = bass * BASS_FORCE_SCALE;
+            const totalSpeed = Math.min(BASE_DRIFT + bassForce, MAX_SPEED_CAP);
+            p.x += p.vx * totalSpeed * p.baseSpeed;
+            p.y += p.vy * totalSpeed * p.baseSpeed;
+          } else if (p.band === 'mid') {
+            // Mids → swirling turbulence (melody, vocals, guitar)
+            const turbPhase = frame * 0.02 + i * 0.7;
+            const turbX = Math.cos(turbPhase) * mid * MID_TURBULENCE_SCALE;
+            const turbY = Math.sin(turbPhase * 1.3) * mid * MID_TURBULENCE_SCALE;
+            p.x += p.vx * (BASE_DRIFT + mid * 1.5) * p.baseSpeed + turbX;
+            p.y += p.vy * (BASE_DRIFT + mid * 1.5) * p.baseSpeed + turbY;
+          } else {
+            // Treble → sparkle jitter (hi-hats, cymbals, sibilance)
+            const jitterX = (Math.random() - 0.5) * high * HIGH_JITTER_SCALE;
+            const jitterY = (Math.random() - 0.5) * high * HIGH_JITTER_SCALE;
+            p.x += p.vx * (BASE_DRIFT + high * 0.8) * p.baseSpeed + jitterX;
+            p.y += p.vy * (BASE_DRIFT + high * 0.8) * p.baseSpeed + jitterY;
+          }
 
-          // 2. Mids → turbulence (swirling lateral force, phase-offset per particle)
-          const turbPhase = frame * 0.02 + i * 0.7;
-          const turbX = Math.cos(turbPhase) * mid * MID_TURBULENCE_SCALE;
-          const turbY = Math.sin(turbPhase * 1.3) * mid * MID_TURBULENCE_SCALE;
-
-          // 3. Highs → jitter (random micro-displacement, like vibration)
-          const jitterX = (Math.random() - 0.5) * high * HIGH_JITTER_SCALE;
-          const jitterY = (Math.random() - 0.5) * high * HIGH_JITTER_SCALE;
-
-          // Combine: base drift + bass radial push + mid turbulence + high jitter
-          const totalSpeed = Math.min(BASE_DRIFT + bassForce, MAX_SPEED_CAP);
-          p.x += p.vx * totalSpeed * p.baseSpeed + turbX + jitterX;
-          p.y += p.vy * totalSpeed * p.baseSpeed + turbY + jitterY;
-
-          // ─── Intensity-driven life drain ───
-          // Quiet: particles live full lifespan, drift slowly, sparse feel.
-          // Loud: particles burn through life 2-3x faster → die sooner →
-          //       respawn at card edges → constant stream of fresh particles
-          //       bursting outward = visual density + energy.
-          const lifeDrain = 1 + intensity * 5;
-          p.life -= lifeDrain; // fractional is fine, life is checked as <= 0
+          // Life drain scales with the particle's own band energy
+          const bandEngy = p.band === 'bass' ? bass : p.band === 'mid' ? mid : high;
+          const lifeDrain = 1 + bandEngy * 4 + intensity * 2;
+          p.life -= lifeDrain;
         } else {
           // Decelerate on pause
           p.vx *= DECEL_FACTOR;
@@ -429,7 +473,7 @@ export default function ParticleVisualizer({
             const dist = Math.sqrt(distSq);
             const lineAlpha =
               (1 - dist / MAX_LINE_DISTANCE) *
-              (0.1 + intensity * 0.9) * // barely visible when quiet, full presence when intense
+              (0.05 + mid * 0.95) * // lines react to mids (melody/vocals)
               LINE_BASE_OPACITY *
               globalAlphaRef.current;
 

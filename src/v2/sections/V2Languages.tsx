@@ -6,6 +6,7 @@ import DecryptedText from '../components/DecryptedText';
 import MetalProgressRing from '../components/MetalProgressRing';
 import MetalDivider from '../components/MetalDivider';
 import SoftAurora from '../components/SoftAurora';
+import { FlagSVG } from '../components/flags';
 
 export default function V2Languages() {
   const { t } = useTranslation();
@@ -63,10 +64,11 @@ export default function V2Languages() {
                 onMouseLeave={() => setHoveredFlag(null)}
               >
                 <span
-                  className="inline-flex items-center justify-center w-8 h-5 mb-4 text-[10px] font-bold uppercase tracking-wider text-[#888] border border-[rgba(255,255,255,0.1)]"
-                  style={{ borderRadius: 2 }}
+                  className="inline-flex items-center justify-center w-8 h-5 mb-4 overflow-hidden transition-[filter] duration-300 group-hover:grayscale-0 group-hover:brightness-100"
+                  style={{ filter: 'grayscale(0.5) brightness(0.85)' }}
+                  aria-label={lang.flag}
                 >
-                  {lang.flag}
+                  <FlagSVG code={lang.flag} />
                 </span>
                 <div className="flex justify-center mb-4">
                   <MetalProgressRing value={lang.percent} size={80} strokeWidth={2} />

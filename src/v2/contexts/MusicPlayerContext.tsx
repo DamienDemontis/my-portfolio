@@ -64,8 +64,8 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     try {
       const ctx = new AudioContext();
       const analyser = ctx.createAnalyser();
-      analyser.fftSize = 256;
-      analyser.smoothingTimeConstant = 0.8;
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.6;
 
       const source = ctx.createMediaElementSource(audioRef.current);
       source.connect(analyser);
