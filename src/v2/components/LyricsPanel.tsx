@@ -109,12 +109,14 @@ export default function LyricsPanel({
             align="center"
           />
         </motion.div>
-        <OffsetDebugCard
-          trackId={track.id}
-          trackTitle={track.title}
-          offset={debugOffset}
-          onOffsetChange={setDebugOffset}
-        />
+        {import.meta.env.DEV && (
+          <OffsetDebugCard
+            trackId={track.id}
+            trackTitle={track.title}
+            offset={debugOffset}
+            onOffsetChange={setDebugOffset}
+          />
+        )}
       </div>
     );
   }
@@ -152,18 +154,20 @@ export default function LyricsPanel({
           align="left"
         />
       </motion.div>
-      <OffsetDebugCard
-        trackId={track.id}
-        trackTitle={track.title}
-        offset={debugOffset}
-        onOffsetChange={setDebugOffset}
-        style={{
-          position: 'fixed',
-          left: panelLeft,
-          top: cardCenterY + containerHeight / 2 + 16,
-          zIndex: 1003,
-        }}
-      />
+      {import.meta.env.DEV && (
+        <OffsetDebugCard
+          trackId={track.id}
+          trackTitle={track.title}
+          offset={debugOffset}
+          onOffsetChange={setDebugOffset}
+          style={{
+            position: 'fixed',
+            left: panelLeft,
+            top: cardCenterY + containerHeight / 2 + 16,
+            zIndex: 1003,
+          }}
+        />
+      )}
     </>
   );
 }
