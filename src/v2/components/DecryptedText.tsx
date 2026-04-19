@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { usePageActiveRef } from '../core/perf';
 
 interface DecryptedTextProps {
   text: string;
@@ -27,6 +28,7 @@ export default function DecryptedText({
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
   const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
   const hasTriggered = useRef(false);
+  const pageActiveRef = usePageActiveRef();
 
   const decrypt = useCallback(() => {
     if (isDecrypting) return;
@@ -36,6 +38,9 @@ export default function DecryptedText({
 
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
+      // Perf: skip advancement while tab is hidden; interval keeps firing
+      // so reveal resumes cleanly when focus returns.
+      if (!pageActiveRef.current) return;
       setDisplayed(() => {
         const revealed = Math.floor(iteration);
         return text

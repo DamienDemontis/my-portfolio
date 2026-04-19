@@ -12,6 +12,7 @@ import {
 } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
+import { usePageActive } from '../core/perf';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -38,12 +39,37 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // ── Perf: pause Canvas/physics when off-screen or tab hidden ──
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const pageActive = usePageActive();
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      // Fallback: assume visible so behavior is unchanged if IO is unavailable.
+      setIsVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: '200px', threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const shouldRun = isVisible && pageActive;
+
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'visible' }}>
+    <div ref={wrapperRef} style={{ position: 'relative', width: '100%', height: '100%', overflow: 'visible' }}>
       <Canvas
         camera={{ position, fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
+        frameloop={shouldRun ? 'always' : 'never'}
         style={{
           position: 'absolute',
           top: 0,
@@ -54,7 +80,7 @@ export default function Lanyard({
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60} paused={!shouldRun}>
           <Band isMobile={isMobile} />
         </Physics>
         <Environment background={false} blur={0.75}>

@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
+import { getDPRCap, usePageActiveRef, isMobile } from '../core/perf';
 
 const FRAG = `#version 300 es
 precision highp float;
@@ -131,14 +132,18 @@ export default function Dither({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef<[number, number]>([0, 0]);
   const rafRef = useRef(0);
+  const pageActiveRef = usePageActiveRef();
+
+  // Disable mouse interaction on mobile (touch devices don't hover meaningfully)
+  const effectiveMouse = enableMouseInteraction && !isMobile();
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (!enableMouseInteraction || !canvasRef.current) return;
+      if (!effectiveMouse || !canvasRef.current) return;
       const rect = canvasRef.current.getBoundingClientRect();
       mouseRef.current = [e.clientX - rect.left, e.clientY - rect.top];
     },
-    [enableMouseInteraction],
+    [effectiveMouse],
   );
 
   useEffect(() => {
@@ -188,8 +193,9 @@ export default function Dither({
     const uPixelSize = gl.getUniformLocation(prog, 'u_pixelSize');
 
     const resize = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
+      const dpr = getDPRCap();
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
@@ -211,6 +217,9 @@ export default function Dither({
       if (now - lastFrameTime < FRAME_INTERVAL) return;
       lastFrameTime = now;
 
+      // Skip GPU work when the tab is hidden (keep rAF alive so we resume instantly)
+      if (!pageActiveRef.current) return;
+
       resize();
       const t = disableAnimation ? 0 : (now - start) / 1000;
 
@@ -221,7 +230,7 @@ export default function Dither({
       gl.uniform1f(uAmp, waveAmplitude);
       gl.uniform3f(uColor, waveColor[0], waveColor[1], waveColor[2]);
       gl.uniform2f(uMouse, mouseRef.current[0], mouseRef.current[1]);
-      gl.uniform1f(uRadius, enableMouseInteraction ? mouseRadius : 0);
+      gl.uniform1f(uRadius, effectiveMouse ? mouseRadius : 0);
       gl.uniform1f(uColorNum, colorNum);
       gl.uniform1f(uPixelSize, pixelSize);
 
@@ -258,7 +267,7 @@ export default function Dither({
       gl.deleteShader(fs);
       gl.deleteBuffer(buf);
     };
-  }, [waveSpeed, waveFrequency, waveAmplitude, waveColor, colorNum, pixelSize, disableAnimation, enableMouseInteraction, mouseRadius, handleMouseMove]);
+  }, [waveSpeed, waveFrequency, waveAmplitude, waveColor, colorNum, pixelSize, disableAnimation, effectiveMouse, mouseRadius, handleMouseMove, pageActiveRef]);
 
   return (
     <canvas

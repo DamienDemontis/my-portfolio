@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback, type CSSProperties, type ReactNode } from 'react';
 import './MetallicSurface.css';
+import { getDPRCap, usePageActiveRef } from './perf';
 
 const vertexShader = `#version 300 es
 precision highp float;
@@ -377,6 +378,9 @@ export default function MetallicSurface({
   const mouseAnimRef = useRef(mouseAnimation);
   const sizeRef = useRef({ width: 0, height: 0 });
   const visibleRef = useRef(true);
+  // Imperative tab-visibility ref — rAF loop reads this to skip GPU work
+  // while the tab is hidden without triggering React re-renders.
+  const pageActiveRef = usePageActiveRef();
 
   const [ready, setReady] = useState(false);
   const [textureReady, setTextureReady] = useState(false);
@@ -390,6 +394,18 @@ export default function MetallicSurface({
 
     const gl = canvas.getContext('webgl2', { antialias: true, alpha: true, premultipliedAlpha: true });
     if (!gl) return false;
+
+    // Defensive WebGL context-loss handling. preventDefault() on `webglcontextlost`
+    // tells the browser we want the context restored when possible (e.g. after the
+    // GPU is reclaimed from a background tab). Full state re-initialization on
+    // `webglcontextrestored` would require a larger refactor (re-run initGL,
+    // re-upload texture, re-apply all uniforms); for now we only enable recovery
+    // and log the restore event. The component will appear blank until remount
+    // if the context is permanently lost.
+    canvas.addEventListener('webglcontextlost', (e) => e.preventDefault(), false);
+    canvas.addEventListener('webglcontextrestored', () => {
+      // TODO: full re-init — currently a no-op. See comment above.
+    }, false);
 
     const compile = (src: string, type: number): WebGLShader | null => {
       const s = gl.createShader(type);
@@ -474,7 +490,7 @@ export default function MetallicSurface({
     if (!canvas || !wrapper || !gl) return;
 
     const rect = wrapper.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio, 2);
+    const dpr = Math.min(window.devicePixelRatio, getDPRCap());
     const w = Math.round(rect.width * dpr);
     const h = Math.round(rect.height * dpr);
 
@@ -610,8 +626,13 @@ export default function MetallicSurface({
         animTimeRef.current += delta * speedRef.current * wobble;
       }
 
-      gl.uniform1f(u.u_time, animTimeRef.current);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      // Skip GPU work (uniform upload + draw) while the tab is hidden.
+      // rAF keeps running so state (animTimeRef) advances naturally; when
+      // the tab comes back, the next frame renders without a visible jump.
+      if (pageActiveRef.current) {
+        gl.uniform1f(u.u_time, animTimeRef.current);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
       rafRef.current = requestAnimationFrame(render);
     };
 

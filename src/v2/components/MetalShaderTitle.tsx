@@ -28,22 +28,44 @@ export default function MetalShaderTitle({
     [id],
   );
 
-  // Only start expensive WebGL work when the title is near the viewport
+  // Mount the WebGL layer when the title is near the viewport, and tear it
+  // down after it has been fully off-screen for >5s. This keeps ~27 titles
+  // from accumulating live WebGL contexts forever while still feeling "instant"
+  // on scroll-back: the 200px rootMargin pre-mounts before visibility, and the
+  // 5s grace period keeps the context alive for quick back-and-forth scrolling.
   useEffect(() => {
     const el = textRef.current;
     if (!el) return;
 
+    let teardownTimer: ReturnType<typeof setTimeout> | null = null;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Cancel any pending teardown — we're back in view.
+          if (teardownTimer !== null) {
+            clearTimeout(teardownTimer);
+            teardownTimer = null;
+          }
           setVisible(true);
-          observer.disconnect();
+        } else {
+          // Schedule teardown after 5s of being off-screen. If we come back
+          // into view in that window, the branch above cancels the timer.
+          if (teardownTimer === null) {
+            teardownTimer = setTimeout(() => {
+              setVisible(false);
+              teardownTimer = null;
+            }, 5000);
+          }
         }
       },
       { rootMargin: '200px' },
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (teardownTimer !== null) clearTimeout(teardownTimer);
+    };
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { getDPRCap, usePageActiveRef } from '../core/perf';
 
 interface MetalParticleFieldProps {
   count?: number;
@@ -30,6 +31,7 @@ export default function MetalParticleField({
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const visibleRef = useRef(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const pageActiveRef = usePageActiveRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -42,7 +44,7 @@ export default function MetalParticleField({
 
     const resize = () => {
       const rect = canvas.parentElement!.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      const dpr = getDPRCap();
       width = rect.width;
       height = rect.height;
       canvas.width = width * dpr;
@@ -92,6 +94,13 @@ export default function MetalParticleField({
     const render = () => {
       if (!visibleRef.current) {
         rafRef.current = undefined;
+        return;
+      }
+
+      // Skip draw work while the tab is hidden, but keep the rAF loop alive so
+      // the last frame stays painted and we resume instantly on focus.
+      if (!pageActiveRef.current) {
+        rafRef.current = requestAnimationFrame(render);
         return;
       }
 

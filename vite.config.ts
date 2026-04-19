@@ -26,8 +26,9 @@ export default defineConfig({
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
             // Order matters: check specific packages BEFORE broad 'react' match
-            // three ecosystem must stay together to avoid circular dependency issues
-            if (id.includes('@react-three/') || id.includes('/three/') || id.includes('three-stdlib') || id.includes('@monogrid')) {
+            // three ecosystem must stay together to avoid circular dependency issues.
+            // Physics (rapier) + meshline live here too so they share the chunk.
+            if (id.includes('@react-three/') || id.includes('/three/') || id.includes('three-stdlib') || id.includes('@monogrid') || id.includes('meshline')) {
               return 'three'
             }
             if (id.includes('framer-motion')) {

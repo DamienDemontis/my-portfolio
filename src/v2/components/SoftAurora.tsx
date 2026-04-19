@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import { getDPRCap, usePageActiveRef } from '../core/perf';
 import './SoftAurora.css';
 
 /* ── Shaders ── */
@@ -167,6 +168,7 @@ export default function SoftAurora({
   const ctnRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<[number, number]>([0.5, 0.5]);
   const smoothMouseRef = useRef<[number, number]>([0.5, 0.5]);
+  const pageActiveRef = usePageActiveRef();
 
   // Current colors lerp toward target each frame
   const currentColorsRef = useRef<[number[], number[], number[]]>([
@@ -202,7 +204,7 @@ export default function SoftAurora({
     const ctn = ctnRef.current;
     if (!ctn) return;
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true });
+    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr: getDPRCap() });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
@@ -269,6 +271,9 @@ export default function SoftAurora({
     const update = (t: number) => {
       if (!visible) { raf = 0; return; }
       raf = requestAnimationFrame(update);
+      // Skip render work when the tab is hidden; rAF will naturally throttle too,
+      // but guarding here avoids OGL/GL calls on occasional wake-ups.
+      if (!pageActiveRef.current) return;
       const p = propsRef.current;
 
       program.uniforms.uTime.value = t * 0.001;

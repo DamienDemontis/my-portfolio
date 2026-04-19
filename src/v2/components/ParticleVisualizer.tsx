@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
+import { usePageActiveRef } from '../core/perf';
 
 // ─── Constants ───
 
@@ -260,6 +261,10 @@ export default function ParticleVisualizer({
   const prevBassRef = useRef(0);
   const ringCooldownRef = useRef(0);
 
+  // Perf: skip work when tab is hidden or canvas off-screen
+  const pageActiveRef = usePageActiveRef();
+  const visibleRef = useRef(true);
+
   isPlayingRef.current = isPlaying;
 
   // Extract colors from cover
@@ -297,6 +302,23 @@ export default function ParticleVisualizer({
     return () => window.removeEventListener('resize', resize);
   }, []);
 
+  // Observe canvas visibility so we can skip the rAF work when off-screen
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || typeof IntersectionObserver === 'undefined') {
+      visibleRef.current = true;
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) visibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    io.observe(canvas);
+    return () => io.disconnect();
+  }, []);
+
   // Main RAF loop
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -309,6 +331,12 @@ export default function ParticleVisualizer({
     fadingOutRef.current = false;
 
     const tick = () => {
+      // Perf: skip all work when tab hidden or canvas off-screen, but keep loop alive.
+      if (!pageActiveRef.current || !visibleRef.current) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
       const w = canvas.width;
       const h = canvas.height;
       ctx.clearRect(0, 0, w, h);
