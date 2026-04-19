@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import MetalParticleField from '../components/MetalParticleField';
 import MetalShaderTitle from '../components/MetalShaderTitle';
@@ -20,12 +20,15 @@ const blackKnockout = [
 
 export default function V2Hero() {
   const { t } = useTranslation();
+  const reducedMotion = useReducedMotion();
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" aria-label="Hero">
-      <div className="absolute inset-0 z-[1]">
-        <MetalParticleField count={30} speed={0.15} connected={false} />
-      </div>
+      {!reducedMotion && (
+        <div className="absolute inset-0 z-[1]">
+          <MetalParticleField count={30} speed={0.15} connected={false} />
+        </div>
+      )}
 
       <div className="relative z-10 text-center px-6">
         <motion.div
@@ -50,10 +53,10 @@ export default function V2Hero() {
           aria-label="Damien Demontis"
         >
           <div className="leading-none tracking-[0.02em]">
-            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={reducedMotion ? 0 : 0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
           </div>
           <div className="leading-none tracking-[0.08em] -mt-6 md:-mt-12">
-            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={reducedMotion ? 0 : 0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
           </div>
         </motion.div>
 

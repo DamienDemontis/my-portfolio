@@ -1,16 +1,19 @@
 import { useState, useCallback, useEffect, lazy, Suspense, Profiler, useMemo } from 'react';
 import type { ProfilerOnRenderCallback } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+import { MotionConfig, useReducedMotion } from 'framer-motion';
 import v2i18n from './i18n/config';
 import './core/metal-theme.css';
 import { initAnimatedFavicon } from './core/animatedFavicon';
 
-import MetalCursor from './components/MetalCursor';
+import MetalShardCursor from './components/MetalShardCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
 import MetalNavbar from './components/MetalNavbar';
 import Dither from './components/Dither';
 import ErrorBoundary from './components/ErrorBoundary';
 import SEO from './components/SEO';
+
+const SEEN_KEY = 'v2-seen';
 
 import V2Hero from './sections/V2Hero';
 
@@ -67,11 +70,20 @@ function useNavItems() {
 
 function V2PortfolioInner() {
   const navItems = useNavItems();
-  const [loaded, setLoaded] = useState(false);
+  const reducedMotion = useReducedMotion();
+  const [loaded, setLoaded] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      if (window.localStorage.getItem(SEEN_KEY) === '1') return true;
+    } catch { /* private mode / storage disabled — ignore */ }
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return true;
+    return false;
+  });
   const [restReady, setRestReady] = useState(false);
 
   const handleLoadingComplete = useCallback(() => {
     setLoaded(true);
+    try { window.localStorage.setItem(SEEN_KEY, '1'); } catch { /* ignore */ }
   }, []);
 
   useEffect(() => {
@@ -108,19 +120,21 @@ function V2PortfolioInner() {
       style={!loaded ? { maxHeight: '100vh', overflow: 'hidden' } : undefined}
     >
       <SEO />
-      <div className="fixed inset-0" style={{ zIndex: 0 }}>
-        <Dither
-          waveSpeed={0.05}
-          waveFrequency={3}
-          waveAmplitude={0.3}
-          waveColor={DITHER_COLOR}
-          colorNum={4}
-          pixelSize={2}
-          enableMouseInteraction={true}
-          mouseRadius={1}
-        />
+      <div className="fixed inset-0" style={{ zIndex: 0, background: '#000' }}>
+        {!reducedMotion && (
+          <Dither
+            waveSpeed={0.05}
+            waveFrequency={3}
+            waveAmplitude={0.3}
+            waveColor={DITHER_COLOR}
+            colorNum={4}
+            pixelSize={2}
+            enableMouseInteraction={true}
+            mouseRadius={1}
+          />
+        )}
       </div>
-      <MetalCursor />
+      {!reducedMotion && <MetalShardCursor />}
 
       {!loaded && <MetalLoadingScreen onComplete={handleLoadingComplete} duration={2200} />}
 
@@ -186,7 +200,9 @@ function V2PortfolioInner() {
 export default function V2Portfolio() {
   return (
     <I18nextProvider i18n={v2i18n}>
-      <V2PortfolioInner />
+      <MotionConfig reducedMotion="user">
+        <V2PortfolioInner />
+      </MotionConfig>
     </I18nextProvider>
   );
 }
