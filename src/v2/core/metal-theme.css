@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Metal+Mania&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap');
+/* Font sheet moved out of @import into a parallel <link> in index.html.
+   The CSS @import was a serial blocker: the browser had to fetch this CSS,
+   parse it, then fetch the @import URL before any of those fonts could
+   start loading. Moving to <link> lets the font sheet load in parallel
+   with the rest of the document. */
 
 :root {
   --metal-black: #000000;
@@ -314,11 +318,33 @@ html.metal-active::-webkit-scrollbar {
 .metal-section {
   position: relative;
   padding: 6rem 1.5rem;
+  /*
+   * content-visibility: auto + contain-intrinsic-size lets the browser SKIP
+   * style, layout, and paint for sections that are off-screen. The trace
+   * showed the moment `restReady` flipped, all 11 sections inserted at one
+   * tick and triggered a 778ms style recalc (2335 elements) + 508ms layout
+   * (3455 dirty objects). With content-visibility, off-screen sections cost
+   * nothing in that initial burst — they layout only when they actually
+   * scroll near the viewport.
+   *
+   * intrinsic-size `auto 900px`:
+   *   - 900px is a conservative initial guess for the section height while
+   *     it has never been rendered. Most sections render between 600-1500px.
+   *   - `auto` tells the browser to cache the actual size after first
+   *     render, so the second time the section becomes off-screen, the
+   *     cached real size is preserved (zero scroll jump on re-scroll).
+   *
+   * Visual integrity: when the section is on-screen, behaviour is identical
+   * to before. Only the off-screen branch differs.
+   */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 @media (min-width: 768px) {
   .metal-section {
     padding: 8rem 2rem;
+    contain-intrinsic-size: auto 1100px;
   }
 }
 

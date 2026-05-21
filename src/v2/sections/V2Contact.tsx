@@ -5,7 +5,6 @@ import MetalInput from '../components/MetalInput';
 import MetalButton from '../components/MetalButton';
 import MetalDivider from '../components/MetalDivider';
 import MetalShaderTitle from '../components/MetalShaderTitle';
-import MetallicSurface from '../core/MetallicSurface';
 import DecryptedText from '../components/DecryptedText';
 import MetalLottie from '../components/MetalLottie';
 import MetalFishCounter from '../components/MetalFishCounter';
@@ -59,23 +58,53 @@ export default function V2Contact() {
   const [, setSubmitting] = useState(false);
   const calendlyRef = useRef<HTMLDivElement>(null);
 
-  // Lazy-load Calendly script only when this section mounts (bottom of page)
+  // Load Calendly only when the section gets close to the viewport.
+  //
+  // Previous behavior loaded it on mount, which now happens at restReady=+800ms
+  // — long before the user reaches the bottom of the page. The script eval is
+  // ~1.16s (measured under 6× CPU throttle) and blocks the parser, contributing
+  // a huge long task to the cold-load period. IO with rootMargin "1500px" gives
+  // the script ~1 viewport of pre-load headroom so it's ready before the
+  // section enters view, but doesn't run if the user never scrolls there.
   useEffect(() => {
     const el = calendlyRef.current;
     if (!el) return;
     const CALENDLY_URL = 'https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1&background_color=111111&text_color=d4d4d4&primary_color=ffffff';
 
+    let loaded = false;
     const init = () => {
+      if (loaded) return;
+      loaded = true;
       window.Calendly?.initInlineWidget({ url: CALENDLY_URL, parentElement: el });
     };
 
-    if (window.Calendly) { init(); return; }
+    const load = () => {
+      if (loaded) return;
+      if (window.Calendly) { init(); return; }
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.onload = init;
+      document.head.appendChild(script);
+    };
 
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.onload = init;
-    document.head.appendChild(script);
+    if (typeof IntersectionObserver === 'undefined') {
+      // Fallback: behave as before on browsers without IO.
+      load();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          load();
+          io.disconnect();
+        }
+      },
+      { rootMargin: '1500px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   const handleSubmit = (e: FormEvent) => {
@@ -86,22 +115,10 @@ export default function V2Contact() {
 
   return (
     <section id="contact" className="metal-section relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
-        <MetallicSurface
-          mode="procedural"
-          pattern="wave"
-          speed={0.06}
-          brightness={1.2}
-          contrast={0.3}
-          scale={2}
-          liquid={0.03}
-          edgeFade={0}
-          lightColor="#ffffff"
-          darkColor="#000000"
-          tintColor="#ffffff"
-          style={{ width: '100%', height: '100%' }}
-        />
-      </div>
+      {/* WebGL MetallicSurface background removed (2026-05-21): was rendered at
+          opacity-10 below content — invisible cost. Saves one full WebGL context
+          + a heavy fragment shader at the bottom of the page. See
+          docs/superpowers/specs/2026-05-21-webgl-perf-investigation-design.md */}
 
       <div className="metal-section-inner relative z-10">
         <MetalScrollReveal>
@@ -242,7 +259,11 @@ export default function V2Contact() {
             <div className="mt-8">
               <h3 className="text-lg font-heading font-semibold text-[#e0e0e0] mb-4">{t('contact.bookCall')}</h3>
               <div className="metal-calendly-container">
-                <div ref={calendlyRef} className="calendly-inline-widget" style={{ minWidth: 320, height: 700 }} />
+                {/* Use a non-Calendly classname so widget.js's auto-init does NOT
+                    scan this element — its parseOptions() crashes when there is
+                    no data-url attribute and we initialize via initInlineWidget()
+                    ourselves once it's safe to load. */}
+                <div ref={calendlyRef} className="metal-calendly-inline" style={{ minWidth: 320, height: 700 }} />
               </div>
             </div>
           </MetalScrollReveal>

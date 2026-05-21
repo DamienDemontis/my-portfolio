@@ -1,6 +1,8 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { getDPRCap, usePageActiveRef } from '../core/perf';
+import { incContext, decContext } from '../core/glUtils';
+import { useGPUTimer } from '../dev/perfRegistry';
 import './SoftAurora.css';
 
 /* ── Shaders ── */
@@ -169,6 +171,7 @@ export default function SoftAurora({
   const mouseRef = useRef<[number, number]>([0.5, 0.5]);
   const smoothMouseRef = useRef<[number, number]>([0.5, 0.5]);
   const pageActiveRef = usePageActiveRef();
+  const gpuTimer = useGPUTimer('Aurora');
 
   // Current colors lerp toward target each frame
   const currentColorsRef = useRef<[number[], number[], number[]]>([
@@ -204,12 +207,22 @@ export default function SoftAurora({
     const ctn = ctnRef.current;
     if (!ctn) return;
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr: getDPRCap() });
+    // antialias: false — the aurora is a procedural full-quad gradient with
+    // no triangle edges; MSAA is wasted backing-store cost. powerPreference
+    // hints the driver to prefer the discrete GPU on hybrid systems.
+    const renderer = new Renderer({
+      alpha: true,
+      premultipliedAlpha: true,
+      antialias: false,
+      dpr: getDPRCap(),
+      powerPreference: 'high-performance',
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
+    incContext();
 
     const geometry = new Triangle(gl);
     if ((geometry as any).attributes.uv) delete (geometry as any).attributes.uv;
@@ -307,12 +320,14 @@ export default function SoftAurora({
       program.uniforms.uColorStops.value = cur;
 
       renderer.render({ scene: mesh });
+      gpuTimer.markDraw();
     };
 
     // Pause rAF when off-screen
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
+        gpuTimer.setVisible(entry.isIntersecting);
         if (visible && !raf) {
           raf = requestAnimationFrame(update);
         }
@@ -328,6 +343,7 @@ export default function SoftAurora({
       ctn.removeEventListener('mousemove', onMouseMove);
       if (ctn && gl.canvas.parentNode === ctn) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
+      decContext();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

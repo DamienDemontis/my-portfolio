@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState, useCallback, type CSSProperties, type ReactNode } from 'react';
 import './MetallicSurface.css';
 import { getDPRCap, usePageActiveRef } from './perf';
+import { compileShader, linkProgramAsync, incContext, decContext } from './glUtils';
+import { processImageInWorker } from './imageProcessPool';
+import { useGPUTimer } from '../dev/perfRegistry';
 
-const vertexShader = `#version 300 es
+// Exported so prewarmShaderCache() in glUtils can compile them on a temporary
+// canvas at page load — populating Chromium's GPU shader binary cache before
+// any real MetallicSurface instance tries to compile, which eliminates first-
+// mount jank on cold visits.
+export const vertexShader = `#version 300 es
 precision highp float;
 in vec2 a_position;
 out vec2 vP;
 void main(){vP=a_position*.5+.5;gl_Position=vec4(a_position,0.,1.);}`;
 
-const fragmentShader = `#version 300 es
+export const fragmentShader = `#version 300 es
 precision highp float;
 in vec2 vP;
 out vec4 oC;
@@ -172,6 +179,35 @@ interface MetallicSurfaceProps {
   className?: string;
   style?: CSSProperties;
   interactive?: boolean;
+  /**
+   * Cap on the effective devicePixelRatio. The fragment shader is expensive,
+   * so callers that don't need full retina fidelity (e.g. shader-painted
+   * titles, where the shader output is masked through text anyway) can pass
+   * a lower cap. Default: getDPRCap() (1.5 on mobile, 2.0 on desktop).
+   */
+  dprCap?: number;
+  /**
+   * Frame interval in ms. Default 1000/30 (30fps). Components rendering very
+   * slow shimmer (e.g. titles at speed=0.3) can pass 1000/24 with no visible
+   * difference.
+   */
+  frameInterval?: number;
+  /**
+   * When true, the component keeps its WebGL context and last-drawn frame on
+   * screen but stops uploading uniforms and issuing draw calls. Used by the
+   * shaderTitleCoordinator to enforce a max number of simultaneously-animating
+   * MetalShaderTitles.
+   */
+  frozen?: boolean;
+  /**
+   * Optional label for the PerfHUD's per-component GPU timer.
+   */
+  perfLabel?: string;
+  /**
+   * When true, do NOT request antialiasing. Default true (AA off) because the
+   * shader covers a full quad — MSAA has no triangle edges to smooth.
+   */
+  disableAntialias?: boolean;
 }
 
 function generateProceduralTexture(width: number, height: number, pattern: DepthPattern, seed: number): ImageData {
@@ -242,7 +278,13 @@ function generateProceduralTexture(width: number, height: number, pattern: Depth
   return imageData;
 }
 
-function processImage(img: HTMLImageElement): ImageData {
+// Cheap first pass on main thread: scale + sample the image into alpha/shape
+// arrays. This is one O(N) loop over the pixels and is fast (~5ms typical).
+// Returns the arrays + dimensions; SOR diffusion happens off-thread.
+function extractAlphaShape(img: HTMLImageElement): {
+  width: number; height: number;
+  alpha: Float32Array; shape: Uint8Array;
+} {
   const MAX_SIZE = 1000;
   const MIN_SIZE = 500;
   let width = img.naturalWidth || img.width;
@@ -266,46 +308,56 @@ function processImage(img: HTMLImageElement): ImageData {
   const imageData = ctx.getImageData(0, 0, width, height);
   const d = imageData.data;
   const size = width * height;
-  const alphaValues = new Float32Array(size);
-  const shapeMask = new Uint8Array(size);
-  const boundaryMask = new Uint8Array(size);
+  const alpha = new Float32Array(size);
+  const shape = new Uint8Array(size);
 
   for (let i = 0; i < size; i++) {
     const px = i * 4;
     const r = d[px], g = d[px + 1], b = d[px + 2], a = d[px + 3];
     const isBackground = (r > 250 && g > 250 && b > 250 && a === 255) || a < 5;
-    alphaValues[i] = isBackground ? 0 : a / 255;
-    shapeMask[i] = alphaValues[i] > 0.1 ? 1 : 0;
+    alpha[i] = isBackground ? 0 : a / 255;
+    shape[i] = alpha[i] > 0.1 ? 1 : 0;
   }
 
+  return { width, height, alpha, shape };
+}
+
+/**
+ * Synchronous SOR fallback. Only used when the worker is unavailable
+ * (e.g. very old browser or worker construction failed). Identical math to
+ * imageProcess.worker.ts — keep them in sync.
+ */
+function processImageSync(
+  width: number, height: number,
+  alpha: Float32Array, shape: Uint8Array,
+  iterations: number, c: number, omega: number,
+): ImageData {
+  const size = width * height;
+  const boundary = new Uint8Array(size);
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = y * width + x;
-      if (!shapeMask[idx]) continue;
+      if (!shape[idx]) continue;
       if (x === 0 || x === width - 1 || y === 0 || y === height - 1 ||
-          !shapeMask[idx - 1] || !shapeMask[idx + 1] ||
-          !shapeMask[idx - width] || !shapeMask[idx + width]) {
-        boundaryMask[idx] = 1;
+          !shape[idx - 1] || !shape[idx + 1] ||
+          !shape[idx - width] || !shape[idx + width]) {
+        boundary[idx] = 1;
       }
     }
   }
 
   const u = new Float32Array(size);
-  const ITERATIONS = 40;
-  const C = 0.01;
-  const omega = 1.85;
-
-  for (let iter = 0; iter < ITERATIONS; iter++) {
+  for (let iter = 0; iter < iterations; iter++) {
     for (let y = 1; y < height - 1; y++) {
       for (let x = 1; x < width - 1; x++) {
         const idx = y * width + x;
-        if (!shapeMask[idx] || boundaryMask[idx]) continue;
+        if (!shape[idx] || boundary[idx]) continue;
         const sum =
-          (shapeMask[idx + 1] ? u[idx + 1] : 0) +
-          (shapeMask[idx - 1] ? u[idx - 1] : 0) +
-          (shapeMask[idx + width] ? u[idx + width] : 0) +
-          (shapeMask[idx - width] ? u[idx - width] : 0);
-        const newVal = (C + sum) / 4;
+          (shape[idx + 1] ? u[idx + 1] : 0) +
+          (shape[idx - 1] ? u[idx - 1] : 0) +
+          (shape[idx + width] ? u[idx + width] : 0) +
+          (shape[idx - width] ? u[idx - width] : 0);
+        const newVal = (c + sum) / 4;
         u[idx] = omega * newVal + (1 - omega) * u[idx];
       }
     }
@@ -315,16 +367,40 @@ function processImage(img: HTMLImageElement): ImageData {
   for (let i = 0; i < size; i++) if (u[i] > maxVal) maxVal = u[i];
   if (maxVal === 0) maxVal = 1;
 
-  const outData = ctx.createImageData(width, height);
+  const out = new Uint8ClampedArray(size * 4);
   for (let i = 0; i < size; i++) {
     const px = i * 4;
     const depth = u[i] / maxVal;
     const gray = Math.round(255 * (1 - depth * depth));
-    outData.data[px] = outData.data[px + 1] = outData.data[px + 2] = gray;
-    outData.data[px + 3] = Math.round(alphaValues[i] * 255);
+    out[px] = out[px + 1] = out[px + 2] = gray;
+    out[px + 3] = Math.round(alpha[i] * 255);
   }
+  return new ImageData(out, width, height);
+}
 
-  return outData;
+const SOR_ITERATIONS = 40;
+const SOR_C = 0.01;
+const SOR_OMEGA = 1.85;
+
+/**
+ * Async processImage. Off-thread when possible (Worker), falls back to
+ * synchronous main-thread compute if the worker is unavailable.
+ *
+ * Output is mathematically identical between paths — no visual difference.
+ */
+async function processImageAsync(img: HTMLImageElement): Promise<ImageData> {
+  const { width, height, alpha, shape } = extractAlphaShape(img);
+  try {
+    // Note: this transfers alpha.buffer + shape.buffer to the worker, so the
+    // arrays become unusable on this side. We don't reuse them.
+    return await processImageInWorker(width, height, alpha, shape, SOR_ITERATIONS, SOR_C, SOR_OMEGA);
+  } catch {
+    // Worker failed. Fall back to in-thread compute. We need fresh copies of
+    // alpha/shape because the buffers were transferred away — but only if
+    // they ARE transferred. To be safe re-extract from the source image.
+    const re = extractAlphaShape(img);
+    return processImageSync(re.width, re.height, re.alpha, re.shape, SOR_ITERATIONS, SOR_C, SOR_OMEGA);
+  }
 }
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -363,6 +439,11 @@ export default function MetallicSurface({
   className = '',
   style,
   interactive = false,
+  dprCap,
+  frameInterval = 1000 / 30,
+  frozen = false,
+  perfLabel = 'MetalSurf',
+  disableAntialias = true,
 }: MetallicSurfaceProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -381,18 +462,34 @@ export default function MetallicSurface({
   // Imperative tab-visibility ref — rAF loop reads this to skip GPU work
   // while the tab is hidden without triggering React re-renders.
   const pageActiveRef = usePageActiveRef();
+  // Imperative freeze ref — rAF reads this to skip uniform upload + draw
+  // calls without triggering re-renders.
+  const frozenRef = useRef(frozen);
+
+  // Dev-only GPU timing instrumentation. The hook is a no-op when the
+  // PerfHUD is disabled (no ?perf=1 in the URL).
+  const gpuTimer = useGPUTimer(perfLabel);
+  const timerRef = useRef<ReturnType<typeof gpuTimer.makeTimer> | null>(null);
 
   const [ready, setReady] = useState(false);
   const [textureReady, setTextureReady] = useState(false);
 
   useEffect(() => { speedRef.current = speed; }, [speed]);
   useEffect(() => { mouseAnimRef.current = mouseAnimation; }, [mouseAnimation]);
+  useEffect(() => { frozenRef.current = frozen; }, [frozen]);
 
-  const initGL = useCallback(() => {
+  const initGL = useCallback(async (): Promise<boolean> => {
     const canvas = canvasRef.current;
     if (!canvas) return false;
 
-    const gl = canvas.getContext('webgl2', { antialias: true, alpha: true, premultipliedAlpha: true });
+    const gl = canvas.getContext('webgl2', {
+      // MSAA is wasted on a full-quad procedural fragment shader — no
+      // triangle edges to anti-alias. Saves a multisample backing store.
+      antialias: !disableAntialias,
+      alpha: true,
+      premultipliedAlpha: true,
+      powerPreference: 'high-performance',
+    });
     if (!gl) return false;
 
     // Defensive WebGL context-loss handling. preventDefault() on `webglcontextlost`
@@ -407,31 +504,15 @@ export default function MetallicSurface({
       // TODO: full re-init — currently a no-op. See comment above.
     }, false);
 
-    const compile = (src: string, type: number): WebGLShader | null => {
-      const s = gl.createShader(type);
-      if (!s) return null;
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(s));
-        return null;
-      }
-      return s;
-    };
-
-    const vs = compile(vertexShader, gl.VERTEX_SHADER);
-    const fs = compile(fragmentShader, gl.FRAGMENT_SHADER);
+    const vs = compileShader(gl, gl.VERTEX_SHADER, vertexShader);
+    const fs = compileShader(gl, gl.FRAGMENT_SHADER, fragmentShader);
     if (!vs || !fs) return false;
 
-    const prog = gl.createProgram();
+    // Non-blocking link via KHR_parallel_shader_compile when available.
+    // Without this extension, linkProgram stalls the main thread for the full
+    // link duration — which on this shader can be 30–80ms on cold load.
+    const prog = await linkProgramAsync(gl, vs, fs);
     if (!prog) return false;
-    gl.attachShader(prog, vs);
-    gl.attachShader(prog, fs);
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(prog));
-      return false;
-    }
 
     const uniforms: Record<string, WebGLUniformLocation | null> = {};
     const count = gl.getProgramParameter(prog, gl.ACTIVE_UNIFORMS);
@@ -456,9 +537,15 @@ export default function MetallicSurface({
     glRef.current = gl;
     programRef.current = prog;
     uniformsRef.current = uniforms;
+    timerRef.current = gpuTimer.makeTimer(gl);
+    incContext();
 
     return true;
-  }, []);
+    // gpuTimer.makeTimer is stable (the underlying id is captured in a ref);
+    // the lint exhaustive-deps rule trips here but adding it would re-run
+    // initGL on every render, which would re-create the context.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disableAntialias]);
 
   const uploadTexture = useCallback((imgData: ImageData) => {
     const gl = glRef.current;
@@ -490,7 +577,10 @@ export default function MetallicSurface({
     if (!canvas || !wrapper || !gl) return;
 
     const rect = wrapper.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio, getDPRCap());
+    // Caller can override the DPR cap (e.g. MetalShaderTitle uses 1.25 because
+    // the shader output is masked through text and high-DPR isn't visible).
+    const effectiveCap = typeof dprCap === 'number' ? dprCap : getDPRCap();
+    const dpr = Math.min(window.devicePixelRatio, effectiveCap);
     const w = Math.round(rect.width * dpr);
     const h = Math.round(rect.height * dpr);
 
@@ -501,17 +591,54 @@ export default function MetallicSurface({
     canvas.height = h;
     gl.viewport(0, 0, w, h);
     gl.uniform1f(uniformsRef.current.u_ratio, w / h);
-  }, []);
+  }, [dprCap]);
 
   useEffect(() => {
-    if (!initGL()) return;
-    setReady(true);
+    let cancelled = false;
+    let contextWasInc = false;
+    initGL().then((ok) => {
+      if (cancelled) {
+        // Component unmounted while we were waiting on the async link.
+        // initGL ran incContext on success — undo that, but do NOT call
+        // loseContext: WebGL's contract is that once a canvas has been given
+        // a context, getContext() always returns that same context. Forcing
+        // it lost permanently bricks the canvas — and React StrictMode's
+        // setup/cleanup/setup cycle means we'd brick our own canvas before
+        // the real GL effect even gets to use it. Just delete the program
+        // and shaders; the browser will reclaim the context on unmount.
+        if (ok) {
+          decContext();
+          if (timerRef.current) {
+            timerRef.current.dispose();
+            timerRef.current = null;
+          }
+          glRef.current = null;
+        }
+        return;
+      }
+      if (ok) {
+        contextWasInc = true;
+        setReady(true);
+      }
+    });
 
     return () => {
+      cancelled = true;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (timerRef.current) {
+        timerRef.current.dispose();
+        timerRef.current = null;
+      }
       if (textureRef.current && glRef.current) {
         glRef.current.deleteTexture(textureRef.current);
+        textureRef.current = null;
       }
+      // IMPORTANT: do not call WEBGL_lose_context here. See note above —
+      // StrictMode dev double-mount would brick the canvas before the real
+      // mount even starts. The GPU resources are released when the canvas
+      // is removed from the DOM.
+      glRef.current = null;
+      if (contextWasInc) decContext();
     };
   }, [initGL]);
 
@@ -530,12 +657,25 @@ export default function MetallicSurface({
       setTextureReady(false);
       const img = new Image();
       img.crossOrigin = 'anonymous';
+      let onloadCancelled = false;
       img.onload = () => {
-        const imgData = processImage(img);
-        uploadTexture(imgData);
-        setTextureReady(true);
+        // processImageAsync moves the heavy SOR diffusion to a worker —
+        // each title used to pay ~190ms on the main thread; now ~0ms.
+        // Falls back to sync if the worker fails. Math is identical so
+        // there is no visible difference in the output texture.
+        processImageAsync(img).then((imgData) => {
+          if (onloadCancelled) return;
+          uploadTexture(imgData);
+          setTextureReady(true);
+        }).catch((err) => {
+          // eslint-disable-next-line no-console
+          console.warn('[MetallicSurface] processImage failed', err);
+        });
       };
       img.src = imageSrc;
+      // Hook into the outer effect cleanup so an unmount mid-flight doesn't
+      // upload to a dead context.
+      return () => { onloadCancelled = true; };
     } else {
       const size = 512;
       const imgData = generateProceduralTexture(size, size, pattern, seed);
@@ -599,8 +739,6 @@ export default function MetallicSurface({
       canvas.addEventListener('mousemove', handleMouseMove);
     }
 
-    const FRAME_INTERVAL = 1000 / 30; // 30fps is plenty for slow metallic shimmer
-
     const render = (time: number) => {
       if (!visibleRef.current) {
         rafRef.current = null;
@@ -609,8 +747,10 @@ export default function MetallicSurface({
 
       const delta = time - lastTimeRef.current;
 
-      // Throttle to 30fps — skip frames when not enough time has passed
-      if (delta < FRAME_INTERVAL) {
+      // Throttle to the configured frame interval (default 30fps; titles
+      // typically pass 24fps because their shimmer is too slow to perceive
+      // any difference at lower rates).
+      if (delta < frameInterval) {
         rafRef.current = requestAnimationFrame(render);
         return;
       }
@@ -626,12 +766,19 @@ export default function MetallicSurface({
         animTimeRef.current += delta * speedRef.current * wobble;
       }
 
-      // Skip GPU work (uniform upload + draw) while the tab is hidden.
-      // rAF keeps running so state (animTimeRef) advances naturally; when
-      // the tab comes back, the next frame renders without a visible jump.
-      if (pageActiveRef.current) {
+      // Skip GPU work (uniform upload + draw) while the tab is hidden OR
+      // the coordinator has frozen this component (out of the active title
+      // slot quota). rAF keeps running so animTimeRef advances and we resume
+      // without a visible jump when the gate flips back open.
+      const shouldDraw = pageActiveRef.current && !frozenRef.current;
+      if (shouldDraw) {
+        const timer = timerRef.current;
+        timer?.begin();
         gl.uniform1f(u.u_time, animTimeRef.current);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        timer?.end();
+        timer?.poll();
+        gpuTimer.markDraw();
       }
       rafRef.current = requestAnimationFrame(render);
     };
@@ -639,6 +786,11 @@ export default function MetallicSurface({
     const ioObserver = new IntersectionObserver(
       ([entry]) => {
         visibleRef.current = entry.isIntersecting;
+        // setVisible dedupes internally, so we can call it unconditionally
+        // even when state didn't change. Keeping this unconditional fixes
+        // the initial-mount case where visibleRef defaults to true but the
+        // HUD record starts at visible=false.
+        gpuTimer.setVisible(entry.isIntersecting);
         if (entry.isIntersecting && !rafRef.current) {
           lastTimeRef.current = performance.now();
           rafRef.current = requestAnimationFrame(render);
@@ -646,7 +798,23 @@ export default function MetallicSurface({
       },
       { threshold: 0 },
     );
-    if (wrapperRef.current) ioObserver.observe(wrapperRef.current);
+    if (wrapperRef.current) {
+      ioObserver.observe(wrapperRef.current);
+      // Seed the visible flag based on the current geometry, so the HUD
+      // reflects reality immediately without waiting for IO to fire its
+      // initial async callback (which can lag a frame or two and confuses
+      // the live-context count).
+      const rect = wrapperRef.current.getBoundingClientRect();
+      const inViewport =
+        rect.bottom > 0 &&
+        rect.right > 0 &&
+        rect.top < (window.innerHeight || 0) &&
+        rect.left < (window.innerWidth || 0);
+      if (inViewport) {
+        visibleRef.current = true;
+        gpuTimer.setVisible(true);
+      }
+    }
 
     lastTimeRef.current = performance.now();
     rafRef.current = requestAnimationFrame(render);
@@ -656,7 +824,10 @@ export default function MetallicSurface({
       canvas.removeEventListener('mousemove', handleMouseMove);
       ioObserver.disconnect();
     };
-  }, [ready, textureReady, interactive, mouseAnimation]);
+    // gpuTimer.setVisible / .markDraw are stable wrappers around stable refs;
+    // including them re-runs this effect needlessly.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, textureReady, interactive, mouseAnimation, frameInterval]);
 
   return (
     <div ref={wrapperRef} className={`metallic-surface-wrapper ${className}`} style={style}>

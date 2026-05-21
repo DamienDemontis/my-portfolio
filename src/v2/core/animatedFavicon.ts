@@ -5,12 +5,14 @@
  */
 
 const SIZE = 32;
-const FPS = 10;
-const LOOP_DURATION = 4000; // ms per full animation cycle
+const FPS = 6;                 // was 10; the shimmer cycle is 4s long, 6fps = 24 frames/cycle still buttery
+const LOOP_DURATION = 4000;    // ms per full animation cycle
 
 let raf: number | null = null;
 let lastFrame = 0;
 let linkEl: HTMLLinkElement | null = null;
+let encodingInFlight = false;  // guards against overlapping toBlob calls
+let lastBlobUrl: string | null = null;
 
 const canvas = document.createElement('canvas');
 canvas.width = SIZE;
@@ -67,13 +69,25 @@ function drawFrame(time: number) {
   ctx.fillText('/D', SIZE / 2, SIZE / 2 + 1);
   ctx.restore();
 
-  // Update favicon
+  // Update favicon — use toBlob (async, off-main-thread) instead of toDataURL
+  // (sync, encodes on main thread). On Chrome the PNG encoder runs on the
+  // browser's worker thread, so this returns immediately and the encoded
+  // bytes arrive in the callback. Big win on the main-thread profile.
   if (!linkEl) {
     linkEl = document.querySelector('link[rel="icon"][type="image/png"]')
       || document.querySelector('link[rel="icon"]');
   }
-  if (linkEl) {
-    linkEl.href = canvas.toDataURL('image/png');
+  if (linkEl && !encodingInFlight) {
+    encodingInFlight = true;
+    canvas.toBlob((blob) => {
+      encodingInFlight = false;
+      if (!blob || !linkEl) return;
+      // Revoke the previous object URL so we don't leak.
+      const prev = lastBlobUrl;
+      lastBlobUrl = URL.createObjectURL(blob);
+      linkEl.href = lastBlobUrl;
+      if (prev) URL.revokeObjectURL(prev);
+    }, 'image/png');
   }
 }
 

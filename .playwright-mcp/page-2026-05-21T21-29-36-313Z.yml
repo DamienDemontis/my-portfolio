@@ -1,0 +1,1643 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e6]: PERF · ?perf=0 to hide
+    - generic [ref=e7]:
+      - generic [ref=e8]: FPS (med)
+      - generic [ref=e9]:
+        - text: "182"
+        - generic [ref=e10]: · p1 172
+    - generic [ref=e21]:
+      - generic [ref=e22]: Long tasks
+      - generic [ref=e23]: "8"
+    - generic [ref=e24]:
+      - generic [ref=e25]: WebGL ctx
+      - generic [ref=e26]:
+        - text: 4 live
+        - generic [ref=e27]: / 5 reg
+    - generic [ref=e28]:
+      - generic [ref=e29]: DPR cap
+      - generic [ref=e30]: "1.00"
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]: ● Cursor
+        - generic [ref=e34]: 0.01 ms
+      - generic [ref=e35]:
+        - generic [ref=e36]: ● Dither
+        - generic [ref=e37]: —
+      - generic [ref=e41]:
+        - generic [ref=e42]: ● Title
+        - generic [ref=e43]: 0.43 ms
+      - generic [ref=e44]:
+        - generic [ref=e45]: ● Title
+        - generic [ref=e46]: 0.01 ms
+      - generic [ref=e297]:
+        - generic [ref=e298]: ○ Aurora
+        - generic [ref=e299]: —
+  - navigation "Dock de navigation" [ref=e57]:
+    - button "Retour en haut" [ref=e58]:
+      - img [ref=e61]
+    - button "Aller à À propos" [ref=e65]:
+      - img [ref=e68]
+    - button "Aller à Expérience" [ref=e71]:
+      - img [ref=e74]
+    - button "Aller à Compétences" [ref=e77]:
+      - img [ref=e80]
+    - button "Aller à Projets" [ref=e83]:
+      - img [ref=e86]
+    - button "Aller à Formation" [ref=e91]:
+      - img [ref=e94]
+    - button "Aller à Certifications" [ref=e97]:
+      - img [ref=e100]
+    - button "Aller à Langues" [ref=e103]:
+      - img [ref=e106]
+    - button "Aller à Centres d'Intérêt" [ref=e109]:
+      - img [ref=e112]
+    - button "Aller à Photographie" [ref=e114]:
+      - img [ref=e117]
+    - button "Aller à Contact" [ref=e120]:
+      - img [ref=e123]
+    - button "Passer en English" [ref=e127]:
+      - img [ref=e130]
+    - button "Passer en Français" [ref=e136]:
+      - img [ref=e140]
+    - button "Passer en 한국어" [ref=e144]:
+      - img [ref=e147]
+  - main [ref=e161]:
+    - region "Hero" [ref=e162]:
+      - generic [ref=e166]:
+        - generic [ref=e169]: Développeur Full Stack & Spécialiste IT
+        - generic "Damien Demontis" [ref=e170]:
+          - heading "DAMIEN" [level=1] [ref=e173]
+          - heading "DEMONTIS" [level=1] [ref=e176]
+        - paragraph [ref=e177]:
+          - text: Alumnus EPITECH construisant des expériences web modernes
+          - text: avec précision et savoir-faire
+        - generic [ref=e178]:
+          - link "Me Contacter" [ref=e179]:
+            - /url: "#contact"
+          - generic [ref=e180]: /
+          - link "CV" [ref=e181]:
+            - /url: /CV_Damien_DEMONTIS_EN.pdf
+      - generic [ref=e184]: Défiler
+    - generic [ref=e302]:
+      - generic [ref=e310]:
+        - generic [ref=e312]:
+          - generic [ref=e314]: "01"
+          - heading "À propos" [level=2] [ref=e316]
+        - generic [ref=e319]:
+          - heading "Développeur Full Stack avec une perspective internationale" [level=3] [ref=e320]
+          - paragraph [ref=e321]: Alumnus EPITECH (diplômé 2025) avec une expertise en développement web, DevOps et mentorat pédagogique. Mes expériences académiques et pratiques ont aiguisé mes compétences en gestion de projet, leadership d'équipe et création d'applications web modernes avec des technologies de pointe.
+          - paragraph [ref=e322]: Expérience internationale grâce à un programme d'échange à l'Université Keimyung en Corée du Sud, où j'ai été Ambassadeur EPITECH certifié. Passionné par la fusion de l'expertise technique avec l'innovation et les perspectives culturelles.
+          - paragraph [ref=e323]: Passionné par la fusion de l'expertise technique avec les perspectives culturelles et l'innovation technologique pour créer des expériences numériques significatives.
+          - generic [ref=e326]:
+            - generic [ref=e327]: React
+            - generic [ref=e328]: TypeScript
+            - generic [ref=e329]: Node.js
+            - generic [ref=e330]: Vue.js
+            - generic [ref=e331]: Python
+            - generic [ref=e332]: Docker
+            - generic [ref=e333]: WebGL
+        - generic [ref=e334]:
+          - generic [ref=e338]:
+            - generic [ref=e339]: 0+
+            - generic [ref=e340]: Années d'Expérience
+          - generic [ref=e345]:
+            - generic [ref=e346]: 0+
+            - generic [ref=e347]: Projets Réalisés
+          - generic [ref=e352]:
+            - generic [ref=e353]: 0+
+            - generic [ref=e354]: Technologies
+          - generic [ref=e359]:
+            - generic [ref=e360]: 0+
+            - generic [ref=e361]: Étudiants Mentorés
+      - generic [ref=e365]:
+        - generic [ref=e367]:
+          - generic [ref=e369]: "02"
+          - heading "Expérience" [level=2] [ref=e371]
+        - generic [ref=e373]:
+          - generic [ref=e379]: $git log --graph --all --decorate
+          - generic [ref=e381]:
+            - generic [ref=e386]:
+              - generic [ref=e387]:
+                - generic [ref=e388]: "???????"
+                - generic [ref=e389]: unreached
+              - generic [ref=e391]: "feat: join your company?"
+            - generic:
+              - generic:
+                - img
+            - 'button "a3f7c21 HEAD main Lead Dev | Fullstack Developer feat: lead healthtech platform development — PandaLab SAS Dec 2025 — Present · Nancy, France · ● active PandaLab SAS" [ref=e392]':
+              - generic [ref=e397]:
+                - generic [ref=e398]:
+                  - generic [ref=e399]: a3f7c21
+                  - generic [ref=e400]: HEAD
+                  - generic [ref=e401]: main
+                - generic [ref=e402]:
+                  - generic [ref=e403]:
+                    - generic [ref=e404]: Lead Dev | Fullstack Developer
+                    - generic [ref=e405]:
+                      - generic [ref=e406]: "feat: lead healthtech platform development"
+                      - generic [ref=e407]: — PandaLab SAS
+                    - generic [ref=e408]:
+                      - generic [ref=e409]: Dec 2025 — Present
+                      - generic [ref=e410]: ·
+                      - generic [ref=e411]: Nancy, France
+                      - generic [ref=e412]: ·
+                      - generic [ref=e413]: ● active
+                  - img "PandaLab SAS" [ref=e414]
+            - generic:
+              - generic:
+                - img
+            - 'button "8b2e4f9 feature/jobneko Founder & Full Stack Developer feat: launch ai-powered job analysis — JobNeko Sep 2024 — Present · Remote · ● active" [ref=e415]':
+              - generic [ref=e420]:
+                - generic [ref=e421]:
+                  - generic [ref=e422]: 8b2e4f9
+                  - generic [ref=e423]: feature/jobneko
+                - generic [ref=e424]:
+                  - generic [ref=e425]:
+                    - generic [ref=e426]: Founder & Full Stack Developer
+                    - generic [ref=e427]:
+                      - generic [ref=e428]: "feat: launch ai-powered job analysis"
+                      - generic [ref=e429]: — JobNeko
+                    - generic [ref=e430]:
+                      - generic [ref=e431]: Sep 2024 — Present
+                      - generic [ref=e432]: ·
+                      - generic [ref=e433]: Remote
+                      - generic [ref=e434]: ·
+                      - generic [ref=e435]: ● active
+                  - img [ref=e437]
+            - generic:
+              - generic:
+                - img
+            - 'button "d91a3c7 feature/leonart Technical Lead & Project Manager feat: architect art marketplace platform — Leon''Art Apr 2023 — Mar 2025 · Daegu, Korea Leon''Art" [ref=e471]':
+              - generic [ref=e476]:
+                - generic [ref=e477]:
+                  - generic [ref=e478]: d91a3c7
+                  - generic [ref=e479]: feature/leonart
+                - generic [ref=e480]:
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: Technical Lead & Project Manager
+                    - generic [ref=e483]:
+                      - generic [ref=e484]: "feat: architect art marketplace platform"
+                      - generic [ref=e485]: — Leon'Art
+                    - generic [ref=e486]:
+                      - generic [ref=e487]: Apr 2023 — Mar 2025
+                      - generic [ref=e488]: ·
+                      - generic [ref=e489]: Daegu, Korea
+                  - img "Leon'Art" [ref=e490]
+            - generic:
+              - generic:
+                - img
+            - 'button "f4c8a12 epitech/mentor Pedagogical Mentor | MSc Curriculum feat: mentor msc curriculum — EPITECH Mar 2024 — Aug 2024 · Nancy, France EPITECH" [ref=e491]':
+              - generic [ref=e496]:
+                - generic [ref=e497]:
+                  - generic [ref=e498]: f4c8a12
+                  - generic [ref=e499]: epitech/mentor
+                - generic [ref=e500]:
+                  - generic [ref=e501]:
+                    - generic [ref=e502]: Pedagogical Mentor | MSc Curriculum
+                    - generic [ref=e503]:
+                      - generic [ref=e504]: "feat: mentor msc curriculum"
+                      - generic [ref=e505]: — EPITECH
+                    - generic [ref=e506]:
+                      - generic [ref=e507]: Mar 2024 — Aug 2024
+                      - generic [ref=e508]: ·
+                      - generic [ref=e509]: Nancy, France
+                  - img "EPITECH" [ref=e510]
+            - generic:
+              - generic:
+                - img
+            - 'button "2e7b91d epitech/ra Regional Assistant | PGE & MSc feat: regional assistant for 200+ students — EPITECH 2021 — Aug 2024 · Nancy, France EPITECH" [ref=e511]':
+              - generic [ref=e516]:
+                - generic [ref=e517]:
+                  - generic [ref=e518]: 2e7b91d
+                  - generic [ref=e519]: epitech/ra
+                - generic [ref=e520]:
+                  - generic [ref=e521]:
+                    - generic [ref=e522]: Regional Assistant | PGE & MSc
+                    - generic [ref=e523]:
+                      - generic [ref=e524]: "feat: regional assistant for 200+ students"
+                      - generic [ref=e525]: — EPITECH
+                    - generic [ref=e526]:
+                      - generic [ref=e527]: 2021 — Aug 2024
+                      - generic [ref=e528]: ·
+                      - generic [ref=e529]: Nancy, France
+                  - img "EPITECH" [ref=e530]
+            - generic:
+              - generic:
+                - img
+            - 'button "7a3f5c8 Fullstack Developer Intern feat: migrate monolith to nuxt frontend — +Simple Apr 2023 — Aug 2023 · Nancy, France +Simple" [ref=e531]':
+              - generic [ref=e536]:
+                - generic [ref=e538]: 7a3f5c8
+                - generic [ref=e539]:
+                  - generic [ref=e540]:
+                    - generic [ref=e541]: Fullstack Developer Intern
+                    - generic [ref=e542]:
+                      - generic [ref=e543]: "feat: migrate monolith to nuxt frontend"
+                      - generic [ref=e544]: — +Simple
+                    - generic [ref=e545]:
+                      - generic [ref=e546]: Apr 2023 — Aug 2023
+                      - generic [ref=e547]: ·
+                      - generic [ref=e548]: Nancy, France
+                  - img "+Simple" [ref=e549]
+            - generic:
+              - generic:
+                - img
+            - 'button "b1d9e42 Web Developer Intern feat: first dev role, wordpress/php — ACORIS Mutuelles Jul 2021 — Dec 2021 · Nancy, France ACORIS Mutuelles" [ref=e550]':
+              - generic [ref=e555]:
+                - generic [ref=e557]: b1d9e42
+                - generic [ref=e558]:
+                  - generic [ref=e559]:
+                    - generic [ref=e560]: Web Developer Intern
+                    - generic [ref=e561]:
+                      - generic [ref=e562]: "feat: first dev role, wordpress/php"
+                      - generic [ref=e563]: — ACORIS Mutuelles
+                    - generic [ref=e564]:
+                      - generic [ref=e565]: Jul 2021 — Dec 2021
+                      - generic [ref=e566]: ·
+                      - generic [ref=e567]: Nancy, France
+                  - img "ACORIS Mutuelles" [ref=e568]
+            - generic:
+              - generic:
+                - img
+            - generic [ref=e573]:
+              - generic [ref=e574]:
+                - generic [ref=e575]: "0000000"
+                - generic [ref=e576]: origin
+              - generic [ref=e578]: "init: spawned on planet earth"
+      - generic [ref=e581]:
+        - generic [ref=e583]:
+          - generic [ref=e585]: "03"
+          - heading "Compétences" [level=2] [ref=e587]
+          - paragraph [ref=e588]: Toujours apprendre, toujours construire, toujours innover.
+        - generic [ref=e590]:
+          - generic [ref=e592]:
+            - img [ref=e593]
+            - generic [ref=e597]: 95%
+            - generic [ref=e598]: JavaScript
+          - generic [ref=e600]:
+            - img [ref=e601]
+            - generic [ref=e605]: 90%
+            - generic [ref=e606]: React
+          - generic [ref=e608]:
+            - img [ref=e609]
+            - generic [ref=e613]: 88%
+            - generic [ref=e614]: TypeScript
+          - generic [ref=e616]:
+            - img [ref=e617]
+            - generic [ref=e621]: 92%
+            - generic [ref=e622]: Node.js
+          - generic [ref=e624]:
+            - img [ref=e625]
+            - generic [ref=e629]: 78%
+            - generic [ref=e630]: Vue.js
+        - generic [ref=e635]:
+          - generic [ref=e637]:
+            - heading "Frontend" [level=3] [ref=e638]: Frontend
+            - generic [ref=e640]:
+              - generic [ref=e642]:
+                - generic [ref=e644]: React / Next.js
+                - generic [ref=e645]: 90%
+              - generic [ref=e648]:
+                - generic [ref=e650]: Vue.js / Nuxt.js
+                - generic [ref=e651]: 78%
+              - generic [ref=e654]:
+                - generic [ref=e656]: TypeScript
+                - generic [ref=e657]: 88%
+              - generic [ref=e660]:
+                - generic [ref=e662]: Tailwind CSS
+                - generic [ref=e663]: 85%
+              - generic [ref=e666]:
+                - generic [ref=e668]: HTML5 / CSS3
+                - generic [ref=e669]: 95%
+          - generic [ref=e672]:
+            - heading "Backend" [level=3] [ref=e673]: Backend
+            - generic [ref=e675]:
+              - generic [ref=e677]:
+                - generic [ref=e679]: Node.js / Express
+                - generic [ref=e680]: 92%
+              - generic [ref=e683]:
+                - generic [ref=e685]: Python / Django
+                - generic [ref=e686]: 72%
+              - generic [ref=e689]:
+                - generic [ref=e691]: C / C++
+                - generic [ref=e692]: 80%
+              - generic [ref=e695]:
+                - generic [ref=e697]: REST APIs
+                - generic [ref=e698]: 90%
+              - generic [ref=e701]:
+                - generic [ref=e703]: Java / C#
+                - generic [ref=e704]: 65%
+          - generic [ref=e707]:
+            - heading "DevOps & Cloud" [level=3] [ref=e708]: DevOps & Cloud
+            - generic [ref=e710]:
+              - generic [ref=e712]:
+                - generic [ref=e714]: Docker
+                - generic [ref=e715]: 78%
+              - generic [ref=e718]:
+                - generic [ref=e720]: Linux / Bash
+                - generic [ref=e721]: 82%
+              - generic [ref=e724]:
+                - generic [ref=e726]: CI/CD Pipelines
+                - generic [ref=e727]: 75%
+              - generic [ref=e730]:
+                - generic [ref=e732]: AWS / GCP
+                - generic [ref=e733]: 65%
+              - generic [ref=e736]:
+                - generic [ref=e738]: Kubernetes
+                - generic [ref=e739]: 50%
+          - generic [ref=e742]:
+            - heading "Data & AI" [level=3] [ref=e743]: Data & AI
+            - generic [ref=e745]:
+              - generic [ref=e747]:
+                - generic [ref=e749]: MongoDB / NoSQL
+                - generic [ref=e750]: 85%
+              - generic [ref=e753]:
+                - generic [ref=e755]: PostgreSQL / MySQL
+                - generic [ref=e756]: 78%
+              - generic [ref=e759]:
+                - generic [ref=e761]: Redis
+                - generic [ref=e762]: 55%
+              - generic [ref=e765]:
+                - generic [ref=e767]: PyTorch / TensorFlow
+                - generic [ref=e768]: 60%
+              - generic [ref=e771]:
+                - generic [ref=e773]: OpenCV
+                - generic [ref=e774]: 58%
+          - generic [ref=e777]:
+            - heading "Mobile Development" [level=3] [ref=e778]: Mobile Development
+            - generic [ref=e780]:
+              - generic [ref=e782]:
+                - generic [ref=e784]: React Native
+                - generic [ref=e785]: 70%
+              - generic [ref=e788]:
+                - generic [ref=e790]: Flutter
+                - generic [ref=e791]: 45%
+              - generic [ref=e794]:
+                - generic [ref=e796]: Expo
+                - generic [ref=e797]: 65%
+          - generic [ref=e800]:
+            - heading "Testing & Quality" [level=3] [ref=e801]: Testing & Quality
+            - generic [ref=e803]:
+              - generic [ref=e805]:
+                - generic [ref=e807]: Jest
+                - generic [ref=e808]: 82%
+              - generic [ref=e811]:
+                - generic [ref=e813]: Cypress
+                - generic [ref=e814]: 70%
+              - generic [ref=e817]:
+                - generic [ref=e819]: Mocha
+                - generic [ref=e820]: 60%
+              - generic [ref=e823]:
+                - generic [ref=e825]: Unit/E2E
+                - generic [ref=e826]: 80%
+          - generic [ref=e829]:
+            - heading "AI & Machine Learning" [level=3] [ref=e830]: AI & Machine Learning
+            - generic [ref=e832]:
+              - generic [ref=e834]:
+                - generic [ref=e836]: TensorFlow
+                - generic [ref=e837]: 55%
+              - generic [ref=e840]:
+                - generic [ref=e842]: LLM Integration
+                - generic [ref=e843]: 72%
+              - generic [ref=e846]:
+                - generic [ref=e848]: RAG
+                - generic [ref=e849]: 68%
+          - generic [ref=e852]:
+            - heading "Tools & Design" [level=3] [ref=e853]: Tools & Design
+            - generic [ref=e855]:
+              - generic [ref=e857]:
+                - generic [ref=e859]: Git
+                - generic [ref=e860]: 92%
+              - generic [ref=e863]:
+                - generic [ref=e865]: Figma
+                - generic [ref=e866]: 60%
+              - generic [ref=e869]:
+                - generic [ref=e871]: Unity
+                - generic [ref=e872]: 55%
+              - generic [ref=e875]:
+                - generic [ref=e877]: Blender
+                - generic [ref=e878]: 35%
+        - generic [ref=e881]: "Également expérimenté avec : Haskell, ECS, GraphQL, GSAP, Zapier"
+      - generic [ref=e884]:
+        - generic [ref=e886]:
+          - generic [ref=e888]: "04"
+          - heading "Projets" [level=2] [ref=e890]
+        - generic [ref=e891]:
+          - generic [ref=e894]:
+            - img "AI Facial Recognition Attendance" [ref=e896]
+            - generic [ref=e899]:
+              - generic [ref=e900]:
+                - heading "AI Facial Recognition Attendance" [level=3] [ref=e901]
+                - generic [ref=e902]: En vedette
+              - paragraph [ref=e903]: Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and PyTorch. Real-time facial recognition with automated reporting.
+              - generic [ref=e904]:
+                - generic [ref=e905]: Python
+                - generic [ref=e906]: OpenCV
+                - generic [ref=e907]: PyTorch
+                - generic [ref=e908]: Firestore
+                - generic [ref=e909]: PyQt6
+              - link "Source - AI Facial Recognition Attendance" [ref=e911]:
+                - /url: https://github.com/DamienDemontis/proto-1-pr-smart
+                - img [ref=e912]
+                - text: Source
+          - generic [ref=e917]:
+            - img "Leon'Art — Art Marketplace" [ref=e919]
+            - generic [ref=e922]:
+              - generic [ref=e923]:
+                - heading "Leon'Art — Art Marketplace" [level=3] [ref=e924]
+                - generic [ref=e925]: En vedette
+              - paragraph [ref=e926]: Mobile and web application for buying and selling art with social features. Startup project with international team.
+              - generic [ref=e927]:
+                - generic [ref=e928]: React Native
+                - generic [ref=e929]: Node.js
+                - generic [ref=e930]: MongoDB
+                - generic [ref=e931]: Express
+                - generic [ref=e932]: Stripe
+                - generic [ref=e933]: GCP
+              - link "Source - Leon'Art — Art Marketplace" [ref=e935]:
+                - /url: https://github.com/Leon-Art-EIP
+                - img [ref=e936]
+                - text: Source
+          - generic [ref=e941]:
+            - img "MSC Decouverte" [ref=e943]
+            - generic [ref=e946]:
+              - heading "MSC Decouverte" [level=3] [ref=e948]
+              - paragraph [ref=e949]: Educational platform helping EPITECH students choose specialties. 800+ external resources. Sold to EPITECH in 2025.
+              - generic [ref=e950]:
+                - generic [ref=e951]: Jekyll
+                - generic [ref=e952]: HTML
+                - generic [ref=e953]: CSS
+                - generic [ref=e954]: JavaScript
+              - link "Démo" [ref=e956]:
+                - /url: https://decouverte-pmsc.vercel.app/
+                - img [ref=e957]
+                - text: Démo
+          - generic [ref=e962]:
+            - img "Corporate Intranet Solution" [ref=e964]
+            - generic [ref=e967]:
+              - heading "Corporate Intranet Solution" [level=3] [ref=e969]
+              - paragraph [ref=e970]: WordPress-based intranet improving company-wide internal communication and workflow efficiency.
+              - generic [ref=e971]:
+                - generic [ref=e972]: PHP
+                - generic [ref=e973]: WordPress
+                - generic [ref=e974]: MySQL
+                - generic [ref=e975]: JavaScript
+              - link "Vidéo - Corporate Intranet Solution" [ref=e977]:
+                - /url: https://youtu.be/fSEylEdaZiM
+                - img [ref=e978]
+                - text: Vidéo
+          - generic [ref=e983]:
+            - img "Inept-Intruder" [ref=e985]
+            - generic [ref=e988]:
+              - heading "Inept-Intruder" [level=3] [ref=e990]
+              - paragraph [ref=e991]: Multiplayer co-op game where a CCTV operator helps another player navigate through a trapped factory.
+              - generic [ref=e992]:
+                - generic [ref=e993]: Unity
+                - generic [ref=e994]: C#
+                - generic [ref=e995]: Multiplayer
+              - generic [ref=e996]:
+                - link "Source - Inept-Intruder" [ref=e997]:
+                  - /url: https://github.com/DamienDemontis/Inept-Intruders/tree/main
+                  - img [ref=e998]
+                  - text: Source
+                - link "Vidéo - Inept-Intruder" [ref=e1000]:
+                  - /url: https://youtu.be/S_0kDyYHLs0
+                  - img [ref=e1001]
+                  - text: Vidéo
+          - generic [ref=e1006]:
+            - img "Wii Tanks Remastered" [ref=e1008]
+            - generic [ref=e1011]:
+              - heading "Wii Tanks Remastered" [level=3] [ref=e1013]
+              - paragraph [ref=e1014]: Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics in Unity.
+              - generic [ref=e1015]:
+                - generic [ref=e1016]: Unity
+                - generic [ref=e1017]: C#
+                - generic [ref=e1018]: Game Physics
+              - generic [ref=e1019]:
+                - link "Source - Wii Tanks Remastered" [ref=e1020]:
+                  - /url: https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main
+                  - img [ref=e1021]
+                  - text: Source
+                - link "Vidéo - Wii Tanks Remastered" [ref=e1023]:
+                  - /url: https://youtu.be/jWfFh3oCJ2I
+                  - img [ref=e1024]
+                  - text: Vidéo
+      - generic [ref=e1029]:
+        - generic [ref=e1031]:
+          - generic [ref=e1033]: "05"
+          - heading "Formation" [level=2] [ref=e1035]
+        - generic [ref=e1036]:
+          - generic [ref=e1038]:
+            - generic [ref=e1039]:
+              - generic [ref=e1040]:
+                - generic [ref=e1041]:
+                  - heading "EPITECH" [level=3] [ref=e1042]
+                  - generic [ref=e1043]: Master
+                - paragraph [ref=e1044]: Expert in Information Technology
+              - generic [ref=e1045]:
+                - generic [ref=e1046]: 2020 — 2025
+                - text: Nancy, France
+                - generic [ref=e1047]: "GPA: 3.7/4.0"
+            - list [ref=e1050]:
+              - listitem [ref=e1051]:
+                - img [ref=e1053]
+                - text: Major of Nancy campus — Campus Leader recognition
+              - listitem [ref=e1055]:
+                - img [ref=e1057]
+                - text: Teaching Assistant for 3 consecutive years
+              - listitem [ref=e1059]:
+                - img [ref=e1061]
+                - text: Project-based learning methodology
+              - listitem [ref=e1063]:
+                - img [ref=e1065]
+                - text: "Core: C, C++, Java, Haskell, DevOps, Cloud"
+              - listitem [ref=e1067]:
+                - img [ref=e1069]
+                - text: Startup Project Manager (Leon'Art)
+              - listitem [ref=e1071]:
+                - img [ref=e1073]
+                - text: Coding Club Member
+          - generic [ref=e1076]:
+            - generic [ref=e1077]:
+              - generic [ref=e1078]:
+                - generic [ref=e1079]:
+                  - heading "Keimyung University" [level=3] [ref=e1080]
+                  - generic [ref=e1081]: Exchange
+                - paragraph [ref=e1082]: Study Abroad — Game Dev & AI
+              - generic [ref=e1083]:
+                - generic [ref=e1084]: Sep 2023 — Jul 2024
+                - text: Daegu, South Korea
+            - list [ref=e1087]:
+              - listitem [ref=e1088]:
+                - img [ref=e1090]
+                - text: Certified EPITECH Ambassador
+              - listitem [ref=e1092]:
+                - img [ref=e1094]
+                - text: Game development & AI studies
+              - listitem [ref=e1096]:
+                - img [ref=e1098]
+                - text: VR/AR technologies research
+              - listitem [ref=e1100]:
+                - img [ref=e1102]
+                - text: Korean language learning
+              - listitem [ref=e1104]:
+                - img [ref=e1106]
+                - text: International cultural exchange
+            - link "Mon année internationale en Corée" [ref=e1109]:
+              - /url: https://youtu.be/s0AG0_PY93I
+              - img [ref=e1110]
+              - text: Mon année internationale en Corée
+          - generic [ref=e1113]:
+            - generic [ref=e1114]:
+              - generic [ref=e1115]:
+                - generic [ref=e1116]:
+                  - heading "Henri Poincare High School" [level=3] [ref=e1117]
+                  - generic [ref=e1118]: Honors
+                - paragraph [ref=e1119]: Scientific Baccalaureate — High Honors
+              - generic [ref=e1120]:
+                - generic [ref=e1121]: 2017 — 2020
+                - text: Nancy, France
+            - list [ref=e1124]:
+              - listitem [ref=e1125]:
+                - img [ref=e1127]
+                - text: Specialization in Computer Science
+              - listitem [ref=e1129]:
+                - img [ref=e1131]
+                - text: High Honors graduation
+              - listitem [ref=e1133]:
+                - img [ref=e1135]
+                - text: Strong mathematics foundation
+              - listitem [ref=e1137]:
+                - img [ref=e1139]
+                - text: Physics fundamentals
+              - listitem [ref=e1141]:
+                - img [ref=e1143]
+                - text: Scientific methodology
+        - paragraph [ref=e1147]: "\"L'éducation n'est pas la préparation à la vie ; l'éducation est la vie elle-même.\" — John Dewey"
+      - generic [ref=e1150]:
+        - generic [ref=e1152]:
+          - generic [ref=e1154]: "06"
+          - heading "Certifications" [level=2] [ref=e1156]
+        - generic [ref=e1157]:
+          - generic [ref=e1160]:
+            - generic [ref=e1161]:
+              - heading "Coaching Agile" [level=3] [ref=e1162]
+              - generic [ref=e1164]: Vérifiées & Actives
+            - generic [ref=e1167]:
+              - generic [ref=e1168]: IonisX
+              - generic [ref=e1169]: —
+              - generic [ref=e1170]: "2023"
+            - paragraph [ref=e1171]: Méthodologies de coaching et facilitation d'équipes agiles
+          - generic [ref=e1174]:
+            - generic [ref=e1175]:
+              - heading "Management d'Équipe" [level=3] [ref=e1176]
+              - generic [ref=e1178]: Vérifiées & Actives
+            - generic [ref=e1181]:
+              - generic [ref=e1182]: IonisX
+              - generic [ref=e1183]: —
+              - generic [ref=e1184]: "2023"
+            - paragraph [ref=e1185]: Principes de leadership et de gestion d'équipe
+          - generic [ref=e1188]:
+            - generic [ref=e1189]:
+              - heading "Communication de Crise" [level=3] [ref=e1190]
+              - generic [ref=e1192]: Vérifiées & Actives
+            - generic [ref=e1195]:
+              - generic [ref=e1196]: IonisX
+              - generic [ref=e1197]: —
+              - generic [ref=e1198]: "2023"
+            - paragraph [ref=e1199]: Stratégies de communication en situations de crise
+          - generic [ref=e1202]:
+            - generic [ref=e1203]:
+              - heading "Gestion de Projets IT" [level=3] [ref=e1204]
+              - generic [ref=e1206]: Vérifiées & Actives
+            - generic [ref=e1209]:
+              - generic [ref=e1210]: IonisX
+              - generic [ref=e1211]: —
+              - generic [ref=e1212]: "2022"
+            - paragraph [ref=e1213]: Gestion de projets dans des contextes IT
+      - generic [ref=e1216]:
+        - generic [ref=e1218]:
+          - generic [ref=e1220]: "07"
+          - heading "Langues" [level=2] [ref=e1222]
+        - generic [ref=e1223]:
+          - generic [ref=e1225]:
+            - generic "FR" [ref=e1226]:
+              - img [ref=e1227]
+            - generic [ref=e1232]:
+              - img [ref=e1233]
+              - generic [ref=e1237]: 100%
+            - heading "Français" [level=3] [ref=e1240]
+            - generic [ref=e1241]: Natif
+            - paragraph [ref=e1242]: Langue maternelle
+          - generic [ref=e1244]:
+            - generic "GB" [ref=e1245]:
+              - img [ref=e1246]
+            - generic [ref=e1253]:
+              - img [ref=e1254]
+              - generic [ref=e1258]: 95%
+            - heading "Anglais" [level=3] [ref=e1261]
+            - generic [ref=e1262]: C1/C2 Courant
+            - paragraph [ref=e1263]: TEPITECH 945/990
+          - generic [ref=e1265]:
+            - generic "IT" [ref=e1266]:
+              - img [ref=e1267]
+            - generic [ref=e1272]:
+              - img [ref=e1273]
+              - generic [ref=e1277]: 60%
+            - heading "Italien" [level=3] [ref=e1280]
+            - generic [ref=e1281]: Conversationnel
+            - paragraph [ref=e1282]: Origines italiennes
+          - generic [ref=e1284]:
+            - generic "KR" [ref=e1285]:
+              - img [ref=e1286]
+            - generic [ref=e1301]:
+              - img [ref=e1302]
+              - generic [ref=e1306]: 40%
+            - heading "Coréen" [level=3] [ref=e1309]
+            - generic [ref=e1310]: A2 Élémentaire
+            - paragraph [ref=e1311]: Échange à Keimyung
+      - generic [ref=e1313]:
+        - generic [ref=e1316]:
+          - generic [ref=e1318]: "08"
+          - heading "Centres d'Intérêt" [level=2] [ref=e1320]
+        - generic [ref=e1322]:
+          - heading "Goûts Musicaux Absolument N'Importe Quoi" [level=3] [ref=e1324]: Goûts Musicaux Absolument N'Importe Quoi
+          - region "Music player carousel" [ref=e1326]:
+            - generic [ref=e1328]:
+              - generic [ref=e1330]:
+                - figure [ref=e1331]:
+                  - img "Champagne Coast by Blood Orange" [ref=e1333]
+                - generic [ref=e1334]:
+                  - generic [ref=e1335]: Champagne Coast
+                  - generic [ref=e1336]: Blood Orange
+                  - generic [ref=e1337]: Indie R&B
+              - generic [ref=e1339]:
+                - figure [ref=e1340]:
+                  - img "In My Zone by bbno$ & VALORANT" [ref=e1342]
+                - generic [ref=e1343]:
+                  - generic [ref=e1344]: In My Zone
+                  - generic [ref=e1345]: bbno$ & VALORANT
+                  - generic [ref=e1346]: Hip House
+              - generic [ref=e1348]:
+                - figure [ref=e1349]:
+                  - img "Touch Off by UVERworld" [ref=e1351]
+                - generic [ref=e1352]:
+                  - generic [ref=e1353]: Touch Off
+                  - generic [ref=e1354]: UVERworld
+                  - generic [ref=e1355]: J-Rock
+              - generic [ref=e1357]:
+                - figure [ref=e1358]:
+                  - img "Feel Good Inc by Gorillaz" [ref=e1360]
+                - generic [ref=e1361]:
+                  - generic [ref=e1362]: Feel Good Inc
+                  - generic [ref=e1363]: Gorillaz
+                  - generic [ref=e1364]: Alternative
+              - generic [ref=e1366]:
+                - figure [ref=e1367]:
+                  - img "うっせぇわ (Usseewa) by Ado" [ref=e1369]
+                - generic [ref=e1370]:
+                  - generic [ref=e1371]: うっせぇわ (Usseewa)
+                  - generic [ref=e1372]: Ado
+                  - generic [ref=e1373]: J-Pop
+              - generic [ref=e1375]:
+                - figure [ref=e1376]:
+                  - img "Dancing with Myself by Billy Idol" [ref=e1378]
+                - generic [ref=e1379]:
+                  - generic [ref=e1380]: Dancing with Myself
+                  - generic [ref=e1381]: Billy Idol
+                  - generic [ref=e1382]: New Wave
+              - generic [ref=e1384]:
+                - figure [ref=e1385]:
+                  - img "内秘心書 (Naihishinsho) by ONE OK ROCK" [ref=e1387]
+                - generic [ref=e1388]:
+                  - generic [ref=e1389]: 内秘心書 (Naihishinsho)
+                  - generic [ref=e1390]: ONE OK ROCK
+                  - generic [ref=e1391]: J-Rock
+              - generic [ref=e1393]:
+                - figure [ref=e1394]:
+                  - img "Une vie à t'aimer by Lorien Testard" [ref=e1396]
+                - generic [ref=e1397]:
+                  - generic [ref=e1398]: Une vie à t'aimer
+                  - generic [ref=e1399]: Lorien Testard
+                  - generic [ref=e1400]: Game OST
+              - generic [ref=e1402]:
+                - figure [ref=e1403]:
+                  - img "Malas Decisiones by Kenia Os" [ref=e1405]
+                - generic [ref=e1406]:
+                  - generic [ref=e1407]: Malas Decisiones
+                  - generic [ref=e1408]: Kenia Os
+                  - generic [ref=e1409]: Latin Pop
+              - generic [ref=e1411]:
+                - figure [ref=e1412]:
+                  - img "Champagne Coast by Blood Orange" [ref=e1414]
+                - generic [ref=e1415]:
+                  - generic [ref=e1416]: Champagne Coast
+                  - generic [ref=e1417]: Blood Orange
+                  - generic [ref=e1418]: Indie R&B
+              - generic [ref=e1420]:
+                - figure [ref=e1421]:
+                  - img "In My Zone by bbno$ & VALORANT" [ref=e1423]
+                - generic [ref=e1424]:
+                  - generic [ref=e1425]: In My Zone
+                  - generic [ref=e1426]: bbno$ & VALORANT
+                  - generic [ref=e1427]: Hip House
+              - generic [ref=e1429]:
+                - figure [ref=e1430]:
+                  - img "Touch Off by UVERworld" [ref=e1432]
+                - generic [ref=e1433]:
+                  - generic [ref=e1434]: Touch Off
+                  - generic [ref=e1435]: UVERworld
+                  - generic [ref=e1436]: J-Rock
+              - generic [ref=e1438]:
+                - figure [ref=e1439]:
+                  - img "Feel Good Inc by Gorillaz" [ref=e1441]
+                - generic [ref=e1442]:
+                  - generic [ref=e1443]: Feel Good Inc
+                  - generic [ref=e1444]: Gorillaz
+                  - generic [ref=e1445]: Alternative
+              - generic [ref=e1447]:
+                - figure [ref=e1448]:
+                  - img "うっせぇわ (Usseewa) by Ado" [ref=e1450]
+                - generic [ref=e1451]:
+                  - generic [ref=e1452]: うっせぇわ (Usseewa)
+                  - generic [ref=e1453]: Ado
+                  - generic [ref=e1454]: J-Pop
+              - generic [ref=e1456]:
+                - figure [ref=e1457]:
+                  - img "Dancing with Myself by Billy Idol" [ref=e1459]
+                - generic [ref=e1460]:
+                  - generic [ref=e1461]: Dancing with Myself
+                  - generic [ref=e1462]: Billy Idol
+                  - generic [ref=e1463]: New Wave
+              - generic [ref=e1465]:
+                - figure [ref=e1466]:
+                  - img "内秘心書 (Naihishinsho) by ONE OK ROCK" [ref=e1468]
+                - generic [ref=e1469]:
+                  - generic [ref=e1470]: 内秘心書 (Naihishinsho)
+                  - generic [ref=e1471]: ONE OK ROCK
+                  - generic [ref=e1472]: J-Rock
+              - generic [ref=e1474]:
+                - figure [ref=e1475]:
+                  - img "Une vie à t'aimer by Lorien Testard" [ref=e1477]
+                - generic [ref=e1478]:
+                  - generic [ref=e1479]: Une vie à t'aimer
+                  - generic [ref=e1480]: Lorien Testard
+                  - generic [ref=e1481]: Game OST
+              - generic [ref=e1483]:
+                - figure [ref=e1484]:
+                  - img "Malas Decisiones by Kenia Os" [ref=e1486]
+                - generic [ref=e1487]:
+                  - generic [ref=e1488]: Malas Decisiones
+                  - generic [ref=e1489]: Kenia Os
+                  - generic [ref=e1490]: Latin Pop
+              - generic [ref=e1492]:
+                - figure [ref=e1493]:
+                  - img "Champagne Coast by Blood Orange" [ref=e1495]
+                - generic [ref=e1496]:
+                  - generic [ref=e1497]: Champagne Coast
+                  - generic [ref=e1498]: Blood Orange
+                  - generic [ref=e1499]: Indie R&B
+              - generic [ref=e1501]:
+                - figure [ref=e1502]:
+                  - img "In My Zone by bbno$ & VALORANT" [ref=e1504]
+                - generic [ref=e1505]:
+                  - generic [ref=e1506]: In My Zone
+                  - generic [ref=e1507]: bbno$ & VALORANT
+                  - generic [ref=e1508]: Hip House
+              - generic [ref=e1510]:
+                - figure [ref=e1511]:
+                  - img "Touch Off by UVERworld" [ref=e1513]
+                - generic [ref=e1514]:
+                  - generic [ref=e1515]: Touch Off
+                  - generic [ref=e1516]: UVERworld
+                  - generic [ref=e1517]: J-Rock
+              - generic [ref=e1519]:
+                - figure [ref=e1520]:
+                  - img "Feel Good Inc by Gorillaz" [ref=e1522]
+                - generic [ref=e1523]:
+                  - generic [ref=e1524]: Feel Good Inc
+                  - generic [ref=e1525]: Gorillaz
+                  - generic [ref=e1526]: Alternative
+              - generic [ref=e1528]:
+                - figure [ref=e1529]:
+                  - img "うっせぇわ (Usseewa) by Ado" [ref=e1531]
+                - generic [ref=e1532]:
+                  - generic [ref=e1533]: うっせぇわ (Usseewa)
+                  - generic [ref=e1534]: Ado
+                  - generic [ref=e1535]: J-Pop
+              - generic [ref=e1537]:
+                - figure [ref=e1538]:
+                  - img "Dancing with Myself by Billy Idol" [ref=e1540]
+                - generic [ref=e1541]:
+                  - generic [ref=e1542]: Dancing with Myself
+                  - generic [ref=e1543]: Billy Idol
+                  - generic [ref=e1544]: New Wave
+              - generic [ref=e1546]:
+                - figure [ref=e1547]:
+                  - img "内秘心書 (Naihishinsho) by ONE OK ROCK" [ref=e1549]
+                - generic [ref=e1550]:
+                  - generic [ref=e1551]: 内秘心書 (Naihishinsho)
+                  - generic [ref=e1552]: ONE OK ROCK
+                  - generic [ref=e1553]: J-Rock
+              - generic [ref=e1555]:
+                - figure [ref=e1556]:
+                  - img "Une vie à t'aimer by Lorien Testard" [ref=e1558]
+                - generic [ref=e1559]:
+                  - generic [ref=e1560]: Une vie à t'aimer
+                  - generic [ref=e1561]: Lorien Testard
+                  - generic [ref=e1562]: Game OST
+              - generic [ref=e1564]:
+                - figure [ref=e1565]:
+                  - img "Malas Decisiones by Kenia Os" [ref=e1567]
+                - generic [ref=e1568]:
+                  - generic [ref=e1569]: Malas Decisiones
+                  - generic [ref=e1570]: Kenia Os
+                  - generic [ref=e1571]: Latin Pop
+            - generic [ref=e1574]:
+              - generic [ref=e1576]:
+                - figure [ref=e1577]:
+                  - img "Échec et mat by Miki" [ref=e1579]
+                - generic [ref=e1580]:
+                  - generic [ref=e1581]: Échec et mat
+                  - generic [ref=e1582]: Miki
+                  - generic [ref=e1583]: Electronic Pop
+              - generic [ref=e1585]:
+                - figure [ref=e1586]:
+                  - img "Sotto casa by Max Gazzè" [ref=e1588]
+                - generic [ref=e1589]:
+                  - generic [ref=e1590]: Sotto casa
+                  - generic [ref=e1591]: Max Gazzè
+                  - generic [ref=e1592]: Italian Pop
+              - generic [ref=e1594]:
+                - figure [ref=e1595]:
+                  - img "Everything in Its Right Place by Radiohead" [ref=e1597]
+                - generic [ref=e1598]:
+                  - generic [ref=e1599]: Everything in Its Right Place
+                  - generic [ref=e1600]: Radiohead
+                  - generic [ref=e1601]: Art Rock
+              - generic [ref=e1603]:
+                - figure [ref=e1604]:
+                  - img "The History of Everything by Barenaked Ladies" [ref=e1606]
+                - generic [ref=e1607]:
+                  - generic [ref=e1608]: The History of Everything
+                  - generic [ref=e1609]: Barenaked Ladies
+                  - generic [ref=e1610]: Pop Rock
+              - generic [ref=e1612]:
+                - figure [ref=e1613]:
+                  - img "Incense & Iron by Powerwolf" [ref=e1615]
+                - generic [ref=e1616]:
+                  - generic [ref=e1617]: Incense & Iron
+                  - generic [ref=e1618]: Powerwolf
+                  - generic [ref=e1619]: Power Metal
+              - generic [ref=e1621]:
+                - figure [ref=e1622]:
+                  - img "Next Semester by Twenty One Pilots" [ref=e1624]
+                - generic [ref=e1625]:
+                  - generic [ref=e1626]: Next Semester
+                  - generic [ref=e1627]: Twenty One Pilots
+                  - generic [ref=e1628]: Alt Rock
+              - generic [ref=e1630]:
+                - figure [ref=e1631]:
+                  - img "Rät by Penelope Scott" [ref=e1633]
+                - generic [ref=e1634]:
+                  - generic [ref=e1635]: Rät
+                  - generic [ref=e1636]: Penelope Scott
+                  - generic [ref=e1637]: Indie Pop
+              - generic [ref=e1639]:
+                - figure [ref=e1640]:
+                  - img "Il solito sesso by Max Gazzè" [ref=e1642]
+                - generic [ref=e1643]:
+                  - generic [ref=e1644]: Il solito sesso
+                  - generic [ref=e1645]: Max Gazzè
+                  - generic [ref=e1646]: Italian Pop
+              - generic [ref=e1648]:
+                - figure [ref=e1649]:
+                  - img "red:birthmark by AINA the end" [ref=e1651]
+                - generic [ref=e1652]:
+                  - generic [ref=e1653]: red:birthmark
+                  - generic [ref=e1654]: AINA the end
+                  - generic [ref=e1655]: J-Rock
+              - generic [ref=e1657]:
+                - figure [ref=e1658]:
+                  - img "Échec et mat by Miki" [ref=e1660]
+                - generic [ref=e1661]:
+                  - generic [ref=e1662]: Échec et mat
+                  - generic [ref=e1663]: Miki
+                  - generic [ref=e1664]: Electronic Pop
+              - generic [ref=e1666]:
+                - figure [ref=e1667]:
+                  - img "Sotto casa by Max Gazzè" [ref=e1669]
+                - generic [ref=e1670]:
+                  - generic [ref=e1671]: Sotto casa
+                  - generic [ref=e1672]: Max Gazzè
+                  - generic [ref=e1673]: Italian Pop
+              - generic [ref=e1675]:
+                - figure [ref=e1676]:
+                  - img "Everything in Its Right Place by Radiohead" [ref=e1678]
+                - generic [ref=e1679]:
+                  - generic [ref=e1680]: Everything in Its Right Place
+                  - generic [ref=e1681]: Radiohead
+                  - generic [ref=e1682]: Art Rock
+              - generic [ref=e1684]:
+                - figure [ref=e1685]:
+                  - img "The History of Everything by Barenaked Ladies" [ref=e1687]
+                - generic [ref=e1688]:
+                  - generic [ref=e1689]: The History of Everything
+                  - generic [ref=e1690]: Barenaked Ladies
+                  - generic [ref=e1691]: Pop Rock
+              - generic [ref=e1693]:
+                - figure [ref=e1694]:
+                  - img "Incense & Iron by Powerwolf" [ref=e1696]
+                - generic [ref=e1697]:
+                  - generic [ref=e1698]: Incense & Iron
+                  - generic [ref=e1699]: Powerwolf
+                  - generic [ref=e1700]: Power Metal
+              - generic [ref=e1702]:
+                - figure [ref=e1703]:
+                  - img "Next Semester by Twenty One Pilots" [ref=e1705]
+                - generic [ref=e1706]:
+                  - generic [ref=e1707]: Next Semester
+                  - generic [ref=e1708]: Twenty One Pilots
+                  - generic [ref=e1709]: Alt Rock
+              - generic [ref=e1711]:
+                - figure [ref=e1712]:
+                  - img "Rät by Penelope Scott" [ref=e1714]
+                - generic [ref=e1715]:
+                  - generic [ref=e1716]: Rät
+                  - generic [ref=e1717]: Penelope Scott
+                  - generic [ref=e1718]: Indie Pop
+              - generic [ref=e1720]:
+                - figure [ref=e1721]:
+                  - img "Il solito sesso by Max Gazzè" [ref=e1723]
+                - generic [ref=e1724]:
+                  - generic [ref=e1725]: Il solito sesso
+                  - generic [ref=e1726]: Max Gazzè
+                  - generic [ref=e1727]: Italian Pop
+              - generic [ref=e1729]:
+                - figure [ref=e1730]:
+                  - img "red:birthmark by AINA the end" [ref=e1732]
+                - generic [ref=e1733]:
+                  - generic [ref=e1734]: red:birthmark
+                  - generic [ref=e1735]: AINA the end
+                  - generic [ref=e1736]: J-Rock
+              - generic [ref=e1738]:
+                - figure [ref=e1739]:
+                  - img "Échec et mat by Miki" [ref=e1741]
+                - generic [ref=e1742]:
+                  - generic [ref=e1743]: Échec et mat
+                  - generic [ref=e1744]: Miki
+                  - generic [ref=e1745]: Electronic Pop
+              - generic [ref=e1747]:
+                - figure [ref=e1748]:
+                  - img "Sotto casa by Max Gazzè" [ref=e1750]
+                - generic [ref=e1751]:
+                  - generic [ref=e1752]: Sotto casa
+                  - generic [ref=e1753]: Max Gazzè
+                  - generic [ref=e1754]: Italian Pop
+              - generic [ref=e1756]:
+                - figure [ref=e1757]:
+                  - img "Everything in Its Right Place by Radiohead" [ref=e1759]
+                - generic [ref=e1760]:
+                  - generic [ref=e1761]: Everything in Its Right Place
+                  - generic [ref=e1762]: Radiohead
+                  - generic [ref=e1763]: Art Rock
+              - generic [ref=e1765]:
+                - figure [ref=e1766]:
+                  - img "The History of Everything by Barenaked Ladies" [ref=e1768]
+                - generic [ref=e1769]:
+                  - generic [ref=e1770]: The History of Everything
+                  - generic [ref=e1771]: Barenaked Ladies
+                  - generic [ref=e1772]: Pop Rock
+              - generic [ref=e1774]:
+                - figure [ref=e1775]:
+                  - img "Incense & Iron by Powerwolf" [ref=e1777]
+                - generic [ref=e1778]:
+                  - generic [ref=e1779]: Incense & Iron
+                  - generic [ref=e1780]: Powerwolf
+                  - generic [ref=e1781]: Power Metal
+              - generic [ref=e1783]:
+                - figure [ref=e1784]:
+                  - img "Next Semester by Twenty One Pilots" [ref=e1786]
+                - generic [ref=e1787]:
+                  - generic [ref=e1788]: Next Semester
+                  - generic [ref=e1789]: Twenty One Pilots
+                  - generic [ref=e1790]: Alt Rock
+              - generic [ref=e1792]:
+                - figure [ref=e1793]:
+                  - img "Rät by Penelope Scott" [ref=e1795]
+                - generic [ref=e1796]:
+                  - generic [ref=e1797]: Rät
+                  - generic [ref=e1798]: Penelope Scott
+                  - generic [ref=e1799]: Indie Pop
+              - generic [ref=e1801]:
+                - figure [ref=e1802]:
+                  - img "Il solito sesso by Max Gazzè" [ref=e1804]
+                - generic [ref=e1805]:
+                  - generic [ref=e1806]: Il solito sesso
+                  - generic [ref=e1807]: Max Gazzè
+                  - generic [ref=e1808]: Italian Pop
+              - generic [ref=e1810]:
+                - figure [ref=e1811]:
+                  - img "red:birthmark by AINA the end" [ref=e1813]
+                - generic [ref=e1814]:
+                  - generic [ref=e1815]: red:birthmark
+                  - generic [ref=e1816]: AINA the end
+                  - generic [ref=e1817]: J-Rock
+        - heading "Autres" [level=3] [ref=e1820]: Autres
+        - generic [ref=e1823]:
+          - generic [ref=e1825]:
+            - heading "Écologie & Effondrement" [level=3] [ref=e1827]: Écologie & Effondrement
+            - paragraph [ref=e1829]: Que se passe-t-il quand les civilisations dépassent les limites planétaires ? Ces conférences ont façonné ma vision de notre avenir.
+            - generic [ref=e1830]:
+              - generic [ref=e1831]:
+                - iframe [ref=e1833]
+                - paragraph [ref=e1834]: Jared Diamond — Pourquoi les sociétés s'effondrent-elles ?
+              - generic [ref=e1835]:
+                - iframe [ref=e1837]
+                - paragraph [ref=e1838]: Kurzgesagt — La civilisation est-elle au bord de l'effondrement ?
+          - generic [ref=e1840]:
+            - heading "Conférences Tech" [level=3] [ref=e1842]: Conférences Tech
+            - generic [ref=e1844]:
+              - paragraph [ref=e1846]: Je donne régulièrement des conférences à Epitech sur une grande variété de sujets — des thèmes techniques pointus aux nouvelles technologies, en passant par l'histoire et la culture du jeu vidéo. Parler de ce qui me fascine est l'une des meilleures façons que je connaisse d'approfondir et de partager cette étincelle.
+              - img "Conférence technique à Epitech" [ref=e1849]
+          - generic [ref=e1851]:
+            - heading "Aventures à l'Étranger" [level=3] [ref=e1853]: Aventures à l'Étranger
+            - paragraph [ref=e1855]: En tant qu'Ambassadeur Epitech, j'ai passé un an en échange à l'Université Keimyung à Daegu, en Corée du Sud. Une expérience qui a redéfini ma vision du monde.
+            - generic [ref=e1856]:
+              - iframe [ref=e1858]
+              - paragraph [ref=e1859]: Mon année en Corée du Sud — Ambassadeur Epitech
+      - generic [ref=e1862]:
+        - generic [ref=e1864]:
+          - generic [ref=e1866]: "09"
+          - heading "Photographie" [level=2] [ref=e1868]
+          - paragraph [ref=e1869]: Moments capturés durant mon année internationale à l'Université Keimyung, Corée du Sud, et mes voyages à travers le Japon. Ambassadeur EPITECH certifié.
+        - generic [ref=e1873]:
+          - generic:
+            - button "Visite de Séoul" [ref=e1875]:
+              - img "Séoul, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e1877]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e1879]:
+              - img "Séoul, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e1881]:
+              - img "Séoul, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e1883]:
+              - img "Kyoto, Japon"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e1885]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e1887]:
+              - img "Daegu, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e1889]:
+              - img "Séoul, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1891]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e1893]:
+              - img "Séoul, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e1895]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e1897]:
+              - img "Séoul, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e1899]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e1901]:
+              - img "Daegu, Corée du Sud"
+            - button "Drapeau coréen" [ref=e1903]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e1905]:
+              - img "Daegu, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e1907]:
+              - img "Séoul, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e1909]:
+              - img "Séoul, Corée du Sud"
+            - button "Visite de Séoul" [ref=e1911]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e1913]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e1915]:
+              - img "KMU, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e1917]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e1919]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e1921]:
+              - img "Kyoto, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e1923]:
+              - img "Kyoto, Japon"
+            - button "Arbres du campus universitaire" [ref=e1925]:
+              - img "Daegu, Corée du Sud"
+            - button "Drapeau coréen" [ref=e1927]:
+              - img "Séoul, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e1929]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e1931]:
+              - img "Kyoto, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e1933]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e1935]:
+              - img "Séoul, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e1937]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e1939]:
+              - img "KMU, Corée du Sud"
+            - button "Statue de sirène" [ref=e1941]:
+              - img "Kyoto, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1943]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e1945]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1947]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Église de l'université" [ref=e1949]:
+              - img "KMU, Corée du Sud"
+            - button "Drapeau coréen" [ref=e1951]:
+              - img "Séoul, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e1953]:
+              - img "Daegu, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e1955]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e1957]:
+              - img "KMU, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e1959]:
+              - img "Séoul, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e1961]:
+              - img "Séoul, Corée du Sud"
+            - button "Visite de Séoul" [ref=e1963]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e1965]:
+              - img "KMU, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e1967]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e1969]:
+              - img "Séoul, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e1971]:
+              - img "Séoul, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e1973]:
+              - img "Séoul, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1975]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e1977]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e1979]:
+              - img "Séoul, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e1981]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e1983]:
+              - img "Daegu, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1985]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e1987]:
+              - img "Kyoto, Japon"
+            - button "Dernier pique-nique entre amis" [ref=e1989]:
+              - img "Séoul, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e1991]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e1993]:
+              - img "Séoul, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e1995]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e1997]:
+              - img "Kyoto, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e1999]:
+              - img "Séoul, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e2001]:
+              - img "Séoul, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e2003]:
+              - img "Séoul, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2005]:
+              - img "Séoul, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2007]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2009]:
+              - img "KMU, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2011]:
+              - img "Séoul, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2013]:
+              - img "KMU, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2015]:
+              - img "Daegu, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2017]:
+              - img "KMU, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2019]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2021]:
+              - img "KMU, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e2023]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2025]:
+              - img "Séoul, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e2027]:
+              - img "Séoul, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2029]:
+              - img "Séoul, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e2031]:
+              - img "Séoul, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2033]:
+              - img "Séoul, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2035]:
+              - img "Séoul, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2037]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2039]:
+              - img "Séoul, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2041]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2043]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2045]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e2047]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2049]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2051]:
+              - img "Séoul, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e2053]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2055]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2057]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2059]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2061]:
+              - img "Séoul, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2063]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2065]:
+              - img "KMU, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2067]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2069]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2071]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2073]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2075]:
+              - img "Séoul, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2077]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e2079]:
+              - img "Séoul, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e2081]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e2083]:
+              - img "Kyoto, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2085]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2087]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e2089]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2091]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "Amis internationaux" [ref=e2093]:
+              - img "Séoul, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e2095]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Drapeau coréen" [ref=e2097]:
+              - img "Séoul, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2099]:
+              - img "KMU, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2101]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2103]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2105]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e2107]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2109]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e2111]:
+              - img "Séoul, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e2113]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2115]:
+              - img "Kyoto, Japon"
+            - button "Drapeau coréen" [ref=e2117]:
+              - img "Séoul, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2119]:
+              - img "Kyoto, Japon"
+            - button "Cours de taekwondo" [ref=e2121]:
+              - img "KMU, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2123]:
+              - img "Kyoto, Japon"
+            - button "Cours de taekwondo" [ref=e2125]:
+              - img "KMU, Corée du Sud"
+            - button "Statue de sirène" [ref=e2127]:
+              - img "Kyoto, Corée du Sud"
+            - button "Église de l'université" [ref=e2129]:
+              - img "KMU, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2131]:
+              - img "Séoul, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2133]:
+              - img "Daegu, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2135]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2137]:
+              - img "Séoul, Corée du Sud"
+            - button "Drapeau coréen" [ref=e2139]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e2141]:
+              - img "Kyoto, Corée du Sud"
+            - button "Église de l'université" [ref=e2143]:
+              - img "KMU, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e2145]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2147]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Église de l'université" [ref=e2149]:
+              - img "KMU, Corée du Sud"
+            - button "Couleurs d'automne sur le campus universitaire" [ref=e2151]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2153]:
+              - img "Séoul, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2155]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e2157]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2159]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Lotte World" [ref=e2161]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2163]:
+              - img "KMU, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2165]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2167]:
+              - img "KMU, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e2169]:
+              - img "Séoul, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2171]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e2173]:
+              - img "Séoul, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e2175]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e2177]:
+              - img "Daegu, Corée du Sud"
+            - button "Drapeau coréen" [ref=e2179]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e2181]:
+              - img "Daegu, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2183]:
+              - img "Séoul, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2185]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Jardins et tranquillité" [ref=e2187]:
+              - img "Séoul, Corée du Sud"
+            - button "Repas avec l'association d'étudiants internationaux" [ref=e2189]:
+              - img "Près de Séoul, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2191]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2193]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2195]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2197]:
+              - img "Séoul, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2199]:
+              - img "Séoul, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e2201]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e2203]:
+              - img "Kyoto, Corée du Sud"
+            - button "Lotte World" [ref=e2205]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2207]:
+              - img "KMU, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2209]:
+              - img "Séoul, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2211]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Lotte World" [ref=e2213]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e2215]:
+              - img "Daegu, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2217]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2219]:
+              - img "Séoul, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e2221]:
+              - img "Séoul, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2223]:
+              - img "Kyoto, Japon"
+            - button "Église de l'université" [ref=e2225]:
+              - img "KMU, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2227]:
+              - img "Daegu, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e2229]:
+              - img "Séoul, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2231]:
+              - img "Daegu, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2233]:
+              - img "Séoul, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2235]:
+              - img "Séoul, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2237]:
+              - img "KMU, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2239]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e2241]:
+              - img "Séoul, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e2243]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e2245]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2247]:
+              - img "Séoul, Corée du Sud"
+            - button "Lotte World" [ref=e2249]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2251]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Drapeau coréen" [ref=e2253]:
+              - img "Séoul, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2255]:
+              - img "Séoul, Corée du Sud"
+            - button "Statue de sirène" [ref=e2257]:
+              - img "Kyoto, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2259]:
+              - img "KMU, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2261]:
+              - img "Daegu, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e2263]:
+              - img "Daegu, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2265]:
+              - img "Séoul, Corée du Sud"
+            - button "Amis internationaux" [ref=e2267]:
+              - img "Séoul, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2269]:
+              - img "Séoul, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2271]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2273]:
+              - img "Séoul, Corée du Sud"
+            - button "Cours de taekwondo" [ref=e2275]:
+              - img "KMU, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2277]:
+              - img "Séoul, Corée du Sud"
+            - button "Réveil printanier (feat. la pluie)" [ref=e2279]:
+              - img "Daegu, Corée du Sud"
+            - button "Bibliothèque ou centre commercial ? Nul ne sait" [ref=e2281]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2283]:
+              - img "KMU, Corée du Sud"
+            - button "Visite de Séoul" [ref=e2285]:
+              - img "Séoul, Corée du Sud"
+            - button "Sites historiques en fleurs printanières" [ref=e2287]:
+              - img "Gyeongju, Corée du Sud"
+            - button "Nuit d'été et rivière Han" [ref=e2289]:
+              - img "Séoul, Corée du Sud"
+            - button "mmmmmh barbapapa" [ref=e2291]:
+              - img "Séoul, Corée du Sud"
+            - button "Arbres du campus universitaire" [ref=e2293]:
+              - img "Daegu, Corée du Sud"
+            - button "Dernier pique-nique entre amis" [ref=e2295]:
+              - img "Séoul, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e2297]:
+              - img "Séoul, Corée du Sud"
+            - button "Balade (feat. le soleil)" [ref=e2299]:
+              - img "Séoul, Corée du Sud"
+            - button "Bâtiment principal de Keimyung" [ref=e2301]:
+              - img "KMU, Daegu, Corée du Sud"
+            - button "Ces parapluies ne pointent pas dans le bon sens" [ref=e2303]:
+              - img "Séoul, Corée du Sud"
+            - button "Entrée de l'université" [ref=e2305]:
+              - img "Université Keimyung, Corée du Sud"
+            - button "Hanbok coréen traditionnel" [ref=e2307]:
+              - img "Séoul, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2309]:
+              - img "Kyoto, Japon"
+            - button "Église de l'université" [ref=e2311]:
+              - img "KMU, Corée du Sud"
+            - button "Rue traditionnelle coréenne" [ref=e2313]:
+              - img "Séoul, Corée du Sud"
+            - button "Église de l'université" [ref=e2315]:
+              - img "KMU, Corée du Sud"
+            - button "Église de l'université" [ref=e2317]:
+              - img "KMU, Corée du Sud"
+            - button "Café de sauvetage animalier" [ref=e2319]:
+              - img "Kyoto, Japon"
+            - button "mmmmmh barbapapa" [ref=e2321]:
+              - img "Séoul, Corée du Sud"
+            - button "Un bon repas au cœur de Séoul" [ref=e2323]:
+              - img "Séoul, Corée du Sud"
+      - generic [ref=e2326]:
+        - generic [ref=e2328]:
+          - generic [ref=e2330]: "10"
+          - heading "Contact" [level=2] [ref=e2332]
+        - generic [ref=e2333]:
+          - generic [ref=e2335]:
+            - generic [ref=e2336]:
+              - heading "Travaillons ensemble" [level=3] [ref=e2337]
+              - paragraph [ref=e2338]: Que vous ayez un projet en tête, une idée de collaboration ou simplement envie d'échanger — n'hésitez pas à me contacter.
+            - generic [ref=e2341]:
+              - generic [ref=e2342]:
+                - img [ref=e2343]
+                - link "damien.demontis@epitech.eu" [ref=e2346]:
+                  - /url: mailto:damien.demontis@epitech.eu
+              - generic [ref=e2347]:
+                - img [ref=e2348]
+                - generic [ref=e2351]: Frouard, Grand Est, France
+              - generic [ref=e2352]:
+                - img [ref=e2353]
+                - generic [ref=e2356]: Ouvert aux collaborations & projets annexes
+            - generic [ref=e2357]:
+              - link "LinkedIn" [ref=e2358]:
+                - /url: https://www.linkedin.com/in/damien-demontis/
+                - img [ref=e2359]
+              - link "GitHub" [ref=e2361]:
+                - /url: https://github.com/damiendemontis
+                - img [ref=e2362]
+              - link "Instagram" [ref=e2364]:
+                - /url: https://www.instagram.com/damien.demontis/
+                - img [ref=e2365]
+            - generic [ref=e2367]:
+              - link "CV (EN)" [ref=e2368]:
+                - /url: /CV_Damien_DEMONTIS_EN.pdf
+              - generic [ref=e2369]: /
+              - link "CV (FR)" [ref=e2370]:
+                - /url: /CV_Damien_DEMONTIS_FR.pdf
+              - generic [ref=e2371]: /
+              - link "Planifier une Réunion" [ref=e2372]:
+                - /url: https://calendly.com/damien-demontis-knwj/meeting-1h?hide_gdpr_banner=1
+            - generic [ref=e2373]:
+              - img [ref=e2376]
+              - generic [ref=e2411]:
+                - generic [ref=e2412]:
+                  - img "fish" [ref=e2413]
+                  - generic [ref=e2414]: "0"
+                  - generic [ref=e2415]: poissons
+                - paragraph [ref=e2416]: Cliquez sur le chat pour le nourrir !
+          - generic [ref=e2417]:
+            - generic [ref=e2418]:
+              - generic [ref=e2419]:
+                - generic [ref=e2420]:
+                  - generic [ref=e2421]: Nom
+                  - textbox "Votre nom" [ref=e2422]
+                - generic [ref=e2423]:
+                  - generic [ref=e2424]: Email
+                  - textbox "votre@email.com" [ref=e2425]
+              - generic [ref=e2426]:
+                - generic [ref=e2427]: Sujet
+                - textbox "De quoi s'agit-il ?" [ref=e2428]
+              - generic [ref=e2429]:
+                - generic [ref=e2430]: Message
+                - textbox "Parlez-moi de votre projet ou opportunité..." [ref=e2431]
+              - button "Envoyer le Message" [ref=e2432]:
+                - generic [ref=e2433]: Envoyer le Message
+            - generic [ref=e2434]:
+              - heading "Réserver une Réunion" [level=3] [ref=e2435]
+              - iframe [ref=e2438]:
+                
+      - generic [ref=e2442]:
+        - generic [ref=e2443]: Damien Demontis — 2025
+        - generic [ref=e2444]:
+          - link "LinkedIn" [ref=e2445]:
+            - /url: https://www.linkedin.com/in/damien-demontis/
+          - link "GitHub" [ref=e2446]:
+            - /url: https://github.com/damiendemontis
+          - link "Instagram" [ref=e2447]:
+            - /url: https://www.instagram.com/damien.demontis/
+        - generic [ref=e2448]: Forgé dans le métal

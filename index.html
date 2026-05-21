@@ -159,16 +159,59 @@
     <link rel="prefetch" href="/about_pfp.avif" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-    <!-- ── Google Analytics (GA4) ── -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-07J1RJ70K6"></script>
+    <!-- ── Font sheets — load in parallel via <link> instead of CSS @import.
+         The previous @import in metal-theme.css forced a serial waterfall:
+         CSS parsed → @import fetched → fonts fetched. Each font that arrived
+         late triggered a "Fonts changed" layout invalidation (the trace
+         showed ~4400 such events). Loading the sheets here lets the browser
+         start them in parallel with the document. media="print" + onload
+         swap makes them non-render-blocking. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Metal+Mania&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Metal+Mania&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- ── Google Analytics (GA4) — deferred to idle ──
+         The gtag/js script eval costs ~300ms under throttling and contributes
+         to a long cold-load task. We:
+           (1) keep the global gtag()/dataLayer queue here so any call from
+               app code (e.g. MetalNavbar.tsx tracking) is buffered, then
+           (2) actually load the gtag/js script after requestIdleCallback
+               OR after the first user interaction OR after a 3s safety
+               timeout, whichever comes first.
+         The buffered calls flush to gtag once it loads. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){ window.dataLayer.push(arguments); }
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-07J1RJ70K6', { anonymize_ip: true });
+
+      (function () {
+        var loaded = false;
+        function loadGtag() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-07J1RJ70K6';
+          document.head.appendChild(s);
+        }
+        var interactionEvents = ['pointerdown','keydown','scroll','touchstart'];
+        function onInteract() {
+          interactionEvents.forEach(function (ev) { window.removeEventListener(ev, onInteract, { capture: true }); });
+          loadGtag();
+        }
+        interactionEvents.forEach(function (ev) { window.addEventListener(ev, onInteract, { capture: true, passive: true, once: true }); });
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadGtag, { timeout: 3000 });
+        } else {
+          setTimeout(loadGtag, 3000);
+        }
+      })();
     </script>
 
     <!-- Critical CSS for faster FCP -->

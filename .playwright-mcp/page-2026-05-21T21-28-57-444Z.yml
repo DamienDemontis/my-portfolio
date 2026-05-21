@@ -1,0 +1,82 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e6]: PERF · ?perf=0 to hide
+    - generic [ref=e7]:
+      - generic [ref=e8]: FPS (med)
+      - generic [ref=e9]:
+        - text: "18"
+        - generic [ref=e10]: · p1 3
+    - generic [ref=e21]:
+      - generic [ref=e22]: Long tasks
+      - generic [ref=e23]: "3"
+    - generic [ref=e24]:
+      - generic [ref=e25]: WebGL ctx
+      - generic [ref=e26]:
+        - text: 5 live
+        - generic [ref=e27]: / 5 reg
+    - generic [ref=e28]:
+      - generic [ref=e29]: DPR cap
+      - generic [ref=e30]: "1.00"
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]: ● Cursor
+        - generic [ref=e34]: —
+      - generic [ref=e35]:
+        - generic [ref=e36]: ● Dither
+        - generic [ref=e37]: —
+      - generic [ref=e38]:
+        - generic [ref=e39]: ● MetalSurf
+        - generic [ref=e40]: 0.10 ms
+      - generic [ref=e41]:
+        - generic [ref=e42]: ● Title
+        - generic [ref=e43]: —
+      - generic [ref=e44]:
+        - generic [ref=e45]: ● Title
+        - generic [ref=e46]: —
+  - generic [ref=e56]: "71"
+  - navigation "Dock de navigation" [ref=e57]:
+    - button "Retour en haut" [ref=e58]:
+      - img [ref=e61]
+    - button "Aller à À propos" [ref=e65]:
+      - img [ref=e68]
+    - button "Aller à Expérience" [ref=e71]:
+      - img [ref=e74]
+    - button "Aller à Compétences" [ref=e77]:
+      - img [ref=e80]
+    - button "Aller à Projets" [ref=e83]:
+      - img [ref=e86]
+    - button "Aller à Formation" [ref=e91]:
+      - img [ref=e94]
+    - button "Aller à Certifications" [ref=e97]:
+      - img [ref=e100]
+    - button "Aller à Langues" [ref=e103]:
+      - img [ref=e106]
+    - button "Aller à Centres d'Intérêt" [ref=e109]:
+      - img [ref=e112]
+    - button "Aller à Photographie" [ref=e114]:
+      - img [ref=e117]
+    - button "Aller à Contact" [ref=e120]:
+      - img [ref=e123]
+    - button "Passer en English" [ref=e127]:
+      - img [ref=e130]
+    - button "Passer en Français" [ref=e136]:
+      - img [ref=e140]
+    - button "Passer en 한국어" [ref=e144]:
+      - img [ref=e147]
+  - main [ref=e161]:
+    - region "Hero" [ref=e162]:
+      - generic [ref=e166]:
+        - generic [ref=e169]: "*!28pqpTitn fc8X HcT4x % NfxRV8QUJAP nD"
+        - generic "Damien Demontis" [ref=e170]:
+          - heading "DAMIEN" [level=1] [ref=e173]
+          - heading "DEMONTIS" [level=1] [ref=e176]
+        - paragraph [ref=e177]:
+          - text: Alumnus EPITECH construisant des expériences web modernes
+          - text: avec précision et savoir-faire
+        - generic [ref=e178]:
+          - link "Me Contacter" [ref=e179]:
+            - /url: "#contact"
+          - generic [ref=e180]: /
+          - link "CV" [ref=e181]:
+            - /url: /CV_Damien_DEMONTIS_EN.pdf
+      - generic [ref=e184]: Défiler

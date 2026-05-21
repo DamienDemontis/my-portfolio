@@ -165,6 +165,17 @@ export default function MetalShardCursor({ enabled = true }: MetalShardCursorPro
         contour={0.2}
         tintColor="#ffffff"
         edgeFade={0}
+        // ── Perf tuning for cursor use-case ──
+        // 1) DPR cap 1: at ~22px visual size, DPR>1 just multiplies fragments
+        //    for no perceptible difference. Cuts fragment cost ~4× vs default
+        //    DPR 2.
+        // 2) Frame interval 1000/24: the shimmer on a 22px diamond is far too
+        //    small for the eye to tell 24fps from 30fps.
+        // 3) perfLabel: name in PerfHUD's GPU-time table so it's distinct
+        //    from the title canvases.
+        dprCap={1}
+        frameInterval={1000 / 24}
+        perfLabel="Cursor"
         style={{ position: 'absolute', inset: 0 }}
       />
       <style>{`

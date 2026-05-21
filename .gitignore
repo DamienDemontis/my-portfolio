@@ -102,6 +102,15 @@ dist
 tmp/
 temp/
 
+# Performance diagnostics — large throwaway artifacts, never commit.
+# The trace JSONs can be 100+ MB (exceeds GitHub's file size limit).
+# The collector/analyzer SCRIPTS in scripts/perf-trace-*.mjs ARE committed
+# (they're small and reusable) — only the captured output is ignored.
+perf-traces/
+.playwright-mcp/
+perf-*.jpeg
+post-fixes-*.jpeg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -119,3 +128,6 @@ temp/
 
 # Superpowers brainstorm artifacts
 .superpowers/
+
+# Claude Code worktrees (local only)
+.claude/worktrees/

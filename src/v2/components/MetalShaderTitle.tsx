@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useId, useMemo, type ReactNode } from 'react';
 import MetallicSurface from '../core/MetallicSurface';
+import { useShaderTitleSlot } from '../core/shaderTitleCoordinator';
 
 interface MetalShaderTitleProps {
   children: ReactNode;
@@ -21,36 +22,49 @@ export default function MetalShaderTitle({
   const textRef = useRef<HTMLElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
+  // distanceToCenter: |viewport center - title center| in px. Infinity = withdraw
+  // from the live-slot queue (used when the title is fully off-screen).
+  const [distanceToCenter, setDistanceToCenter] = useState<number>(Infinity);
   const id = useId();
+
+  // Coordinator-issued slot. When false, MetallicSurface freezes its draw loop
+  // (last frame stays painted). When true, animation runs as normal.
+  const hasSlot = useShaderTitleSlot(distanceToCenter);
 
   const seed = useMemo(
     () => id.split('').reduce((a, c) => a + c.charCodeAt(0), 0),
     [id],
   );
 
-  // Mount the WebGL layer when the title is near the viewport, and tear it
-  // down after it has been fully off-screen for >5s. This keeps ~27 titles
-  // from accumulating live WebGL contexts forever while still feeling "instant"
-  // on scroll-back: the 200px rootMargin pre-mounts before visibility, and the
-  // 5s grace period keeps the context alive for quick back-and-forth scrolling.
+  // Two IntersectionObservers:
+  //
+  // 1. Mount/unmount gate (rootMargin: 200px). Pre-mounts the WebGL layer
+  //    before the title strictly enters the viewport, and tears it down after
+  //    5s fully off-screen. Same behaviour as before.
+  //
+  // 2. Slot-priority gate (rootMargin: 0). Reports the title's distance from
+  //    the viewport center to the shaderTitleCoordinator, which picks the
+  //    closest N titles to keep animating. Withdraws (Infinity) when fully
+  //    off-screen so the title relinquishes its slot promptly.
+  //
+  // The split observers keep the two budgets independent: lots of titles can
+  // be MOUNTED at once (cheap — just a paused GL context), but only N
+  // can be ANIMATING at once (expensive — fragment shader cost).
   useEffect(() => {
     const el = textRef.current;
     if (!el) return;
 
     let teardownTimer: ReturnType<typeof setTimeout> | null = null;
 
-    const observer = new IntersectionObserver(
+    const mountObs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Cancel any pending teardown — we're back in view.
           if (teardownTimer !== null) {
             clearTimeout(teardownTimer);
             teardownTimer = null;
           }
           setVisible(true);
         } else {
-          // Schedule teardown after 5s of being off-screen. If we come back
-          // into view in that window, the branch above cancels the timer.
           if (teardownTimer === null) {
             teardownTimer = setTimeout(() => {
               setVisible(false);
@@ -61,9 +75,31 @@ export default function MetalShaderTitle({
       },
       { rootMargin: '200px' },
     );
-    observer.observe(el);
+    mountObs.observe(el);
+
+    // Slot priority. Tracks distance from viewport center even when the title
+    // is partially out of view. Uses multiple thresholds so the coordinator
+    // can re-shuffle smoothly as the user scrolls, without needing a scroll
+    // listener (IO is cheaper and runs off the main thread).
+    const slotObs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setDistanceToCenter(Infinity);
+          return;
+        }
+        const rect = entry.boundingClientRect;
+        const vh = window.innerHeight || 1;
+        const titleCenter = rect.top + rect.height / 2;
+        const viewportCenter = vh / 2;
+        setDistanceToCenter(Math.abs(titleCenter - viewportCenter));
+      },
+      { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] },
+    );
+    slotObs.observe(el);
+
     return () => {
-      observer.disconnect();
+      mountObs.disconnect();
+      slotObs.disconnect();
       if (teardownTimer !== null) clearTimeout(teardownTimer);
     };
   }, []);
@@ -140,6 +176,21 @@ export default function MetalShaderTitle({
           contour={0.2}
           tintColor={tintColor}
           edgeFade={0}
+          // ── Perf tuning for title use-case ──
+          // 1) DPR cap 1.25: the shader output is masked through text, so
+          //    high-DPR shimmer differences are imperceptible. Cuts fragment
+          //    cost ~2.5× compared to DPR 2.
+          // 2) Frame interval 1000/24: title wobble at speed=0.3 is too slow
+          //    for the eye to tell 24fps from 30fps. Cuts GPU work 20%.
+          // 3) frozen={!hasSlot}: when the live-slot coordinator has more
+          //    than N titles requesting animation, the further-from-center
+          //    ones freeze their last frame. The canvas stays painted; only
+          //    uniform updates + draw calls stop.
+          // 4) perfLabel: name shown in the PerfHUD's GPU-time table.
+          dprCap={1.25}
+          frameInterval={1000 / 24}
+          frozen={!hasSlot}
+          perfLabel="Title"
           style={{ position: 'absolute' as const, inset: 0 }}
         />
       )}
