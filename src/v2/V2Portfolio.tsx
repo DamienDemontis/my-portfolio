@@ -13,8 +13,6 @@ import Dither from './components/Dither';
 import ErrorBoundary from './components/ErrorBoundary';
 import SEO from './components/SEO';
 
-const SEEN_KEY = 'v2-seen';
-
 import V2Hero from './sections/V2Hero';
 
 // ── Perf profiler (dev only) ──
@@ -72,10 +70,9 @@ function V2PortfolioInner() {
   const navItems = useNavItems();
   const reducedMotion = useReducedMotion();
   const [loaded, setLoaded] = useState(() => {
+    // Only skip the loader for users who explicitly opted into reduced motion
+    // (accessibility). Everyone else sees the loader on every visit.
     if (typeof window === 'undefined') return false;
-    try {
-      if (window.localStorage.getItem(SEEN_KEY) === '1') return true;
-    } catch { /* private mode / storage disabled — ignore */ }
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return true;
     return false;
   });
@@ -83,7 +80,6 @@ function V2PortfolioInner() {
 
   const handleLoadingComplete = useCallback(() => {
     setLoaded(true);
-    try { window.localStorage.setItem(SEEN_KEY, '1'); } catch { /* ignore */ }
   }, []);
 
   useEffect(() => {
