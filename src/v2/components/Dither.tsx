@@ -1,7 +1,7 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { getDPRCap, usePageActiveRef, isMobile } from '../core/perf';
 import { compileShader, linkProgramAsync, incContext, decContext } from '../core/glUtils';
-import { useGPUTimer } from '../dev/perfRegistry';
+import { useGPUTimer, setWorkerRenderer, detectMainRenderer, isSoftwareRenderer } from '../dev/perfRegistry';
 
 const FRAG = `#version 300 es
 precision highp float;
@@ -143,6 +143,10 @@ export default function Dither({
   // When the worker path takes over, the main-thread effect is skipped via
   // this ref so we don't double-mount a context.
   const workerActiveRef = useRef(false);
+  // Flips true if the worker's WebGL context is software-rendered while the
+  // main thread has hardware accel — we then remount on the main-thread path
+  // (which keeps hardware). See the worker onmessage handler below.
+  const [softwareFallback, setSoftwareFallback] = useState(false);
 
   // Disable mouse interaction on mobile (touch devices don't hover meaningfully)
   const effectiveMouse = enableMouseInteraction && !isMobile();
@@ -163,6 +167,10 @@ export default function Dither({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // If we already determined the worker is software-rendered, skip the
+    // worker path entirely — the main-thread effect below handles rendering
+    // on the fresh canvas (remounted via key change).
+    if (softwareFallback) return;
     if (typeof Worker === 'undefined' || typeof OffscreenCanvas === 'undefined') return;
     if (typeof (canvas as any).transferControlToOffscreen !== 'function') return;
 
@@ -219,9 +227,32 @@ export default function Dither({
     // Always re-attach onmessage / onerror because they capture this effect's
     // closure for `workerOK`. The previous closure is now dead.
     worker.onmessage = (e) => {
-      if (e.data?.type === 'error') {
+      const data = e.data;
+      if (data?.type === 'renderer') {
+        setWorkerRenderer(data.renderer);
+        // If the worker context is software-rendered but the main thread has
+        // hardware accel, the worker is a net loss (software is far slower
+        // than a real GPU). Tear it down and remount on the main-thread path.
+        // Note: the canvas was transferred to the worker and can't be reused,
+        // so we flip a state flag that re-keys the canvas element, giving the
+        // main-thread effect a fresh hardware-capable canvas.
+        if (data.software && !isSoftwareRenderer(detectMainRenderer())) {
+          // eslint-disable-next-line no-console
+          console.warn('[Dither] worker GL is software but main thread is hardware — switching to main-thread render');
+          try { worker?.postMessage({ type: 'dispose' }); worker?.terminate(); } catch { /* ignore */ }
+          (canvas as any).__ditherWorker = undefined;
+          (canvas as any).__ditherWorkerOwned = false;
+          workerActiveRef.current = false;
+          decContext();
+          gpuTimer.setVisible(false);
+          workerOK = false;
+          setSoftwareFallback(true);
+        }
+        return;
+      }
+      if (data?.type === 'error') {
         // eslint-disable-next-line no-console
-        console.warn('[Dither] worker error, giving up worker path:', e.data.error);
+        console.warn('[Dither] worker error, giving up worker path:', data.error);
         workerOK = false;
       }
     };
@@ -278,9 +309,11 @@ export default function Dither({
       document.removeEventListener('visibilitychange', onVisibility);
     };
     // gpuTimer is stable; prop changes ARE intentionally ignored — uniforms
-    // for Dither are set once at mount in this codebase.
+    // for Dither are set once at mount in this codebase. softwareFallback is
+    // included so this effect re-evaluates (and bails) when we switch to the
+    // main-thread path.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [softwareFallback]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -451,11 +484,17 @@ export default function Dither({
       decContext();
     };
     // gpuTimer.* are stable wrappers; including them re-runs this effect.
+    // softwareFallback re-runs this effect after a worker→main-thread switch.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [waveSpeed, waveFrequency, waveAmplitude, waveColor, colorNum, pixelSize, disableAnimation, effectiveMouse, mouseRadius, handleMouseMove, pageActiveRef]);
+  }, [waveSpeed, waveFrequency, waveAmplitude, waveColor, colorNum, pixelSize, disableAnimation, effectiveMouse, mouseRadius, handleMouseMove, pageActiveRef, softwareFallback]);
 
   return (
     <canvas
+      // Re-key on softwareFallback so React mounts a FRESH canvas element when
+      // we switch off the worker path. The original canvas was transferred to
+      // the worker (transferControlToOffscreen) and can never get a 2D/GL
+      // context again; only a brand-new element can be used on the main thread.
+      key={softwareFallback ? 'dither-main' : 'dither-gpu'}
       ref={canvasRef}
       style={{ width: '100%', height: '100%', display: 'block', background: '#000' }}
     />

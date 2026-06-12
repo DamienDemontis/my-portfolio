@@ -102,6 +102,38 @@ export function snapshotContexts(): ContextRecord[] {
   return Array.from(_contexts.values());
 }
 
+/* ── Renderer string (hardware vs software diagnosis) ──────────────────── */
+
+let _rendererMain = '';
+let _rendererWorker = '';
+
+/** Read the WebGL renderer once from a throwaway context (cheap, cached). */
+export function detectMainRenderer(): string {
+  if (_rendererMain) return _rendererMain;
+  if (typeof document === 'undefined') return '';
+  try {
+    const c = document.createElement('canvas');
+    const gl = (c.getContext('webgl2') || c.getContext('webgl')) as WebGLRenderingContext | null;
+    if (!gl) { _rendererMain = 'no-webgl'; return _rendererMain; }
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    _rendererMain = ext
+      ? String(gl.getParameter((ext as { UNMASKED_RENDERER_WEBGL: number }).UNMASKED_RENDERER_WEBGL))
+      : String(gl.getParameter(gl.RENDERER));
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch {
+    _rendererMain = 'error';
+  }
+  return _rendererMain;
+}
+
+export function setWorkerRenderer(s: string): void { _rendererWorker = s; }
+export function getWorkerRenderer(): string { return _rendererWorker; }
+
+/** True if a renderer string looks like a software rasterizer. */
+export function isSoftwareRenderer(s: string): boolean {
+  return /swiftshader|software|llvmpipe|microsoft basic|mesa offscreen/i.test(s || '');
+}
+
 /* ── GPU timer (EXT_disjoint_timer_query_webgl2) ───────────────────────── */
 
 /**

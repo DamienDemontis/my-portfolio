@@ -19,6 +19,9 @@ import { useEffect, useRef, useState } from 'react';
 import {
   isPerfHudEnabled,
   snapshotContexts,
+  detectMainRenderer,
+  getWorkerRenderer,
+  isSoftwareRenderer,
 } from './perfRegistry';
 import { getDPRCap } from '../core/perf';
 
@@ -98,6 +101,13 @@ export default function PerfHUD() {
   const live = contexts.filter((c) => c.visible).length;
   const dpr = typeof window !== 'undefined' ? getDPRCap() : 1;
   const { median, p1, longTasks } = displayRef.current;
+  const rendererMain = detectMainRenderer();
+  const rendererWorker = getWorkerRenderer();
+  const mainSoftware = isSoftwareRenderer(rendererMain);
+  const workerSoftware = isSoftwareRenderer(rendererWorker);
+  // Trim the verbose ANGLE prefix for display.
+  const shortRenderer = (s: string) =>
+    (s || '?').replace(/^ANGLE \(/, '').replace(/\)$/, '').slice(0, 46);
 
   const fpsColor =
     median >= 58 ? '#7fdc8a' : median >= 45 ? '#f0c674' : median >= 30 ? '#d77878' : '#d04040';
@@ -142,6 +152,21 @@ export default function PerfHUD() {
         {live} live <span style={{ color: '#6a6a6a' }}>/ {contexts.length} reg</span>
       </Row>
       <Row label="DPR cap">{dpr.toFixed(2)}</Row>
+
+      <div style={{ marginTop: 4, paddingTop: 4, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ color: '#6a6a6a', fontSize: 10 }}>GPU (main)</div>
+        <div style={{ color: mainSoftware ? '#d04040' : '#7fdc8a', fontSize: 10, wordBreak: 'break-word' }}>
+          {mainSoftware ? '⚠ SOFTWARE · ' : '✓ '}{shortRenderer(rendererMain)}
+        </div>
+        {rendererWorker && (
+          <>
+            <div style={{ color: '#6a6a6a', fontSize: 10, marginTop: 2 }}>GPU (Dither worker)</div>
+            <div style={{ color: workerSoftware ? '#d04040' : '#7fdc8a', fontSize: 10, wordBreak: 'break-word' }}>
+              {workerSoftware ? '⚠ SOFTWARE · ' : '✓ '}{shortRenderer(rendererWorker)}
+            </div>
+          </>
+        )}
+      </div>
 
       {contexts.length > 0 && (
         <div style={{ marginTop: 6, paddingTop: 6, borderTop: '1px solid rgba(255,255,255,0.06)' }}>

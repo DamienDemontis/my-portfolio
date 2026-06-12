@@ -218,6 +218,18 @@ function init(msg: InitMsg) {
     return;
   }
 
+  // Report the worker's WebGL renderer back to the main thread. If the worker
+  // context fell back to software (SwiftShader) while the main thread could
+  // get hardware, the main thread will tear us down and render Dither itself.
+  try {
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    const renderer = dbg
+      ? String(gl.getParameter((dbg as { UNMASKED_RENDERER_WEBGL: number }).UNMASKED_RENDERER_WEBGL))
+      : String(gl.getParameter(gl.RENDERER));
+    const software = /swiftshader|software|llvmpipe|microsoft basic|mesa offscreen/i.test(renderer);
+    (self as any).postMessage({ type: 'renderer', renderer, software });
+  } catch { /* ignore */ }
+
   const vs = compile(gl, gl.VERTEX_SHADER, VERT);
   const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG);
   if (!vs || !fs) {
