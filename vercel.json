@@ -97,6 +97,30 @@
       ]
     },
     {
+      "source": "/games/wii-tanks/Build/(.*)\\.data\\.gz",
+      "headers": [
+        { "key": "Content-Encoding", "value": "gzip" },
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    },
+    {
+      "source": "/games/wii-tanks/Build/(.*)\\.wasm\\.gz",
+      "headers": [
+        { "key": "Content-Encoding", "value": "gzip" },
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    },
+    {
+      "source": "/games/wii-tanks/Build/(.*)\\.js\\.gz",
+      "headers": [
+        { "key": "Content-Encoding", "value": "gzip" },
+        { "key": "Content-Type", "value": "application/javascript" },
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {
@@ -122,6 +146,14 @@
     {
       "source": "/api/:path*",
       "destination": "/api/:path*"
+    },
+    {
+      "source": "/games/wii-tanks",
+      "destination": "/games/wii-tanks/index.html"
+    },
+    {
+      "source": "/games/wii-tanks/",
+      "destination": "/games/wii-tanks/index.html"
     },
     {
       "source": "/(.*)",
