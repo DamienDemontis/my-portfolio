@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, useId, useMemo, type ReactNode } from 'react';
-import MetallicSurface from '../core/MetallicSurface';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { LiquidMetal } from '@paper-design/shaders-react';
 import { useShaderTitleSlot } from '../core/shaderTitleCoordinator';
 
 interface MetalShaderTitleProps {
@@ -8,7 +8,6 @@ interface MetalShaderTitleProps {
   className?: string;
   tintColor?: string;
   speed?: number;
-  brightness?: number;
 }
 
 export default function MetalShaderTitle({
@@ -16,8 +15,7 @@ export default function MetalShaderTitle({
   as: Tag = 'h2',
   className = '',
   tintColor = '#ffffff',
-  speed = 0.3,
-  brightness = 2,
+  speed = 0.6,
 }: MetalShaderTitleProps) {
   const textRef = useRef<HTMLElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -25,16 +23,11 @@ export default function MetalShaderTitle({
   // distanceToCenter: |viewport center - title center| in px. Infinity = withdraw
   // from the live-slot queue (used when the title is fully off-screen).
   const [distanceToCenter, setDistanceToCenter] = useState<number>(Infinity);
-  const id = useId();
 
-  // Coordinator-issued slot. When false, MetallicSurface freezes its draw loop
-  // (last frame stays painted). When true, animation runs as normal.
+  // Coordinator-issued slot. When false, the shader's speed is set to 0, which
+  // cancels its rAF loop entirely (last frame stays painted). When true,
+  // animation runs as normal.
   const hasSlot = useShaderTitleSlot(distanceToCenter);
-
-  const seed = useMemo(
-    () => id.split('').reduce((a, c) => a + c.charCodeAt(0), 0),
-    [id],
-  );
 
   // Two IntersectionObservers:
   //
@@ -154,44 +147,25 @@ export default function MetalShaderTitle({
         {children}
       </Tag>
       {visible && imageSrc && (
-        <MetallicSurface
-          mode="image"
-          imageSrc={imageSrc}
-          seed={seed}
-          scale={4}
-          refraction={0.01}
-          blur={0.015}
-          liquid={0.75}
-          speed={speed}
-          brightness={brightness}
-          contrast={0.5}
-          fresnel={1}
-          lightColor="#ffffff"
-          darkColor="#000000"
-          patternSharpness={1}
-          waveAmplitude={1}
-          noiseScale={0.5}
-          chromaticSpread={2}
-          distortion={1}
-          contour={0.2}
-          tintColor={tintColor}
-          edgeFade={0}
-          // ── Perf tuning for title use-case ──
-          // 1) DPR cap 1.25: the shader output is masked through text, so
-          //    high-DPR shimmer differences are imperceptible. Cuts fragment
-          //    cost ~2.5× compared to DPR 2.
-          // 2) Frame interval 1000/24: title wobble at speed=0.3 is too slow
-          //    for the eye to tell 24fps from 30fps. Cuts GPU work 20%.
-          // 3) frozen={!hasSlot}: when the live-slot coordinator has more
-          //    than N titles requesting animation, the further-from-center
-          //    ones freeze their last frame. The canvas stays painted; only
-          //    uniform updates + draw calls stop.
-          // 4) perfLabel: name shown in the PerfHUD's GPU-time table.
-          dprCap={1.25}
-          frameInterval={1000 / 24}
-          frozen={!hasSlot}
-          perfLabel="Title"
-          style={{ position: 'absolute' as const, inset: 0 }}
+        <LiquidMetal
+          image={imageSrc}
+          colorBack="#00000000"
+          colorTint={tintColor}
+          softness={0.1}
+          repetition={2}
+          shiftRed={0.3}
+          shiftBlue={0.3}
+          distortion={0.1}
+          contour={0.5}
+          angle={70}
+          fit="contain"
+          scale={1}
+          // speed=0 cancels the shader's internal rAF loop — used both for the
+          // coordinator slot gating (only the N titles nearest the viewport
+          // center animate) and for prefers-reduced-motion (speed=0 from
+          // the caller).
+          speed={hasSlot ? speed : 0}
+          style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
         />
       )}
     </span>

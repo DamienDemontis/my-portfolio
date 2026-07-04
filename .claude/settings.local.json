@@ -32,7 +32,8 @@
       "Bash(node --max-old-space-size=4096 scripts/perf-trace-deep.mjs perf-traces/trace-2026-05-21T21-57-14-430Z.json --phase all)",
       "Bash(node --max-old-space-size=4096 scripts/perf-trace-spike.mjs perf-traces/trace-2026-05-21T21-57-14-430Z.json 483023843700 --window 100)",
       "mcp__playwright__browser_evaluate",
-      "mcp__playwright__browser_take_screenshot"
+      "mcp__playwright__browser_take_screenshot",
+      "WebFetch(domain:shaders.paper.design)"
     ],
     "deny": [],
     "ask": []

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react';
-import MetallicSurface from '../core/MetallicSurface';
+import { LiquidMetal } from '@paper-design/shaders-react';
 
 /**
  * Metal Shard cursor — a small polygonal (diamond) cursor rendered with the
- * same MetallicSurface shader used by MetalShaderTitle, clipped to the shard
+ * same LiquidMetal shader used by MetalShaderTitle, clipped to the shard
  * silhouette via an image mask.
  *
  * Direct DOM mutation (no React state) for mouse position → zero lag.
@@ -143,39 +143,22 @@ export default function MetalShardCursor({ enabled = true }: MetalShardCursorPro
         willChange: 'left, top, transform',
       }}
     >
-      <MetallicSurface
-        mode="image"
-        imageSrc={maskSrc}
-        seed={42}
-        scale={3}
-        refraction={0.01}
-        blur={0.015}
-        liquid={0.75}
-        speed={0.4}
-        brightness={2.2}
-        contrast={0.6}
-        fresnel={1}
-        lightColor="#ffffff"
-        darkColor="#0a0a0a"
-        patternSharpness={1}
-        waveAmplitude={1}
-        noiseScale={0.5}
-        chromaticSpread={2}
-        distortion={1}
-        contour={0.2}
-        tintColor="#ffffff"
-        edgeFade={0}
-        // ── Perf tuning for cursor use-case ──
-        // 1) DPR cap 1: at ~22px visual size, DPR>1 just multiplies fragments
-        //    for no perceptible difference. Cuts fragment cost ~4× vs default
-        //    DPR 2.
-        // 2) Frame interval 1000/24: the shimmer on a 22px diamond is far too
-        //    small for the eye to tell 24fps from 30fps.
-        // 3) perfLabel: name in PerfHUD's GPU-time table so it's distinct
-        //    from the title canvases.
-        dprCap={1}
-        frameInterval={1000 / 24}
-        perfLabel="Cursor"
+      <LiquidMetal
+        image={maskSrc}
+        colorBack="#00000000"
+        colorTint="#ffffff"
+        softness={0.1}
+        repetition={2}
+        shiftRed={0.3}
+        shiftBlue={0.3}
+        distortion={0.1}
+        contour={0.5}
+        angle={70}
+        fit="contain"
+        scale={1}
+        speed={1}
+        // At ~22px visual size the shard needs no high-DPR rendering.
+        minPixelRatio={1}
         style={{ position: 'absolute', inset: 0 }}
       />
       <style>{`

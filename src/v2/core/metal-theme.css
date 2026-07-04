@@ -67,10 +67,6 @@ html.metal-active::-webkit-scrollbar {
   display: inline-block;
 }
 
-.metal-shader-title .metallic-surface-wrapper {
-  pointer-events: none;
-}
-
 .metal-shader-title-text {
   position: relative;
   color: transparent;

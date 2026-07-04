@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import MetallicSurface from '../core/MetallicSurface';
+import { LiquidMetal } from '@paper-design/shaders-react';
 
 interface MetalLoadingScreenProps {
   onComplete?: () => void;
@@ -44,20 +44,21 @@ export default function MetalLoadingScreen({
           style={{ background: '#000' }}
         >
           <div className="relative w-32 h-32 mb-12">
-            <MetallicSurface
-              mode="procedural"
-              pattern="radial"
-              seed={7}
-              speed={0.4}
-              brightness={2.2}
-              contrast={0.6}
-              scale={5}
-              liquid={0.2}
-              edgeFade={1}
-              lightColor="#ffffff"
-              darkColor="#000000"
-              tintColor="#ffffff"
-              style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+            <LiquidMetal
+              shape="circle"
+              colorBack="#00000000"
+              colorTint="#ffffff"
+              softness={0.1}
+              repetition={2}
+              shiftRed={0.3}
+              shiftBlue={0.3}
+              distortion={0.1}
+              contour={0.5}
+              angle={70}
+              fit="contain"
+              scale={0.9}
+              speed={1}
+              style={{ width: '100%', height: '100%' }}
             />
           </div>
 

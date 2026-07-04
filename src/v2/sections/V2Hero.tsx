@@ -53,10 +53,10 @@ export default function V2Hero() {
           aria-label="Damien Demontis"
         >
           <div className="leading-none tracking-[0.02em]">
-            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={reducedMotion ? 0 : 0.4} brightness={2.2} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={reducedMotion ? 0 : 0.8} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
           </div>
           <div className="leading-none tracking-[0.08em] -mt-6 md:-mt-12">
-            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={reducedMotion ? 0 : 0.25} brightness={2} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={reducedMotion ? 0 : 0.5} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
           </div>
         </motion.div>
 

@@ -5,8 +5,6 @@ import { MotionConfig, useReducedMotion } from 'framer-motion';
 import v2i18n from './i18n/config';
 import './core/metal-theme.css';
 import { initAnimatedFavicon } from './core/animatedFavicon';
-import { prewarmShaderCache } from './core/glUtils';
-import { vertexShader as metallicVS, fragmentShader as metallicFS } from './core/MetallicSurface';
 
 import MetalShardCursor from './components/MetalShardCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
@@ -99,22 +97,6 @@ function V2PortfolioInner() {
   }, []);
 
   useEffect(() => { initAnimatedFavicon(); }, []);
-
-  // ── Pre-warm the MetallicSurface shader cache ─────────────────────────
-  //
-  // The MetallicSurface fragment shader is the most-compiled shader on the
-  // page — used by every section title plus the cursor. On a cold visit the
-  // first compile pays the full driver cost (20–80ms on integrated GPUs).
-  // We compile it once on a throwaway 1x1 canvas right when V2Portfolio
-  // mounts, which populates Chromium's per-renderer GPU shader cache. By
-  // the time V2Hero's titles mount a moment later, their compile short-
-  // circuits to the cached binary.
-  //
-  // Fire-and-forget — failures are swallowed in prewarmShaderCache.
-  // Runs in parallel with everything else; doesn't block first paint.
-  useEffect(() => {
-    void prewarmShaderCache([{ vert: metallicVS, frag: metallicFS }]);
-  }, []);
 
   useEffect(() => {
     const html = document.documentElement;
