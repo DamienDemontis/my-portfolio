@@ -25,10 +25,22 @@ export default function MetalLoadingScreen({
       if (p < 1) {
         requestAnimationFrame(tick);
       } else {
-        setTimeout(() => {
-          setVisible(false);
-          setTimeout(() => onComplete?.(), 600);
-        }, 300);
+        // Release only once the display fonts are in — otherwise the hero
+        // titles rasterize their shader masks with fallback fonts and get
+        // re-rendered (visible jank) right after the loader lifts. The
+        // timer is the *minimum*; fonts are usually ready well before it.
+        const fontsReady =
+          typeof document !== 'undefined' && 'fonts' in document
+            ? document.fonts.ready
+            : Promise.resolve();
+        // Never hold the loader hostage on a slow font CDN.
+        const failsafe = new Promise((res) => setTimeout(res, 1500));
+        Promise.race([fontsReady, failsafe]).then(() => {
+          setTimeout(() => {
+            setVisible(false);
+            setTimeout(() => onComplete?.(), 600);
+          }, 300);
+        });
       }
     };
     requestAnimationFrame(tick);

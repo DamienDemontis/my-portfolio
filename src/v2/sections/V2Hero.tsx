@@ -1,8 +1,53 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef, type ReactNode } from 'react';
+import { motion, useReducedMotion, useMotionValue, useSpring } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import MetalParticleField from '../components/MetalParticleField';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import DecryptedText from '../components/DecryptedText';
+import { useNav } from '../core/navigation';
+
+/** Magnetic wrapper — the element leans toward the cursor within its zone. */
+function Magnetic({ children, strength = 0.35 }: { children: ReactNode; strength?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x: sx, y: sy, display: 'inline-block' }}
+      onPointerMove={(e) => {
+        const rect = ref.current?.getBoundingClientRect();
+        if (!rect) return;
+        x.set((e.clientX - (rect.left + rect.width / 2)) * strength);
+        y.set((e.clientY - (rect.top + rect.height / 2)) * strength);
+      }}
+      onPointerLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const ctaStyle: React.CSSProperties = {
+  fontFamily: "'JetBrains Mono', monospace",
+  fontSize: 11,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase',
+  color: '#d4d4d4',
+  padding: '13px 26px',
+  borderRadius: 4,
+  background: 'linear-gradient(175deg, #1c1c1c 0%, #0d0d0d 55%, #141414 100%)',
+  border: '1px solid rgba(255,255,255,0.14)',
+  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.5)',
+  display: 'inline-block',
+  transition: 'border-color 250ms ease, color 250ms ease, box-shadow 250ms ease',
+};
 
 // Black halo: multiple tight shadows that knock out the background right behind each glyph
 // Hard black knockout — no blur, just solid black offsets in all directions
@@ -21,6 +66,7 @@ const blackKnockout = [
 export default function V2Hero() {
   const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
+  const { travelTo } = useNav();
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" aria-label="Hero">
@@ -53,10 +99,10 @@ export default function V2Hero() {
           aria-label="Damien Demontis"
         >
           <div className="leading-none tracking-[0.02em]">
-            <MetalShaderTitle as="h1" className="text-[clamp(5rem,22vw,18rem)] leading-none" speed={reducedMotion ? 0 : 0.8} tintColor="#ffe8d6">DAMIEN</MetalShaderTitle>
+            <MetalShaderTitle as="h1" className="text-[clamp(4.5rem,25vw,18rem)] leading-none" speed={reducedMotion ? 0 : 0.8} tintColor="#ffe8d6" interactive={!reducedMotion}>DAMIEN</MetalShaderTitle>
           </div>
-          <div className="leading-none tracking-[0.08em] -mt-6 md:-mt-12">
-            <MetalShaderTitle as="h1" className="text-[clamp(3rem,12vw,10rem)] leading-none" speed={reducedMotion ? 0 : 0.5} tintColor="#ffffff">DEMONTIS</MetalShaderTitle>
+          <div className="leading-none tracking-[0.08em] -mt-4 md:-mt-12">
+            <MetalShaderTitle as="h1" className="text-[clamp(2.6rem,14vw,10rem)] leading-none" speed={reducedMotion ? 0 : 0.5} tintColor="#ffffff" interactive={!reducedMotion}>DEMONTIS</MetalShaderTitle>
           </div>
         </motion.div>
 
@@ -88,21 +134,32 @@ export default function V2Hero() {
           className="mt-8 flex items-center justify-center gap-6"
           style={{ textShadow: blackKnockout }}
         >
-          <a
-            href="#contact"
-            className="text-sm uppercase tracking-[0.18em] text-[#aaa] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
-          >
-            {t('hero.cta.contact')}
-          </a>
-          <span className="text-[#444]" aria-hidden="true">/</span>
-          <a
-            href="/CV_Damien_DEMONTIS_EN.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm uppercase tracking-[0.18em] text-[#aaa] hover:text-white transition-colors duration-300 font-medium border-b border-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.4)] pb-1"
-          >
-            {t('hero.cta.resume')}
-          </a>
+          <Magnetic>
+            <a
+              href="#contact"
+              className="metal-cta"
+              style={ctaStyle}
+              onClick={(e) => {
+                // Anchor jumps land wrong once content-visibility re-measures
+                // section heights — travelTo computes the live position.
+                e.preventDefault();
+                travelTo('contact');
+              }}
+            >
+              {t('hero.cta.contact')}
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="/CV_Damien_DEMONTIS_EN.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="metal-cta metal-cta-ghost"
+              style={{ ...ctaStyle, background: 'transparent', boxShadow: 'none', border: '1px solid rgba(255,255,255,0.1)' }}
+            >
+              {t('hero.cta.resume')}
+            </a>
+          </Magnetic>
         </motion.div>
       </div>
 
@@ -122,6 +179,28 @@ export default function V2Hero() {
             style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.25), transparent)' }}
           />
         </div>
+      </motion.div>
+
+      {/* ⌘K teach — desktop only, keyboards required */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3.2 }}
+        className="absolute bottom-8 right-8 hidden md:flex items-center gap-2"
+        aria-hidden="true"
+      >
+        <kbd
+          className="text-[9px] tracking-[0.1em] text-[#888] px-1.5 py-0.5 rounded"
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            background: 'linear-gradient(180deg, #1e1e1e 0%, #121212 100%)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderBottomWidth: 2,
+          }}
+        >
+          ⌘K
+        </kbd>
+        <span className="text-[9px] uppercase tracking-[0.3em] text-[#555]">{t('hero.explore')}</span>
       </motion.div>
     </section>
   );

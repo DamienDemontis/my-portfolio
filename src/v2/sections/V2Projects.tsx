@@ -14,6 +14,9 @@ interface Project {
   demo?: string;
   video?: string;
   featured?: boolean;
+  /** Local WebGL build — opens in its own window (needs full viewport,
+   *  pointer lock and audio; an in-card iframe cramps all three). */
+  playable?: string;
 }
 
 const projects: Project[] = [
@@ -62,6 +65,7 @@ const projects: Project[] = [
     image: '/projects/tank_game.png',
     github: 'https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main',
     video: 'https://youtu.be/jWfFh3oCJ2I',
+    playable: '/games/wii-tanks/index.html',
   },
 ];
 
@@ -78,17 +82,47 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         }}
       >
         <div className="relative overflow-hidden" style={{ height: project.featured ? 'clamp(180px, 40vw, 300px)' : 'clamp(140px, 30vw, 180px)' }}>
-          <img
-            src={project.image}
-            alt={project.title}
-            width={600}
-            height={300}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            style={{ filter: 'grayscale(100%) contrast(1.1) brightness(0.6)' }}
-            loading="lazy"
-          />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%)' }} />
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.03), transparent)' }} />
+          {(
+            <>
+              <img
+                src={project.image}
+                alt={project.title}
+                width={600}
+                height={300}
+                className="metal-project-img w-full h-full object-cover group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%)' }} />
+              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.03), transparent)' }} />
+              {project.playable && (
+                <button
+                  onClick={() => window.open(project.playable, '_blank', 'noopener,noreferrer')}
+                  className="absolute inset-0 flex cursor-pointer items-center justify-center"
+                  style={{ background: 'rgba(0,0,0,0.25)' }}
+                  aria-label={`${t('projects.play')} — ${project.title}`}
+                >
+                  <span
+                    className="flex items-center gap-2 uppercase"
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 10,
+                      letterSpacing: '0.25em',
+                      color: '#e8e8e8',
+                      padding: '10px 18px',
+                      borderRadius: 4,
+                      background: 'rgba(8,8,8,0.8)',
+                      border: '1px solid var(--metal-accent-dim)',
+                      boxShadow: '0 0 20px var(--metal-accent-glow)',
+                      backdropFilter: 'blur(6px)',
+                    }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--metal-accent)"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                    {t('projects.play')}
+                  </span>
+                </button>
+              )}
+            </>
+          )}
         </div>
 
         <div className="p-5 md:p-6">

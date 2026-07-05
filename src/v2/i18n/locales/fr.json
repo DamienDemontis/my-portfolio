@@ -1,5 +1,7 @@
 {
   "nav": {
+    "home": "Accueil",
+    "languageGroup": "Langue",
     "about": "À propos",
     "experience": "Expérience",
     "skills": "Compétences",
@@ -28,10 +30,63 @@
     "description": "Alumnus EPITECH construisant des expériences web modernes",
     "descriptionSuffix": "avec précision et savoir-faire",
     "scroll": "Défiler",
+    "explore": "pour explorer",
     "cta": {
       "contact": "Me Contacter",
       "resume": "CV"
     }
+  },
+  "shortcuts": {
+    "title": "Raccourcis clavier",
+    "palette": "Palette de commandes",
+    "nextPrev": "Section suivante / précédente",
+    "jump": "Aller à la section",
+    "atlas": "Vue d'ensemble",
+    "this": "Ce panneau",
+    "close": "Fermer"
+  },
+  "palette": {
+    "label": "Palette de commandes",
+    "placeholder": "Tapez une commande ou recherchez…",
+    "empty": "Rien trouvé — essayez `help`",
+    "copied": "copié dans le presse-papiers",
+    "groups": {
+      "sections": "Sections",
+      "actions": "Actions"
+    },
+    "actions": {
+      "atlas": "Ouvrir la vue d'ensemble",
+      "copyEmail": "Copier l'adresse email",
+      "cvEn": "Télécharger le CV (anglais)",
+      "cvFr": "Télécharger le CV (français)"
+    },
+    "hints": {
+      "navigate": "naviguer",
+      "select": "choisir",
+      "terminal": "psst — essayez `help`"
+    },
+    "term": {
+      "help": "lister les commandes",
+      "ls": "lister les sections",
+      "cd": "aller à une section",
+      "pwd": "position actuelle",
+      "whoami": "qui est-ce",
+      "clear": "vider la console",
+      "hidden": "…certaines commandes ne sont pas documentées.",
+      "noSuchSection": "section introuvable",
+      "cat": "il y en a un caché près de CONTACT.",
+      "sudo": "permission refusée : cette forge n'obéit à personne.",
+      "konami": "vous avez trouvé le code de la forge. respect.",
+      "rm": "bien tenté. le métal est indestructible."
+    }
+  },
+  "atlas": {
+    "title": "Atlas",
+    "explored": "exploré",
+    "console": "Console"
+  },
+  "rail": {
+    "label": "Progression des sections"
   },
   "about": {
     "number": "01",
@@ -63,7 +118,21 @@
         "industry": "HealthTech",
         "current": true,
         "description": "Pilotage du développement fullstack dans une entreprise HealthTech proposant une plateforme complète de coordination e-santé pour les professionnels de santé. La plateforme permet la téléconsultation sécurisée, la téléexpertise, la messagerie et la gestion des patients — certifiée ISO 27001 et HDS avec plus de 23 900 utilisateurs.",
-        "technologies": ["Vue 3", "Vuex", "Node.js", "Fastify", "Vite", "MongoDB", "Redis", "RabbitMQ", "Docker", "Nomad", "Security", "Frontend Design", "MCP"],
+        "technologies": [
+          "Vue 3",
+          "Vuex",
+          "Node.js",
+          "Fastify",
+          "Vite",
+          "MongoDB",
+          "Redis",
+          "RabbitMQ",
+          "Docker",
+          "Nomad",
+          "Security",
+          "Frontend Design",
+          "MCP"
+        ],
         "achievements": [
           "Pilotage du développement des fonctionnalités de téléexpertise permettant aux professionnels de santé de demander des avis médicaux experts",
           "Développement de modules de téléconsultation pour des consultations patients à distance sécurisées",
@@ -81,7 +150,21 @@
         "industry": "IA / Open Source",
         "current": true,
         "description": "Fondateur d'une plateforme open-source d'analyse du marché de l'emploi alimentée par l'IA. Auto-hébergeable avec modèle SaaS à venir. Développement parallèle de sites web sur mesure pour des clients.",
-        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Docker"],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "OpenAI",
+          "Prisma",
+          "Node.js",
+          "React",
+          "Tailwind CSS",
+          "PostgreSQL",
+          "Chrome Extension API",
+          "RAG",
+          "Web Scraping",
+          "LLM Integration",
+          "Docker"
+        ],
         "achievements": [
           "Création d'une plateforme open-source full-stack d'analyse d'emploi alimentée par l'IA",
           "Architecture auto-hébergeable permettant un contrôle complet des données utilisateur",
@@ -101,7 +184,23 @@
         "industry": "EdTech",
         "current": false,
         "description": "Mentorat d'étudiants MSc sur des sujets avancés d'ingénierie logicielle incluant développement web moderne, architecture cloud, pratiques DevOps et cybersécurité. Construction d'une plateforme de reconnaissance faciale basée cloud utilisant PyTorch, OpenCV et infrastructure cloud.",
-        "technologies": ["React", "Vue.js", "Node.js", "NestJS", "Next.js", "Docker", "Kubernetes", "AWS", "GCP", "Azure", "PyTorch", "OpenCV", "OWASP Top 10", "Scrum", "Kanban"],
+        "technologies": [
+          "React",
+          "Vue.js",
+          "Node.js",
+          "NestJS",
+          "Next.js",
+          "Docker",
+          "Kubernetes",
+          "AWS",
+          "GCP",
+          "Azure",
+          "PyTorch",
+          "OpenCV",
+          "OWASP Top 10",
+          "Scrum",
+          "Kanban"
+        ],
         "achievements": [
           "Construction d'une plateforme de reconnaissance faciale de qualité production avec PyTorch/OpenCV",
           "Introduction de technologies full-stack modernes dans le curriculum MSc",
@@ -119,7 +218,20 @@
         "industry": "EdTech",
         "current": false,
         "description": "Mentorat de plus de 200 étudiants sur les concepts fondamentaux et avancés de programmation, du C/C++ aux technologies web modernes et pratiques DevOps.",
-        "technologies": ["C", "C++", "SFML", "Git", "Docker", "SQL", "JavaScript", "REST APIs", "Linux", "Design Patterns", "CUnit", "GoogleTest"],
+        "technologies": [
+          "C",
+          "C++",
+          "SFML",
+          "Git",
+          "Docker",
+          "SQL",
+          "JavaScript",
+          "REST APIs",
+          "Linux",
+          "Design Patterns",
+          "CUnit",
+          "GoogleTest"
+        ],
         "achievements": [
           "Assistant pédagogique le plus performant pendant trois années consécutives",
           "Enseignement du C/C++ fondamental, gestion mémoire, algorithmes et structures de données",
@@ -136,7 +248,22 @@
         "industry": "Startup",
         "current": false,
         "description": "Architecture de systèmes backend évolutifs pour une startup internationale de marketplace d'art. Direction d'une équipe cross-fonctionnelle de 7 personnes.",
-        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "GCP", "Docker", "Kubernetes", "Firebase", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
+        "technologies": [
+          "Node.js",
+          "TypeScript",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "React Native",
+          "GCP",
+          "Docker",
+          "Kubernetes",
+          "Firebase",
+          "REST APIs",
+          "WebSockets",
+          "JWT",
+          "OAuth 2.0"
+        ],
         "achievements": [
           "Architecture de backend évolutif avec Node.js, TypeScript et Express",
           "Implémentation d'authentification sécurisée et traitement de paiements Stripe",
@@ -154,7 +281,16 @@
         "industry": "Fintech",
         "current": false,
         "description": "Migration d'une application Django monolithique vers un frontend Nuxt. Réduction des temps de chargement de 50% et augmentation de la couverture de tests de 30%.",
-        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Python", "Microservices"],
+        "technologies": [
+          "Nuxt.js",
+          "Vue.js",
+          "Pinia",
+          "Django",
+          "PostgreSQL",
+          "GitLab CI/CD",
+          "Python",
+          "Microservices"
+        ],
         "achievements": [
           "Migration d'une application Django monolithique vers une architecture frontend Nuxt.js moderne",
           "Réduction de 50% des temps de chargement des pages",
@@ -171,7 +307,15 @@
         "industry": "Assurance",
         "current": false,
         "description": "Développement de solutions front-end avec WordPress/PHP. Conception de structures de base de données MySQL. Construction de solutions intranet robustes améliorant l'efficacité des flux de travail.",
-        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development"],
+        "technologies": [
+          "WordPress",
+          "PHP",
+          "MySQL",
+          "JavaScript",
+          "CSS",
+          "Custom Themes",
+          "Plugin Development"
+        ],
         "achievements": [
           "Création de thèmes et plugins personnalisés améliorant l'UX et les fonctionnalités",
           "Conception de structures de base de données MySQL avec un focus sur l'intégrité des données",
@@ -185,20 +329,34 @@
     "number": "03",
     "title": "Compétences",
     "subtitle": "Toujours apprendre, toujours construire, toujours innover.",
-    "alsoExperienced": "Également expérimenté avec : Haskell, ECS, GraphQL, GSAP, Zapier"
+    "alsoExperienced": "Également expérimenté avec : Haskell, ECS, GraphQL, GSAP, Zapier",
+    "tiers": {
+      "core": "Forgé dans",
+      "active": "Travaille avec",
+      "exploring": "Explore"
+    },
+    "dragHint": "attrape les nœuds",
+    "openHint": "clique une catégorie pour la déployer"
   },
   "projects": {
     "number": "04",
     "title": "Projets",
     "featured": "En vedette",
     "source": "Source",
+    "play": "Jouer",
     "demo": "Démo",
     "video": "Vidéo",
     "items": [
       {
         "title": "Reconnaissance Faciale IA pour la Présence",
         "description": "Plateforme de présence basée cloud utilisant Firestore, PyQt6, OpenCV et PyTorch. Reconnaissance faciale en temps réel avec rapports automatisés. Système de qualité production adopté à EPITECH.",
-        "technologies": ["Python", "OpenCV", "PyTorch", "Firestore", "PyQt6"],
+        "technologies": [
+          "Python",
+          "OpenCV",
+          "PyTorch",
+          "Firestore",
+          "PyQt6"
+        ],
         "image": "/projects/facial_recognition.png",
         "github": "https://github.com/DamienDemontis/proto-1-pr-smart",
         "featured": true
@@ -206,7 +364,14 @@
       {
         "title": "Leon'Art — Marketplace d'Art",
         "description": "Application mobile et web pour l'achat et la vente d'art avec des fonctionnalités sociales. Projet startup international avec une équipe cross-fonctionnelle de 7 personnes. Marketplace complète avec paiements Stripe.",
-        "technologies": ["React Native", "Node.js", "MongoDB", "Express", "Stripe", "GCP"],
+        "technologies": [
+          "React Native",
+          "Node.js",
+          "MongoDB",
+          "Express",
+          "Stripe",
+          "GCP"
+        ],
         "image": "/projects/leonart.png",
         "github": "https://github.com/Leon-Art-EIP",
         "featured": true
@@ -214,21 +379,35 @@
       {
         "title": "MSC Decouverte",
         "description": "Plateforme éducative aidant les étudiants EPITECH à choisir leurs spécialités. Plus de 800 ressources externes sélectionnées et organisées. Vendue à EPITECH en 2025.",
-        "technologies": ["Jekyll", "HTML", "CSS", "JavaScript"],
+        "technologies": [
+          "Jekyll",
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ],
         "image": "/projects/msc_decouverte.png",
         "demo": "https://decouverte-pmsc.vercel.app/"
       },
       {
         "title": "Solution Intranet d'Entreprise",
         "description": "Intranet basé sur WordPress améliorant la communication interne et l'efficacité des flux de travail à l'échelle de l'entreprise. Thèmes personnalisés, plugins et conception de base de données MySQL.",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
+        "technologies": [
+          "PHP",
+          "WordPress",
+          "MySQL",
+          "JavaScript"
+        ],
         "image": "/projects/intranet.png",
         "video": "https://youtu.be/fSEylEdaZiM"
       },
       {
         "title": "Inept-Intruder",
         "description": "Jeu coopératif multijoueur où un opérateur de vidéosurveillance aide un autre joueur à naviguer dans une usine piégée. Communication en temps réel et gameplay stratégique.",
-        "technologies": ["Unity", "C#", "Multiplayer"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Multiplayer"
+        ],
         "image": "/projects/inept_intruder.png",
         "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
         "video": "https://youtu.be/S_0kDyYHLs0"
@@ -236,7 +415,11 @@
       {
         "title": "Wii Tanks Remastered",
         "description": "Recréation du jeu classique Wii Play Tank avec des graphismes et mécaniques améliorés sous Unity. Gameplay basé sur la physique avec des adversaires IA.",
-        "technologies": ["Unity", "C#", "Game Physics"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Game Physics"
+        ],
         "image": "/projects/tank_game.png",
         "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
         "video": "https://youtu.be/jWfFh3oCJ2I"
@@ -331,10 +514,34 @@
     "number": "07",
     "title": "Langues",
     "items": [
-      { "name": "Français", "level": "Natif", "percent": 100, "detail": "Langue maternelle", "flag": "FR" },
-      { "name": "Anglais", "level": "C1/C2 Courant", "percent": 95, "detail": "TEPITECH 945/990", "flag": "GB" },
-      { "name": "Italien", "level": "Conversationnel", "percent": 60, "detail": "Origines italiennes", "flag": "IT" },
-      { "name": "Coréen", "level": "A2 Élémentaire", "percent": 40, "detail": "Échange à Keimyung", "flag": "KR" }
+      {
+        "name": "Français",
+        "level": "Natif",
+        "percent": 100,
+        "detail": "Langue maternelle",
+        "flag": "FR"
+      },
+      {
+        "name": "Anglais",
+        "level": "C1/C2 Courant",
+        "percent": 95,
+        "detail": "TEPITECH 945/990",
+        "flag": "GB"
+      },
+      {
+        "name": "Italien",
+        "level": "Conversationnel",
+        "percent": 60,
+        "detail": "Origines italiennes",
+        "flag": "IT"
+      },
+      {
+        "name": "Coréen",
+        "level": "A2 Élémentaire",
+        "percent": 40,
+        "detail": "Échange à Keimyung",
+        "flag": "KR"
+      }
     ]
   },
   "interests": {
@@ -367,19 +574,36 @@
     "categories": [
       {
         "title": "Goûts Musicaux",
-        "items": ["Pop Japonaise", "Musique Électronique", "Jazz", "Classiques Français"]
+        "items": [
+          "Pop Japonaise",
+          "Musique Électronique",
+          "Jazz",
+          "Classiques Français"
+        ]
       },
       {
         "title": "Perspectives Globales",
-        "items": ["Écologie", "Géopolitique", "Culture Asiatique"]
+        "items": [
+          "Écologie",
+          "Géopolitique",
+          "Culture Asiatique"
+        ]
       },
       {
         "title": "Passion Tech",
-        "items": ["Innovation Technologique", "IA/ML", "Développement de Jeux"]
+        "items": [
+          "Innovation Technologique",
+          "IA/ML",
+          "Développement de Jeux"
+        ]
       },
       {
         "title": "Développement Personnel",
-        "items": ["Échange Culturel", "Apprentissage Continu", "Construction de Communauté"]
+        "items": [
+          "Échange Culturel",
+          "Apprentissage Continu",
+          "Construction de Communauté"
+        ]
       }
     ]
   },
@@ -388,32 +612,110 @@
     "title": "Photographie",
     "subtitle": "Moments capturés durant mon année internationale à l'Université Keimyung, Corée du Sud, et mes voyages à travers le Japon. Ambassadeur EPITECH certifié.",
     "photos": [
-      { "alt": "Séoul, Corée du Sud", "caption": "Un bon repas au cœur de Séoul" },
-      { "alt": "Gyeongju, Corée du Sud", "caption": "Couleurs d'automne sur le campus universitaire" },
-      { "alt": "Daegu, Corée du Sud", "caption": "Arbres du campus universitaire" },
-      { "alt": "Université Keimyung, Corée du Sud", "caption": "Entrée de l'université" },
-      { "alt": "KMU, Corée du Sud", "caption": "Cours de taekwondo" },
-      { "alt": "KMU, Corée du Sud", "caption": "Église de l'université" },
-      { "alt": "KMU, Corée du Sud", "caption": "Église de l'université" },
-      { "alt": "Kyoto, Japon", "caption": "Café de sauvetage animalier" },
-      { "alt": "Kyoto, Corée du Sud", "caption": "Statue de sirène" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Balade (feat. le soleil)" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Visite de Séoul" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Hanbok coréen traditionnel" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Lotte World" },
-      { "alt": "Séoul, Corée du Sud", "caption": "mmmmmh barbapapa" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Amis internationaux" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Nuit d'été et rivière Han" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Bibliothèque ou centre commercial ? Nul ne sait" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Rue traditionnelle coréenne" },
-      { "alt": "KMU, Daegu, Corée du Sud", "caption": "Bâtiment principal de Keimyung" },
-      { "alt": "Daegu, Corée du Sud", "caption": "Réveil printanier (feat. la pluie)" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Drapeau coréen" },
-      { "alt": "Gyeongju, Corée du Sud", "caption": "Sites historiques en fleurs printanières" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Jardins et tranquillité" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Ces parapluies ne pointent pas dans le bon sens" },
-      { "alt": "Près de Séoul, Corée du Sud", "caption": "Repas avec l'association d'étudiants internationaux" },
-      { "alt": "Séoul, Corée du Sud", "caption": "Dernier pique-nique entre amis" }
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Un bon repas au cœur de Séoul"
+      },
+      {
+        "alt": "Gyeongju, Corée du Sud",
+        "caption": "Couleurs d'automne sur le campus universitaire"
+      },
+      {
+        "alt": "Daegu, Corée du Sud",
+        "caption": "Arbres du campus universitaire"
+      },
+      {
+        "alt": "Université Keimyung, Corée du Sud",
+        "caption": "Entrée de l'université"
+      },
+      {
+        "alt": "KMU, Corée du Sud",
+        "caption": "Cours de taekwondo"
+      },
+      {
+        "alt": "KMU, Corée du Sud",
+        "caption": "Église de l'université"
+      },
+      {
+        "alt": "KMU, Corée du Sud",
+        "caption": "Église de l'université"
+      },
+      {
+        "alt": "Kyoto, Japon",
+        "caption": "Café de sauvetage animalier"
+      },
+      {
+        "alt": "Kyoto, Corée du Sud",
+        "caption": "Statue de sirène"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Balade (feat. le soleil)"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Visite de Séoul"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Hanbok coréen traditionnel"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Lotte World"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "mmmmmh barbapapa"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Amis internationaux"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Nuit d'été et rivière Han"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Bibliothèque ou centre commercial ? Nul ne sait"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Rue traditionnelle coréenne"
+      },
+      {
+        "alt": "KMU, Daegu, Corée du Sud",
+        "caption": "Bâtiment principal de Keimyung"
+      },
+      {
+        "alt": "Daegu, Corée du Sud",
+        "caption": "Réveil printanier (feat. la pluie)"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Drapeau coréen"
+      },
+      {
+        "alt": "Gyeongju, Corée du Sud",
+        "caption": "Sites historiques en fleurs printanières"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Jardins et tranquillité"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Ces parapluies ne pointent pas dans le bon sens"
+      },
+      {
+        "alt": "Près de Séoul, Corée du Sud",
+        "caption": "Repas avec l'association d'étudiants internationaux"
+      },
+      {
+        "alt": "Séoul, Corée du Sud",
+        "caption": "Dernier pique-nique entre amis"
+      }
     ]
   },
   "contact": {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MetalShaderTitle from '../components/MetalShaderTitle';
 import MetalScrollReveal from '../components/MetalScrollReveal';
@@ -8,16 +9,26 @@ import ScrollStack, { ScrollStackItem } from '../components/ScrollStack';
 
 function SubtitleBar({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-xs uppercase tracking-[0.2em] text-[#8a8a8a] font-heading font-semibold mb-6 flex items-center gap-3">
-      <span className="w-3 h-px bg-[rgba(255,255,255,0.15)]" />
+    <h3
+      className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#d0d0d0] font-heading"
+      style={{ textShadow: '0 1px 0 rgba(0,0,0,0.8)' }}
+    >
+      <span aria-hidden className="h-px w-5" style={{ background: 'var(--metal-accent)' }} />
       {children}
     </h3>
   );
 }
 
+/**
+ * YouTube facade: engraved-monochrome thumbnail + metal play button.
+ * The real iframe (and its red/white chrome + third-party JS) loads only on
+ * click, with autoplay so one click still starts the video.
+ */
 function YouTubeEmbed({ videoId, title }: { videoId: string; title: string }) {
+  const [active, setActive] = useState(false);
   return (
     <div
+      className="group/yt"
       style={{
         position: 'relative',
         paddingBottom: '56.25%',
@@ -26,57 +37,106 @@ function YouTubeEmbed({ videoId, title }: { videoId: string; title: string }) {
         borderRadius: 14,
         border: '1px solid rgba(255,255,255,0.06)',
         boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+        background: '#000',
       }}
     >
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
-        title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        loading="lazy"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          border: 'none',
-        }}
-      />
+      {active ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+        />
+      ) : (
+        <button
+          onClick={() => setActive(true)}
+          aria-label={`▶ ${title}`}
+          className="absolute inset-0 h-full w-full cursor-pointer"
+          style={{ padding: 0, border: 'none', background: 'none' }}
+        >
+          <img
+            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            alt={title}
+            loading="lazy"
+            className="metal-project-img h-full w-full object-cover"
+          />
+          <span className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.65) 100%)' }} />
+          <span
+            className="absolute bottom-3 left-3 max-w-[80%] truncate text-left"
+            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, letterSpacing: '0.12em', color: '#c4c4c4' }}
+          >
+            {title}
+          </span>
+          <span
+            className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-transform duration-300 group-hover/yt:scale-110"
+            style={{
+              width: 58,
+              height: 58,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle at 35% 30%, #3a3a3a, #141414 70%)',
+              border: '1px solid var(--metal-accent-dim)',
+              boxShadow: '0 6px 18px rgba(0,0,0,0.6), 0 0 22px var(--metal-accent-glow)',
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--metal-accent)" style={{ marginLeft: 3 }}>
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </span>
+        </button>
+      )}
     </div>
   );
 }
 
+/** Machined plate — same material language as the rest of the site.
+ *  (accentColor kept for API compat; the plate is monochrome metal now.) */
 function SectionCard({
   children,
-  accentColor = 'rgba(255,255,255,0.02)',
 }: {
   children: React.ReactNode;
   accentColor?: string;
 }) {
   return (
     <div
-      className="p-5 sm:p-7 md:p-9"
+      className="relative overflow-hidden p-5 sm:p-7 md:p-9"
       style={{
-        background: `linear-gradient(135deg, ${accentColor}, #0a0a0a)`,
-        border: '1px solid rgba(255,255,255,0.04)',
-        borderRadius: 20,
-        boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
-        position: 'relative',
-        overflow: 'hidden',
+        background: 'linear-gradient(175deg, #1b1d21 0%, #101214 55%, #16181c 100%)',
+        border: '1px solid rgba(255,255,255,0.09)',
+        borderRadius: 6,
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.09), 0 16px 44px rgba(0,0,0,0.5)',
       }}
     >
-      {/* Subtle top edge highlight */}
+      {/* Diagonal chrome sheen */}
       <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: '10%',
-          right: '10%',
-          height: 1,
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)',
+          background: 'linear-gradient(120deg, transparent 35%, rgba(255,255,255,0.04) 48%, transparent 62%)',
         }}
       />
+      {/* Molten spine */}
+      <div
+        aria-hidden
+        className="absolute left-0 top-3 bottom-3 w-[2px]"
+        style={{ background: 'linear-gradient(180deg, var(--metal-accent), var(--metal-accent-dim))', opacity: 0.85 }}
+      />
+      {/* Corner rivets */}
+      {[{ top: 8, right: 8 }, { bottom: 8, right: 8 }].map((pos, i) => (
+        <span
+          key={i}
+          aria-hidden
+          className="absolute"
+          style={{
+            ...pos,
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle at 35% 30%, #6a6a6a, #191919 75%)',
+            boxShadow: '0 1px 2px rgba(0,0,0,0.8), inset 0 0.5px 0 rgba(255,255,255,0.25)',
+          }}
+        />
+      ))}
       {children}
     </div>
   );

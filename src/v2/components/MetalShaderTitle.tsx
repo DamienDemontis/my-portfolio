@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { LiquidMetal } from '@paper-design/shaders-react';
 import { useShaderTitleSlot } from '../core/shaderTitleCoordinator';
+import { useScrollVelocitySpeed, isTravelingNow, onTravelEnd } from '../core/navigation';
 
 interface MetalShaderTitleProps {
   children: ReactNode;
@@ -8,6 +10,8 @@ interface MetalShaderTitleProps {
   className?: string;
   tintColor?: string;
   speed?: number;
+  /** The metal reacts to the cursor: flow angle and distortion follow it. */
+  interactive?: boolean;
 }
 
 export default function MetalShaderTitle({
@@ -16,8 +20,13 @@ export default function MetalShaderTitle({
   className = '',
   tintColor = '#ffffff',
   speed = 0.6,
+  interactive = false,
 }: MetalShaderTitleProps) {
   const textRef = useRef<HTMLElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
+  // Depth: titles drift slower than the page (multi-layer parallax).
+  const { scrollYProgress } = useScroll({ target: spanRef, offset: ['start end', 'end start'] });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [26, -26]);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
   // distanceToCenter: |viewport center - title center| in px. Infinity = withdraw
@@ -28,6 +37,26 @@ export default function MetalShaderTitle({
   // cancels its rAF loop entirely (last frame stays painted). When true,
   // animation runs as normal.
   const hasSlot = useShaderTitleSlot(distanceToCenter);
+
+  // The metal flows with the page: scroll velocity surges the shader speed.
+  // Callers passing speed=0 (reduced motion) opt out entirely.
+  const reactiveSpeed = useScrollVelocitySpeed(speed);
+
+  // Cursor-reactive flow (interactive titles): angle tilts toward the
+  // pointer, distortion rises near it. Quantized so re-renders stay rare;
+  // the LiquidMetal uniforms update in place without remounting.
+  const [flow, setFlow] = useState({ angle: 70, distortion: 0.1 });
+  const onPointerMove = interactive
+    ? (e: React.PointerEvent<HTMLElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+        const angle = Math.round((70 + nx * 60) / 4) * 4;
+        const distortion = Math.round((0.1 + (Math.abs(nx) + Math.abs(ny)) * 0.3) * 50) / 50;
+        setFlow((prev) => (prev.angle === angle && prev.distortion === distortion ? prev : { angle, distortion }));
+      }
+    : undefined;
+  const onPointerLeave = interactive ? () => setFlow({ angle: 70, distortion: 0.1 }) : undefined;
 
   // Two IntersectionObservers:
   //
@@ -49,26 +78,45 @@ export default function MetalShaderTitle({
 
     let teardownTimer: ReturnType<typeof setTimeout> | null = null;
 
+    const show = () => {
+      if (teardownTimer !== null) {
+        clearTimeout(teardownTimer);
+        teardownTimer = null;
+      }
+      setVisible(true);
+    };
+
     const mountObs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (teardownTimer !== null) {
-            clearTimeout(teardownTimer);
-            teardownTimer = null;
-          }
-          setVisible(true);
+          // Mounting the WebGL layer is expensive (canvas raster + GL
+          // context). During a fast-travel glide, every section flies past
+          // this observer — ignore those; the travel-end check below mounts
+          // the destination's title instead.
+          if (isTravelingNow()) return;
+          show();
         } else {
           if (teardownTimer === null) {
+            // Short leash: WebGL contexts are capped ~16/page, and a lazy
+            // teardown lets scrolled-past titles pile up against that cap.
             teardownTimer = setTimeout(() => {
               setVisible(false);
               teardownTimer = null;
-            }, 5000);
+            }, 1500);
           }
         }
       },
-      { rootMargin: '200px' },
+      { rootMargin: '120px' },
     );
     mountObs.observe(el);
+
+    // After a glide lands, IO won't re-fire for elements it already reported
+    // during the flight — evaluate proximity manually.
+    const offTravelEnd = onTravelEnd(() => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 0;
+      if (rect.bottom > -200 && rect.top < vh + 200) show();
+    });
 
     // Slot priority. Tracks distance from viewport center even when the title
     // is partially out of view. Uses multiple thresholds so the coordinator
@@ -93,6 +141,7 @@ export default function MetalShaderTitle({
     return () => {
       mountObs.disconnect();
       slotObs.disconnect();
+      offTravelEnd();
       if (teardownTimer !== null) clearTimeout(teardownTimer);
     };
   }, []);
@@ -139,7 +188,14 @@ export default function MetalShaderTitle({
   }, [visible, children]);
 
   return (
-    <span className="metal-shader-title">
+    <motion.span
+      ref={spanRef}
+      className="metal-shader-title"
+      // Explicit position keeps framer's useScroll offset math happy.
+      style={{ y: parallaxY, position: 'relative' }}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+    >
       <Tag
         ref={textRef as any}
         className={`metal-shader-title-text font-metal ${className}`}
@@ -155,19 +211,19 @@ export default function MetalShaderTitle({
           repetition={2}
           shiftRed={0.3}
           shiftBlue={0.3}
-          distortion={0.1}
+          distortion={flow.distortion}
           contour={0.5}
-          angle={70}
+          angle={flow.angle}
           fit="contain"
           scale={1}
           // speed=0 cancels the shader's internal rAF loop — used both for the
           // coordinator slot gating (only the N titles nearest the viewport
           // center animate) and for prefers-reduced-motion (speed=0 from
           // the caller).
-          speed={hasSlot ? speed : 0}
+          speed={hasSlot && speed > 0 ? reactiveSpeed : 0}
           style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
         />
       )}
-    </span>
+    </motion.span>
   );
 }

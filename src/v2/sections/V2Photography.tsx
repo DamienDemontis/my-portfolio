@@ -64,7 +64,9 @@ export default function V2Photography() {
           overlayBlurColor="#000000"
           imageBorderRadius="24px"
           openedImageBorderRadius="24px"
-          segments={45}
+          // Fewer dome segments on touch/small screens — same look at half the
+          // geometry and texture cost.
+          segments={typeof window !== 'undefined' && window.innerWidth < 768 ? 24 : 45}
           chromaRadius={280}
           chromaDamping={0.4}
         />

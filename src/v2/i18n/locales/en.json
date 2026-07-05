@@ -1,5 +1,7 @@
 {
   "nav": {
+    "home": "Home",
+    "languageGroup": "Language",
     "about": "About",
     "experience": "Experience",
     "skills": "Skills",
@@ -28,10 +30,63 @@
     "description": "EPITECH Alumnus building modern web experiences",
     "descriptionSuffix": "with precision and craft",
     "scroll": "Scroll",
+    "explore": "to explore",
     "cta": {
       "contact": "Get in touch",
       "resume": "Resume"
     }
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "palette": "Command palette",
+    "nextPrev": "Next / previous section",
+    "jump": "Jump to section",
+    "atlas": "Overview map",
+    "this": "This panel",
+    "close": "Close"
+  },
+  "palette": {
+    "label": "Command palette",
+    "placeholder": "Type a command or search…",
+    "empty": "Nothing found — try `help`",
+    "copied": "copied to clipboard",
+    "groups": {
+      "sections": "Sections",
+      "actions": "Actions"
+    },
+    "actions": {
+      "atlas": "Open overview map",
+      "copyEmail": "Copy email address",
+      "cvEn": "Download CV (English)",
+      "cvFr": "Download CV (French)"
+    },
+    "hints": {
+      "navigate": "navigate",
+      "select": "select",
+      "terminal": "psst — try `help`"
+    },
+    "term": {
+      "help": "list commands",
+      "ls": "list sections",
+      "cd": "go to a section",
+      "pwd": "current position",
+      "whoami": "who is this",
+      "clear": "clear the console",
+      "hidden": "…a few commands are undocumented.",
+      "noSuchSection": "no such section",
+      "cat": "one of these is hiding near CONTACT.",
+      "sudo": "permission denied: this forge answers to no one.",
+      "konami": "you found the forge code. respect.",
+      "rm": "nice try. the metal is indestructible."
+    }
+  },
+  "atlas": {
+    "title": "Atlas",
+    "explored": "explored",
+    "console": "Console"
+  },
+  "rail": {
+    "label": "Section progress"
   },
   "about": {
     "number": "01",
@@ -63,7 +118,21 @@
         "industry": "HealthTech",
         "current": true,
         "description": "Leading fullstack development at a HealthTech company providing a comprehensive e-health coordination platform for healthcare professionals. The platform enables secure teleconsultation, teleexpertise, messaging, and patient management — certified ISO 27001 and HDS with 23,900+ users.",
-        "technologies": ["Vue 3", "Vuex", "Node.js", "Fastify", "Vite", "MongoDB", "Redis", "RabbitMQ", "Docker", "Nomad", "Security", "Frontend Design", "MCP"],
+        "technologies": [
+          "Vue 3",
+          "Vuex",
+          "Node.js",
+          "Fastify",
+          "Vite",
+          "MongoDB",
+          "Redis",
+          "RabbitMQ",
+          "Docker",
+          "Nomad",
+          "Security",
+          "Frontend Design",
+          "MCP"
+        ],
         "achievements": [
           "Lead development of teleexpertise features enabling healthcare professionals to request expert medical opinions",
           "Build teleconsultation modules for secure remote patient consultations",
@@ -81,7 +150,21 @@
         "industry": "AI / Open Source",
         "current": true,
         "description": "Founded an open-source AI-powered job market analysis platform. Self-hostable with upcoming SaaS model. Simultaneously developing custom websites for clients.",
-        "technologies": ["Next.js", "TypeScript", "OpenAI", "Prisma", "Node.js", "React", "Tailwind CSS", "PostgreSQL", "Chrome Extension API", "RAG", "Web Scraping", "LLM Integration", "Docker"],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "OpenAI",
+          "Prisma",
+          "Node.js",
+          "React",
+          "Tailwind CSS",
+          "PostgreSQL",
+          "Chrome Extension API",
+          "RAG",
+          "Web Scraping",
+          "LLM Integration",
+          "Docker"
+        ],
         "achievements": [
           "Created full-stack open-source AI-powered job analysis platform",
           "Self-hostable architecture allowing complete user data control",
@@ -101,7 +184,23 @@
         "industry": "EdTech",
         "current": false,
         "description": "Mentored MSc students on advanced software engineering including modern web development, cloud architecture, DevOps, and cybersecurity. Built a cloud-based facial recognition attendance platform using PyTorch, OpenCV, and cloud infrastructure.",
-        "technologies": ["React", "Vue.js", "Node.js", "NestJS", "Next.js", "Docker", "Kubernetes", "AWS", "GCP", "Azure", "PyTorch", "OpenCV", "OWASP Top 10", "Scrum", "Kanban"],
+        "technologies": [
+          "React",
+          "Vue.js",
+          "Node.js",
+          "NestJS",
+          "Next.js",
+          "Docker",
+          "Kubernetes",
+          "AWS",
+          "GCP",
+          "Azure",
+          "PyTorch",
+          "OpenCV",
+          "OWASP Top 10",
+          "Scrum",
+          "Kanban"
+        ],
         "achievements": [
           "Built production-grade facial recognition attendance platform with PyTorch/OpenCV",
           "Introduced modern full-stack technologies into MSc curriculum",
@@ -119,7 +218,20 @@
         "industry": "EdTech",
         "current": false,
         "description": "Mentored 200+ students across fundamental and advanced programming concepts, from C/C++ to modern web technologies and DevOps practices.",
-        "technologies": ["C", "C++", "SFML", "Git", "Docker", "SQL", "JavaScript", "REST APIs", "Linux", "Design Patterns", "CUnit", "GoogleTest"],
+        "technologies": [
+          "C",
+          "C++",
+          "SFML",
+          "Git",
+          "Docker",
+          "SQL",
+          "JavaScript",
+          "REST APIs",
+          "Linux",
+          "Design Patterns",
+          "CUnit",
+          "GoogleTest"
+        ],
         "achievements": [
           "Top-performing teaching assistant for three consecutive years",
           "Taught fundamental C/C++, memory management, algorithms and data structures",
@@ -136,7 +248,22 @@
         "industry": "Startup",
         "current": false,
         "description": "Architected scalable backend systems for an international art marketplace startup. Led a 7-person cross-functional team.",
-        "technologies": ["Node.js", "TypeScript", "Express", "MongoDB", "Stripe", "React Native", "GCP", "Docker", "Kubernetes", "Firebase", "REST APIs", "WebSockets", "JWT", "OAuth 2.0"],
+        "technologies": [
+          "Node.js",
+          "TypeScript",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "React Native",
+          "GCP",
+          "Docker",
+          "Kubernetes",
+          "Firebase",
+          "REST APIs",
+          "WebSockets",
+          "JWT",
+          "OAuth 2.0"
+        ],
         "achievements": [
           "Architected scalable backend with Node.js, TypeScript, and Express",
           "Implemented secure authentication and Stripe payment processing",
@@ -154,7 +281,16 @@
         "industry": "Fintech",
         "current": false,
         "description": "Migrated a monolithic Django application to Nuxt frontend. Cut page load times by 50% and increased test coverage by 30%.",
-        "technologies": ["Nuxt.js", "Vue.js", "Pinia", "Django", "PostgreSQL", "GitLab CI/CD", "Python", "Microservices"],
+        "technologies": [
+          "Nuxt.js",
+          "Vue.js",
+          "Pinia",
+          "Django",
+          "PostgreSQL",
+          "GitLab CI/CD",
+          "Python",
+          "Microservices"
+        ],
         "achievements": [
           "Migrated monolithic Django app to modern Nuxt.js frontend architecture",
           "Achieved 50% reduction in page load times",
@@ -171,7 +307,15 @@
         "industry": "Insurance",
         "current": false,
         "description": "Developed front-end solutions with WordPress/PHP. Designed MySQL database structures. Built robust intranet solutions improving workflow efficiency.",
-        "technologies": ["WordPress", "PHP", "MySQL", "JavaScript", "CSS", "Custom Themes", "Plugin Development"],
+        "technologies": [
+          "WordPress",
+          "PHP",
+          "MySQL",
+          "JavaScript",
+          "CSS",
+          "Custom Themes",
+          "Plugin Development"
+        ],
         "achievements": [
           "Created custom themes and plugins enhancing UX and functionality",
           "Designed MySQL database structures with data integrity focus",
@@ -185,20 +329,34 @@
     "number": "03",
     "title": "Skills",
     "subtitle": "Always learning, always building, always innovating.",
-    "alsoExperienced": "Also experienced with: Haskell, ECS, GraphQL, GSAP, Zapier"
+    "alsoExperienced": "Also experienced with: Haskell, ECS, GraphQL, GSAP, Zapier",
+    "tiers": {
+      "core": "Forged in",
+      "active": "Working with",
+      "exploring": "Exploring"
+    },
+    "dragHint": "drag the nodes",
+    "openHint": "click a category to unfold it"
   },
   "projects": {
     "number": "04",
     "title": "Projects",
     "featured": "Featured",
     "source": "Source",
+    "play": "Play",
     "demo": "Demo",
     "video": "Video",
     "items": [
       {
         "title": "AI Facial Recognition Attendance",
         "description": "Cloud-based attendance platform using Firestore, PyQt6, OpenCV, and PyTorch. Real-time facial recognition with automated reporting. Built as production-grade system adopted at EPITECH.",
-        "technologies": ["Python", "OpenCV", "PyTorch", "Firestore", "PyQt6"],
+        "technologies": [
+          "Python",
+          "OpenCV",
+          "PyTorch",
+          "Firestore",
+          "PyQt6"
+        ],
         "image": "/projects/facial_recognition.png",
         "github": "https://github.com/DamienDemontis/proto-1-pr-smart",
         "featured": true
@@ -206,7 +364,14 @@
       {
         "title": "Leon'Art — Art Marketplace",
         "description": "Mobile and web application for buying and selling art with social features. International startup project with 7-person cross-functional team. Full marketplace with Stripe payments.",
-        "technologies": ["React Native", "Node.js", "MongoDB", "Express", "Stripe", "GCP"],
+        "technologies": [
+          "React Native",
+          "Node.js",
+          "MongoDB",
+          "Express",
+          "Stripe",
+          "GCP"
+        ],
         "image": "/projects/leonart.png",
         "github": "https://github.com/Leon-Art-EIP",
         "featured": true
@@ -214,21 +379,35 @@
       {
         "title": "MSC Decouverte",
         "description": "Educational platform helping EPITECH students choose specialties. 800+ external resources curated and organized. Sold to EPITECH in 2025.",
-        "technologies": ["Jekyll", "HTML", "CSS", "JavaScript"],
+        "technologies": [
+          "Jekyll",
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ],
         "image": "/projects/msc_decouverte.png",
         "demo": "https://decouverte-pmsc.vercel.app/"
       },
       {
         "title": "Corporate Intranet Solution",
         "description": "WordPress-based intranet improving company-wide internal communication and workflow efficiency. Custom themes, plugins, and MySQL database design.",
-        "technologies": ["PHP", "WordPress", "MySQL", "JavaScript"],
+        "technologies": [
+          "PHP",
+          "WordPress",
+          "MySQL",
+          "JavaScript"
+        ],
         "image": "/projects/intranet.png",
         "video": "https://youtu.be/fSEylEdaZiM"
       },
       {
         "title": "Inept-Intruder",
         "description": "Multiplayer co-op game where a CCTV operator helps another player navigate through a trapped factory. Real-time communication and strategic gameplay.",
-        "technologies": ["Unity", "C#", "Multiplayer"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Multiplayer"
+        ],
         "image": "/projects/inept_intruder.png",
         "github": "https://github.com/DamienDemontis/Inept-Intruders/tree/main",
         "video": "https://youtu.be/S_0kDyYHLs0"
@@ -236,7 +415,11 @@
       {
         "title": "Wii Tanks Remastered",
         "description": "Recreation of the classic Wii Play Tank game with enhanced graphics and mechanics in Unity. Physics-based gameplay with AI opponents.",
-        "technologies": ["Unity", "C#", "Game Physics"],
+        "technologies": [
+          "Unity",
+          "C#",
+          "Game Physics"
+        ],
         "image": "/projects/tank_game.png",
         "github": "https://github.com/Shorssaud/Wii_Tanks_Remastered/tree/main",
         "video": "https://youtu.be/jWfFh3oCJ2I"
@@ -331,10 +514,34 @@
     "number": "07",
     "title": "Languages",
     "items": [
-      { "name": "French", "level": "Native", "percent": 100, "detail": "Native speaker", "flag": "FR" },
-      { "name": "English", "level": "C1/C2 Fluent", "percent": 95, "detail": "TEPITECH 945/990", "flag": "GB" },
-      { "name": "Italian", "level": "Conversational", "percent": 60, "detail": "Half Italian heritage", "flag": "IT" },
-      { "name": "Korean", "level": "A2 Elementary", "percent": 40, "detail": "Study abroad at Keimyung", "flag": "KR" }
+      {
+        "name": "French",
+        "level": "Native",
+        "percent": 100,
+        "detail": "Native speaker",
+        "flag": "FR"
+      },
+      {
+        "name": "English",
+        "level": "C1/C2 Fluent",
+        "percent": 95,
+        "detail": "TEPITECH 945/990",
+        "flag": "GB"
+      },
+      {
+        "name": "Italian",
+        "level": "Conversational",
+        "percent": 60,
+        "detail": "Half Italian heritage",
+        "flag": "IT"
+      },
+      {
+        "name": "Korean",
+        "level": "A2 Elementary",
+        "percent": 40,
+        "detail": "Study abroad at Keimyung",
+        "flag": "KR"
+      }
     ]
   },
   "interests": {
@@ -370,32 +577,110 @@
     "title": "Photography",
     "subtitle": "Moments captured during my international year at Keimyung University, South Korea, and travels across Japan. Served as certified EPITECH Ambassador.",
     "photos": [
-      { "alt": "Seoul, South Korea", "caption": "A good meal in the heart of Seoul" },
-      { "alt": "Gyeongju, South Korea", "caption": "Autumn colors in the university campus" },
-      { "alt": "Daegu, South Korea", "caption": "trees in the university campus" },
-      { "alt": "Keimyung University, South Korea", "caption": "Entrance of the university" },
-      { "alt": "KMU, South Korea", "caption": "Taekwondo class" },
-      { "alt": "KMU, South Korea", "caption": "University church" },
-      { "alt": "KMU, South Korea", "caption": "University church" },
-      { "alt": "Kyoto, Japan", "caption": "Animal Rescue Coffee shop" },
-      { "alt": "Kyoto, South Korea", "caption": "Mermaid statue" },
-      { "alt": "Seoul, South Korea", "caption": "Stroll (feat: the sun)" },
-      { "alt": "Seoul, South Korea", "caption": "Seoul sightseeing" },
-      { "alt": "Seoul, South Korea", "caption": "Traditional korean Hanbok" },
-      { "alt": "Seoul, South Korea", "caption": "Lotte World" },
-      { "alt": "Seoul, South Korea", "caption": "mmmmmh barbapapa" },
-      { "alt": "Seoul, South Korea", "caption": "International friends" },
-      { "alt": "Seoul, South Korea", "caption": "Summer night and han river" },
-      { "alt": "Seoul, South Korea", "caption": "Library or Mall ? No one knows" },
-      { "alt": "Seoul, South Korea", "caption": "Traditional Korean Street" },
-      { "alt": "KMU, Daegu, South Korea", "caption": "Keimyung main building" },
-      { "alt": "Daegu, South Korea", "caption": "Spring awakening (feat: the rain)" },
-      { "alt": "Seoul, South Korea", "caption": "Korean Flag" },
-      { "alt": "Gyeongju, South Korea", "caption": "Historical sites in spring bloom" },
-      { "alt": "Seoul, South Korea", "caption": "Gardens and tranquility" },
-      { "alt": "Seoul, South Korea", "caption": "Those umbrella are not pointing the right way" },
-      { "alt": "Near Seoul, South Korea", "caption": "Meal with international student association" },
-      { "alt": "Seoul, South Korea", "caption": "One last Picnic with friends" }
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "A good meal in the heart of Seoul"
+      },
+      {
+        "alt": "Gyeongju, South Korea",
+        "caption": "Autumn colors in the university campus"
+      },
+      {
+        "alt": "Daegu, South Korea",
+        "caption": "trees in the university campus"
+      },
+      {
+        "alt": "Keimyung University, South Korea",
+        "caption": "Entrance of the university"
+      },
+      {
+        "alt": "KMU, South Korea",
+        "caption": "Taekwondo class"
+      },
+      {
+        "alt": "KMU, South Korea",
+        "caption": "University church"
+      },
+      {
+        "alt": "KMU, South Korea",
+        "caption": "University church"
+      },
+      {
+        "alt": "Kyoto, Japan",
+        "caption": "Animal Rescue Coffee shop"
+      },
+      {
+        "alt": "Kyoto, South Korea",
+        "caption": "Mermaid statue"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Stroll (feat: the sun)"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Seoul sightseeing"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Traditional korean Hanbok"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Lotte World"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "mmmmmh barbapapa"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "International friends"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Summer night and han river"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Library or Mall ? No one knows"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Traditional Korean Street"
+      },
+      {
+        "alt": "KMU, Daegu, South Korea",
+        "caption": "Keimyung main building"
+      },
+      {
+        "alt": "Daegu, South Korea",
+        "caption": "Spring awakening (feat: the rain)"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Korean Flag"
+      },
+      {
+        "alt": "Gyeongju, South Korea",
+        "caption": "Historical sites in spring bloom"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Gardens and tranquility"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "Those umbrella are not pointing the right way"
+      },
+      {
+        "alt": "Near Seoul, South Korea",
+        "caption": "Meal with international student association"
+      },
+      {
+        "alt": "Seoul, South Korea",
+        "caption": "One last Picnic with friends"
+      }
     ]
   },
   "contact": {

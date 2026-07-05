@@ -9,6 +9,15 @@ import { initAnimatedFavicon } from './core/animatedFavicon';
 import MetalShardCursor from './components/MetalShardCursor';
 import MetalLoadingScreen from './components/MetalLoadingScreen';
 import MetalNavbar from './components/MetalNavbar';
+import MetalHUD from './components/MetalHUD';
+import MetalProgressRail from './components/MetalProgressRail';
+import MetalCommandPalette from './components/MetalCommandPalette';
+import MetalAtlas from './components/MetalAtlas';
+import MetalShortcuts from './components/MetalShortcuts';
+import MetalLab from './components/MetalLab';
+import MetalLangPill from './components/MetalLangPill';
+import { NavProvider } from './core/navigation';
+import { useKeyboardNav } from './core/useKeyboardNav';
 import Dither from './components/Dither';
 import ErrorBoundary from './components/ErrorBoundary';
 import SEO from './components/SEO';
@@ -70,6 +79,7 @@ function useNavItems() {
 function V2PortfolioInner() {
   const navItems = useNavItems();
   const reducedMotion = useReducedMotion();
+  useKeyboardNav();
   const [loaded, setLoaded] = useState(() => {
     // Only skip the loader for users who explicitly opted into reduced motion
     // (accessibility). Everyone else sees the loader on every visit.
@@ -137,6 +147,13 @@ function V2PortfolioInner() {
       {!loaded && <MetalLoadingScreen onComplete={handleLoadingComplete} duration={2200} />}
 
       <MetalNavbar items={navItems} logo="DD" />
+      <MetalHUD />
+      <MetalProgressRail />
+      <MetalLangPill />
+      <MetalCommandPalette />
+      <MetalAtlas />
+      <MetalShortcuts />
+      <MetalLab />
       <main className="relative" style={{ zIndex: 1 }}>
         <Profiler id="Hero" onRender={onRender}><V2Hero /></Profiler>
         <div style={{ background: '#000000' }}>
@@ -199,7 +216,9 @@ export default function V2Portfolio() {
   return (
     <I18nextProvider i18n={v2i18n}>
       <MotionConfig reducedMotion="user">
-        <V2PortfolioInner />
+        <NavProvider>
+          <V2PortfolioInner />
+        </NavProvider>
       </MotionConfig>
     </I18nextProvider>
   );

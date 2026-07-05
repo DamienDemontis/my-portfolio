@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import MetalScrollReveal from '../components/MetalScrollReveal';
 import MetalShaderTitle from '../components/MetalShaderTitle';
+import MetalPortrait from '../components/MetalPortrait';
 const Lanyard = lazy(() => import('../components/Lanyard'));
 import MetalStatCard from '../components/MetalStatCard';
 import MetalDivider from '../components/MetalDivider';
@@ -18,15 +19,9 @@ export default function V2About() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const lanyardEl = (
-    <Suspense fallback={null}>
-      <Lanyard position={[0, 0, 8.5]} gravity={[0, -40, 0]} fov={40} />
-    </Suspense>
-  );
-
   return (
     <section id="about" className="metal-section" style={{ position: 'relative', overflowX: 'clip', overflowY: 'visible' }}>
-      {/* Desktop: absolute, left half, full height — right uses clamp to prevent overlap on narrow screens */}
+      {/* Desktop: the hanging 3D lanyard, left half. */}
       {isDesktop && (
         <div style={{
           position: 'absolute',
@@ -39,7 +34,9 @@ export default function V2About() {
           pointerEvents: 'none',
         }}>
           <div style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}>
-            {lanyardEl}
+            <Suspense fallback={null}>
+              <Lanyard position={[0, 0, 8.5]} gravity={[0, -40, 0]} fov={40} />
+            </Suspense>
           </div>
         </div>
       )}
@@ -51,6 +48,15 @@ export default function V2About() {
             <MetalShaderTitle className="text-[clamp(4rem,12vw,12rem)] tracking-wide leading-none">{t('about.title')}</MetalShaderTitle>
           </div>
         </MetalScrollReveal>
+
+        {/* Mobile only: the engraved portrait (desktop has the lanyard). */}
+        {!isDesktop && (
+          <MetalScrollReveal delay={0.1}>
+            <div className="mx-auto mb-10 max-w-[300px]">
+              <MetalPortrait src="/images/portrait.webp" alt="Damien Demontis" />
+            </div>
+          </MetalScrollReveal>
+        )}
 
         <div className="lg:ml-auto lg:max-w-[55%]">
           <MetalScrollReveal direction="right" delay={0.15}>

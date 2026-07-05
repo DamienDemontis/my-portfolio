@@ -67,9 +67,88 @@ html.metal-active::-webkit-scrollbar {
   display: inline-block;
 }
 
+/* ── Molten accent — THE one color of the site. Used sparingly: carets,
+   active markers, selection, focus. Never for large surfaces. ── */
+:root {
+  --metal-accent: #d4a24e;
+  --metal-accent-dim: #8a6b34;
+  --metal-accent-glow: rgba(212, 162, 78, 0.22);
+}
+
+::selection {
+  background: var(--metal-accent);
+  color: #0a0a0a;
+}
+
+*:focus-visible {
+  outline: 1px solid var(--metal-accent) !important;
+  outline-offset: 2px;
+}
+
+/* Portrait engraving dissolves into the photo on hover. */
+.metal-portrait:hover canvas {
+  opacity: 0 !important;
+}
+
+/* Medals catch the light on hover. */
+.metal-medal {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms ease;
+}
+.group:hover .metal-medal {
+  transform: rotate(-2deg) scale(1.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+    0 12px 28px rgba(0, 0, 0, 0.55), 0 0 20px var(--metal-accent-glow);
+}
+
+/* Project screenshots: engraved monochrome at rest, true colors on hover —
+   the same reveal language as the photography gallery. */
+.metal-project-img {
+  filter: grayscale(100%) contrast(1.1) brightness(0.6);
+  transition: filter 600ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .metal-project-img {
+  filter: grayscale(0%) contrast(1.02) brightness(0.92);
+}
+
+.metal-cta:hover {
+  border-color: var(--metal-accent-dim) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 28px rgba(0, 0, 0, 0.55),
+    0 0 18px var(--metal-accent-glow) !important;
+}
+
+.metal-lang-flag:hover {
+  filter: grayscale(0.3) brightness(0.85) contrast(1.05) !important;
+}
+
+/* Calendly ships white-only on free plans — invert the whole embed into the
+   theme. hue-rotate keeps the brand blues readable after inversion. */
+.metal-calendly-container {
+  filter: invert(0.915) hue-rotate(185deg) contrast(0.92) saturate(0.6);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #101010;
+}
+
 .metal-shader-title-text {
   position: relative;
   color: transparent;
+}
+
+/* ── Command palette (cmdk) ── */
+.metal-palette-item[data-selected='true'] {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f5f5f5;
+}
+.metal-palette-item[data-selected='true'] span {
+  color: inherit;
+}
+[cmdk-group-heading] {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 10px 12px 4px;
 }
 
 .metal-gallery-color-reveal {
