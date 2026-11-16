@@ -1,9 +1,9 @@
 import { MeshStandardMaterial, Vector3 } from "three";
-function n(o) {
+function hexToRgb01(o) {
   const e = (o || "#000000").replace("#", "");
   return [parseInt(e.slice(0, 2), 16) / 255, parseInt(e.slice(2, 4), 16) / 255, parseInt(e.slice(4, 6), 16) / 255];
 }
-function m({
+function makeDitherMaterial({
   transparent: o = !0,
   opacity: e = 0,
   pixel: i = 3,
@@ -22,10 +22,10 @@ function m({
         value: u
       },
       uColorLight: {
-        value: new Vector3(...n(c))
+        value: new Vector3(...hexToRgb01(c))
       },
       uColorDark: {
-        value: new Vector3(...n(f))
+        value: new Vector3(...hexToRgb01(f))
       }
     },
     r = new MeshStandardMaterial({
@@ -52,4 +52,4 @@ float ghostBayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0
         }`);
   }, r.userData.uniforms = t, r;
 }
-export { n, m };
+export { hexToRgb01, makeDitherMaterial };

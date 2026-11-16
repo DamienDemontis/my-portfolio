@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ACESFilmicToneMapping, Box3, LoopRepeat, SRGBColorSpace, Vector3 } from "three";
 import { Center, useAnimations, useGLTF } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
-import { m as mCore, n as nCore } from "./ditherMaterial.js";
+import { hexToRgb01, makeDitherMaterial } from "./ditherMaterial.js";
 const B = "/intro/Mecha_Full.glb";
 useGLTF.preload(B);
 const R = 1.15,
@@ -31,7 +31,7 @@ function K({
     {
       actions: M
     } = useAnimations(m, a),
-    l = React.useMemo(() => mCore({
+    l = React.useMemo(() => makeDitherMaterial({
       transparent: !1,
       pixel: e.pixel,
       gain: e.gain,
@@ -48,8 +48,8 @@ function K({
     n.uPixel.value = e.pixel, n.uGain.value = e.gain;
     const f = (L = t.current) == null ? void 0 : L.tint,
       b = 1 - Math.exp(-11 * Math.min(0.1, d)),
-      k = nCore(f || e.dark),
-      j = f ? nCore(f).map(z => 1 - z) : nCore(e.light);
+      k = hexToRgb01(f || e.dark),
+      j = f ? hexToRgb01(f).map(z => 1 - z) : hexToRgb01(e.light);
     _(n.uColorDark.value, k, b), _(n.uColorLight.value, j, b);
     const p = v.current;
     if (!p) return;
@@ -88,7 +88,7 @@ function N({
         length: a
       }, () => {
         const o = clone(e),
-          d = mCore();
+          d = makeDitherMaterial();
         o.traverse(f => {
           f.isMesh && (f.material = d, f.frustumCulled = !1, f.castShadow = !1, f.receiveShadow = !1);
         });
@@ -124,7 +124,7 @@ function N({
       const k = t.jitter;
       n.obj.position.set(((b + 1) * t.offsetX + (Math.random() * 2 - 1) * k) / i, ((b + 1) * t.offsetY + (Math.random() * 2 - 1) * k) / i, ((b + 1) * t.offsetZ + (Math.random() * 2 - 1) * k) / i);
       const j = n.mat.userData.uniforms;
-      j.uPixel.value = s.pixel, j.uGain.value = t.gain, j.uColorLight.value.set(...nCore(t.light || s.light)), j.uColorDark.value.set(...nCore(t.dark || s.dark)), j.uOpacity.value = t.opacity, n.obj.visible = !0, n.bornAt = u, n.active = !0;
+      j.uPixel.value = s.pixel, j.uGain.value = t.gain, j.uColorLight.value.set(...hexToRgb01(t.light || s.light)), j.uColorDark.value.set(...hexToRgb01(t.dark || s.dark)), j.uOpacity.value = t.opacity, n.obj.visible = !0, n.bornAt = u, n.active = !0;
     }
     for (const n of c) {
       if (!n.active) continue;

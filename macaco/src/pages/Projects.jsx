@@ -1,7 +1,10 @@
-import '../styles/projects.css'
+import { AppLink } from "../components/Nav.jsx";
+import { canHover, useIsCoarsePointer } from "../lib/device.js";
+import { getAllCases, UseSeo } from "../seo/Seo.jsx";
+import { useAccent } from "../state/accent.jsx";
+import '../styles/projects.css';
 import React from "react";
 import { useParams } from "react-router-dom";
-import { $n, AppLink, canHover, useAccent, useIsCoarsePointer, UseSeo } from "../app-core.jsx";
 import { useCanHover } from "../hooks/useCanHover.js";
 import { useTranslation } from "react-i18next";
 const Z = `
@@ -251,7 +254,7 @@ function Strip() {
     {
       t: u
     } = useTranslation(),
-    d = React.useMemo(() => re($n(l)), [l]),
+    d = React.useMemo(() => re(getAllCases(l)), [l]),
     {
       setAccent: p
     } = useAccent(),

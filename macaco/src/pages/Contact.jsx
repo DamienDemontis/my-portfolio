@@ -1,7 +1,8 @@
-import '../styles/contact.css'
+import { SITE } from "../content/site.js";
+import { UseSeo } from "../seo/Seo.jsx";
+import '../styles/contact.css';
 import React from "react";
 import { useParams } from "react-router-dom";
-import { SITE, UseSeo } from "../app-core.jsx";
 import { Trans, useTranslation } from "react-i18next";
 import { useFitHeading } from "../hooks/useFitHeading.js";
 const R = "info@studiomacaco.ch",

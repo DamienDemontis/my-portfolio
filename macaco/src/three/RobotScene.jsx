@@ -1,11 +1,13 @@
+import { fireIntroShake, introExitCamProgress, introScrollDurationMs } from "../components/intro/Intro.jsx";
+import { config, LIGHT_RIG, powerBodyEnvelope, powerVortexEnvelope, stopGlitch } from "../config.js";
+import { findExitShot, onSceneRefresh } from "../lib/shared.js";
 import React from "react";
 import { ACESFilmicToneMapping, AddEquation, Box3, Color, CustomBlending, CylinderGeometry, DoubleSide, LoopOnce, LoopRepeat, Mesh, MeshBasicMaterial, OneFactor, SRGBColorSpace, Vector3 } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Center, Environment, Lightformer, PerformanceMonitor, useAnimations, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
-import { $a, config, Fn, Ha, La, qn, Un, Vn, Wn, Ya } from "../app-core.jsx";
-import { m as mCore, n as nCore } from "./ditherMaterial.js";
+import { hexToRgb01, makeDitherMaterial } from "./ditherMaterial.js";
 function _e(t) {
   if (!t || !t.isMeshStandardMaterial) return null;
   if (t.userData.powerUniforms) return t.userData.powerUniforms;
@@ -205,7 +207,7 @@ function Re() {
     }, []);
   return useFrame(o => {
     const e = config.power,
-      r = Vn($a()),
+      r = powerVortexEnvelope(introScrollDurationMs()),
       c = o.clock.elapsedTime;
     i.forEach((a, l) => {
       const s = a.material.userData.uniforms,
@@ -240,7 +242,7 @@ function Oe({
           length: Z
         }, () => {
           const l = clone(t),
-            s = mCore();
+            s = makeDitherMaterial();
           l.traverse(p => {
             p.isMesh && (p.material = s, p.frustumCulled = !1, p.castShadow = !1, p.receiveShadow = !1);
           });
@@ -279,7 +281,7 @@ function Oe({
         I.position.copy(C.position), I.quaternion.copy(C.quaternion), I.scale.copy(C.scale);
       }
       const P = a.jitter;
-      s.obj.position.set(((p + 1) * a.offsetX + (Math.random() * 2 - 1) * P) / i, ((p + 1) * a.offsetY + (Math.random() * 2 - 1) * P) / i, ((p + 1) * a.offsetZ + (Math.random() * 2 - 1) * P) / i), s.mat.userData.uniforms.uPixel.value = a.ditherPx, s.mat.userData.uniforms.uGain.value = a.gain, s.mat.userData.uniforms.uColorLight.value.set(...nCore(a.colorLight)), s.mat.userData.uniforms.uColorDark.value.set(...nCore(a.colorDark)), s.mat.userData.uniforms.uOpacity.value = 1, s.obj.visible = !0, s.bornAt = l, s.state = "active";
+      s.obj.position.set(((p + 1) * a.offsetX + (Math.random() * 2 - 1) * P) / i, ((p + 1) * a.offsetY + (Math.random() * 2 - 1) * P) / i, ((p + 1) * a.offsetZ + (Math.random() * 2 - 1) * P) / i), s.mat.userData.uniforms.uPixel.value = a.ditherPx, s.mat.userData.uniforms.uGain.value = a.gain, s.mat.userData.uniforms.uColorLight.value.set(...hexToRgb01(a.colorLight)), s.mat.userData.uniforms.uColorDark.value.set(...hexToRgb01(a.colorDark)), s.mat.userData.uniforms.uOpacity.value = 1, s.obj.visible = !0, s.bornAt = l, s.state = "active";
     }
     for (const s of o) {
       if (s.state !== "active") continue;
@@ -369,7 +371,7 @@ function Le({
     const d = n.idle,
       m = f => {
         var y;
-        f.action === n.descent && d && (d.reset().play(), f.action.crossFadeTo(d, 0.4, !1), qn(), l.current && (l.current = !1, Ha(), (y = p.current) == null || y.call(p)));
+        f.action === n.descent && d && (d.reset().play(), f.action.crossFadeTo(d, 0.4, !1), stopGlitch(), l.current && (l.current = !1, fireIntroShake(), (y = p.current) == null || y.call(p)));
       };
     return a.addEventListener("finished", m), () => a.removeEventListener("finished", m);
   }, [n, a]), useFrame(d => {
@@ -379,7 +381,7 @@ function Le({
       y = n.descent,
       h = n.idle,
       A = m && f && y && h,
-      L = $a();
+      L = introScrollDurationMs();
     let k = "",
       B = -1 / 0;
     for (const w of config.cameraShots) w.anim && w.at <= L && w.at >= B && (B = w.at, k = w.anim);
@@ -387,7 +389,7 @@ function Le({
       const w = k === "descent" ? B + y.getClip().duration * 1e3 : 1 / 0;
       if (config.scrollDriven && !0 && L >= w) {
         for (const b of [m, f, y]) b.enabled = !1, b.setEffectiveWeight(0);
-        h.enabled = !0, h.setEffectiveWeight(1), h.paused = !1, (!h.isRunning() || s.current !== "idle") && h.reset().play(), s.current = "idle", qn();
+        h.enabled = !0, h.setEffectiveWeight(1), h.paused = !1, (!h.isRunning() || s.current !== "idle") && h.reset().play(), s.current = "idle", stopGlitch();
       } else {
         const b = k ? n[k] : m;
         for (const _ of [m, f, y, h]) _ !== b && (_.enabled = !1, _.setEffectiveWeight(0));
@@ -405,13 +407,13 @@ function Le({
       F = Math.max(0, w) * 2.6;
     } else F = 2.2 + Math.sin(H * 2) * 0.15;
     for (const w of S) w.emissiveIntensity += (F - w.emissiveIntensity) * 0.4;
-    if (A && l.current && y.isRunning() && y.time >= config.shake.atFrame / He && (l.current = !1, Ha(), (q = p.current) == null || q.call(p)), I) {
+    if (A && l.current && y.isRunning() && y.time >= config.shake.atFrame / He && (l.current = !1, fireIntroShake(), (q = p.current) == null || q.call(p)), I) {
       I.getWorldPosition(W);
       const w = config.robotCenter;
       w[0] = W.x, w[1] = W.y, w[2] = W.z;
     }
     if (C.length) {
-      const w = Fn($a()),
+      const w = powerBodyEnvelope(introScrollDurationMs()),
         V = d.clock.elapsedTime,
         b = config.power.color,
         _ = config.power.intensity,
@@ -439,9 +441,9 @@ function N(t, i, o = 1 / 0) {
   return e;
 }
 function Ge(t, i, o, e) {
-  const r = Ya();
+  const r = introExitCamProgress();
   if (r <= 0) return e;
-  const c = Un(t);
+  const c = findExitShot(t);
   if (!c) return e;
   const n = ie(r);
   return i.lerp(ne.set(...c.pos), n), o.lerp(se.set(...c.look), n), e + (c.fov - e) * n;
@@ -470,7 +472,7 @@ function Qe() {
     camera: o,
     clock: e
   }) => {
-    const r = $a(),
+    const r = introScrollDurationMs(),
       c = Ne(config.cameraShots, r, $, ee);
     config.shakeFireId !== i.current && (i.current = config.shakeFireId, t.current = e.elapsedTime), O.set(0, 0, 0);
     const n = config.shake,
@@ -494,16 +496,16 @@ function Xe() {
     scene: i
   }) => {
     const o = config.cameraShots,
-      e = (o[N(o, $a())] || o[0]).lights;
+      e = (o[N(o, introScrollDurationMs())] || o[0]).lights;
     if (!e) return;
     const r = 0.08;
-    for (const c of La) {
+    for (const c of LIGHT_RIG) {
       const n = t.current[c.id],
         a = e[c.id];
       !n || !a || (n.intensity += (a.intensity - n.intensity) * r, n.color.lerp(Ve.set(a.color), r), a.pos && n.position && n.position.lerp(Ue.set(a.pos[0], a.pos[1], a.pos[2]), r));
     }
     i.environmentIntensity += (e.env - i.environmentIntensity) * r;
-  }), <>{La.map(i => {
+  }), <>{LIGHT_RIG.map(i => {
       const o = r => t.current[i.id] = r,
         e = config.cameraShots[0].lights[i.id];
       return i.type === "ambient" ? <ambientLight ref={o} color={e.color} intensity={e.intensity} key={i.id} /> : i.type === "point" ? <pointLight ref={o} color={e.color} position={e.pos} intensity={e.intensity} distance={6} decay={2} key={i.id} /> : <directionalLight ref={o} color={e.color} position={e.pos} intensity={e.intensity} key={i.id} />;
@@ -511,7 +513,7 @@ function Xe() {
 }
 function Ye() {
   const [, t] = React.useState(0);
-  React.useEffect(() => Wn(() => t(e => e + 1)), []);
+  React.useEffect(() => onSceneRefresh(() => t(e => e + 1)), []);
   const i = config.post,
     o = [];
   return o.push(<Bloom intensity={i.bloomIntensity} luminanceThreshold={i.bloomThreshold} luminanceSmoothing={i.bloomSmoothing} radius={i.bloomRadius} mipmapBlur={!0} key="bloom" />), o.push(<Vignette darkness={i.vignetteDarkness} offset={i.vignetteOffset} key="vig" />), o.length ? <EffectComposer disableNormalPass={!0} multisampling={0}>{o}</EffectComposer> : null;

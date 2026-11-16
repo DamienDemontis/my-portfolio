@@ -1,7 +1,9 @@
-import '../styles/laboratory.css'
+import { MaskedSvg } from "../components/intro/Intro.jsx";
+import { canHover, PIXEL_BUDGET, pixelRatioFor } from "../lib/device.js";
+import { UseSeo } from "../seo/Seo.jsx";
+import '../styles/laboratory.css';
 import React from "react";
 import { useParams } from "react-router-dom";
-import { canHover, PIXEL_BUDGET, pixelRatioFor, UseSeo, W as WCore } from "../app-core.jsx";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 function U({
@@ -333,7 +335,7 @@ function LhudBox2() {
     }}>{"TELEMETRY"}</div><LhudMeter label="SIGNAL" base={96} /><LhudMeter label="THRUST" base={72} /><LhudMeter label="SYNC" base={99} /><LhudMeter label="SHIELD" base={88} /></div>;
 }
 function LhudDim() {
-  return <><WCore src="barcode.svg" color="rgba(247, 247, 240, 0.7)" size="contain" style={{
+  return <><MaskedSvg src="barcode.svg" color="rgba(247, 247, 240, 0.7)" size="contain" style={{
       width: 110,
       height: 26
     }} /><div className="lhud-dim" style={{
@@ -343,10 +345,10 @@ function LhudDim() {
 function LabHud({
   compact: a = !1
 }) {
-  return <motion.div className="lab-hud" aria-hidden={!0} variants={G} initial="hidden" animate="show"><span className="lab-hud__corner lab-hud__corner--tl" /><span className="lab-hud__corner lab-hud__corner--tr" /><span className="lab-hud__corner lab-hud__corner--bl" /><span className="lab-hud__corner lab-hud__corner--br" /><motion.div className="lab-hud__mark lab-hud__mark--l" variants={b}><WCore src="crosshair.svg" color="rgba(255,255,255,0.5)" size="contain" style={{
+  return <motion.div className="lab-hud" aria-hidden={!0} variants={G} initial="hidden" animate="show"><span className="lab-hud__corner lab-hud__corner--tl" /><span className="lab-hud__corner lab-hud__corner--tr" /><span className="lab-hud__corner lab-hud__corner--bl" /><span className="lab-hud__corner lab-hud__corner--br" /><motion.div className="lab-hud__mark lab-hud__mark--l" variants={b}><MaskedSvg src="crosshair.svg" color="rgba(255,255,255,0.5)" size="contain" style={{
         width: "100%",
         height: "100%"
-      }} /></motion.div><motion.div className="lab-hud__mark lab-hud__mark--r" variants={b}><WCore src="crosshair.svg" color="rgba(255,255,255,0.5)" size="contain" style={{
+      }} /></motion.div><motion.div className="lab-hud__mark lab-hud__mark--r" variants={b}><MaskedSvg src="crosshair.svg" color="rgba(255,255,255,0.5)" size="contain" style={{
         width: "100%",
         height: "100%"
       }} /></motion.div><span className="lab-hud__scan" />{!a && <motion.div className="lab-hud__panel lab-hud__panel--tl" variants={b}><LhudTitle /></motion.div>}{!a && <motion.div className="lab-hud__panel lab-hud__panel--tr" variants={b}><LhudBox /></motion.div>}{!a && <motion.div className="lab-hud__panel lab-hud__panel--bl" variants={b}><LhudBox2 /></motion.div>}{!a && <motion.div className="lab-hud__panel lab-hud__panel--br" variants={b}><LhudDim /></motion.div>}<motion.div className="lab-hud__panel lab-hud__panel--stream" variants={b}><LhudStream /></motion.div></motion.div>;

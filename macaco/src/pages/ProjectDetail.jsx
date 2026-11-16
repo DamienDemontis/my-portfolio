@@ -1,11 +1,17 @@
-import '../styles/project-detail.css'
+import { AppLink } from "../components/Nav.jsx";
+import { usePageTransition } from "../components/PageTransition.jsx";
+import { canHover, useIsCoarsePointer } from "../lib/device.js";
+import { getMaxScroll, getScrollTop, scrollToTop } from "../lib/scroll.js";
+import { hexToRgbScaled } from "../lib/shared.js";
+import { getAdjacentCase, getCaseBySlug, UseSeo } from "../seo/Seo.jsx";
+import { useAccent } from "../state/accent.jsx";
+import '../styles/project-detail.css';
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppLink, canHover, getMaxScroll, getScrollTop, Je, Kn, on, scrollToTop, useAccent, useIsCoarsePointer, usePageTransition, UseSeo } from "../app-core.jsx";
 import { CaseSections } from "../components/case-detail/CaseSectionRenderer.jsx";
 import { useFitHeading } from "../hooks/useFitHeading.js";
 import { useTranslation } from "react-i18next";
-import { ie } from "../components/case-detail/CaseVideoPlayer.jsx";
+import { useIsTabletDown } from "../components/case-detail/CaseVideoPlayer.jsx";
 function CdNext({
   next: n,
   progress: a = 0
@@ -423,7 +429,7 @@ function Oe({
     [S, P] = React.useState(0),
     R = React.useRef(0),
     [T] = React.useState(() => typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches),
-    d = ie(),
+    d = useIsTabletDown(),
     s = useIsCoarsePointer(),
     l = d || s;
   return React.useEffect(() => {
@@ -431,7 +437,7 @@ function Oe({
     const u = A.current;
     if (!u) return;
     const j = re(Pe),
-      y = a ? Je(a) : re(je),
+      y = a ? hexToRgbScaled(a) : re(je),
       w = {
         x: 0.5,
         y: 0.5,
@@ -559,8 +565,8 @@ function Cd() {
     } = useTranslation(),
     A = useNavigate(),
     E = usePageTransition(),
-    o = on(a, n),
-    S = Kn(a, n),
+    o = getCaseBySlug(a, n),
+    S = getAdjacentCase(a, n),
     {
       setAccent: P
     } = useAccent(),

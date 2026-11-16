@@ -1,12 +1,12 @@
+import { MEDIA_QUERIES } from "../../lib/device.js";
 import React from "react";
-import { CaseVideoPlayerFrame, Q as QCore } from "./CaseVideoPlayer.jsx";
-import { ka } from "../../app-core.jsx";
+import { CaseVideoPlayerFrame, useMediaQuery } from "./CaseVideoPlayer.jsx";
 import { useFitHeading } from "../../hooks/useFitHeading.js";
 function A({
   children: e
 }) {
-  const a = QCore(ka.desktopUp),
-    t = QCore("(prefers-reduced-motion: reduce)"),
+  const a = useMediaQuery(MEDIA_QUERIES.desktopUp),
+    t = useMediaQuery("(prefers-reduced-motion: reduce)"),
     o = a && !t,
     d = React.useRef(null),
     [f, h] = React.useState(!1);
@@ -39,7 +39,7 @@ function T() {
 function F() {
   const [e, a] = React.useState(!1);
   return React.useEffect(() => {
-    const t = window.matchMedia(ka.desktopUp),
+    const t = window.matchMedia(MEDIA_QUERIES.desktopUp),
       o = window.matchMedia("(pointer: fine)"),
       d = window.matchMedia("(prefers-reduced-motion: reduce)"),
       f = () => {

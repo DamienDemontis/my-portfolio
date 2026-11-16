@@ -1,7 +1,7 @@
-import '../../styles/case-video-player.css'
+import { MEDIA_QUERIES } from "../../lib/device.js";
+import '../../styles/case-video-player.css';
 import React from "react";
-import { ka } from "../../app-core.jsx";
-function Q(t) {
+function useMediaQuery(t) {
   const [m, h] = React.useState(() => typeof window < "u" && window.matchMedia(t).matches);
   return React.useEffect(() => {
     const l = window.matchMedia(t),
@@ -9,11 +9,11 @@ function Q(t) {
     return p(), l.addEventListener("change", p), () => l.removeEventListener("change", p);
   }, [t]), m;
 }
-function oe() {
-  return Q(`${ka.mobileDown}, ${ka.tabletDown} and ${ka.narrowAspect}`);
+function useCompactViewport() {
+  return useMediaQuery(`${MEDIA_QUERIES.mobileDown}, ${MEDIA_QUERIES.tabletDown} and ${MEDIA_QUERIES.narrowAspect}`);
 }
-function ie() {
-  return Q(ka.tabletDown);
+function useIsTabletDown() {
+  return useMediaQuery(MEDIA_QUERIES.tabletDown);
 }
 const K = 2800;
 function H(t) {
@@ -221,4 +221,4 @@ function CaseVideoPlayerFrame({
             "--volume-value": `${Math.round((x ? 0 : S) * 100)}%`
           }} /></div><div className="case-video-player__controls"><div className="case-video-player__controls-group"><button type="button" className="case-video-player__text-button" onClick={k} aria-label={u ? "Pause video" : "Play video"}>{u ? "PAUSE" : "PLAY"}</button><div className="case-video-player__time" aria-live="off"><span>{H(N)}</span><span>{"/"}</span><span>{H(d)}</span></div></div><div className="case-video-player__controls-group case-video-player__controls-group--end"><button type="button" className="case-video-player__icon-button" onClick={U} aria-label={x ? "Unmute video" : "Mute video"}>{x ? "MUTE" : "VOL"}</button><button type="button" className="case-video-player__icon-button" onClick={q} aria-label={I ? "Exit fullscreen" : "Enter fullscreen"}>{I ? "MIN" : "FULL"}</button></div></div></div></div></section>;
 }
-export { CaseVideoPlayerFrame, ie, Q, oe };
+export { CaseVideoPlayerFrame, useIsTabletDown, useMediaQuery, useCompactViewport };

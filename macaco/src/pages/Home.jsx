@@ -1,8 +1,16 @@
-import '../styles/home.css'
+import { DitherFill } from "../components/DitherFill.jsx";
+import { AppLink } from "../components/Nav.jsx";
+import { MaskedSvg, SCROLL_SPAN_SVH, si } from "../components/intro/Intro.jsx";
+import { SOCIAL_LINKS } from "../content/site.js";
+import { canHover, isCoarsePointer, useIsCoarsePointer } from "../lib/device.js";
+import { getMaxScroll, getOffsetTop, getScrollContainer, getScrollRoot, getScrollTop, getViewportHeight, onScroll, scrollRootTo } from "../lib/scroll.js";
+import { ci, hexToRgbTriplet, li, STAGE_HEIGHT_SVH } from "../lib/shared.js";
+import { buildSeoData, getFeaturedCases, UseSeo } from "../seo/Seo.jsx";
+import { useAccent } from "../state/accent.jsx";
+import '../styles/home.css';
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Aa, AppLink, Bn, buildSeoData, canHover, ci, DitherFill, getMaxScroll, getOffsetTop, getScrollRoot, getScrollTop, getViewportHeight, Gn, isCoarsePointer, li, lt as ltCore, Pn, si, SOCIAL_LINKS, Ta, useAccent, useIsCoarsePointer, UseSeo, W as WCore, Yn } from "../app-core.jsx";
-import { CaseVideoPlayerFrame, ie, oe as oeCore } from "../components/case-detail/CaseVideoPlayer.jsx";
+import { CaseVideoPlayerFrame, useCompactViewport, useIsTabletDown } from "../components/case-detail/CaseVideoPlayer.jsx";
 import { useTranslation } from "react-i18next";
 import { useCanHover } from "../hooks/useCanHover.js";
 import { useMotionValue } from "framer-motion";
@@ -39,7 +47,7 @@ function Be(s, c) {
         l || (l = requestAnimationFrame(b));
       };
     u(i());
-    const t = ltCore(m);
+    const t = onScroll(m);
     return () => {
       l && cancelAnimationFrame(l), t();
     };
@@ -138,7 +146,7 @@ function We(s, c, {
       L = () => {
         document.hidden && T();
       },
-      V = ltCore(P),
+      V = onScroll(P),
       $ = {
         passive: !0
       };
@@ -655,8 +663,8 @@ function Craft() {
     } = useTranslation(),
     c = React.useRef(null),
     h = React.useRef(null),
-    w = oeCore(),
-    R = ie(),
+    w = useCompactViewport(),
+    R = useIsTabletDown(),
     E = useIsCoarsePointer(),
     l = R || E,
     i = Be(c);
@@ -668,7 +676,7 @@ function Craft() {
         }}><span>{s("home.craftLine1", "WE CRAFT")}</span><span>{s("home.craftLine2", "INCREDIBLE THINGS")}</span></h2><span className="craft__readout craft-glitch-in" style={{
           "--s": 0.42,
           "--r": 0.12
-        }}>{"show_reel"}{"{"}{"time!"}{"}"}</span><WCore src="barcode.svg" color="#0a0a0a" size="auto 100%" className="craft__barcode craft-glitch-in" style={{
+        }}>{"show_reel"}{"{"}{"time!"}{"}"}</span><MaskedSvg src="barcode.svg" color="#0a0a0a" size="auto 100%" className="craft__barcode craft-glitch-in" style={{
           "--s": 0.48,
           "--r": 0.12
         }} /><span className="craft__comet craft-glitch-in" style={{
@@ -868,7 +876,7 @@ void main(){
         var x;
         E.current.set(i, {
           src: u,
-          accentRgb: Ta(b || "#feff00"),
+          accentRgb: hexToRgbTriplet(b || "#feff00"),
           onReveal: m,
           onProgress: t,
           revealed: !1,
@@ -1117,8 +1125,8 @@ function CasesTrack() {
     {
       t: c
     } = useTranslation(),
-    h = React.useMemo(() => Yn(s), [s]),
-    w = oeCore(),
+    h = React.useMemo(() => getFeaturedCases(s), [s]),
+    w = useCompactViewport(),
     R = useCanHover(),
     E = React.useMemo(() => js(h, w ? 1 : 2), [h, w]),
     l = React.useRef(null),
@@ -1430,7 +1438,7 @@ function Rstage() {
   React.useEffect(() => {
     const g = c.current;
     if (!g || typeof IntersectionObserver > "u") return;
-    const _ = Bn(),
+    const _ = getScrollContainer(),
       M = new IntersectionObserver(([v]) => b(v.isIntersecting), {
         root: _,
         rootMargin: "150% 0px"
@@ -1444,7 +1452,7 @@ function Rstage() {
     };
   }, []);
   const x = useIsCoarsePointer(),
-    N = ie(),
+    N = useIsTabletDown(),
     I = useCanHover();
   React.useEffect(() => {
     I || i();
@@ -1454,7 +1462,7 @@ function Rstage() {
   const p = React.useMemo(() => Math.min(typeof window < "u" && window.devicePixelRatio || 1, isCoarsePointer() ? Bs : Gs), []),
     o = N ? Os : ct,
     S = ct.length - 1,
-    P = it + S * lt + dt + Pn,
+    P = it + S * lt + dt + SCROLL_SPAN_SVH,
     r = it / P,
     H = lt / P,
     O = r + S * H,
@@ -1490,7 +1498,7 @@ function Rstage() {
   Be(c, k);
   const D = React.useMemo(() => [r * Hs, ...Array.from({
     length: S
-  }, (g, _) => r + (_ + Us) * H), O + L * Ls, O + L + Vs * Pn / P], [r, H, S, O, L, P]);
+  }, (g, _) => r + (_ + Us) * H), O + L * Ls, O + L + Vs * SCROLL_SPAN_SVH / P], [r, H, S, O, L, P]);
   return We(c, D, {
     resolve: !0,
     range: 0.3
@@ -1498,7 +1506,7 @@ function Rstage() {
     const _ = c.current;
     if (!_) return;
     const M = D[Math.max(0, Math.min(D.length - 1, g))];
-    Aa({
+    scrollRootTo({
       top: getOffsetTop(_) + M * (_.offsetHeight - getViewportHeight()),
       behavior: "auto"
     });
@@ -1559,7 +1567,7 @@ function Mcf() {
     l = React.useRef(null),
     i = useMotionValue(0),
     [u, b] = React.useState(!1),
-    m = ie(),
+    m = useIsTabletDown(),
     t = useIsCoarsePointer(),
     x = m || t,
     N = React.useRef(x);
@@ -1629,14 +1637,14 @@ function Mcf() {
         r || (r = requestAnimationFrame($));
       };
     V(L());
-    const D = ltCore(k);
+    const D = onScroll(k);
     return () => {
       r && cancelAnimationFrame(r), D(), O && window.dispatchEvent(new CustomEvent(mt, {
         detail: !1
       }));
     };
   }, [i]);
-  const T = `${Gn}svh`;
+  const T = `${STAGE_HEIGHT_SVH}svh`;
   return <footer className="mcf" ref={h} style={{
     "--mcf-track": T
   }}><div className="mcf__pin" ref={w} data-live="0"><div className="mcf__layers" ref={R} aria-hidden="true"><div className="mcf__field" />{u && !x && <DitherFill fill={i} className="mcf__cover" />}</div><div className="mcf__inner" ref={E}><span className="mcf__mark craft-glitch-in" style={{

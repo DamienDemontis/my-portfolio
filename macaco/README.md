@@ -35,27 +35,55 @@ Les vidéos des case studies (~1 Go) ne sont pas rapatriées par défaut :
 ```
 src/
   main.jsx                      point d'entrée
-  app-core.jsx                  shell : routeur, i18n, nav, curseur, intro, footer, SEO
+  App.jsx                       routeur : redirection de langue, gabarit /:lang, pages en lazy
+  config.js                     scroll, caméras, lumières, post-traitement
+  components/
+    Cursor.jsx                  curseur personnalisé
+    DitherFill.jsx              remplissage dithéré WebGL (bayer 8x8 + fbm)
+    Nav.jsx                     navigation, lien applicatif, panneau mobile
+    PageTransition.jsx          contexte + voile de transition entre pages
+    ScrollProgress.jsx          barre de progression et bandeau rayé
+    SiteDither.jsx              voile dithéré plein écran
+    intro/Intro.jsx             hero : bandes, titre glitché, décors
+    intro/Hud.jsx               panneaux HUD du hero
+    case-detail/                CaseSectionRenderer, CaseVideoPlayer
   pages/                        Home, Projects, ProjectDetail, Laboratory, Contact, DevSections
-  components/case-detail/       CaseSectionRenderer, CaseVideoPlayer
   three/                        RobotScene, CityScene, RobotStage, CaseDeviceScene, ditherMaterial
-  hooks/                        useCanHover, useFitHeading
-  content/caseHistories.js      les 25 case studies
+  seo/Seo.jsx                   titres, metas, hreflang, Open Graph, JSON-LD
+  i18n/index.js                 langues et init i18next
   i18n/locales/{en,it}.json     traductions
+  content/caseHistories.js      les 25 case studies
+  content/site.js               identité du studio et liens sociaux
+  features/measure/measure.js   GA4, chargé après consentement
+  lib/                          device, scroll, shared
+  state/accent.jsx              couleur d'accent courante
+  hooks/                        useCanHover, useFitHeading
   styles/                       CSS d'origine, une feuille par chunk
 ```
+
+Le graphe d'imports est acyclique : `lib/` et `content/` ne dépendent d'aucun
+module de feature.
 
 Pile : Vite + React 18, react-router 6, i18next, framer-motion,
 three r171 + @react-three/fiber / drei / postprocessing.
 
 ## Limites connues
 
-- `app-core.jsx` regroupe encore plusieurs responsabilités (nav, curseur, intro,
-  footer, SEO). Le découpage par fichier du projet d'origine n'est pas
-  déductible du bundle : Vite les avait concaténés.
-- Les noms internes non exportés restent ceux du minifieur (`Ta`, `qn`, …).
-  Les composants ont été renommés d'après leur classe CSS racine, les symboles
-  publics d'après leur usage.
+- Le découpage en modules est **reconstitué**, pas repris du projet d'origine :
+  Vite avait tout concaténé dans un chunk. Les frontières suivent le graphe de
+  dépendances, et les noms de fichiers les chemins que les commentaires du
+  build laissaient voir (`src/features/measure/measure.js`, `src/seo/Seo.jsx`,
+  `src/content/caseHistories.js`).
+- Les symboles publics (ce qu'un module exporte) sont nommés d'après leur
+  usage ; les composants d'après leur classe CSS racine. Les variables locales
+  non exportées gardent les noms du minifieur (`Ka`, `rn`, …).
+- Quelques constantes de timing du hero (`si`, `li`, `ci`) restent minifiées :
+  leur rôle exact n'est pas déductible du bundle, et un nom approximatif
+  serait pire que pas de nom.
+- `lib/shared.js` est un fourre-tout assumé : ce que plusieurs modules
+  utilisent sans qu'un propriétaire évident se dégage.
+- `onSceneRefresh` est un registre d'abonnés que plus rien ne déclenche dans
+  le build livré — le panneau de réglages qui l'alimentait a été tree-shaké.
 - Le markup `index.html` conserve la configuration iubenda et l'ID de site du
   client : à retirer avant toute réutilisation.
 - Les blocs SEO `data-seo` du HTML déployé ont été retirés : ils sont générés

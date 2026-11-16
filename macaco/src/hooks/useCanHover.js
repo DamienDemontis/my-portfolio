@@ -1,5 +1,5 @@
+import { canHover, HOVER_QUERY } from "../lib/device.js";
 import React from "react";
-import { canHover, HOVER_QUERY } from "../app-core.jsx";
 function useCanHover() {
   const [n, o] = React.useState(canHover);
   return React.useEffect(() => {

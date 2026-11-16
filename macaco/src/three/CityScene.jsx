@@ -1,8 +1,10 @@
+import { introExitCamProgress, introScrollDurationMs } from "../components/intro/Intro.jsx";
+import { config } from "../config.js";
+import { onSceneRefresh } from "../lib/shared.js";
 import React from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ACESFilmicToneMapping, BoxGeometry, DoubleSide, DynamicDrawUsage, InstancedBufferAttribute, InstancedMesh, MeshBasicMaterial, Object3D, PlaneGeometry, SRGBColorSpace, Vector3 } from "three";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { $a, config, Wn, Ya } from "../app-core.jsx";
 const x = 400;
 function h(a) {
   const e = (a || "#000000").replace("#", "");
@@ -244,11 +246,11 @@ function U() {
       const f = h(t.fogColor);
       a.fog.color.setRGB(f[0], f[1], f[2]), a.fog.near = t.fogNear, a.fog.far = t.fogFar;
     }
-    const l = $a(),
+    const l = introScrollDurationMs(),
       s = Math.max(0, Math.min(1, (l - t.genStartMs) / Math.max(1, t.genEndMs - t.genStartMs))),
       i = r.material.userData.uniforms;
     i.uTime.value = o.clock.elapsedTime, i.uGen.value = s, i.uStagger.value = t.genStagger, i.uHeroOff.value = t.heroDelay, i.uGroundY.value = t.groundY, i.uMaxH.value = t.maxH, i.uGlowWidth.value = t.glowWidth, i.uGlowIntensity.value = t.glowIntensity, i.uGlowColor.value.set(...h(t.glowColor)), i.uIrid.value = 1, i.uIridSpeed.value = t.iridSpeed, i.uIridScale.value = t.iridScale, i.uFogColor.value.set(...h(t.baseFogColor)), i.uFogHeight.value = t.baseFogHeight, i.uFogIntensity.value = t.baseFogIntensity, i.uTurnOn.value = s, i.uWindowSize.value = t.windowSize, i.uDensity.value = t.windowDensity, i.uMargin.value = t.windowMargin, i.uFlicker.value = t.flicker, i.uBright.value = t.brightness, i.uDitherPx.value = t.ditherPx, i.uBlend.value = t.blend;
-    const c = Ya();
+    const c = introExitCamProgress();
     i.uBuilding.value.set(...p(t.buildingColor, t.exitBuildingColor, c)), i.uColorA.value.set(...p(t.colorA, t.exitColorA, c)), i.uColorB.value.set(...p(t.colorB, t.exitColorB, c)), i.uColorC.value.set(...p(t.colorC, t.exitColorC, c));
   }), <primitive object={r} />;
 }
@@ -372,7 +374,7 @@ function Q() {
   return useFrame(n => {
     const o = config.city;
     a.current !== config.cityVersion && (a.current = config.cityVersion, u());
-    const t = $a(),
+    const t = introScrollDurationMs(),
       l = Math.max(0, Math.min(1, (t - o.genStartMs) / Math.max(1, o.genEndMs - o.genStartMs))),
       s = e.material.userData.uniforms;
     s.uTime.value = n.clock.elapsedTime, s.uGen.value = l, s.uStagger.value = o.genStagger, s.uIntensity.value = o.beamIntensity, s.uColor.value.set(...V(o.beamColor)), s.uIrid.value = 1, s.uIridSpeed.value = o.iridSpeed, s.uIridScale.value = o.iridScale;
@@ -390,7 +392,7 @@ function $() {
 }
 function J() {
   const [, a] = React.useState(0);
-  React.useEffect(() => Wn(() => a(r => r + 1)), []);
+  React.useEffect(() => onSceneRefresh(() => a(r => r + 1)), []);
   const e = config.city;
   return <EffectComposer disableNormalPass={!0} multisampling={0}><Bloom intensity={e.bloomIntensity} luminanceThreshold={e.bloomThreshold} luminanceSmoothing={e.bloomSmoothing} radius={e.bloomRadius} mipmapBlur={!0} /></EffectComposer>;
 }
