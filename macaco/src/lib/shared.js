@@ -42,6 +42,4 @@ function ao(e, i = "landscape") {
 function pickResponsive(e, i, a) {
   for (const o of ao(i, a)) if (o in e) return e[o];
 }
-const STUDIO_NAME = "Studio MACACO";
-const FEATURED_SLUGS = ["berco-supersize", "kebhouze-the-game", "digitart-3d-giulia-caffo", "aquatar", "become-this-way", "playstorming"];
-export { FEATURED_SLUGS, STAGE_HEIGHT_SVH, STUDIO_NAME, ci, envelope, findExitShot, hexToRgbScaled, hexToRgbTriplet, li, onSceneRefresh, pickResponsive };
+export { STAGE_HEIGHT_SVH, ci, envelope, findExitShot, hexToRgbScaled, hexToRgbTriplet, li, onSceneRefresh, pickResponsive };

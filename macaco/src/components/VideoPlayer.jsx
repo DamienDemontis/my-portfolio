@@ -1,5 +1,6 @@
-import { MEDIA_QUERIES } from "../../lib/device.js";
-import '../../styles/case-video-player.css';
+// Lecteur video (plein ecran, controles) et requetes media partagees.
+import { MEDIA_QUERIES } from "../lib/device.js";
+import '../styles/video-player.css';
 import React from "react";
 function useMediaQuery(t) {
   const [m, h] = React.useState(() => typeof window < "u" && window.matchMedia(t).matches);

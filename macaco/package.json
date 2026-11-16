@@ -8,8 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "fetch-media": "node scripts/fetch-media.mjs"
+    "test": "vitest run"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

@@ -1753,16 +1753,20 @@ html {
   align-items: center;
   flex: none;
 }
-.mc-nav__logo img {
+.mc-nav__wordmark {
   display: block;
-  height: 24px;
-  width: auto;
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--nav-accent);
+  white-space: nowrap;
   transition:
-    height 0.3s ease,
-    filter 0.2s ease;
+    font-size 0.3s ease,
+    color 0.2s ease;
 }
-.mc-nav--scrolled .mc-nav__logo img {
-  height: 20px;
+.mc-nav--scrolled .mc-nav__wordmark {
+  font-size: 20px;
 }
 .mc-nav__links {
   display: flex;
@@ -2031,8 +2035,8 @@ html {
     opacity 0.5s ease,
     transform 0.5s ease;
 }
-.mc-nav--on-yellow .mc-nav__logo img {
-  filter: brightness(0);
+.mc-nav--on-yellow .mc-nav__wordmark {
+  color: #0a0a0a;
 }
 .mc-nav--on-yellow .mc-nav__link,
 .mc-nav--on-yellow .mc-nav__link:hover,
@@ -2066,9 +2070,8 @@ html {
   .mc-nav__toggle {
     display: block;
   }
-  .mc-nav__logo img {
-    height: 20px;
-    width: auto;
+  .mc-nav__wordmark {
+    font-size: 20px;
   }
 }
 @media (min-width: 1026px) {
