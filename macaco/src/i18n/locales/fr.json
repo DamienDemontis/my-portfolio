@@ -1,0 +1,117 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "home": "Home",
+    "projects": "Projects",
+    "laboratory": "Laboratory",
+    "contact": "Contact"
+  },
+  "intro": {
+    "tagline": "{creative studio for interactive experiences}",
+    "scroll": "Scroll to explore",
+    "headline1": "WE GIVE SHAPE",
+    "headline2": "TO INNOVATION",
+    "paragraph": "Studio MACACO is a Swiss creative studio designing and producing interactive experiences for brands, cultural institutions and destinations. We combine creative direction, design, storytelling and technology to turn identities, stories and content into games, installations and digital worlds to explore.",
+    "svg": {
+      "webuild": "where.svg",
+      "power": "ends.svg",
+      "wecreate": "iswhere.svg",
+      "amazing": "start.svg"
+    }
+  },
+  "home": {
+    "featured": "Featured Projects",
+    "exploreProjects": "Explore our work",
+    "craftLine1": "Actions",
+    "craftLine2": "Speak louder than words",
+    "stage": {
+      "title": "CORE EXPERTISE",
+      "code": "initialize_core_analysis",
+      "ready": "system_ready",
+      "interact": "INTERACT",
+      "h1": {
+        "title": "CREATIVITY",
+        "body": "We give ideas a creative direction. Concepts, art direction, design and storytelling turn a brand’s identity or a story into a distinctive experience shaped around its audience."
+      },
+      "h2": {
+        "title": "CRAFT",
+        "body": "From characters and environments to interfaces and objects, we shape the visual language and every detail of the experience. Artists, designers and developers work together to bring the concept to life."
+      },
+      "h3": {
+        "title": "TECHNOLOGY",
+        "body": "Creative coding, real-time 3D, AI, AR, VR and electronics are expressive tools. We choose them around the idea and the people, creating interactions between content, physical spaces and digital worlds."
+      },
+      "h4": {
+        "title": "STRATEGY",
+        "body": "We start with what you want to communicate and the people you want to engage. We define the concept, audience journey and format: a brand experience, a cultural installation, a game or an adventure through a destination."
+      },
+      "h5": {
+        "title": "INNOVATION",
+        "body": "Our in-house lab feeds our creative work. We experiment with expressive formats, technologies and materials, building prototypes to discover new possibilities for the experiences we imagine."
+      },
+      "h6": {
+        "title": "DELIVERY",
+        "body": "We take projects from concept to production. We bring creative direction, design, development and integration together, working with project partners to put the experience in front of its audience."
+      }
+    }
+  },
+  "detail": {
+    "back": "Back to projects",
+    "customer": "Customer",
+    "partner": "Partner",
+    "capabilities": "Project Capabilities",
+    "platforms": "Platforms",
+    "keepScrolling": "Keep scrolling",
+    "nextProject": "Next project"
+  },
+  "projects": {
+    "title": "Projects",
+    "select": "SELECT_::{project_type}",
+    "ready": "{core_memory_initizialized}",
+    "description": "Brand experiences, cultural installations, games and adventures through real places. Ideas brought to life through creative direction, storytelling and technology.",
+    "types": {
+      "all": "All",
+      "videogames": "Videogames",
+      "augmented-reality": "Augmented Reality",
+      "web": "Web",
+      "ai-experimental": "AI & Experimental"
+    }
+  },
+  "laboratory": {
+    "eyebrow": "{_APPROACHING_DESTINATION_}",
+    "soon": "Coming Soon",
+    "title": "Laboratory",
+    "description": "Something is taking shape in our lab: prototypes, electronics, 3D printing and installations where the physical meets the digital. We are approaching the destination."
+  },
+  "contact": {
+    "eyebrow": "{GOT A PROJECT IN MIND?}",
+    "title1": "JUST MAKE",
+    "title2": "IT AWESOME",
+    "fields": {
+      "email": "E-Mail",
+      "name": "Name",
+      "message": "Message"
+    },
+    "requiredHint": "required field",
+    "privacy": "Having read and understood the <0>Privacy Policy</0>, I consent to the processing of my personal data.",
+    "submit": "Send",
+    "errors": {
+      "required": "Required field",
+      "email": "Enter a valid email address",
+      "privacy": "You must accept the Privacy Policy to send"
+    },
+    "status": {
+      "sending": "Sending…",
+      "sent": "Message sent. We'll get back to you shortly.",
+      "error": "Sending failed. Try again or write to us at {{email}}."
+    }
+  },
+  "footer": {
+    "headline1": "Have an idea worth building?",
+    "headline2": "Let’s make it real.",
+    "cta": "Start a project",
+    "social": "Social",
+    "contacts": "Contacts",
+    "legal": "Legal"
+  }
+}
