@@ -1,0 +1,39 @@
+# Studio MACACO
+
+> Studio MACACO is a Swiss creative studio designing and producing interactive experiences for brands, cultural institutions and destinations. We combine creative direction, design, storytelling and technology to turn identities, stories and content into games, installations and digital worlds to explore.
+
+Studio MACACO è uno studio creativo svizzero che progetta e realizza esperienze interattive per brand, istituzioni culturali e destinazioni. Uniamo direzione creativa, design, storytelling e tecnologia per trasformare identità, storie e contenuti in giochi, installazioni e mondi digitali da esplorare.
+
+Studio MACACO is the studio name of Ludens Sagl, based at Via Pestariso 5, 6982 Agno, Ticino, Switzerland. The studio works with clients internationally.
+
+Its work includes brand experiences, cultural and museum installations, games, interactive storytelling, destination experiences, digital content and bespoke digital products. Creative technology supports the creative concept and audience experience.
+
+Our in-house lab feeds our creative work. We experiment with expressive formats, technologies and materials, building prototypes to discover new possibilities for the experiences we imagine.
+
+Project pages describe the brief, the experience, capabilities, clients and partners. These credits distinguish the studio’s contribution within collaborations. Prototypes and concepts are identified in the individual case studies.
+
+Contact: info@studiomacaco.ch · +41912614984. Website languages: Italian and English.
+
+## Studio and portfolio
+
+- [Studio overview — English](https://studiomacaco.ch/en/index.md): Positioning, creative approach and featured work.
+- [Presentazione dello studio — Italiano](https://studiomacaco.ch/it/index.md): Identità, approccio creativo e progetti in evidenza.
+- [All projects — English](https://studiomacaco.ch/en/projects/index.md): Complete portfolio with links to individual case studies.
+- [Tutti i progetti — Italiano](https://studiomacaco.ch/it/projects/index.md): Portfolio completo e case history.
+- [Contact](https://studiomacaco.ch/en/contact/index.md): Studio details and enquiries.
+
+## Selected case studies
+
+- [Berco Supersize](https://studiomacaco.ch/en/projects/berco-supersize/index.md): A brand experience for Berco at Bauma 2025: arcade gameplay turns the trade-show stand into a place to explore industrial products. Customer: Berco. Partner: PoliedroStudio. Studio capabilities: Real-Time Development, 3D Art, Unity 3D, Gamification.
+- [Kebhouze The Game](https://studiomacaco.ch/en/projects/kebhouze-the-game/index.md): Art direction and 2D/3D art turn the Kebhouze mascot into an arcade world, bringing the brand’s identity into a shared game experience. Customer: Kebhouze. Studio capabilities: Art Direction, 2D/3D Art.
+- [Digiart 3D: Giulia Caffo](https://studiomacaco.ch/en/projects/digitart-3d-giulia-caffo/index.md): Five chapters, five minigames and a ceramics collection made explorable through two large touch tables. Customer: Museo della Ceramica Giuseppe Roi. Studio capabilities: Real-Time Development, Art Direction, 2D/3D Art, Storytelling, Unity3D.
+- [Aquatar](https://studiomacaco.ch/en/projects/aquatar/index.md): A digital aquarium. Two virtual characters. An AI system able to turn requests into visible actions. Customer: Abacus Research AG. Partner: Artificialy SA. Studio capabilities: Real-Time Development, Art Direction, 3D Art, Godot, Procedural Animation.
+- [Become this way](https://studiomacaco.ch/en/projects/become-this-way/index.md): A robot vacuum wants to become a fish. An interactive tale about identity, expectations and the freedom to choose your own shape. Studio capabilities: Art Direction, Storytelling, 2D Art, Unity 3D.
+- [Playstorming](https://studiomacaco.ch/en/projects/playstorming/index.md): A multiplayer platform turns qualitative research into a session that is participatory, configurable and measurable. Customer: Elma Research Srl. Studio capabilities: Real-Time Development, Backend Development, Art Direction, 2D/3D Art, Unity 3D.
+- [Neko Music Video](https://studiomacaco.ch/en/projects/neko-music-video/index.md): An artist rebuilt in 3D moves through dreamlike, sci-fi worlds, produced entirely inside a real-time game engine. Customer: Neko. Studio capabilities: Art Direction, 3D Art, Unity 3D.
+
+## Official profiles
+
+- [Linkedin](https://www.linkedin.com/company/28663057): Official Studio MACACO profile.
+- [Instagram](https://www.instagram.com/studiomacaco_ch/): Official Studio MACACO profile.
+- [Youtube](https://www.youtube.com/@studio_macaco): Official Studio MACACO profile.

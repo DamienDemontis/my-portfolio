@@ -1,0 +1,8 @@
+node_modules
+dist
+.vite
+
+# Medias des case studies, rapatries par `npm run fetch-media`
+# (25 Mo d'images + ~1 Go de video : hors depot).
+public/case/
+public/og/
