@@ -14,7 +14,7 @@
   overflow: hidden;
   color: var(--ct-ink);
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
 }

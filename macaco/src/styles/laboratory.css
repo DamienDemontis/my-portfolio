@@ -1,7 +1,7 @@
 .lab {
   --lab-yellow: #fefefe;
   --lab-white: #fefefe;
-  --lab-mono: "Roboto Mono", ui-monospace, monospace;
+  --lab-mono: var(--font-body), ui-monospace, monospace;
   --lab-title: "Syncopate", sans-serif;
   position: relative;
   height: 100svh;

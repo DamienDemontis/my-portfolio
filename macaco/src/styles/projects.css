@@ -11,7 +11,7 @@
   grid-template-areas: "strip strip" "rail  scroll";
   color: #fff;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   overflow: hidden;
@@ -237,7 +237,7 @@
 .pl-terminal {
   margin: 0;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   font-size: clamp(8px, 0.6vw, 11px);

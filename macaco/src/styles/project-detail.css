@@ -3,7 +3,7 @@
   min-height: 100svh;
   color: #e8e8e8;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   overflow-x: hidden;

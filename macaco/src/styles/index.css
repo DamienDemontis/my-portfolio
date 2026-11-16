@@ -91,7 +91,7 @@ body {
   bottom: 0;
   z-index: 199000;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   font-size: 12px;
@@ -204,7 +204,7 @@ body {
 }
 #iubenda-cs-banner .iubenda-cs-opt-group button {
   font:
-    500 11px/1 Roboto Mono,
+    500 11px/1 var(--font-body),
     ui-monospace,
     monospace;
   letter-spacing: 0.1em;
@@ -288,7 +288,7 @@ body {
   --yellow: #feff00;
   --grey: #9a9a9a;
   --white: #fff;
-  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --font-mono: var(--font-body), ui-monospace, monospace;
   --font-jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
   position: fixed;
   top: 0;
@@ -1449,7 +1449,7 @@ body {
 .ldg-overlay {
   --ldg-ink: #0a0a0a;
   --ldg-yellow: #feff00;
-  --ldg-mono: "Roboto Mono", ui-monospace, monospace;
+  --ldg-mono: var(--font-body), ui-monospace, monospace;
   --ldg-jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
   position: fixed;
   top: 0;
@@ -1689,7 +1689,7 @@ html {
   will-change: transform;
   padding: 2px;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   font-size: 18px;
@@ -1775,7 +1775,7 @@ html {
   display: inline-flex;
   align-items: center;
   font:
-    400 11px/1 Roboto Mono,
+    400 11px/1 var(--font-body),
     ui-monospace,
     monospace;
   letter-spacing: 0.18em;
@@ -1847,7 +1847,7 @@ html {
   height: 36px;
   padding: 0 13px;
   font:
-    400 11px/1 Roboto Mono,
+    400 11px/1 var(--font-body),
     ui-monospace,
     monospace;
   letter-spacing: 0.18em;
@@ -1940,7 +1940,7 @@ html {
   gap: 14px;
   margin: 0;
   font:
-    700 13px/1 Roboto Mono,
+    700 13px/1 var(--font-body),
     ui-monospace,
     monospace;
   letter-spacing: 0.02em;
@@ -1984,7 +1984,7 @@ html {
 }
 .mc-nav__overlay-idx {
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   font-size: clamp(10px, 2.6vw, 14px);
@@ -1997,7 +1997,7 @@ html {
   flex-wrap: wrap;
   gap: 6px clamp(18px, 5vw, 36px);
   font:
-    400 clamp(13px, 3.6vw, 16px)/1.5 "Roboto Mono",
+    400 clamp(13px, 3.6vw, 16px)/1.5 var(--font-body),
     ui-monospace,
     monospace;
 }

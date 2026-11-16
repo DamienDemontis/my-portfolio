@@ -2,7 +2,7 @@
   background: #000;
   color: #fff;
   font-family:
-    Roboto Mono,
+    var(--font-body),
     ui-monospace,
     monospace;
   font-size: 14px;
