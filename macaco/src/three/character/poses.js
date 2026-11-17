@@ -45,11 +45,12 @@ export const SCENE_POSES = {
   // Les deux mains aux oreilles (casque).
   musique: {
     bones: [
-      ['LeftArm', 'z', 30],
-      ['RightArm', 'z', -30],
-      ['LeftForeArm', 'z', 120],
-      ['RightForeArm', 'z', -120],
-      ['Head', 'x', -5],
+      ['LeftArm', 'z', 50],
+      ['LeftForeArm', 'z', 168],
+      ['LeftHand', 'z', 25],
+      ['RightArm', 'z', -50],
+      ['RightForeArm', 'z', -168],
+      ['RightHand', 'z', -25],
     ],
     yaw: 0,
     camera: cam(0.6),
@@ -81,15 +82,18 @@ export const SCENE_POSES = {
     yaw: -15,
     camera: cam(0.6),
   },
-  // Buste penché en avant, un bras ouvert.
+  // Buste penché en avant, une main ouverte tendue vers l'avant.
   transmission: {
     bones: [
       ['Spine', 'x', 6],
       ['Spine1', 'x', 14],
-      ['LeftArm', 'z', 30],
+      ['LeftArm', 'z', 15],
+      ['LeftArm', 'x', -35],
+      ['LeftForeArm', 'x', -35],
       ['LeftForeArm', 'z', 15],
       ['RightArm', 'z', 33],
       ['Head', 'y', 15],
+      ['Head', 'x', 12],
     ],
     yaw: -20,
     camera: cam(-0.6),
@@ -163,14 +167,15 @@ export function poseQuaternions(bones, recipe) {
   return result
 }
 
-/** Mélange deux poses : slerp par os, liaison pour les os absents d'une pose. */
+/**
+ * Mélange deux poses : slerp par os, liaison pour les os absents d'une pose.
+ * Appelé à chaque image : une seule boucle, aucune allocation
+ * (un os absent des deux poses donne slerp(liaison, liaison, t) = liaison).
+ */
 export function blendPose(bones, from, to, t) {
-  const names = new Set([...Object.keys(from), ...Object.keys(to)])
-  for (const [name, b] of Object.entries(bones)) {
-    if (!names.has(name)) {
-      b.quaternion.copy(b.userData.bind)
-      continue
-    }
-    b.quaternion.copy(from[name] ?? b.userData.bind).slerp(to[name] ?? b.userData.bind, t)
+  for (const name in bones) {
+    const b = bones[name]
+    const bind = b.userData.bind
+    b.quaternion.copy(from[name] ?? bind).slerp(to[name] ?? bind, t)
   }
 }

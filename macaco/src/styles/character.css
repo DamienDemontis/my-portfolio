@@ -1,0 +1,19 @@
+/* Couche du personnage : fixe, plein écran, derrière le contenu, sans interaction.
+   Elle vit dans .home-content (contexte d'empilement) : les sections et le pied
+   de page doivent donc être positionnés au-dessus d'elle. */
+.character-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.character-layer canvas {
+  display: block;
+}
+
+/* Les scènes passent au-dessus de la couche (le pied de page .mcf est déjà à z-index 2). */
+.home-content > .scenes-track {
+  position: relative;
+  z-index: 1;
+}

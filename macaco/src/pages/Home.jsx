@@ -1,5 +1,6 @@
 import { DitherFill } from "../components/DitherFill.jsx";
 import { ScenesTrack } from "../components/ScenesTrack.jsx";
+import CharacterLayer from "../three/CharacterLayer.jsx";
 import { SITE, SOCIAL_LINKS } from "../content/site.js";
 import { useIsCoarsePointer } from "../lib/device.js";
 import { getViewportHeight, onScroll } from "../lib/scroll.js";
@@ -124,6 +125,6 @@ function HomeContent() {
       lang: s,
       kind: "home"
     });
-  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><ScenesTrack /><Mcf /></main>;
+  return <main className="home-content"><CharacterLayer /><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><ScenesTrack /><Mcf /></main>;
 }
 export { HomeContent as default };
