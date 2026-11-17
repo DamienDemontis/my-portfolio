@@ -89,5 +89,9 @@
   },
   "reading": {
     "back": "Retour à la version animée"
+  },
+  "seo": {
+    "title": "Damien Demontis — Lead développeur, web et 3D temps réel",
+    "description": "Portfolio de Damien Demontis, lead développeur full-stack : plateformes e-santé, produits IA et 3D temps réel sur le web."
   }
 }

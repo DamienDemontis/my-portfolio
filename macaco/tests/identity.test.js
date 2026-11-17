@@ -5,6 +5,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { EMPLOI } from './helpers/forbidden.js'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const PUBLIC = join(ROOT, 'public')
@@ -12,7 +13,6 @@ const PUBLIC = join(ROOT, 'public')
 // #fef{2}00 is the client yellow #FEFF00, alpha suffixes included (#FEFF0026);
 // 254,255,0 is the same yellow written as rgb()/rgba().
 const INTERDIT = [/#fef{2}00/i, /\b254,\s*255,\s*0\b/, /Syncopate/, /iubenda/i, /macaco/i, /hazard/i]
-const EMPLOI = /disponible|ouvert aux opportunit|recherche un poste|available for|open to work|\bhiring\b|\bseeking\b/i
 
 function fichiers(dir, acc = []) {
   for (const e of readdirSync(dir)) {

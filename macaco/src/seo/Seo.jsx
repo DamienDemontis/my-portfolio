@@ -1,20 +1,17 @@
 // Titres, metas, hreflang, Open Graph et JSON-LD injectes au runtime.
 import React from "react";
 import { SITE } from "../content/site.js";
-import { DEFAULT_LANGUAGE, LANGUAGES } from "../i18n/index.js";
+import i18next from "i18next";
+import { DEFAULT_LANGUAGE } from "../i18n/index.js";
+import { buildMeta, hreflangs, personLd } from "./meta.js";
 const xe = SITE.url;
 const Sr = "summary";
 function B(e = "/") {
   return /^https?:\/\//i.test(e) ? e : `${xe}${e.startsWith("/") ? e : `/${e}`}`;
 }
-// Placeholders until the scene copy lands: name only, no biography.
+// Pages d'erreur ; l'accueil vient des locales (seo.title / seo.description).
 const Yt = {
   fr: {
-    home: {
-      title: "Damien Demontis",
-      description: "Portfolio de Damien Demontis.",
-      heading: "Damien Demontis"
-    },
     notFound: {
       title: "Page introuvable — Damien Demontis",
       description: "La page demandée n’existe pas ou a été déplacée.",
@@ -25,11 +22,6 @@ const Yt = {
     }
   },
   en: {
-    home: {
-      title: "Damien Demontis",
-      description: "Portfolio of Damien Demontis.",
-      heading: "Damien Demontis"
-    },
     notFound: {
       title: "Page not found — Damien Demontis",
       description: "The page you requested does not exist or has been moved.",
@@ -40,11 +32,6 @@ const Yt = {
     }
   },
   ko: {
-    home: {
-      title: "Damien Demontis",
-      description: "Damien Demontis 포트폴리오.",
-      heading: "Damien Demontis"
-    },
     notFound: {
       title: "페이지를 찾을 수 없습니다 — Damien Demontis",
       description: "요청하신 페이지가 존재하지 않거나 이동되었습니다.",
@@ -62,32 +49,35 @@ function pe(e, i = "") {
   const a = i.replace(/^\/+/, "");
   return a ? `/${e}/${a}` : `/${e}`;
 }
-function Jt(e) {
-  const a = LANGUAGES.map(o => ({
-    hreflang: o,
-    href: B(pe(o, e))
-  }));
-  return a.push({
-    hreflang: "x-default",
-    href: B(pe(DEFAULT_LANGUAGE, e))
-  }), a;
+function metaFor(e) {
+  const l = i18next.getResourceBundle(e, "common") ? e : DEFAULT_LANGUAGE;
+  return buildMeta(l, i18next.getResourceBundle(l, "common"));
+}
+// Titre et description de l'accueil : locales, via meta.js (comme le prerendu).
+function homeMeta(e) {
+  const m = metaFor(e);
+  return {
+    title: m.title,
+    description: m.description,
+    heading: SITE.name
+  };
 }
 function buildSeoData({
   lang: e = DEFAULT_LANGUAGE,
   kind: i = "home"
 } = {}) {
   const d = i === "notFound" ? "notFound" : "home",
-    h = seoCopyFor(e)[d];
+    h = d === "home" ? homeMeta(e) : seoCopyFor(e)[d];
   return {
     lang: e,
-    localeTag: e,
+    localeTag: metaFor(e).ogLocale,
     siteName: SITE.name,
     type: "website",
     kind: d,
     subpath: "",
     path: pe(e),
     canonical: B(pe(e)),
-    alternates: d === "notFound" ? [] : Jt(""),
+    alternates: d === "notFound" ? [] : hreflangs(),
     robots: d === "notFound" ? "noindex,follow" : "index,follow,max-image-preview:large",
     title: h.title,
     description: h.description,
@@ -101,11 +91,7 @@ function dn() {
   return {
     "@type": "Person",
     "@id": Ge,
-    name: SITE.name,
-    url: xe,
-    ...(SITE.sameAs.length ? {
-      sameAs: SITE.sameAs
-    } : {})
+    ...personLd()
   };
 }
 function pn(e) {
@@ -172,7 +158,7 @@ function bn(e) {
     "og:title": e.title,
     "og:description": e.description,
     "og:url": e.canonical,
-    "og:locale": e.localeTag.replace("-", "_")
+    "og:locale": e.localeTag
   };
   for (const [s, n] of Object.entries(a)) De("meta", "property", s, n);
   De("link", "rel", "canonical", e.canonical);

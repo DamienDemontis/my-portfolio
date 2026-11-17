@@ -89,5 +89,9 @@
   },
   "reading": {
     "back": "[KO] Back to the animated version"
+  },
+  "seo": {
+    "title": "[KO] Damien Demontis — Lead developer, web and real-time 3D",
+    "description": "[KO] Portfolio of Damien Demontis, lead full-stack developer: health-tech platforms, AI products and real-time 3D on the web."
   }
 }
