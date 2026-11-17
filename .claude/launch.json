@@ -4,8 +4,28 @@
     {
       "name": "macaco",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "macaco", "run", "dev"],
+      "runtimeArgs": [
+        "--prefix",
+        "macaco",
+        "run",
+        "dev"
+      ],
       "port": 5180
+    },
+    {
+      "name": "macaco-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "macaco",
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "4173",
+        "--strictPort"
+      ],
+      "port": 4173
     }
   ]
 }
