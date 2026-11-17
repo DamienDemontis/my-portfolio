@@ -607,44 +607,6 @@ html.is-reading {
     display: none !important;
   }
 }
-.mc-cursor-hint {
-  --slab-track: 0.06em;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2147483000;
-  pointer-events: none;
-  will-change: transform;
-  padding: 2px;
-  font-family:
-    var(--font-body),
-    ui-monospace,
-    monospace;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: var(--slab-track);
-  text-transform: uppercase;
-  line-height: 1;
-  text-box: trim-both cap alphabetic;
-  clip-path: inset(0 var(--slab-track) 0 0);
-  color: #000;
-  background: var(--mc-accent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.mc-cursor-hint.is-on {
-  opacity: 1;
-}
-@media (hover: none), (pointer: coarse) {
-  .mc-cursor-hint {
-    display: none !important;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .mc-cursor-hint {
-    display: none !important;
-  }
-}
 .mc-nav {
   --nav-accent: var(--accent, var(--cuivre));
   --nav-line: rgba(255, 255, 255, 0.18);
