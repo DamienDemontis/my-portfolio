@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build && node scripts/prerender-cli.mjs",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "character": "node scripts/character/build-cli.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
@@ -24,9 +25,14 @@
     "three": "0.171.0"
   },
   "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@testing-library/react": "^16.3.3",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^25.0.1",
+    "meshoptimizer": "^1.3.0",
+    "sharp": "^0.35.5",
     "vite": "^6.0.0",
     "vitest": "^2.1.9"
   }
