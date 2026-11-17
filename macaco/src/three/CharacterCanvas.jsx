@@ -271,7 +271,13 @@ export default function CharacterCanvas() {
   )
   const dpr = useDpr()
   // Performances en baisse : le personnage se fige (plus de respiration ni de regard, rendu à la demande).
-  const figer = React.useCallback(() => setFrozen(true), [])
+  // Seulement en rendu continu : à la demande, le moniteur compte peu d'images et déclinerait
+  // à tort, et ce gel survivrait au retour du rendu continu (mouvement réduit désactivé).
+  const frameloop = React.useRef(policy.frameloop)
+  frameloop.current = policy.frameloop
+  const figer = React.useCallback(() => {
+    if (frameloop.current === 'always') setFrozen(true)
+  }, [])
 
   return (
     <Canvas frameloop={policy.frameloop} dpr={dpr} gl={GL} camera={CAMERA} resize={RESIZE} style={STYLE}>

@@ -47,8 +47,10 @@ describe('motionPolicy', () => {
   it('reducedMotion', () => {
     expect(motionPolicy({ reducedMotion: true })).toEqual({ idle: false, lookAt: false, blend: 'snap', frameloop: 'demand' });
   });
+  // Ruling R10 : écran tactile = moins d'effets et de batterie, ni respiration ni rendu continu.
   it('coarsePointer', () => {
-    expect(motionPolicy({ coarsePointer: true })).toEqual({ idle: true, lookAt: false, blend: 'smooth', frameloop: 'always' });
+    expect(motionPolicy({ coarsePointer: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
+    expect(motionPolicy({ coarsePointer: true, frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
   });
   it('frozen', () => {
     expect(motionPolicy({ frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
