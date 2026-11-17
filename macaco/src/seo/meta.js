@@ -1,9 +1,7 @@
 // Donnees SEO pures (aucun React, aucun JSON) : partagees par le runtime
 // (Seo.jsx) et par le prerendu Node (scripts/prerender.mjs).
 import { SITE } from '../content/site.js'
-
-export const SEO_LANGUAGES = ['fr', 'en', 'ko']
-export const SEO_DEFAULT_LANGUAGE = 'en'
+import { DEFAULT_LANGUAGE, LANGUAGES } from '../i18n/languages.js'
 
 const OG_LOCALES = { fr: 'fr_FR', en: 'en_GB', ko: 'ko_KR' }
 
@@ -11,8 +9,8 @@ export const absoluteUrl = (path = '/') =>
   /^https?:\/\//i.test(path) ? path : `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`
 
 export function hreflangs() {
-  const list = SEO_LANGUAGES.map(l => ({ hreflang: l, href: absoluteUrl(`/${l}`) }))
-  list.push({ hreflang: 'x-default', href: absoluteUrl(`/${SEO_DEFAULT_LANGUAGE}`) })
+  const list = LANGUAGES.map(l => ({ hreflang: l, href: absoluteUrl(`/${l}`) }))
+  list.push({ hreflang: 'x-default', href: absoluteUrl(`/${DEFAULT_LANGUAGE}`) })
   return list
 }
 
@@ -36,7 +34,7 @@ export function buildMeta(lang, locale) {
     description: locale.seo.description,
     canonical: absoluteUrl(`/${lang}`),
     alternates: hreflangs(),
-    ogLocale: OG_LOCALES[lang] ?? OG_LOCALES[SEO_DEFAULT_LANGUAGE],
+    ogLocale: OG_LOCALES[lang] ?? OG_LOCALES[DEFAULT_LANGUAGE],
     jsonLd: { '@context': 'https://schema.org', ...personLd() },
   }
 }

@@ -1505,6 +1505,13 @@ html.is-reading {
   font-size: 18px;
   line-height: 1.7;
 }
+.reading-mode h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.05;
+  margin: 0 0 24px;
+}
 .reading-mode h2 {
   font-family: var(--font-display);
   font-weight: 400;

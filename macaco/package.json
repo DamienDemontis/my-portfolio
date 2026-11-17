@@ -6,7 +6,7 @@
   "description": "Portfolio de Damien Demontis : Vite + React + react-three-fiber.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender-cli.mjs",
     "preview": "vite preview",
     "test": "vitest run"
   },

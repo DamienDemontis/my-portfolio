@@ -14,8 +14,42 @@ test.each(['fr', 'ko', 'en'])('lng=%s redirige en permanent vers /%s', l => {
   expect(r.destination).toBe(`/${l}`)
 })
 
-test('aucune redirection ne touche le jeu', () => {
-  expect(vercel.redirects.find(r => r.source.startsWith('/games'))).toBeUndefined()
+// R36 : une seule redirection touche le jeu, sans slash final vers avec slash.
+test('seule la redirection du slash final touche le jeu', () => {
+  const jeu = vercel.redirects.filter(r => r.source.startsWith('/games'))
+  expect(jeu).toEqual([{ source: '/games/wii-tanks', destination: '/games/wii-tanks/', permanent: true }])
+})
+
+test('le deploiement lance les tests avant le build', () => {
+  expect(vercel.buildCommand).toBe('npm test && npm run build')
+  const pkg = JSON.parse(readFileSync(ROOT + 'package.json', 'utf8'))
+  expect(pkg.scripts.test).toBe('vitest run')
+})
+
+test('les pages de langue ont leurs rewrites explicites avant le repli SPA', () => {
+  const src = vercel.rewrites.map(r => r.source)
+  const spa = src.indexOf('/(.*)')
+  for (const l of ['fr', 'en', 'ko']) {
+    for (const s of [`/${l}`, `/${l}/`]) {
+      const i = src.indexOf(s)
+      expect(i, s).toBeGreaterThanOrEqual(0)
+      expect(i, s).toBeLessThan(spa)
+      expect(vercel.rewrites[i].destination).toBe(`/${l}/index.html`)
+    }
+  }
+})
+
+test('le service worker de v5 est neutralise : sw.js jamais mis en cache', () => {
+  const rule = vercel.headers.find(h => h.source === '/sw.js')
+  expect(rule).toBeTruthy()
+  expect(rule.headers).toContainEqual({ key: 'Cache-Control', value: 'no-cache' })
+  expect(rule.headers).toContainEqual({ key: 'Content-Type', value: 'application/javascript' })
+})
+
+test('les CV restent servis mais ne sont pas indexes', () => {
+  const rule = vercel.headers.find(h => h.source === '/CV_(.*)\\.pdf')
+  expect(rule).toBeTruthy()
+  expect(rule.headers).toContainEqual({ key: 'X-Robots-Tag', value: 'noindex' })
 })
 
 test('le jeu et les CV sont servis depuis macaco/public', () => {
@@ -40,9 +74,9 @@ test('les rewrites du jeu precedent le repli SPA', () => {
   const src = vercel.rewrites.map(r => r.source)
   const spa = src.indexOf('/(.*)')
   expect(spa).toBe(src.length - 1)
-  expect(src.indexOf('/games/wii-tanks')).toBeGreaterThanOrEqual(0)
+  // Sans slash final : redirection (les chemins relatifs du jeu en dependent), pas de rewrite.
+  expect(src).not.toContain('/games/wii-tanks')
   expect(src.indexOf('/games/wii-tanks/')).toBeGreaterThanOrEqual(0)
-  expect(src.indexOf('/games/wii-tanks')).toBeLessThan(spa)
   expect(src.indexOf('/games/wii-tanks/')).toBeLessThan(spa)
   expect(vercel.rewrites[spa].destination).toBe('/index.html')
 })

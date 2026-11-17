@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm test && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "redirects": [
@@ -37,6 +37,11 @@
         }
       ],
       "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/games/wii-tanks",
+      "destination": "/games/wii-tanks/",
       "permanent": true
     }
   ],
@@ -91,12 +96,54 @@
           "value": "public, max-age=2592000"
         }
       ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
+      "source": "/CV_(.*)\\.pdf",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
     }
   ],
   "rewrites": [
     {
-      "source": "/games/wii-tanks",
-      "destination": "/games/wii-tanks/index.html"
+      "source": "/fr",
+      "destination": "/fr/index.html"
+    },
+    {
+      "source": "/fr/",
+      "destination": "/fr/index.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/en/index.html"
+    },
+    {
+      "source": "/en/",
+      "destination": "/en/index.html"
+    },
+    {
+      "source": "/ko",
+      "destination": "/ko/index.html"
+    },
+    {
+      "source": "/ko/",
+      "destination": "/ko/index.html"
     },
     {
       "source": "/games/wii-tanks/",

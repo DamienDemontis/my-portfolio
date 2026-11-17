@@ -6,7 +6,8 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SCENES } from '../src/content/scenes.js'
 import { SITE } from '../src/content/site.js'
-import { SEO_LANGUAGES, SEO_DEFAULT_LANGUAGE, buildMeta } from '../src/seo/meta.js'
+import { DEFAULT_LANGUAGE, LANGUAGES } from '../src/i18n/languages.js'
+import { buildMeta } from '../src/seo/meta.js'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const MARK_START = '<!--prerender:head-->'
@@ -23,6 +24,17 @@ function defaultTemplate() {
   return existsSync(built) ? built : join(ROOT, 'index.html')
 }
 
+// Sans JavaScript la feuille de style de l'app reste chargee : elle fige la
+// page (overflow:hidden, curseur masque, fond noir sans couleur de texte).
+// Ce bloc restaure un vrai document lisible.
+const NOSCRIPT_CSS = [
+  "html,body,#root{height:auto;overflow:auto}",
+  "html{cursor:auto}",
+  "body{color:#E6E1D8;font-family:'Martian Mono',monospace}",
+  "main,footer{max-width:68ch;margin:0 auto;padding:1.5rem 1rem}",
+  "a{color:inherit}",
+].join('')
+
 function headBlock(m) {
   const lines = [
     MARK_START,
@@ -36,6 +48,7 @@ function headBlock(m) {
     `<meta data-seo property="og:url" content="${esc(m.canonical)}" />`,
     `<meta data-seo property="og:locale" content="${esc(m.ogLocale)}" />`,
     `<script data-seo type="application/ld+json">${JSON.stringify(m.jsonLd).replaceAll('</', '<\\/')}</script>`,
+    `<noscript><style>${NOSCRIPT_CSS}</style></noscript>`,
     MARK_END,
   ]
   return lines.join('\n    ')
@@ -53,7 +66,9 @@ function noscriptBlock(lang, locale, ko) {
       ? `<article data-scene="${scene.id}" lang="ko"><h2 lang="ko">${title}</h2><p lang="${lang}">${body}</p></article>`
       : `<article data-scene="${scene.id}"><h2>${title}</h2><p>${body}</p></article>`
   })
-  return `<noscript>\n<main>\n${articles.join('\n')}\n</main>\n</noscript>`
+  const langLinks = LANGUAGES.map(l => `<a href="/${l}" hreflang="${l}">${l.toUpperCase()}</a>`).join(' · ')
+  const footer = `<footer>${langLinks} · <a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a></footer>`
+  return `<noscript>\n<main>\n<h1>${esc(SITE.name)}</h1>\n${articles.join('\n')}\n</main>\n${footer}\n</noscript>`
 }
 
 // Fonctions de remplacement partout : une chaine de remplacement interprete
@@ -78,15 +93,23 @@ async function write(file, template, lang) {
   return file
 }
 
+// Point d'entree du build (scripts/prerender-cli.mjs).
+export async function prerenderSite(dist, template = defaultTemplate()) {
+  const pages = await prerender(dist, template)
+  pages.push(await writeRootPage(dist, template))
+  await writeFile(join(dist, 'sitemap.xml'), buildSitemap(SITE.url))
+  return pages
+}
+
 export async function prerender(outDir, templatePath = defaultTemplate()) {
   const template = await readFile(templatePath, 'utf8')
   const written = []
-  for (const lang of SEO_LANGUAGES) written.push(await write(join(outDir, lang, 'index.html'), template, lang))
+  for (const lang of LANGUAGES) written.push(await write(join(outDir, lang, 'index.html'), template, lang))
   return written
 }
 
 export function buildSitemap(origin) {
-  const urls = SEO_LANGUAGES.map(l => `  <url><loc>${origin}/${l}</loc></url>`)
+  const urls = LANGUAGES.map(l => `  <url><loc>${origin}/${l}</loc></url>`)
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join('\n')}
@@ -95,14 +118,5 @@ ${urls.join('\n')}
 }
 
 export async function writeRootPage(outDir, templatePath = defaultTemplate()) {
-  return write(join(outDir, 'index.html'), await readFile(templatePath, 'utf8'), SEO_DEFAULT_LANGUAGE)
-}
-
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const dist = join(ROOT, 'dist')
-  const template = defaultTemplate()
-  const pages = await prerender(dist, template)
-  pages.push(await writeRootPage(dist, template))
-  await writeFile(join(dist, 'sitemap.xml'), buildSitemap(SITE.url))
-  console.log(`prerender: ${pages.length} pages written`)
+  return write(join(outDir, 'index.html'), await readFile(templatePath, 'utf8'), DEFAULT_LANGUAGE)
 }

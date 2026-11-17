@@ -59,7 +59,12 @@ function LangLayout() {
   return <PageTransitionProvider><AccentProvider><SiteDitherLayer active={!n} /><Cursor /><div id={SCROLL_ROOT_ID} className="scroll-root"><div className="site-chrome"><NavBar isHome={n} /><ScrollProgressBar /></div><Tn /><Intro active={n} /><React.Suspense fallback={null}><Outlet /></React.Suspense></div></AccentProvider></PageTransitionProvider>;
 }
 const HomePage = React.lazy(() => import("./pages/Home.jsx"));
+// Racine : garde la requete et l'ancre (?lecture=1) en redirigeant vers la langue.
+function RootRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={{ pathname: `/${detectBrowserLanguage()}`, search, hash }} replace={!0} />;
+}
 function App() {
-  return <BrowserRouter><Routes><Route path="/" element={<Navigate to={`/${detectBrowserLanguage()}`} replace={!0} />} /><Route path="/:lang" element={<LangLayout />}><Route index={!0} element={<HomePage />} /><Route path="*" element={<NotFound />} /></Route><Route path="*" element={<NotFound />} /></Routes></BrowserRouter>;
+  return <BrowserRouter><Routes><Route path="/" element={<RootRedirect />} /><Route path="/:lang" element={<LangLayout />}><Route index={!0} element={<HomePage />} /><Route path="*" element={<NotFound />} /></Route><Route path="*" element={<NotFound />} /></Routes></BrowserRouter>;
 }
 export { App };

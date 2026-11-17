@@ -6,11 +6,11 @@
     "reading": "[KO] Read"
   },
   "intro": {
-    "tagline": "{포트폴리오}",
+    "tagline": "[KO] {portfolio}",
     "scroll": "Scroll to explore",
     "headline1": "WE GIVE SHAPE",
     "headline2": "TO INNOVATION",
-    "paragraph": "Damien Demontis 포트폴리오."
+    "paragraph": "[KO] Portfolio of Damien Demontis."
   },
   "home": {
     "craftLine1": "Actions",
@@ -48,8 +48,8 @@
   },
   "footer": {
     "headline1": "Damien Demontis",
-    "headline2": "포트폴리오",
-    "cta": "연락처",
+    "headline2": "[KO] Portfolio",
+    "cta": "[KO] Contact",
     "social": "Social",
     "contacts": "Contacts"
   },

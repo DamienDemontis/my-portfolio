@@ -1,48 +1,48 @@
 {
   "nav": {
     "menu": "Menu",
-    "home": "Home",
+    "home": "Accueil",
     "contact": "Contact",
     "reading": "Lecture"
   },
   "intro": {
     "tagline": "{portfolio}",
-    "scroll": "Scroll to explore",
-    "headline1": "WE GIVE SHAPE",
-    "headline2": "TO INNOVATION",
+    "scroll": "Défiler pour explorer",
+    "headline1": "ON DONNE FORME",
+    "headline2": "À L’INNOVATION",
     "paragraph": "Portfolio de Damien Demontis."
   },
   "home": {
-    "craftLine1": "Actions",
-    "craftLine2": "Speak louder than words",
+    "craftLine1": "Les actes",
+    "craftLine2": "parlent plus fort que les mots",
     "stage": {
-      "title": "CORE EXPERTISE",
-      "code": "initialize_core_analysis",
-      "ready": "system_ready",
-      "interact": "INTERACT",
+      "title": "EXPERTISE CLÉ",
+      "code": "initialiser_analyse_coeur",
+      "ready": "systeme_pret",
+      "interact": "INTERAGIR",
       "h1": {
-        "title": "CREATIVITY",
-        "body": "We give ideas a creative direction. Concepts, art direction, design and storytelling turn a brand’s identity or a story into a distinctive experience shaped around its audience."
+        "title": "CRÉATIVITÉ",
+        "body": "Nous donnons une direction créative aux idées. Concepts, direction artistique, design et narration transforment l’identité d’une marque ou une histoire en une expérience singulière, façonnée pour son public."
       },
       "h2": {
-        "title": "CRAFT",
-        "body": "From characters and environments to interfaces and objects, we shape the visual language and every detail of the experience. Artists, designers and developers work together to bring the concept to life."
+        "title": "SAVOIR-FAIRE",
+        "body": "Des personnages et environnements aux interfaces et objets, nous façonnons le langage visuel et chaque détail de l’expérience. Artistes, designers et développeurs travaillent ensemble pour donner vie au concept."
       },
       "h3": {
-        "title": "TECHNOLOGY",
-        "body": "Creative coding, real-time 3D, AI, AR, VR and electronics are expressive tools. We choose them around the idea and the people, creating interactions between content, physical spaces and digital worlds."
+        "title": "TECHNOLOGIE",
+        "body": "Le creative coding, la 3D temps réel, l’IA, la AR, la VR et l’électronique sont des outils expressifs. Nous les choisissons selon l’idée et les personnes, en créant des interactions entre contenus, espaces physiques et mondes numériques."
       },
       "h4": {
-        "title": "STRATEGY",
-        "body": "We start with what you want to communicate and the people you want to engage. We define the concept, audience journey and format: a brand experience, a cultural installation, a game or an adventure through a destination."
+        "title": "STRATÉGIE",
+        "body": "Nous partons de ce que vous voulez transmettre et des personnes que vous voulez toucher. Nous définissons le concept, le parcours du public et le format : une expérience de marque, une installation culturelle, un jeu ou une aventure à travers une destination."
       },
       "h5": {
         "title": "INNOVATION",
-        "body": "Our in-house lab feeds our creative work. We experiment with expressive formats, technologies and materials, building prototypes to discover new possibilities for the experiences we imagine."
+        "body": "Notre laboratoire interne nourrit notre travail créatif. Nous expérimentons des formats, des technologies et des matières expressifs, en construisant des prototypes pour découvrir de nouvelles possibilités."
       },
       "h6": {
-        "title": "DELIVERY",
-        "body": "We take projects from concept to production. We bring creative direction, design, development and integration together, working with project partners to put the experience in front of its audience."
+        "title": "LIVRAISON",
+        "body": "Nous menons les projets du concept à la production. Direction créative, design, développement et intégration travaillent ensemble, avec les partenaires du projet, pour mettre l’expérience devant son public."
       }
     }
   },
@@ -50,7 +50,7 @@
     "headline1": "Damien Demontis",
     "headline2": "Portfolio",
     "cta": "Contact",
-    "social": "Social",
+    "social": "Réseaux",
     "contacts": "Contacts"
   },
   "scenes": {

@@ -22,3 +22,10 @@ test('le mode lecture ne depend d aucune animation', () => {
   expect(container.querySelector('canvas')).toBeNull()
   expect(container.textContent.split(/\s+/).length).toBeGreaterThan(900)
 })
+
+test('le mode lecture a un seul h1 : le nom', () => {
+  const { container } = render(<ReadingMode lang="fr" />)
+  const h1 = container.querySelectorAll('h1')
+  expect(h1).toHaveLength(1)
+  expect(h1[0].textContent).toBe('Damien Demontis')
+})

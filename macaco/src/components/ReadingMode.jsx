@@ -5,12 +5,14 @@ import React from 'react'
 import i18next from 'i18next'
 import '../i18n/index.js'
 import { SCENES, sceneText } from '../content/scenes.js'
+import { SITE } from '../content/site.js'
 
 function ReadingMode({ lang }) {
   const t = i18next.getFixedT(lang)
   const tKo = i18next.getFixedT('ko')
   return (
     <main className="reading-mode" id="lecture">
+      <h1>{SITE.name}</h1>
       <p className="reading-mode__back">
         <a href={`/${lang}`}>{t('reading.back')}</a>
       </p>

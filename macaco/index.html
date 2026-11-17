@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#000000" />
-    <!-- Per-URL title, description, canonical, hreflang, Open Graph and
-         JSON-LD are kept in sync on navigation by src/seo/Seo.jsx. The title
-         below is only the fallback before the app mounts. -->
+    <!-- Title, description, canonical, hreflang, Open Graph and JSON-LD are
+         written per language page at build time by scripts/prerender.mjs
+         (and kept in sync on client navigation by src/seo/Seo.jsx). This
+         title is only the fallback for the dev server. -->
     <title>Damien Demontis</title>
     <!-- Fonts are self-hosted from /fonts — the @font-face rules live in
          src/styles/tokens.css. Preloaded here because they are discovered

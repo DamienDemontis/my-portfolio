@@ -1,5 +1,5 @@
 // Langue inconnue dans l'URL : renvoie le chemin corrige vers /en, ou null.
-import { isSupportedLanguage } from '../i18n/index.js'
+import { isSupportedLanguage } from '../i18n/languages.js'
 
 export function resolveLanguagePath(pathname) {
   const m = /^\/([A-Za-z]{2})(?=\/|$)/.exec(pathname)

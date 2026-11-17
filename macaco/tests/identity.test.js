@@ -5,7 +5,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { EMPLOI } from './helpers/forbidden.js'
+import { contientEmploi } from './helpers/forbidden.js'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const PUBLIC = join(ROOT, 'public')
@@ -37,7 +37,7 @@ test('plus rien n identifie MACACO', () => {
 })
 
 test('aucune formule de recherche d emploi', () => {
-  expect(SOURCES.filter(f => EMPLOI.test(lire(f))).map(nom)).toEqual([])
+  expect(SOURCES.filter(f => contientEmploi(lire(f))).map(nom)).toEqual([])
 })
 
 const EXT = 'svg|png|jpe?g|webp|avif|gif|ico|mp4|webm|mov|mp3|wav|ogg|glb|gltf|bin|hdr|ktx2|woff2?|ttf|otf|txt|json|webmanifest|md|pdf'
@@ -71,4 +71,8 @@ test('aucun chemin d asset construit par concatenation', () => {
   const dynamiques = []
   for (const f of SOURCES) for (const [m] of lire(f).matchAll(CONCATENE)) dynamiques.push(`${nom(f)} :: ${m}`)
   expect(dynamiques).toEqual([])
+})
+
+test('aucun lien du site ne mene aux CV PDF', () => {
+  expect(SOURCES.filter(f => /CV_[\w-]*\.pdf|CV_Damien/i.test(lire(f))).map(nom)).toEqual([])
 })
