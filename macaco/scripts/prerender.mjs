@@ -34,7 +34,7 @@ function headBlock(m) {
     `<meta data-seo property="og:description" content="${esc(m.description)}" />`,
     `<meta data-seo property="og:url" content="${esc(m.canonical)}" />`,
     `<meta data-seo property="og:locale" content="${esc(m.ogLocale)}" />`,
-    `<script data-seo type="application/ld+json">${JSON.stringify(m.jsonLd).replaceAll('</', '<\/')}</script>`,
+    `<script data-seo type="application/ld+json">${JSON.stringify(m.jsonLd).replaceAll('<\/', '<\/')}</script>`,
     MARK_END,
   ]
   return lines.join('\n    ')
