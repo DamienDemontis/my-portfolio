@@ -53,7 +53,7 @@ function LangLayout() {
   }, [o, e, a]), !o) return <NotFound />;
   const s = i.pathname.replace(/\/+$/, "") || `/${e}`,
     n = s === `/${e}`;
-  if (reading) return <PageTransitionProvider><AccentProvider><div id={SCROLL_ROOT_ID} className="scroll-root reading-root"><div className="site-chrome"><NavBar isHome={!1} /></div><ReadingMode lang={e} /></div></AccentProvider></PageTransitionProvider>;
+  if (reading) return <AccentProvider><div id={SCROLL_ROOT_ID} className="scroll-root reading-root"><div className="site-chrome"><NavBar isHome={!1} /></div><ReadingMode lang={e} /></div></AccentProvider>;
   return <PageTransitionProvider><AccentProvider><SiteDitherLayer active={!n} /><Cursor /><div id={SCROLL_ROOT_ID} className="scroll-root"><div className="site-chrome"><NavBar isHome={n} /><ScrollProgressBar /></div><Tn /><Intro active={n} /><React.Suspense fallback={null}><Outlet /></React.Suspense></div></AccentProvider></PageTransitionProvider>;
 }
 const HomePage = React.lazy(() => import("./pages/Home.jsx"));
