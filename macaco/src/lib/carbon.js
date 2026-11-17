@@ -2,6 +2,8 @@ import { co2 } from '@tgwf/co2'
 
 // Sustainable Web Design v4, via the Green Web Foundation library: the
 // constants are theirs, so the figure can be defended to a technical reader.
+// Figures are lower bounds: cache hits and cross-origin resources without
+// Timing-Allow-Origin report a transferSize of 0.
 const estimator = new co2({ model: 'swd', version: 4 })
 
 // Heavy assets excluded from the "first display" figure but kept in "full".
@@ -17,15 +19,21 @@ function isHeavy(url) {
   return HEAVY.test(path)
 }
 
+function sizeOf(entry) {
+  return Number.isFinite(entry?.transferSize) ? entry.transferSize : 0
+}
+
 export function measureTransfer() {
-  const entries =
-    typeof performance !== 'undefined' && performance?.getEntriesByType
-      ? performance.getEntriesByType('resource')
-      : []
-  let firstPaint = 0
-  let full = 0
-  for (const entry of entries) {
-    const size = Number.isFinite(entry.transferSize) ? entry.transferSize : 0
+  const perf = typeof performance !== 'undefined' ? performance : undefined
+  if (!perf?.getEntriesByType) return { firstPaint: 0, full: 0 }
+  // The page's own HTML is part of the download, in both figures. Only a real
+  // navigation entry counts (guards against stubs ignoring the type argument).
+  const nav = (perf.getEntriesByType('navigation') ?? [])[0]
+  const htmlBytes = nav?.entryType === 'navigation' ? sizeOf(nav) : 0
+  let firstPaint = htmlBytes
+  let full = htmlBytes
+  for (const entry of perf.getEntriesByType('resource') ?? []) {
+    const size = sizeOf(entry)
     full += size
     if (!isHeavy(entry.name)) firstPaint += size
   }

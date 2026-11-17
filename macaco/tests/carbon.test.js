@@ -48,3 +48,15 @@ test('sans API performance, la mesure vaut zero', () => {
   vi.stubGlobal('performance', undefined)
   expect(measureTransfer()).toEqual({ firstPaint: 0, full: 0 })
 })
+
+test('le document HTML compte dans les deux chiffres', () => {
+  const byType = {
+    navigation: [{ entryType: 'navigation', name: '/', transferSize: 12_000 }],
+    resource: [
+      { name: '/a.js', transferSize: 100_000, initiatorType: 'script' },
+      { name: '/perso.glb', transferSize: 1_400_000, initiatorType: 'fetch' },
+    ],
+  }
+  vi.stubGlobal('performance', { getEntriesByType: (type) => byType[type] ?? [] })
+  expect(measureTransfer()).toEqual({ firstPaint: 112_000, full: 1_512_000 })
+})
