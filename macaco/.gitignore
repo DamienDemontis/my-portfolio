@@ -1,8 +1,3 @@
 node_modules
 dist
 .vite
-
-# Medias d'un ancien site client : plus references par le code,
-# a ne jamais commiter.
-public/case/
-public/og/
