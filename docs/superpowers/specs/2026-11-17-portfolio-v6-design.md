@@ -60,7 +60,7 @@ Ce qui ferait échouer le projet même s'il fonctionne techniquement :
    négociable, sur chaque mot du site.
 2. **Pas d'artiste 3D ni de budget externe engagé.** La production du
    personnage doit tenir avec les outils disponibles. Seule exception
-   envisagée : une cabine de scan pro, sur décision de Damien.
+   retenue : le plan payant Tripo de Damien (modèle privé).
 3. **Le contenu reste à écrire.** Damien écrit, les skills de rédaction
    interviennent en passe d'édition.
 4. **La base est du code reconstruit**, pas du code écrit à la main :
@@ -141,19 +141,29 @@ vrai document, et un mode lecture (voir SEO et Idées retenues).
 
 ## Le personnage
 
-**Décision (révisée le 2026-11-17 par Damien) : un portrait ressemblant,
-le plus fidèle possible, dans son vrai manteau gris.** Elle remplace la
-silhouette stylisée encapuchonnée retenue d'abord.
+**Décision (révisée deux fois le 2026-11-17 par Damien) : un personnage
+généré, rigué Mixamo, dans son long manteau gris.** Damien a écarté le
+scan au profit de la génération : images de lui produites par IA d'après
+ses photos, puis Tripo image→3D (plan payant, modèle privé). Trois essais
+existent ; le source retenu par défaut est `man in grey coat 3d model.glb`
+(14,6 k triangles, texture 4096 px, 65 os Mixamo).
 
-La ressemblance vient de la capture, pas de la génération : les outils
-image→3D et les avatars « depuis trois selfies » produisent un humain
-plausible, pas Damien. Le personnage est donc **scanné** (photogrammétrie,
-maison ou en cabine), puis nettoyé, rigué et posé. Le dither du site garde
-ce qui fait reconnaître quelqu'un — silhouette, proportions, structure du
-visage, coupe du manteau — et efface les défauts de texture.
+Ce que ce choix coûte, mesuré le 2026-11-17 : la conversion 3D efface
+l'essentiel de la ressemblance du visage (similarité SFace 0,20 à 0,27 avec
+ses photos, sous le seuil « même personne » de 0,363 ; les images d'entrée
+étaient à 0,35–0,68). La silhouette reste la sienne : manteau, col roulé,
+coiffure en bataille. Le dither du site travaille dans ce sens. Remède
+possible, hors plan 2 : reprojeter une image ressemblante sur la texture du
+visage.
 
-Le chemin complet, phase par phase, avec ce que fait Damien et ce que fait
-le constructeur : `docs/superpowers/notes/2026-11-17-personnage-feuille-de-route.md`.
+Défaut connu des trois essais : l'auto-rig de Tripo colle le bas du
+manteau aux mains ; dès que les bras bougent, le manteau se déchire. Un
+correctif de poids scripté (retirer l'influence des os du bras à plus de
+0,18 × la distance hanches-tête de la chaîne bras-main) le règle sur les
+trois essais, vérifié en pose bras le long du corps et en pose d'action.
+
+La feuille de route d'origine (scan) reste comme référence pour les
+phases 4 à 8 : `docs/superpowers/notes/2026-11-17-personnage-feuille-de-route.md`.
 
 Contraintes qui en découlent :
 
@@ -256,7 +266,7 @@ développeur bilingue FR/KO).
 Le point dur : un site 3D cinématique qui passe les Core Web Vitals.
 
 - **Le LCP doit être le titre, pas le canvas.** Le 3D se charge après.
-- GLB du personnage sous 3 Mo (révisé : un vrai scan texturé, textures
+- GLB du personnage sous 3 Mo (révisé : un modèle texturé, textures
   1024 px que le dither rend suffisantes), compression meshopt ou Draco.
 - Les paliers responsive de la base (`lib/device.js`) sont déjà là :
   mobile, tablette, desktop, avec densité de pixels plafonnée.
@@ -308,7 +318,7 @@ Conséquence à assumer : le « moteur de scroll piloté » de la base sert
 moins qu'espéré, on en reprend surtout l'aspect.
 
 **Budget du personnage : 3 Mo pour le système entier** (révisé depuis
-1,5 Mo avec le passage au scan), pas par scène. Un seul maillage riggé,
+1,5 Mo pour un modèle texturé), pas par scène. Un seul maillage riggé,
 des accessoires interchangeables montés sur le même squelette (casque,
 écharpe, lunettes). Les silhouettes de la scène 7 sont le même maillage,
 décimé, sans texture ni accessoire.
@@ -334,11 +344,11 @@ typographie display et la durée des scènes se calent dessus.
 **Redirections** des URL `?lng=fr` / `?lng=ko` indexées vers la nouvelle
 structure `/fr` `/en` `/ko`.
 
-**Outillage du personnage : gratuit.** Photogrammétrie (RealityScan
-desktop ou COLMAP + OpenMVS), Blender scripté, rig Mixamo (ou Puppeteer en
-local), poses scriptées, accessoires générés en local. Remplace l'abonnement
-Meshy envisagé d'abord. Dépenses optionnelles : cabine de scan pro, un mois
-de Rokoko Vision pour un geste capturé.
+**Outillage du personnage (révisé le 2026-11-17) :** génération Tripo
+(plan payant de Damien, modèle privé), puis tout le reste scripté dans le
+dépôt : correctif de poids, compression meshopt, texture WebP, budget testé,
+poses en données. Pas de Blender requis. Dépense optionnelle : un mois de
+Rokoko Vision pour un geste capturé.
 
 **Langue source : le français d'abord.** Tu écris en français, je produis
 l'anglais. Pour le coréen, dis-moi d'où vient le `ko.json` de v5 : s'il a
