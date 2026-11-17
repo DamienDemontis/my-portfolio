@@ -76,17 +76,3 @@ test('aucun chemin d asset construit par concatenation', () => {
 test('aucun lien du site ne mene aux CV PDF', () => {
   expect(SOURCES.filter(f => /CV_[\w-]*\.pdf|CV_Damien/i.test(lire(f))).map(nom)).toEqual([])
 })
-
-test('no reference to the inherited mecha or intro', () => {
-  const motifs = [/Mecha_Full/, /RobotScene/, /RobotStage/, /CityScene/, /components\/intro/]
-  const coupables = []
-  for (const f of SOURCES) {
-    const texte = lire(f)
-    for (const m of motifs) if (m.test(texte)) coupables.push(`${nom(f)} :: ${m}`)
-  }
-  expect(coupables).toEqual([])
-})
-
-test('the mecha asset is gone', () => {
-  expect(existsSync(join(PUBLIC, 'intro', 'Mecha_Full.glb'))).toBe(false)
-})

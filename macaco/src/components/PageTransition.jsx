@@ -47,6 +47,7 @@ function OverlaySolid({
     }}>{c && <div className="ldg-top">{"PREPARING SYSTEM // "}{"{"}<Er2 value={s} />{"%"}{"}"}</div>}<div className="ldg-center"><img className="ldg-robot" src={Qo} alt="" aria-hidden="true" width="242" height="269" />{c ? <div className="ldg-headline">{A}<span className="ldg-caret" aria-hidden="true" /></div> : <div className="ldg-pagename">{A}<span className="ldg-caret" aria-hidden="true" /></div>}</div><Strip /></motion.div>}</div>;
 }
 const _t = "site:loading-seen";
+const ke = "site:robot-ready";
 const jt = {
   type1: 2200,
   type2: 1300
@@ -68,6 +69,7 @@ const ir = {
   ease: "easeIn"
 };
 const ar = 0.82;
+const or = 6e3;
 const Pt = e => new Promise(i => setTimeout(i, e));
 const rr = () => new Promise(e => requestAnimationFrame(() => requestAnimationFrame(e)));
 const nr = (e = 6) => new Promise(i => {
@@ -112,6 +114,7 @@ function PageTransitionProvider({
     [C, D] = React.useState(!1),
     [b, _] = React.useState(!0),
     L = React.useRef(!0),
+    G = React.useRef(!1),
     g = React.useRef(!0),
     P = React.useRef(i.pathname),
     M = React.useRef(null),
@@ -132,26 +135,38 @@ function PageTransitionProvider({
         done: !1
       }, y;
     };
-  // Le voile attend quelques images et les polices, jamais la 3D : le personnage
-  // se charge après l'événement load, derrière un texte déjà lisible.
-  const R = React.useCallback(() => {
-      var x;
-      return Promise.all([nr(), ((x = document.fonts) == null ? void 0 : x.ready) ?? Promise.resolve()]);
-    }, []),
-    E = React.useCallback(async x => {
+  React.useEffect(() => {
+    typeof window < "u" && window.__siteRobotReady && (G.current = !0);
+    const x = () => {
+      G.current = !0;
+    };
+    return window.addEventListener(ke, x), () => window.removeEventListener(ke, x);
+  }, []);
+  const T = React.useCallback(() => G.current || typeof window < "u" && window.__siteRobotReady ? Promise.resolve() : new Promise(x => {
+      const y = () => {
+          clearTimeout(z), window.removeEventListener(ke, y), x();
+        },
+        z = setTimeout(y, or);
+      window.addEventListener(ke, y);
+    }), []),
+    R = React.useCallback(x => {
+      var y;
+      return Promise.all([nr(), ((y = document.fonts) == null ? void 0 : y.ready) ?? Promise.resolve(), x ? T() : Promise.resolve()]);
+    }, [T]),
+    E = React.useCallback(async (x, y) => {
       f(!0);
       let z;
       x === "type1" && (z = animate(h, 90, {
         duration: 2,
         ease: "easeOut"
-      })), await Promise.all([Pt(jt[x] ?? jt.type2), R()]), x === "type1" && (z == null || z.stop(), await animate(h, 100, {
+      })), await Promise.all([Pt(jt[x] ?? jt.type2), R(y)]), x === "type1" && (z == null || z.stop(), await animate(h, 100, {
         duration: 0.3,
         ease: "easeOut"
       })), l.set(0), animate(d, 0, ir), await animate(n, 0, Nt), v(null), f(!1), u(!1);
     }, [l, d, n, h, R]);
   React.useEffect(() => {
     var x;
-    (x = window.sessionStorage) == null || x.setItem(_t, "1"), E(c.current.kind);
+    (x = window.sessionStorage) == null || x.setItem(_t, "1"), E(c.current.kind, c.current.rel === "/");
   }, []);
   const I = React.useCallback(x => {
       const y = cr(x),
@@ -165,7 +180,7 @@ function PageTransitionProvider({
       v({
         kind: "type2",
         rel: z
-      }), (async () => (await Promise.race([V, Pt(lr)]), await animate(n, 1, Ot), l.set(1), o(x), scrollToTop(), animate(d, 1, Bt), await E("type2")))();
+      }), (async () => (await Promise.race([V, Pt(lr)]), await animate(n, 1, Ot), l.set(1), o(x), scrollToTop(), animate(d, 1, Bt), await E("type2", z === "/")))();
     }, [o, i.pathname, n, l, d, h, E]),
     j = React.useCallback(x => {
       if (L.current) return;
@@ -211,7 +226,7 @@ function PageTransitionProvider({
     u(!0), n.set(1), l.set(1), d.set(0), f(!1), v({
       kind: "type2",
       rel: V
-    }), (async () => (await rr(), animate(d, 1, Bt), await E("type2")))();
+    }), (async () => (await rr(), animate(d, 1, Bt), await E("type2", V === "/")))();
   }, [i.pathname]);
   const F = React.useMemo(() => ({
       busy: b,

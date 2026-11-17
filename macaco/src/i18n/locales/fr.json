@@ -5,6 +5,47 @@
     "contact": "Contact",
     "reading": "Lecture"
   },
+  "intro": {
+    "tagline": "{portfolio}",
+    "scroll": "Défiler pour explorer",
+    "headline1": "ON DONNE FORME",
+    "headline2": "À L’INNOVATION",
+    "paragraph": "Portfolio de Damien Demontis."
+  },
+  "home": {
+    "craftLine1": "Les actes",
+    "craftLine2": "parlent plus fort que les mots",
+    "stage": {
+      "title": "EXPERTISE CLÉ",
+      "code": "initialiser_analyse_coeur",
+      "ready": "systeme_pret",
+      "interact": "INTERAGIR",
+      "h1": {
+        "title": "CRÉATIVITÉ",
+        "body": "Nous donnons une direction créative aux idées. Concepts, direction artistique, design et narration transforment l’identité d’une marque ou une histoire en une expérience singulière, façonnée pour son public."
+      },
+      "h2": {
+        "title": "SAVOIR-FAIRE",
+        "body": "Des personnages et environnements aux interfaces et objets, nous façonnons le langage visuel et chaque détail de l’expérience. Artistes, designers et développeurs travaillent ensemble pour donner vie au concept."
+      },
+      "h3": {
+        "title": "TECHNOLOGIE",
+        "body": "Le creative coding, la 3D temps réel, l’IA, la AR, la VR et l’électronique sont des outils expressifs. Nous les choisissons selon l’idée et les personnes, en créant des interactions entre contenus, espaces physiques et mondes numériques."
+      },
+      "h4": {
+        "title": "STRATÉGIE",
+        "body": "Nous partons de ce que vous voulez transmettre et des personnes que vous voulez toucher. Nous définissons le concept, le parcours du public et le format : une expérience de marque, une installation culturelle, un jeu ou une aventure à travers une destination."
+      },
+      "h5": {
+        "title": "INNOVATION",
+        "body": "Notre laboratoire interne nourrit notre travail créatif. Nous expérimentons des formats, des technologies et des matières expressifs, en construisant des prototypes pour découvrir de nouvelles possibilités."
+      },
+      "h6": {
+        "title": "LIVRAISON",
+        "body": "Nous menons les projets du concept à la production. Direction créative, design, développement et intégration travaillent ensemble, avec les partenaires du projet, pour mettre l’expérience devant son public."
+      }
+    }
+  },
   "footer": {
     "headline1": "Damien Demontis",
     "headline2": "Portfolio",

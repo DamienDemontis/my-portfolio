@@ -19,4 +19,27 @@ function envelope(e, i, a, o) {
     d = 0.4 + 0.6 * Math.min(1, (e - i) / Math.max(1, a - i));
   return n * d;
 }
-export { STAGE_HEIGHT_SVH, ci, envelope, hexToRgbScaled, li };
+function findExitShot(e) {
+  for (const i of e) if (i.exit) return i;
+  return null;
+}
+const sceneRefreshListeners = new Set();
+function onSceneRefresh(e) {
+  return sceneRefreshListeners.add(e), () => sceneRefreshListeners.delete(e);
+}
+const io = {
+  ultrawide: ["ultrawide", "base"],
+  xl: ["xl", "base"],
+  base: ["base"],
+  tablet: ["tablet", "base"],
+  mobile: ["mobile", "tablet", "base"]
+};
+function ao(e, i = "landscape") {
+  const a = [];
+  for (const o of io[e] || ["base"]) o !== "base" && a.push(`${o}-${i}`), a.push(o);
+  return a;
+}
+function pickResponsive(e, i, a) {
+  for (const o of ao(i, a)) if (o in e) return e[o];
+}
+export { STAGE_HEIGHT_SVH, ci, envelope, findExitShot, hexToRgbScaled, hexToRgbTriplet, li, onSceneRefresh, pickResponsive };

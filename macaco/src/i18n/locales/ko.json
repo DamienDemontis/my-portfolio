@@ -5,6 +5,47 @@
     "contact": "Contact",
     "reading": "[KO] Read"
   },
+  "intro": {
+    "tagline": "[KO] {portfolio}",
+    "scroll": "Scroll to explore",
+    "headline1": "WE GIVE SHAPE",
+    "headline2": "TO INNOVATION",
+    "paragraph": "[KO] Portfolio of Damien Demontis."
+  },
+  "home": {
+    "craftLine1": "Actions",
+    "craftLine2": "Speak louder than words",
+    "stage": {
+      "title": "CORE EXPERTISE",
+      "code": "initialize_core_analysis",
+      "ready": "system_ready",
+      "interact": "INTERACT",
+      "h1": {
+        "title": "CREATIVITY",
+        "body": "We give ideas a creative direction. Concepts, art direction, design and storytelling turn a brand’s identity or a story into a distinctive experience shaped around its audience."
+      },
+      "h2": {
+        "title": "CRAFT",
+        "body": "From characters and environments to interfaces and objects, we shape the visual language and every detail of the experience. Artists, designers and developers work together to bring the concept to life."
+      },
+      "h3": {
+        "title": "TECHNOLOGY",
+        "body": "Creative coding, real-time 3D, AI, AR, VR and electronics are expressive tools. We choose them around the idea and the people, creating interactions between content, physical spaces and digital worlds."
+      },
+      "h4": {
+        "title": "STRATEGY",
+        "body": "We start with what you want to communicate and the people you want to engage. We define the concept, audience journey and format: a brand experience, a cultural installation, a game or an adventure through a destination."
+      },
+      "h5": {
+        "title": "INNOVATION",
+        "body": "Our in-house lab feeds our creative work. We experiment with expressive formats, technologies and materials, building prototypes to discover new possibilities for the experiences we imagine."
+      },
+      "h6": {
+        "title": "DELIVERY",
+        "body": "We take projects from concept to production. We bring creative direction, design, development and integration together, working with project partners to put the experience in front of its audience."
+      }
+    }
+  },
   "footer": {
     "headline1": "Damien Demontis",
     "headline2": "[KO] Portfolio",
