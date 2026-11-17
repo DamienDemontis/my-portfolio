@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "description": "Portfolio de Damien Demontis : Vite + React + react-three-fiber.",
+  "engines": {
+    "node": ">=20.9"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/prerender-cli.mjs",

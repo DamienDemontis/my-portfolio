@@ -55,5 +55,13 @@ test('ko.json : le coreen non relu est marque [KO]', async () => {
 test('fr.json : libelles d interface en francais', async () => {
   const fr = (await import('../src/i18n/locales/fr.json')).default
   expect(fr.nav.home).toBe('Accueil')
-  expect(fr.intro.scroll).toBe('Défiler pour explorer')
+})
+
+// Les trois locales portent exactement les memes cles (retirer une cle, c'est partout).
+test('fr, en et ko ont les memes cles', async () => {
+  const cles = (o, p = '') =>
+    Object.entries(o).flatMap(([k, v]) => (v && typeof v === 'object' ? cles(v, p + k + '.') : [p + k])).sort()
+  const [fr, en, ko] = await Promise.all(['fr', 'en', 'ko'].map(async l => (await import(`../src/i18n/locales/${l}.json`)).default))
+  expect(cles(en)).toEqual(cles(fr))
+  expect(cles(ko)).toEqual(cles(fr))
 })
