@@ -1,103 +1,72 @@
-# macaco — reconstruction de studiomacaco.ch
+# Portfolio de Damien Demontis — base v6
 
-Source reconstruite du site **studiomacaco.ch** à partir du build déployé.
-Le projet d'origine n'était plus disponible et le build en production n'expose
-aucune source map : tout ce qui suit a été récupéré depuis les bundles servis
-par CloudFront, puis remis en forme. Le site tourne à l'identique.
-
-État : **reproduction fidèle, non modifiée**. C'est le point de départ, pas la
-destination.
+Base du portfolio : Vite 6 + React 18 + react-three-fiber. Le code a été
+reconstruit à partir d'un build de production (sans source maps), puis
+débarrassé de toute l'identité du site d'origine. Le corps de la page
+d'accueil, le personnage 3D et les scènes sont remplacés par les plans
+suivants.
 
 ## Démarrer
 
 ```bash
 npm install
-npm run fetch-media   # images des case studies (~28 Mo, hors dépôt)
-npm run dev           # http://localhost:5180
+npm run dev     # http://localhost:5180
+npm test        # vitest
+npm run build
 ```
-
-Les vidéos des case studies (~1 Go) ne sont pas rapatriées par défaut :
-`npm run fetch-media -- --video` si tu les veux en local.
-
-## Ce qui a été récupéré
-
-| Couche | État | Détail |
-|---|---|---|
-| CSS | **à l'identique** | 8 feuilles, classes et variables d'origine intactes |
-| Contenu | **à l'identique** | 25 case studies, traductions EN/IT complètes |
-| Shaders GLSL | **à l'identique** | dither WebGL, matériaux three.js, commentaires compris |
-| Markup | **à l'identique** | 890 éléments JSX restaurés depuis les appels `jsx()` |
-| Logique | **à l'identique** | sémantique inchangée ; une partie des noms locaux reste minifiée |
-| Prérendu SEO | **absent** | fait au déploiement par un script hors bundle |
 
 ## Organisation
 
 ```
 src/
   main.jsx                      point d'entrée
-  App.jsx                       routeur : redirection de langue, gabarit /:lang, pages en lazy
+  App.jsx                       routeur : redirection de langue, gabarit /:lang, accueil en lazy
   config.js                     scroll, caméras, lumières, post-traitement
   components/
     Cursor.jsx                  curseur personnalisé
     DitherFill.jsx              remplissage dithéré WebGL (bayer 8x8 + fbm)
     Nav.jsx                     navigation, lien applicatif, panneau mobile
     PageTransition.jsx          contexte + voile de transition entre pages
-    ScrollProgress.jsx          barre de progression et bandeau rayé
+    ScrollProgress.jsx          barre de progression et bandeau de chargement
     SiteDither.jsx              voile dithéré plein écran
-    intro/Intro.jsx             hero : bandes, titre glitché, décors
+    VideoPlayer.jsx             lecteur vidéo et requêtes media partagées
+    intro/Intro.jsx             hero : titre glitché, décors, scènes 3D
     intro/Hud.jsx               panneaux HUD du hero
-    case-detail/                CaseSectionRenderer, CaseVideoPlayer
-  pages/                        Home, Projects, ProjectDetail, Laboratory, Contact, DevSections
-  three/                        RobotScene, CityScene, RobotStage, CaseDeviceScene, ditherMaterial
+  pages/Home.jsx                accueil
+  three/                        RobotScene, CityScene, RobotStage, ditherMaterial
   seo/Seo.jsx                   titres, metas, hreflang, Open Graph, JSON-LD
-  i18n/index.js                 langues et init i18next
-  i18n/locales/{en,it}.json     traductions
-  content/caseHistories.js      les 25 case studies
-  content/site.js               identité du studio et liens sociaux
-  features/measure/measure.js   GA4, chargé après consentement
-  lib/                          device, scroll, shared
+  i18n/index.js                 langues (fr, en, ko) et init i18next
+  i18n/locales/{fr,en,ko}.json  traductions
+  content/site.js               identité du site et liens sociaux
+  lib/                          device, ramp, scroll, shared
   state/accent.jsx              couleur d'accent courante
-  hooks/                        useCanHover, useFitHeading
-  styles/                       CSS d'origine, une feuille par chunk
+  hooks/useCanHover.js
+  styles/                       tokens, feuille globale, accueil, lecteur vidéo
+tests/                          vitest (globals) ; les tests qui lisent le disque tournent en environnement node
 ```
-
-Le graphe d'imports est acyclique : `lib/` et `content/` ne dépendent d'aucun
-module de feature.
 
 Pile : Vite + React 18, react-router 6, i18next, framer-motion,
 three r171 + @react-three/fiber / drei / postprocessing.
 
+## Garde-fous
+
+`tests/identity.test.js` refuse toute trace de l'identité d'origine (nom,
+jaune, police d'affichage, bannière cookies, rayures de danger), toute
+formule de recherche d'emploi, et toute référence à un fichier de `public/`
+qui n'existe pas : le serveur de dev répond `index.html` en 200 pour un
+fichier absent, ce qui masque le trou.
+
 ## Limites connues
 
-- Le découpage en modules est **reconstitué**, pas repris du projet d'origine :
-  Vite avait tout concaténé dans un chunk. Les frontières suivent le graphe de
-  dépendances, et les noms de fichiers les chemins que les commentaires du
-  build laissaient voir (`src/features/measure/measure.js`, `src/seo/Seo.jsx`,
-  `src/content/caseHistories.js`).
-- Les symboles publics (ce qu'un module exporte) sont nommés d'après leur
-  usage ; les composants d'après leur classe CSS racine. Les variables locales
-  non exportées gardent les noms du minifieur (`Ka`, `rn`, …).
-- Quelques constantes de timing du hero (`si`, `li`, `ci`) restent minifiées :
-  leur rôle exact n'est pas déductible du bundle, et un nom approximatif
-  serait pire que pas de nom.
+- Le découpage en modules est reconstitué : les frontières suivent le graphe
+  de dépendances, pas le projet d'origine.
+- Les symboles exportés sont nommés d'après leur usage ; les variables
+  locales non exportées gardent des noms de minifieur (`Ka`, `rn`, …).
+- Quelques constantes de timing du hero (`si`, `li`, `ci`) restent
+  minifiées : leur rôle exact n'est pas déductible du build.
 - `lib/shared.js` est un fourre-tout assumé : ce que plusieurs modules
-  utilisent sans qu'un propriétaire évident se dégage.
-- `onSceneRefresh` est un registre d'abonnés que plus rien ne déclenche dans
-  le build livré — le panneau de réglages qui l'alimentait a été tree-shaké.
-- Le markup `index.html` conserve la configuration iubenda et l'ID de site du
-  client : à retirer avant toute réutilisation.
-- Les blocs SEO `data-seo` du HTML déployé ont été retirés : ils sont générés
-  au build par un script absent du bundle, et `useSeo` les réinjecte au runtime.
-
-## Méthode
-
-1. Miroir du site : 58 routes, 28 chunks JS/CSS, 530 assets.
-2. Analyse statique des bundles (`rea analyze-javascript-application`) pour le
-   graphe applicatif, puis identification des exports vendor par empreinte
-   (prototypes three.js, signatures R3F/drei).
-3. Codemod Babel : restauration du JSX depuis les appels `jsx()`/`jsxs()`,
-   remappage des imports vendor vers les paquets npm, renommage des composants
-   d'après leur classe CSS, mise en PascalCase, découpage en modules.
-4. Extraction des données (case studies, traductions) vers des modules dédiés.
-5. Vérification : validation statique des références, build Vite, comparaison
-   visuelle avec le site en ligne sur les deux langues et les cinq gabarits.
+  utilisent sans propriétaire évident.
+- `onSceneRefresh` est un registre d'abonnés que plus rien ne déclenche.
+- Des noms hérités restent (préfixe de classes `mc-`, variables CSS
+  `--yellow`, modificateur `mc-nav--on-yellow`) : leur valeur suit
+  désormais la rampe d'oxydation.

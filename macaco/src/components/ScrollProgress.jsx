@@ -1,4 +1,4 @@
-// Barre de progression du scroll et bandeau raye.
+// Barre de progression du scroll et bandeau de chargement.
 import React from "react";
 import { getMaxScroll, getScrollTop, onScroll } from "../lib/scroll.js";
 function ScrollProgressBar({
@@ -32,9 +32,8 @@ function ScrollProgressBar({
       transform: `scaleX(${i})`
     }} /></div>;
 }
-const Me = "/loading";
 function StripSegment() {
-  return <div className="ldg-strip__segment" aria-hidden="true"><img className="ldg-strip__icon ldg-strip__star" src={`${Me}/singlestar-black.svg`} alt="" width="28" height="29" /><span className="ldg-strip__text">{"ready_for_"}{"{"}{"awesomeness"}{"}"}</span><span className="ldg-strip__jp">{"つくる"}</span><img className="ldg-strip__icon ldg-strip__arrow" src={`${Me}/double-arrow.svg`} alt="" width="83" height="44" /><img className="ldg-strip__line" src={`${Me}/singleline-black.svg`} alt="" width="440" height="29" /><span className="ldg-strip__jp">{"かえる"}</span><img className="ldg-strip__hazard" src={`${Me}/hazard-stripe-outline.svg`} alt="" width="726" height="29" /></div>;
+  return <div className="ldg-strip__segment" aria-hidden="true"><span className="ldg-strip__text">{"ready_for_"}{"{"}{"awesomeness"}{"}"}</span><span className="ldg-strip__jp">{"つくる"}</span><span className="ldg-strip__jp">{"かえる"}</span></div>;
 }
 function Strip() {
   return <div className="ldg-strip" aria-hidden="true"><div className="ldg-strip__track"><StripSegment /><StripSegment /></div></div>;

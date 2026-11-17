@@ -137,7 +137,7 @@ function Radial({
       min: 55,
       max: 92
     });
-  return <div className="hud-radial"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(254,255,0,0.18)" strokeWidth="2" /><motion.circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" transform="rotate(-90 32 32)" animate={{
+  return <div className="hud-radial"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(184,115,51,0.18)" strokeWidth="2" /><motion.circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" transform="rotate(-90 32 32)" animate={{
         strokeDasharray: `${a * o / 100} ${a}`
       }} transition={{
         duration: 0.4

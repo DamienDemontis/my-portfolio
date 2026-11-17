@@ -1,4 +1,4 @@
-// Hero : bandes de danger, titre glitche, decors et scenes 3D.
+// Hero : titre glitche, decors et scenes 3D.
 import { AnimatePresence, animate, motion, useMotionValue } from "framer-motion";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -7,7 +7,7 @@ import { Hud } from "./Hud.jsx";
 import { applyCameraShots, config } from "../../config.js";
 import { NARROW_ASPECT_QUERY, PIXEL_BUDGET, canHover, cssPixelRatioFor, hexToRgb01, isCoarsePointer, pixelRatioFor, useIsCoarsePointer, useViewportTier } from "../../lib/device.js";
 import { getOffsetBottom, getOffsetTop, getScrollRoot, getScrollTop, getViewportHeight, onScroll, scrollRootTo, scrollToTop, useTouchScroll } from "../../lib/scroll.js";
-import { ci, hexToRgbScaled, li, pickResponsive } from "../../lib/shared.js";
+import { ci, hexToRgbScaled, li } from "../../lib/shared.js";
 import { useAccent } from "../../state/accent.jsx";
 const si = 60;
 const SCROLL_SPAN_SVH = si + li + ci;
@@ -234,26 +234,15 @@ function Ja({
     };
   }, []), <canvas ref={s} className={o} />;
 }
-function Hazard({
-  visible: e
-}) {
-  return <motion.div className="intro-hazard" aria-hidden={!0} initial={!1} animate={{
-    opacity: e ? 1 : 0
-  }} transition={{
-    duration: 0.5,
-    ease: "easeInOut"
-  }}><div className="intro-hazard__stripes" /><div className="intro-hazard__grunge" /></motion.div>;
-}
 function MarqueeTrack({
   on: e = !1
 }) {
-  const i = e ? "system: on" : "STUDIO MACACO",
+  const i = e ? "system: on" : "DAMIEN DEMONTIS",
     a = Array.from({
       length: 14
     }, () => i).join("   ");
   return <div className={`intro-marquee ${e ? "is-on" : ""}`} aria-hidden={!0}><div className="intro-marquee__track"><span>{a}{"   "}</span><span>{a}{"   "}</span></div></div>;
 }
-const LOGO_COMPLETE_SRC = "/general/macaco-logo-complete.svg";
 const ze = {
   duration: 0.4
 };
@@ -266,16 +255,7 @@ function Title({
     a = {
       opacity: e ? 1 : 0
     };
-  return <div className="intro-title" aria-hidden={!0}><motion.div className="intro-title__logo" initial={!1} animate={a} transition={ze} style={{
-      WebkitMaskImage: `url(${LOGO_COMPLETE_SRC})`,
-      maskImage: `url(${LOGO_COMPLETE_SRC})`,
-      WebkitMaskRepeat: "no-repeat",
-      maskRepeat: "no-repeat",
-      WebkitMaskSize: "100% 100%",
-      maskSize: "100% 100%",
-      backdropFilter: "invert(1)",
-      WebkitBackdropFilter: "invert(1)"
-    }} /><motion.p className="intro-title__tagline" initial={!1} animate={a} transition={ze}>{i("intro.tagline")}</motion.p><motion.p className="intro-title__scroll" initial={!1} animate={a} transition={ze}>{i("intro.scroll")}</motion.p><motion.div className="intro-title__line" initial={!1} animate={a} transition={ze} /></div>;
+  return <div className="intro-title" aria-hidden={!0}><motion.p className="intro-title__logo" initial={!1} animate={a} transition={ze}>{"DEMONTIS"}</motion.p><motion.p className="intro-title__tagline" initial={!1} animate={a} transition={ze}>{i("intro.tagline")}</motion.p><motion.p className="intro-title__scroll" initial={!1} animate={a} transition={ze}>{i("intro.scroll")}</motion.p><motion.div className="intro-title__line" initial={!1} animate={a} transition={ze} /></div>;
 }
 function MaskedSvg({
   src: e,
@@ -299,7 +279,6 @@ function MaskedSvg({
     ...s
   }} />;
 }
-const Ze = "#FEFF00";
 const $e = {
   hidden: {},
   show: {}
@@ -338,28 +317,6 @@ const So = {
     }
   }
 };
-function Outline({
-  src: e,
-  stroke: i = Ze,
-  strokeWidth: a = 1.4,
-  style: o
-}) {
-  const [s, n] = React.useState("");
-  return React.useEffect(() => {
-    let d = !0;
-    return fetch(`/intro/svg/${e}`).then(l => l.text()).then(l => {
-      d && n(l);
-    }), () => {
-      d = !1;
-    };
-  }, [e]), <span className="hero-outline" aria-hidden={!0} style={{
-    "--hero-stroke": i,
-    "--hero-sw": a,
-    ...o
-  }} dangerouslySetInnerHTML={{
-    __html: s
-  }} />;
-}
 function Glitch({
   className: e,
   i,
@@ -373,12 +330,8 @@ function Back({
   const {
       t: i
     } = useTranslation(),
-    a = e ? "show" : "hidden",
-    o = {
-      width: "100%",
-      height: "100%"
-    };
-  return <><motion.div className="hero-back" aria-hidden={!0} variants={$e} initial="hidden" animate={a}><Glitch className="hero-studio" i={0}><MaskedSvg src="studio.svg" color="#FEFF00" style={o} /></Glitch><Glitch className="hero-macaco" i={1}><Outline src="macaco-logo.svg" stroke={Ze} strokeWidth={1.4} /></Glitch></motion.div><motion.div className="hero-underline" aria-hidden={!0} variants={$e} initial="hidden" animate={a}><Glitch className="hero-longstar" i={0}><MaskedSvg src="longstar.svg" color="#FEFF00" style={o} /></Glitch><Glitch className="hero-longlines" i={1}><MaskedSvg src="longlines.svg" color="#FEFF00" style={o} /></Glitch><Glitch className="hero-intricateline" i={2}><MaskedSvg src="intricateline.svg" color="#FEFF00" style={o} /></Glitch></motion.div><motion.div className="hero-front" aria-hidden={!0} variants={$e} initial="hidden" animate={a}><motion.div className="hero-scrim" variants={So} /><div className="hero-copy"><Glitch className="hero-headline" i={2}><p className="hero-headline__text">{i("intro.headline1")}<br />{i("intro.headline2")}</p></Glitch><Glitch className="hero-paragraph" i={4}><p>{i("intro.paragraph")}</p></Glitch></div><Glitch className="hero-side hero-side--l" i={5}>{"SYSTEMS ON // (_BOOT_COMPLETE)"}</Glitch><Glitch className="hero-side hero-side--r" i={5}>{"READY TO CREATE // (SOMETHING_AMAZING?)"}</Glitch><Glitch className="hero-doubleplus" i={6}><MaskedSvg src="doubleplus.svg" color={Ze} style={o} /></Glitch></motion.div></>;
+    a = e ? "show" : "hidden";
+  return <motion.div className="hero-front" aria-hidden={!0} variants={$e} initial="hidden" animate={a}><motion.div className="hero-scrim" variants={So} /><div className="hero-copy"><Glitch className="hero-headline" i={2}><p className="hero-headline__text">{i("intro.headline1")}<br />{i("intro.headline2")}</p></Glitch><Glitch className="hero-paragraph" i={4}><p>{i("intro.paragraph")}</p></Glitch></div><Glitch className="hero-side hero-side--l" i={5}>{"SYSTEMS ON // (_BOOT_COMPLETE)"}</Glitch><Glitch className="hero-side hero-side--r" i={5}>{"READY TO CREATE // (SOMETHING_AMAZING?)"}</Glitch></motion.div>;
 }
 const hi = {
   hidden: {
@@ -411,17 +364,6 @@ function OvGlitch({
 }) {
   return <div className={e} style={o}><motion.div className="ov-glitch" variants={hi} custom={i}>{a}</motion.div></div>;
 }
-function OvGlitch2({
-  className: e,
-  src: i,
-  i: a = 0
-}) {
-  const o = `/intro/svg/${i}`;
-  return <div className={e}><motion.div className="ov-glitch ov-neg" variants={hi} custom={a} style={{
-      WebkitMaskImage: `url(${o})`,
-      maskImage: `url(${o})`
-    }} /></div>;
-}
 function Io(e) {
   const [i, a] = React.useState(!1);
   return React.useEffect(() => {
@@ -448,103 +390,13 @@ function Fi2({
     }} initial="hidden" animate="show" exit="exit">{a}</motion.div>}</AnimatePresence>;
 }
 function Ov1() {
-  const {
-    t: e
-  } = useTranslation();
-  return <Fi2 layoutKey="l1" className="ov1"><OvGlitch className="ov1-starsUL" i={0}><MaskedSvg src="starlines1upleft.svg" color="#fff" size="100% 100%" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch2 className="ov1-webuild" src={e("intro.svg.webuild")} i={1} /><OvGlitch2 className="ov1-power" src={e("intro.svg.power")} i={1} /><OvGlitch className="ov1-starsDR" i={2}><MaskedSvg src="starlines1downright.svg" color="#fff" size="100% 100%" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch className="ov1-atom" i={3}><MaskedSvg src="atompixel.svg" color="#fff" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch className="ov-side ov1-side" i={4}>{"SYSTEMS ON // (_GENERATING_CITY)"}</OvGlitch><OvGlitch className="ov-jp ov1-jp" i={4}>{"つなぐ"}</OvGlitch></Fi2>;
+  return <Fi2 layoutKey="l1" className="ov1"><OvGlitch className="ov-side ov1-side" i={4}>{"SYSTEMS ON // (_GENERATING_CITY)"}</OvGlitch><OvGlitch className="ov-jp ov1-jp" i={4}>{"つなぐ"}</OvGlitch></Fi2>;
 }
 function Ov2() {
-  const {
-    t: e
-  } = useTranslation();
-  return <Fi2 layoutKey="l2" className="ov2"><OvGlitch className="ov2-starsUL" i={0}><MaskedSvg src="starlines2upleft.svg" color="#fff" size="100% 100%" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch2 className="ov2-wecreate" src={e("intro.svg.wecreate")} i={1} /><OvGlitch2 className="ov2-amazing" src={e("intro.svg.amazing")} i={1} /><OvGlitch className="ov2-starsDR" i={2}><MaskedSvg src="starlines2downright.svg" color="#fff" size="100% 100%" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch className="ov2-vortex" i={3}><MaskedSvg src="vortexpixel.svg" color="#fff" style={{
-        width: "100%",
-        height: "100%"
-      }} /></OvGlitch><OvGlitch className="ov-side ov2-proc" i={4}>{"PROCEDURE START // (_FBX_PROCEDURAL)"}</OvGlitch><OvGlitch className="ov-side ov2-side" i={4}>{"SYSTEMS ON // (_GENERATING_CITY)"}</OvGlitch><OvGlitch className="ov-jp ov2-jp" i={4}>{"うまれる"}</OvGlitch></Fi2>;
+  return <Fi2 layoutKey="l2" className="ov2"><OvGlitch className="ov-side ov2-proc" i={4}>{"PROCEDURE START // (_FBX_PROCEDURAL)"}</OvGlitch><OvGlitch className="ov-side ov2-side" i={4}>{"SYSTEMS ON // (_GENERATING_CITY)"}</OvGlitch><OvGlitch className="ov-jp ov2-jp" i={4}>{"うまれる"}</OvGlitch></Fi2>;
 }
 function Mo() {
   return <><Ov1 /><Ov2 /></>;
-}
-const vi = {
-  transition: {
-    duration: 0.4
-  }
-};
-const ko = {
-  base: [{
-    top: "12%",
-    left: "14%"
-  }, {
-    top: "18%",
-    left: "82%"
-  }, {
-    top: "78%",
-    left: "14%"
-  }, {
-    top: "82%",
-    left: "82%"
-  }]
-};
-const Lo = {
-  base: [{
-    top: "20%",
-    left: "66%"
-  }, {
-    top: "71%",
-    left: "31%"
-  }]
-};
-function Crosshairs({
-  visible: e = !0
-}) {
-  const {
-      tier: i,
-      orient: a
-    } = useViewportTier(),
-    o = pickResponsive(ko, i, a) || [],
-    s = pickResponsive(Lo, i, a) || [];
-  return <motion.div className="intro-crosshairs" aria-hidden={!0} animate={{
-    opacity: e ? 1 : 0
-  }} {...vi}>{o.map((n, d) => <MaskedSvg src="crosshair-big.svg" color="rgba(255,255,255,0.55)" className="intro-cross" style={{
-      top: n.top,
-      left: n.left,
-      width: "calc(46 * var(--ipx))",
-      height: "calc(86 * var(--ipx))"
-    }} key={`b${d}`} />)}{s.map((n, d) => <MaskedSvg src="crosshair.svg" color="#FEFF00" className="intro-cross" style={{
-      top: n.top,
-      left: n.left,
-      width: "calc(30 * var(--ipx))",
-      height: "calc(30 * var(--ipx))"
-    }} key={`s${d}`} />)}</motion.div>;
-}
-function MarginGlyphs({
-  visible: e = !0
-}) {
-  const i = {
-    height: "92vh",
-    width: "calc(92vh * 0.204)"
-  };
-  return <motion.div className="intro-margin-glyphs" aria-hidden={!0} animate={{
-    opacity: e ? 1 : 0
-  }} {...vi}><MaskedSvg src="glyph.svg" color="#000000" className="intro-margin-glyphs__l" style={i} /><MaskedSvg src="glyph.svg" color="#000000" className="intro-margin-glyphs__r" style={{
-      ...i,
-      transform: "translateY(-50%) scaleX(-1)"
-    }} /></motion.div>;
 }
 const Jo = React.lazy(() => import("../../three/RobotScene.jsx"));
 const Oo = React.lazy(() => import("../../three/CityScene.jsx"));
@@ -557,9 +409,9 @@ function No({
   return <Ja active={e} accent={i} />;
 }
 const Bo = 30;
-const Po = "macaco:intro-landed";
-const Go = "macaco:yellow-nav";
-const Rt = "macaco:scroll-hint";
+const Po = "site:intro-landed";
+const Go = "site:yellow-nav";
+const Rt = "site:scroll-hint";
 const Fo = 1500;
 const Vo = {
   powerOnMs: 2667,
@@ -745,15 +597,14 @@ function Intro({
       tier: F,
       orient: ee
     } = useViewportTier(),
-    K = a === "off",
-    x = K;
+    K = a === "off";
   return <>{e && <div ref={l} className="intro-scroll-spacer" style={{
       height: `${E * 100}svh`
-    }} />}<div className={`intro-root${e ? "" : " intro-hidden"}`} data-tier={F} data-orient={ee}><No active={e && D} /><div className="intro-hero-layers" ref={h}><React.Suspense fallback={null}><Oo phase={a} active={e && f} dpr={M} /></React.Suspense><Hazard visible={K} /><Hud active={a === "igniting"} /><React.Suspense fallback={null}><Jo phase={a} active={e && f} dpr={M} onPerf={S} onDurations={y => {
+    }} />}<div className={`intro-root${e ? "" : " intro-hidden"}`} data-tier={F} data-orient={ee}><No active={e && D} /><div className="intro-hero-layers" ref={h}><React.Suspense fallback={null}><Oo phase={a} active={e && f} dpr={M} /></React.Suspense><Hud active={a === "igniting"} /><React.Suspense fallback={null}><Jo phase={a} active={e && f} dpr={M} onPerf={S} onDurations={y => {
             d.current = y;
           }} onLanding={() => {
             n(!0), k(), config.ditherState = "landed";
-          }} /></React.Suspense><Back visible={s && G} /><Mo /><Crosshairs visible={x} /><MarginGlyphs visible={x} /><motion.div className="intro-marquee-band" animate={{
+          }} /></React.Suspense><Back visible={s && G} /><Mo /><motion.div className="intro-marquee-band" animate={{
           opacity: K ? 1 : 0
         }} transition={{
           duration: 0.4

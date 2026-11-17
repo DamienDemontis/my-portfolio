@@ -1,7 +1,7 @@
 // Curseur personnalise (point + anneau) et son indice.
 import { motion } from "framer-motion";
 import React from "react";
-const Ut = "macaco:scroll-hint";
+const Ut = "site:scroll-hint";
 function Cursor() {
   const e = React.useRef(null),
     i = React.useRef(null),
@@ -44,7 +44,7 @@ function Cursor() {
         v = a.current;
       if (c && (c.style.transform = `translate(${o.current.x}px, ${o.current.y}px) translate(-50%, -50%)`), v && (v.style.transform = `translate(${o.current.x}px, ${o.current.y}px) translate(-50%, -100%) translateY(-31px)`), m) {
         const A = n.current ? 1.9 : 1;
-        m.style.transform = `translate(${s.current.x}px, ${s.current.y}px) translate(-50%, -50%) scale(${A}) rotate(45deg)`, m.style.borderColor = n.current ? "var(--mc-cyan)" : "var(--mc-yellow)";
+        m.style.transform = `translate(${s.current.x}px, ${s.current.y}px) translate(-50%, -50%) scale(${A}) rotate(45deg)`, m.style.borderColor = n.current ? "var(--mc-cyan)" : "var(--mc-accent)";
       }
       l = requestAnimationFrame(h);
     };

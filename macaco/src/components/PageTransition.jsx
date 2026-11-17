@@ -46,8 +46,8 @@ function OverlaySolid({
       opacity: a
     }}>{c && <div className="ldg-top">{"PREPARING SYSTEM // "}{"{"}<Er2 value={s} />{"%"}{"}"}</div>}<div className="ldg-center"><img className="ldg-robot" src={Qo} alt="" aria-hidden="true" width="242" height="269" />{c ? <div className="ldg-headline">{A}<span className="ldg-caret" aria-hidden="true" /></div> : <div className="ldg-pagename">{A}<span className="ldg-caret" aria-hidden="true" /></div>}</div><Strip /></motion.div>}</div>;
 }
-const _t = "macaco:loading-seen";
-const ke = "macaco:robot-ready";
+const _t = "site:loading-seen";
+const ke = "site:robot-ready";
 const jt = {
   type1: 2200,
   type2: 1300
@@ -82,11 +82,7 @@ const nr = (e = 6) => new Promise(i => {
 const sr = e => Math.max(0, Math.min(1, e));
 const lr = 250;
 const ve = e => e.replace(/\/+$/, "").replace(/^\/[^/]+/, "") || "/";
-const Gt = e => /^\/projects\/[^/]+$/.test(e);
 const cr = e => (typeof e == "string" ? e : String(e)).split("#")[0].split("?")[0];
-function dr(e) {
-  return e.startsWith("/projects") ? "nav.projects" : e.startsWith("/laboratory") ? "nav.laboratory" : e.startsWith("/contact") ? "nav.contact" : "nav.home";
-}
 const PageTransitionContext = React.createContext(null);
 const usePageTransitionContext = () => React.useContext(PageTransitionContext);
 const usePageTransition = () => React.useContext(PageTransitionContext);
@@ -140,13 +136,13 @@ function PageTransitionProvider({
       }, y;
     };
   React.useEffect(() => {
-    typeof window < "u" && window.__macacoRobotReady && (G.current = !0);
+    typeof window < "u" && window.__siteRobotReady && (G.current = !0);
     const x = () => {
       G.current = !0;
     };
     return window.addEventListener(ke, x), () => window.removeEventListener(ke, x);
   }, []);
-  const T = React.useCallback(() => G.current || typeof window < "u" && window.__macacoRobotReady ? Promise.resolve() : new Promise(x => {
+  const T = React.useCallback(() => G.current || typeof window < "u" && window.__siteRobotReady ? Promise.resolve() : new Promise(x => {
       const y = () => {
           clearTimeout(z), window.removeEventListener(ke, y), x();
         },
@@ -226,12 +222,11 @@ function PageTransitionProvider({
     const x = P.current,
       y = i.pathname;
     if (P.current = y, x === y || a !== "POP" || L.current) return;
-    const z = ve(x),
-      V = ve(y);
-    Gt(z) && Gt(V) || (u(!0), n.set(1), l.set(1), d.set(0), f(!1), v({
+    const V = ve(y);
+    u(!0), n.set(1), l.set(1), d.set(0), f(!1), v({
       kind: "type2",
       rel: V
-    }), (async () => (await rr(), animate(d, 1, Bt), await E("type2", V === "/")))());
+    }), (async () => (await rr(), animate(d, 1, Bt), await E("type2", V === "/")))();
   }, [i.pathname]);
   const F = React.useMemo(() => ({
       busy: b,
@@ -242,6 +237,6 @@ function PageTransitionProvider({
       cancel: q
     }), [b, I, j, k, q]),
     ee = (m == null ? void 0 : m.kind) ?? (C ? "wipe" : null);
-  return <PageTransitionContext.Provider value={F}>{e}{ee && <OverlaySolid mode={ee} label={m ? s(dr(m.rel)) : ""} fill={n} content={d} backing={l} percent={h} typing={A} passthrough={ee === "wipe" && !b} onDitherReady={p} />}</PageTransitionContext.Provider>;
+  return <PageTransitionContext.Provider value={F}>{e}{ee && <OverlaySolid mode={ee} label={m ? s("nav.home") : ""} fill={n} content={d} backing={l} percent={h} typing={A} passthrough={ee === "wipe" && !b} onDitherReady={p} />}</PageTransitionContext.Provider>;
 }
 export { PageTransitionProvider, usePageTransition, usePageTransitionContext };

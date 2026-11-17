@@ -219,7 +219,7 @@ function Re() {
   }), <group ref={t}>{i.map((o, e) => <primitive object={o} key={e} />)}</group>;
 }
 const oe = "/intro/Mecha_Full.glb",
-  Be = "#FEFF00",
+  Be = "#B87333",
   He = 30,
   Fe = 0,
   We = ["MAT_Emissive_Limbs", "MAT_Emissive_Body", "MAT_Emissive_Head"],
@@ -306,7 +306,7 @@ function Le({
       mixer: a
     } = useAnimations(c, e);
   React.useEffect(() => {
-    r && (window.__macacoRobotReady = !0, window.dispatchEvent(new CustomEvent("macaco:robot-ready")));
+    r && (window.__siteRobotReady = !0, window.dispatchEvent(new CustomEvent("site:robot-ready")));
   }, [r]);
   const l = React.useRef(!1),
     s = React.useRef(""),

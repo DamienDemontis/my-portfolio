@@ -1,9 +1,9 @@
 {
-  "name": "macaco-site",
+  "name": "demontis-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "description": "Reconstruction du site studiomacaco.ch a partir du build deploye (aucun source map disponible).",
+  "description": "Portfolio de Damien Demontis : Vite + React + react-three-fiber.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

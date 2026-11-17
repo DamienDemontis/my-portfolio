@@ -1,7 +1,7 @@
 // Remplissage dithere en WebGL (bayer 8x8 + fbm), pilote par une MotionValue.
 import React from "react";
 import { PIXEL_BUDGET, hexToRgbFloat, pixelRatioFor } from "../lib/device.js";
-const pa = "#feff00";
+const pa = "#B87333";
 const ua = 0.9;
 const ma = 0.08;
 const ga = 0.45;

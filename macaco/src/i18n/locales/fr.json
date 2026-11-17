@@ -2,26 +2,16 @@
   "nav": {
     "menu": "Menu",
     "home": "Home",
-    "projects": "Projects",
-    "laboratory": "Laboratory",
     "contact": "Contact"
   },
   "intro": {
-    "tagline": "{creative studio for interactive experiences}",
+    "tagline": "{portfolio}",
     "scroll": "Scroll to explore",
     "headline1": "WE GIVE SHAPE",
     "headline2": "TO INNOVATION",
-    "paragraph": "Studio MACACO is a Swiss creative studio designing and producing interactive experiences for brands, cultural institutions and destinations. We combine creative direction, design, storytelling and technology to turn identities, stories and content into games, installations and digital worlds to explore.",
-    "svg": {
-      "webuild": "where.svg",
-      "power": "ends.svg",
-      "wecreate": "iswhere.svg",
-      "amazing": "start.svg"
-    }
+    "paragraph": "Portfolio de Damien Demontis."
   },
   "home": {
-    "featured": "Featured Projects",
-    "exploreProjects": "Explore our work",
     "craftLine1": "Actions",
     "craftLine2": "Speak louder than words",
     "stage": {
@@ -55,63 +45,11 @@
       }
     }
   },
-  "detail": {
-    "back": "Back to projects",
-    "customer": "Customer",
-    "partner": "Partner",
-    "capabilities": "Project Capabilities",
-    "platforms": "Platforms",
-    "keepScrolling": "Keep scrolling",
-    "nextProject": "Next project"
-  },
-  "projects": {
-    "title": "Projects",
-    "select": "SELECT_::{project_type}",
-    "ready": "{core_memory_initizialized}",
-    "description": "Brand experiences, cultural installations, games and adventures through real places. Ideas brought to life through creative direction, storytelling and technology.",
-    "types": {
-      "all": "All",
-      "videogames": "Videogames",
-      "augmented-reality": "Augmented Reality",
-      "web": "Web",
-      "ai-experimental": "AI & Experimental"
-    }
-  },
-  "laboratory": {
-    "eyebrow": "{_APPROACHING_DESTINATION_}",
-    "soon": "Coming Soon",
-    "title": "Laboratory",
-    "description": "Something is taking shape in our lab: prototypes, electronics, 3D printing and installations where the physical meets the digital. We are approaching the destination."
-  },
-  "contact": {
-    "eyebrow": "{GOT A PROJECT IN MIND?}",
-    "title1": "JUST MAKE",
-    "title2": "IT AWESOME",
-    "fields": {
-      "email": "E-Mail",
-      "name": "Name",
-      "message": "Message"
-    },
-    "requiredHint": "required field",
-    "privacy": "Having read and understood the <0>Privacy Policy</0>, I consent to the processing of my personal data.",
-    "submit": "Send",
-    "errors": {
-      "required": "Required field",
-      "email": "Enter a valid email address",
-      "privacy": "You must accept the Privacy Policy to send"
-    },
-    "status": {
-      "sending": "Sending…",
-      "sent": "Message sent. We'll get back to you shortly.",
-      "error": "Sending failed. Try again or write to us at {{email}}."
-    }
-  },
   "footer": {
-    "headline1": "Have an idea worth building?",
-    "headline2": "Let’s make it real.",
-    "cta": "Start a project",
+    "headline1": "Damien Demontis",
+    "headline2": "Portfolio",
+    "cta": "Contact",
     "social": "Social",
-    "contacts": "Contacts",
-    "legal": "Legal"
+    "contacts": "Contacts"
   }
 }
