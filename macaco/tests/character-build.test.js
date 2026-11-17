@@ -20,7 +20,6 @@ const served = join(root, 'public/character/damien.glb');
 async function read(path) {
   await MeshoptDecoder.ready;
   const io = new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({ 'meshopt.decoder': MeshoptDecoder });
-  // Le fichier source peut déclarer FB_ngon_encoding en requis : on le lit via un io tolérant.
   return io.read(path);
 }
 
@@ -37,11 +36,13 @@ function triangles(doc) {
 let result;
 let built;
 let source;
+let servedDoc;
 
 beforeAll(async () => {
   result = await buildCharacter({ input, output });
   built = await read(output);
   source = await read(input);
+  servedDoc = await read(served);
 }, 120_000);
 
 describe('character build', () => {
@@ -83,28 +84,51 @@ describe('character build', () => {
   });
 
   it('the fix is idempotent', () => {
-    const skin = built.getRoot().listSkins()[0];
-    const joints = skin.listJoints();
-    const ibm = skin.getInverseBindMatrices().getArray();
-    const jointPositions = joints.map((_, i) => bindPosition(ibm, i));
-    const prim = built.getRoot().listMeshes()[0].listPrimitives()[0];
-    const again = stripArmInfluence({
-      positions: decoded(prim.getAttribute('POSITION')),
-      joints: decoded(prim.getAttribute('JOINTS_0')),
-      weights: decoded(prim.getAttribute('WEIGHTS_0')),
-      jointNames: joints.map((j) => j.getName()),
-      jointPositions,
-      radiusFactor: 0.18 * 1.02,
-    });
+    const again = refix(built);
+    expect(again.primitives).toBeGreaterThan(0);
     expect(again.changed).toBe(0);
   });
 
-  it('the served file is the built file', async () => {
+  it('the served file is the built file', () => {
     expect(statSync(served).size).toBeLessThanOrEqual(2_000_000);
-    const doc = await read(served);
-    expect(doc.getRoot().listSkins()[0].listJoints()).toHaveLength(65);
+    expect(servedDoc.getRoot().listSkins()[0].listJoints()).toHaveLength(65);
+  });
+
+  // Le fichier servi, commité, porte bien le correctif (pas seulement le build temporaire).
+  it('the served file is already fixed', () => {
+    const again = refix(servedDoc);
+    expect(again.primitives).toBeGreaterThan(0);
+    expect(again.changed).toBe(0);
   });
 });
+
+// Relance le correctif sur chaque primitive skinnée d'un fichier relu, avec 2 % de marge
+// sur le rayon pour la quantification meshopt (ruling R1) : plus rien ne doit changer.
+function refix(doc) {
+  let changed = 0;
+  let primitives = 0;
+  for (const node of doc.getRoot().listNodes()) {
+    const mesh = node.getMesh();
+    const skin = node.getSkin();
+    if (!mesh || !skin) continue;
+    const joints = skin.listJoints();
+    const ibm = skin.getInverseBindMatrices().getArray();
+    const jointPositions = joints.map((_, i) => bindPosition(ibm, i));
+    for (const prim of mesh.listPrimitives()) {
+      if (!prim.getAttribute('JOINTS_0') || !prim.getAttribute('WEIGHTS_0')) continue;
+      changed += stripArmInfluence({
+        positions: decoded(prim.getAttribute('POSITION')),
+        joints: decoded(prim.getAttribute('JOINTS_0')),
+        weights: decoded(prim.getAttribute('WEIGHTS_0')),
+        jointNames: joints.map((j) => j.getName()),
+        jointPositions,
+        radiusFactor: 0.18 * 1.02,
+      }).changed;
+      primitives++;
+    }
+  }
+  return { changed, primitives };
+}
 
 // Valeurs décodées (dénormalisées) : meshopt quantifie POSITION en int16 normalisé
 // et reporte l'échelle dans les inverseBindMatrices, les deux restent cohérents.

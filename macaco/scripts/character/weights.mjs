@@ -45,12 +45,18 @@ export function stripArmInfluence({ positions, joints, weights, jointNames, join
   }
   const R = radiusFactor * dist(pos.get('Hips'), pos.get('Head'));
 
-  // Segments de la chaîne de chaque bras
+  // Segments de la chaîne de chaque bras. Une chaîne incomplète ferait passer des
+  // sommets de manche pour du manteau et retirerait l'influence du bras en silence.
   const segments = [];
   for (const side of ['Left', 'Right']) {
     const chain = [`${side}Arm`, `${side}ForeArm`, `${side}Hand`];
-    chain.push(pos.has(`${side}HandMiddle4`) ? `${side}HandMiddle4` : null);
-    const pts = chain.filter((n) => n && pos.has(n)).map((n) => pos.get(n));
+    const missing = chain.filter((n) => !pos.has(n));
+    if (missing.length > 0) {
+      const bras = side === 'Left' ? 'gauche' : 'droit';
+      throw new Error(`squelette Mixamo incomplet : os ${missing.join(', ')} requis (chaîne du bras ${bras})`);
+    }
+    if (pos.has(`${side}HandMiddle4`)) chain.push(`${side}HandMiddle4`);
+    const pts = chain.map((n) => pos.get(n));
     for (let i = 0; i + 1 < pts.length; i++) segments.push([pts[i], pts[i + 1]]);
   }
 

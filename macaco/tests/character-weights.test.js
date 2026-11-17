@@ -145,21 +145,41 @@ describe('stripArmInfluence', () => {
   });
 
   it('fails clearly without Hips or Head', () => {
-    const sk = build();
-    const names = sk.jointNames.filter((n) => n !== 'Head');
-    const pos = sk.jointPositions.filter((_, i) => sk.jointNames[i] !== 'Head');
-    expect(() =>
-      stripArmInfluence({
-        positions: new Float32Array(3),
-        joints: new Uint16Array(4),
-        weights: new Float32Array(4),
-        jointNames: names,
-        jointPositions: pos,
-        radiusFactor: 0.18,
-      }),
-    ).toThrow(/Hips.*Head|squelette Mixamo/);
+    expect(() => runWithout('Head')).toThrow(/Hips.*Head|squelette Mixamo/);
+  });
+
+  it('fails clearly without Hips', () => {
+    expect(() => runWithout('Hips')).toThrow(/squelette Mixamo incomplet.*Hips/);
+  });
+
+  // Une chaîne de bras incomplète ne doit pas retirer en silence toute l'influence du bras.
+  it('fails clearly when the left arm chain is incomplete', () => {
+    expect(() => runWithout('LeftForeArm')).toThrow(/squelette Mixamo incomplet.*LeftForeArm/);
+  });
+
+  it('fails clearly when the right arm chain is incomplete', () => {
+    expect(() => runWithout('RightHand')).toThrow(/squelette Mixamo incomplet.*RightHand/);
+  });
+
+  it('still accepts a hand without HandMiddle4', () => {
+    const res = runWithout('LeftHandMiddle4');
+    expect(res.changed).toBe(0);
   });
 });
+
+// Squelette synthétique privé d'un os, un seul sommet neutre.
+function runWithout(missing) {
+  const sk = build();
+  const keep = sk.jointNames.map((n) => n !== missing);
+  return stripArmInfluence({
+    positions: new Float32Array(3),
+    joints: new Uint16Array(4),
+    weights: new Float32Array([1, 0, 0, 0]),
+    jointNames: sk.jointNames.filter((_, i) => keep[i]),
+    jointPositions: sk.jointPositions.filter((_, i) => keep[i]),
+    radiusFactor: 0.18,
+  });
+}
 
 describe('normalizeJointName', () => {
   it('strips the mixamorig prefix', () => {

@@ -1,5 +1,6 @@
 // Pipeline de l'asset : export Tripo (rig Mixamo) -> GLB web léger.
-import { NodeIO } from '@gltf-transform/core';
+import { statSync } from 'node:fs';
+import { Accessor, NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, KHRMaterialsVolume } from '@gltf-transform/extensions';
 import { prune, dedup, meshopt, textureCompress } from '@gltf-transform/functions';
 import { MeshoptEncoder, MeshoptDecoder } from 'meshoptimizer';
@@ -17,6 +18,18 @@ function bindPosition(m) {
   return [-(i0 * x + i3 * y + i6 * z), -(i1 * x + i4 * y + i7 * z), -(i2 * x + i5 * y + i8 * z)];
 }
 
+// Le correctif lit les valeurs brutes : un attribut quantifié (entiers normalisés,
+// KHR_mesh_quantization) serait lu comme des entiers et le résultat faux passerait sans bruit.
+function exigerFlottants(prim, semantic, node) {
+  const attr = prim.getAttribute(semantic);
+  if (attr.getComponentType() !== Accessor.ComponentType.FLOAT) {
+    const nature = attr.getNormalized() ? 'entiers normalisés' : 'entiers';
+    throw new Error(
+      `${semantic} quantifié sur le nœud « ${node.getName()} » (${nature}) : le correctif de poids exige des flottants, réexporter sans quantification`,
+    );
+  }
+}
+
 export async function buildCharacter({ input, output, radiusFactor = 0.18, textureSize = 1024 }) {
   await MeshoptEncoder.ready;
   await MeshoptDecoder.ready;
@@ -28,6 +41,7 @@ export async function buildCharacter({ input, output, radiusFactor = 0.18, textu
 
   // 2. Correctif de poids sur chaque primitive skinnée
   let changed = 0;
+  let skinned = 0;
   for (const node of root.listNodes()) {
     const mesh = node.getMesh();
     const skin = node.getSkin();
@@ -39,6 +53,8 @@ export async function buildCharacter({ input, output, radiusFactor = 0.18, textu
       const jAttr = prim.getAttribute('JOINTS_0');
       const wAttr = prim.getAttribute('WEIGHTS_0');
       if (!jAttr || !wAttr) continue;
+      exigerFlottants(prim, 'POSITION', node);
+      exigerFlottants(prim, 'WEIGHTS_0', node);
       const res = stripArmInfluence({
         positions: prim.getAttribute('POSITION').getArray(),
         joints: jAttr.getArray(),
@@ -50,7 +66,11 @@ export async function buildCharacter({ input, output, radiusFactor = 0.18, textu
       jAttr.setArray(res.joints);
       wAttr.setArray(res.weights);
       changed += res.changed;
+      skinned++;
     }
+  }
+  if (skinned === 0) {
+    throw new Error('aucune primitive skinnée (JOINTS_0 et WEIGHTS_0 sur un nœud avec skin) : export sans rig Mixamo ?');
   }
 
   // 3. KHR_materials_volume retiré ; FB_ngon_encoding disparaît à l'écriture
@@ -72,6 +92,5 @@ export async function buildCharacter({ input, output, radiusFactor = 0.18, textu
       const idx = prim.getIndices();
       triangles += (idx ? idx.getCount() : prim.getAttribute('POSITION').getCount()) / 3;
     }
-  const { statSync } = await import('node:fs');
   return { bytes: statSync(output).size, triangles, joints: root.listSkins()[0]?.listJoints().length ?? 0, changed };
 }
