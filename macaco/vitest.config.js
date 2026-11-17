@@ -3,5 +3,5 @@ import viteConfig from './vite.config.js'
 
 export default mergeConfig(
   viteConfig,
-  defineConfig({ test: { globals: true, environment: 'jsdom' } }),
+  defineConfig({ test: { globals: true, environment: 'jsdom', unstubGlobals: true } }),
 )
