@@ -4,7 +4,8 @@ import { ACESFilmicToneMapping, Box3, LoopRepeat, SRGBColorSpace, Vector3 } from
 import { Center, useAnimations, useGLTF } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { hexToRgb01, makeDitherMaterial } from "./ditherMaterial.js";
-const B = "/intro/Mecha_Full.glb";
+import { clipsFor, readySkinned } from "./character/clips.js";
+const B = "/character/damien.glb";
 useGLTF.preload(B);
 const R = 1.15,
   U = 0.03,
@@ -24,10 +25,10 @@ function K({
   const v = React.useRef(null),
     a = React.useRef(),
     {
-      scene: c,
-      animations: m
+      scene: c
     } = useGLTF(B),
-    r = React.useMemo(() => clone(c), [c]),
+    m = React.useMemo(() => clipsFor(c), [c]),
+    r = React.useMemo(() => readySkinned(clone(c)), [c]),
     {
       actions: M
     } = useAnimations(m, a),
@@ -66,7 +67,7 @@ function K({
     if (o) return o.reset().setLoop(LoopRepeat, 1 / 0).play(), v.current = o, () => {
       o.stop(), v.current = null;
     };
-  }, [M]), <group ref={a} scale={u}><Center><primitive object={r} />{s > 0 && <N source={r} fitScale={u} glitch={i} colors={e} stageRef={t} maxGhosts={s} />}</Center></group>;
+  }, [M]), <group ref={a} scale={u}><Center precise={!1}><primitive object={r} />{s > 0 && <N source={r} fitScale={u} glitch={i} colors={e} stageRef={t} maxGhosts={s} />}</Center></group>;
 }
 function N({
   source: e,

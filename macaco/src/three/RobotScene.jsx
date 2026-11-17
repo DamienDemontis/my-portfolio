@@ -8,6 +8,7 @@ import { Center, Environment, Lightformer, PerformanceMonitor, useAnimations, us
 import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { hexToRgb01, makeDitherMaterial } from "./ditherMaterial.js";
+import { clipsFor } from "./character/clips.js";
 function _e(t) {
   if (!t || !t.isMeshStandardMaterial) return null;
   if (t.userData.powerUniforms) return t.userData.powerUniforms;
@@ -218,7 +219,7 @@ function Re() {
     t.current && t.current.position.set(n[0], n[1], n[2]);
   }), <group ref={t}>{i.map((o, e) => <primitive object={o} key={e} />)}</group>;
 }
-const oe = "/intro/Mecha_Full.glb",
+const oe = "/character/damien.glb",
   Be = "#B87333",
   He = 30,
   Fe = 0,
@@ -298,9 +299,9 @@ function Le({
 }) {
   const e = React.useRef(),
     {
-      scene: r,
-      animations: c
+      scene: r
     } = useGLTF(oe),
+    c = React.useMemo(() => clipsFor(r), [r]),
     {
       actions: n,
       mixer: a
@@ -420,7 +421,7 @@ function Le({
         U = config.power;
       for (const j of C) j.uPowerCharge.value = w * _, j.uPowerTime.value = V, j.uPowerColor.value.set(b), j.uPowerIrid.value = 1, j.uPowerIridSpeed.value = U.iridSpeed, j.uPowerIridScale.value = U.iridScale;
     }
-  }), <group ref={e} scale={P} rotation={[0, Fe, 0]}><Center><primitive object={r} /><Oe source={r} fitScale={P} /></Center></group>;
+  }), <group ref={e} scale={P} rotation={[0, Fe, 0]}><Center precise={!1}><primitive object={r} /><Oe source={r} fitScale={P} /></Center></group>;
 }
 const $ = new Vector3(),
   ee = new Vector3(),
