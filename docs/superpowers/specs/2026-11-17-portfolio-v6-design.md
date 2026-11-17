@@ -59,7 +59,8 @@ Ce qui ferait échouer le projet même s'il fonctionne techniquement :
 1. **Invisibilité de la recherche d'emploi.** Contrainte de ton, non
    négociable, sur chaque mot du site.
 2. **Pas d'artiste 3D ni de budget externe engagé.** La production du
-   personnage doit tenir avec les outils disponibles.
+   personnage doit tenir avec les outils disponibles. Seule exception
+   envisagée : une cabine de scan pro, sur décision de Damien.
 3. **Le contenu reste à écrire.** Damien écrit, les skills de rédaction
    interviennent en passe d'édition.
 4. **La base est du code reconstruit**, pas du code écrit à la main :
@@ -140,32 +141,32 @@ vrai document, et un mode lecture (voir SEO et Idées retenues).
 
 ## Le personnage
 
-**Décision : silhouette stylisée, encapuchonnée, manteau gris. Pas un
-portrait ressemblant.**
+**Décision (révisée le 2026-11-17 par Damien) : un portrait ressemblant,
+le plus fidèle possible, dans son vrai manteau gris.** Elle remplace la
+silhouette stylisée encapuchonnée retenue d'abord.
 
-Produite par 3D générative plutôt que modélisée à la main ou commandée à
-un artiste. Une silhouette stylisée est précisément le cas où les
-faiblesses de ces outils — visages, mains, détails fins — ne se voient
-pas.
+La ressemblance vient de la capture, pas de la génération : les outils
+image→3D et les avatars « depuis trois selfies » produisent un humain
+plausible, pas Damien. Le personnage est donc **scanné** (photogrammétrie,
+maison ou en cabine), puis nettoyé, rigué et posé. Le dither du site garde
+ce qui fait reconnaître quelqu'un — silhouette, proportions, structure du
+visage, coupe du manteau — et efface les défauts de texture.
 
-Pipeline retenu : **Meshy** en premier essai. C'est le seul des outils
-comparés qui fasse l'auto-rig humanoïde et fournisse des animations
-prêtes à l'emploi, avec export GLB. Repli : **Tripo** si le rendu ne
-convient pas, plus rapide et moins cher, au prix d'un rigging à faire
-ailleurs.
+Le chemin complet, phase par phase, avec ce que fait Damien et ce que fait
+le constructeur : `docs/superpowers/notes/2026-11-17-personnage-feuille-de-route.md`.
 
-Réserves, à lever avant de s'engager :
+Contraintes qui en découlent :
 
-- Les comparatifs disponibles sont publiés par les éditeurs eux-mêmes.
-  Un test avec nos propres images est nécessaire.
-- Vérifier la licence d'usage commercial avant d'intégrer quoi que ce
-  soit.
-- Les maillages générés sont denses : décimation obligatoire. Cible
-  **moins de 1,5 Mo** en GLB compressé, contre 8 Mo pour le mecha de
-  MACACO.
+- Rien sous licence de recherche ou non commerciale dans ce qui est
+  publié : ni GVHMR ni le corps SMPL-X pour les mouvements.
+- Squelette humanoïde de type Mixamo, pour que poses et animations
+  restent interchangeables.
+- Accessoires par scène (casque, écharpe…) attachés au squelette ; la
+  génération 3D par IA est réservée aux objets.
 
 Le personnage change de pose et d'accessoires à chaque scène — c'est lui
-qui porte la continuité. Le détail des poses est laissé au constructeur.
+qui porte la continuité. Les poses s'appuient sur des photos et des clips
+de la gestuelle de Damien ; leur réglage fin est laissé au constructeur.
 
 ## Les huit scènes
 
@@ -255,7 +256,8 @@ développeur bilingue FR/KO).
 Le point dur : un site 3D cinématique qui passe les Core Web Vitals.
 
 - **Le LCP doit être le titre, pas le canvas.** Le 3D se charge après.
-- GLB sous 1,5 Mo, compression meshopt ou Draco.
+- GLB du personnage sous 3 Mo (révisé : un vrai scan texturé, textures
+  1024 px que le dither rend suffisantes), compression meshopt ou Draco.
 - Les paliers responsive de la base (`lib/device.js`) sont déjà là :
   mobile, tablette, desktop, avec densité de pixels plafonnée.
 - `prefers-reduced-motion` respecté sur toutes les scènes.
@@ -305,10 +307,11 @@ l'accessibilité et `prefers-reduced-motion` deviennent presque gratuits.
 Conséquence à assumer : le « moteur de scroll piloté » de la base sert
 moins qu'espéré, on en reprend surtout l'aspect.
 
-**Budget du personnage : 1,5 Mo pour le système entier**, pas par scène.
-Un seul maillage riggé, des accessoires interchangeables montés sur le
-même squelette (capuche, casque, parka). Les silhouettes de la scène 7
-sont le même maillage, décimé et sans accessoire.
+**Budget du personnage : 3 Mo pour le système entier** (révisé depuis
+1,5 Mo avec le passage au scan), pas par scène. Un seul maillage riggé,
+des accessoires interchangeables montés sur le même squelette (casque,
+écharpe, lunettes). Les silhouettes de la scène 7 sont le même maillage,
+décimé, sans texture ni accessoire.
 
 **Mobile : parité narrative, qualité dégradée.** Les huit scènes, moins
 d'effets, densité de pixels plafonnée, personnage figé sous un seuil de
@@ -331,10 +334,11 @@ typographie display et la durée des scènes se calent dessus.
 **Redirections** des URL `?lng=fr` / `?lng=ko` indexées vers la nouvelle
 structure `/fr` `/en` `/ko`.
 
-**Outillage du personnage : un mois d'abonnement Meshy**, de l'ordre de
-20 €, pour générer, riggér et exporter. Si tu préfères ne rien dépenser,
-on bascule sur l'offre gratuite de Tripo et le rigging se fait à la main
-dans Blender — compter deux jours de plus.
+**Outillage du personnage : gratuit.** Photogrammétrie (RealityScan
+desktop ou COLMAP + OpenMVS), Blender scripté, rig Mixamo (ou Puppeteer en
+local), poses scriptées, accessoires générés en local. Remplace l'abonnement
+Meshy envisagé d'abord. Dépenses optionnelles : cabine de scan pro, un mois
+de Rokoko Vision pour un geste capturé.
 
 **Langue source : le français d'abord.** Tu écris en français, je produis
 l'anglais. Pour le coréen, dis-moi d'où vient le `ko.json` de v5 : s'il a
