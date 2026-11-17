@@ -31,7 +31,7 @@ const CLE = [2, 3, 4]
 const CONTRE_JOUR = [-3, 2, -3]
 
 // Préparation unique par scène chargée : le cache de useGLTF rend le même objet à
-// chaque montage, et le rig ne doit pas être cloné (la liaison vit dans userData).
+// chaque montage, et la normalisation (échelle multipliée) ne doit passer qu'une fois.
 const rigs = new WeakMap()
 
 function prepareRig(scene) {

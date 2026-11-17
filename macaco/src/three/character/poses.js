@@ -117,19 +117,27 @@ export const SCENE_POSES = {
 
 const AXES = { x: new Vector3(1, 0, 0), y: new Vector3(0, 1, 0), z: new Vector3(0, 0, 1) }
 
+// Pose de liaison de chaque os, hors de userData : Object3D.clone copie userData en
+// passant par JSON, ce qui changerait un Quaternion en tableau. Un os cloné n'est pas
+// dans la table : bonesByName lui mémorise sa propre liaison.
+const binds = new WeakMap()
+
 /** Os indexés par nom normalisé ; mémorise la liaison une seule fois. */
 export function bonesByName(root) {
   const out = {}
   root.traverse((o) => {
     if (!o.isBone) return
-    if (!o.userData.bind) o.userData.bind = o.quaternion.clone()
+    if (!binds.has(o)) binds.set(o, o.quaternion.clone())
     out[normalizeJointName(o.name)] = o
   })
   return out
 }
 
+/** Liaison mémorisée par bonesByName (undefined pour un os jamais vu). */
+export const bindQuaternion = (bone) => binds.get(bone)
+
 const restoreBind = (bones) => {
-  for (const b of Object.values(bones)) b.quaternion.copy(b.userData.bind)
+  for (const b of Object.values(bones)) b.quaternion.copy(binds.get(b))
 }
 
 /** Quaternions locaux de chaque os pour une recette ; les os reviennent ensuite en liaison. */
@@ -175,7 +183,7 @@ export function poseQuaternions(bones, recipe) {
 export function blendPose(bones, from, to, t) {
   for (const name in bones) {
     const b = bones[name]
-    const bind = b.userData.bind
+    const bind = binds.get(b)
     b.quaternion.copy(from[name] ?? bind).slerp(to[name] ?? bind, t)
   }
 }
