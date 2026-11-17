@@ -15,6 +15,10 @@ afterEach(() => {
 
 test('CharacterLayer reste muet quand le module du canvas ne se charge pas', async () => {
   Object.defineProperty(document, 'readyState', { configurable: true, get: () => 'loading' })
+  // jsdom n'a pas de WebGL : faux contexte WebGL 2 pour passer la sonde.
+  vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation((type) =>
+    type === 'webgl2' ? { getExtension: () => null } : null,
+  )
   const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
   const error = vi.spyOn(console, 'error')
   vi.stubGlobal(

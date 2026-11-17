@@ -53,11 +53,19 @@ const reponse = (status, type) => ({
   headers: { get: (nom) => (nom.toLowerCase() === 'content-type' ? type : null) },
 })
 
+// Sonde WebGL : jsdom n'a pas de WebGL, chaque test choisit les contextes disponibles.
+// Un faux contexte suffit, la couche ne fait que le libérer.
+const contextes = (...disponibles) =>
+  vi
+    .spyOn(HTMLCanvasElement.prototype, 'getContext')
+    .mockImplementation((type) => (disponibles.includes(type) ? { getExtension: () => null } : null))
+
 // Ordre voulu : le module mocké n'est importé qu'une fois par fichier, donc les cas
 // d'échec (qui ne doivent jamais l'importer) passent avant le cas nominal.
 describe('CharacterLayer', () => {
   beforeEach(() => {
     Object.defineProperty(document, 'readyState', { configurable: true, get: () => 'loading' })
+    contextes('webgl2', 'webgl')
   })
   afterEach(() => {
     delete document.readyState
@@ -93,6 +101,70 @@ describe('CharacterLayer', () => {
     })
     await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
 
+    expect(container.innerHTML).toBe('')
+    expect(canvasModule.imports).toBe(0)
+    expect(error).not.toHaveBeenCalled()
+  })
+
+  test('CharacterLayer reste muet sur un vrai 404', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error')
+    // Hôte qui renvoie un vrai 404 (pas de repli SPA) : ok = false, type sans importance.
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(reponse(404, 'text/plain'))))
+
+    const { container } = render(<CharacterLayer />)
+    act(() => {
+      window.dispatchEvent(new Event('load'))
+    })
+    await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
+    await act(async () => {})
+
+    expect(String(warn.mock.calls[0][1])).toContain('404')
+    expect(container.innerHTML).toBe('')
+    expect(canvasModule.imports).toBe(0)
+    expect(error).not.toHaveBeenCalled()
+  })
+
+  // Review Focus 2 : sans WebGL, R3F jetterait une erreur que React loguerait en console.error.
+  test('CharacterLayer reste muet sans WebGL', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error')
+    contextes()
+    const fetchSpy = vi.fn(() => Promise.resolve(reponse(200, 'model/gltf-binary')))
+    vi.stubGlobal('fetch', fetchSpy)
+
+    const { container } = render(<CharacterLayer />)
+    act(() => {
+      window.dispatchEvent(new Event('load'))
+    })
+    await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
+    await act(async () => {})
+
+    expect(warn.mock.calls[0][0]).toContain('WebGL')
+    // La sonde passe avant la requête HEAD : rien ne part sur le réseau.
+    expect(fetchSpy).not.toHaveBeenCalled()
+    expect(container.innerHTML).toBe('')
+    expect(canvasModule.imports).toBe(0)
+    expect(error).not.toHaveBeenCalled()
+  })
+
+  // three r171 n'accepte que WebGL 2 (WebGL 1 abandonné en r163) : WebGL 1 seul vaut absence.
+  test('CharacterLayer reste muet avec WebGL 1 seulement', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error')
+    contextes('webgl')
+    const fetchSpy = vi.fn(() => Promise.resolve(reponse(200, 'model/gltf-binary')))
+    vi.stubGlobal('fetch', fetchSpy)
+
+    const { container } = render(<CharacterLayer />)
+    act(() => {
+      window.dispatchEvent(new Event('load'))
+    })
+    await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
+    await act(async () => {})
+
+    expect(warn.mock.calls[0][0]).toContain('WebGL')
+    expect(fetchSpy).not.toHaveBeenCalled()
     expect(container.innerHTML).toBe('')
     expect(canvasModule.imports).toBe(0)
     expect(error).not.toHaveBeenCalled()
