@@ -55,7 +55,6 @@
   z-index: 2;
   isolation: isolate;
   height: var(--mcf-track, 210svh);
-  margin-top: calc(-1 * var(--mcf-track, 210svh));
   color: var(--mcf-ink);
   font-family:
     var(--font-body),
