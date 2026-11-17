@@ -10,7 +10,7 @@ const SOCIAL_LINKS = [{
 }];
 const SITE = {
   name: "Damien Demontis",
-  url: "https://demontis.dev",
+  url: "https://www.demontis.dev",
   email: "damien.demontis@epitech.eu",
   sameAs: SOCIAL_LINKS.map(e => e.href)
 };

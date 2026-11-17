@@ -11,6 +11,7 @@ import { SiteDitherLayer } from "./components/SiteDither.jsx";
 import { Intro } from "./components/intro/Intro.jsx";
 import { config } from "./config.js";
 import { detectBrowserLanguage, isSupportedLanguage } from "./i18n/index.js";
+import { resolveLanguagePath } from "./lib/routing.js";
 import { SCROLL_ROOT_ID, getScrollRoot, useTouchScroll } from "./lib/scroll.js";
 import { NOT_FOUND_LINK_STYLE, NOT_FOUND_PAGE_STYLE, NOT_FOUND_TITLE_STYLE, UseSeo, seoCopyFor } from "./seo/Seo.jsx";
 import { AccentProvider } from "./state/accent.jsx";
@@ -44,13 +45,14 @@ function LangLayout() {
       i18n: a
     } = useTranslation(),
     o = isSupportedLanguage(e);
+  const fixed = resolveLanguagePath(i.pathname);
   const reading = new URLSearchParams(i.search).get("lecture") === "1";
   if (React.useEffect(() => {
     document.documentElement.classList.toggle("is-reading", reading);
     return () => document.documentElement.classList.remove("is-reading");
   }, [reading]), React.useEffect(() => {
     o && (document.documentElement.lang = e, a.language !== e && a.changeLanguage(e));
-  }, [o, e, a]), !o) return <NotFound />;
+  }, [o, e, a]), !o) return fixed ? <Navigate to={fixed + i.search + i.hash} replace /> : <NotFound />;
   const s = i.pathname.replace(/\/+$/, "") || `/${e}`,
     n = s === `/${e}`;
   if (reading) return <AccentProvider><div id={SCROLL_ROOT_ID} className="scroll-root reading-root"><div className="site-chrome"><NavBar isHome={!1} /></div><ReadingMode lang={e} /></div></AccentProvider>;

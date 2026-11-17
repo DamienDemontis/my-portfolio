@@ -5,6 +5,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SCENES } from '../src/content/scenes.js'
+import { SITE } from '../src/content/site.js'
 import { SEO_LANGUAGES, SEO_DEFAULT_LANGUAGE, buildMeta } from '../src/seo/meta.js'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
@@ -84,6 +85,15 @@ export async function prerender(outDir, templatePath = defaultTemplate()) {
   return written
 }
 
+export function buildSitemap(origin) {
+  const urls = SEO_LANGUAGES.map(l => `  <url><loc>${origin}/${l}</loc></url>`)
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>
+`
+}
+
 export async function writeRootPage(outDir, templatePath = defaultTemplate()) {
   return write(join(outDir, 'index.html'), await readFile(templatePath, 'utf8'), SEO_DEFAULT_LANGUAGE)
 }
@@ -93,5 +103,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const template = defaultTemplate()
   const pages = await prerender(dist, template)
   pages.push(await writeRootPage(dist, template))
+  await writeFile(join(dist, 'sitemap.xml'), buildSitemap(SITE.url))
   console.log(`prerender: ${pages.length} pages written`)
 }

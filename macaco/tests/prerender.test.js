@@ -53,7 +53,7 @@ test('titre, description, hreflang et JSON-LD Person', async () => {
   expect(html).toContain(`<title>${locale('en').seo.title}</title>`)
   expect(html).toContain('<html lang="en">')
   expect(html).toContain('og:locale" content="en_GB"')
-  expect(html).toContain('rel="canonical" href="https://demontis.dev/en"')
+  expect(html).toContain('rel="canonical" href="https://www.demontis.dev/en"')
   for (const l of ['fr', 'en', 'ko', 'x-default']) expect(html).toContain(`hreflang="${l}"`)
   const ld = JSON.parse(html.match(/<script[^>]*type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])
   expect(ld['@type']).toBe('Person')
