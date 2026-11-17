@@ -1,0 +1,20 @@
+/* Sections de scene : transparentes, le personnage vit derriere (canvas fixe).
+   Texte a gauche aux index pairs de la liste, a droite aux impairs. La mise en
+   scene typographique viendra avec le plan 3. */
+.scene {
+  min-height: 100svh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12svh clamp(1.25rem, 6vw, 6rem);
+  box-sizing: border-box;
+}
+
+.scene:nth-child(even) {
+  justify-content: flex-end;
+}
+
+.scene__text {
+  max-width: 38ch;
+}

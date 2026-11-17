@@ -8,7 +8,6 @@ import { ReadingMode } from "./components/ReadingMode.jsx";
 import { PageTransitionProvider } from "./components/PageTransition.jsx";
 import { ScrollProgressBar } from "./components/ScrollProgress.jsx";
 import { SiteDitherLayer } from "./components/SiteDither.jsx";
-import { Intro } from "./components/intro/Intro.jsx";
 import { config } from "./config.js";
 import { detectBrowserLanguage, isSupportedLanguage } from "./i18n/index.js";
 import { resolveLanguagePath } from "./lib/routing.js";
@@ -26,7 +25,7 @@ function NotFound() {
         margin: 0
       }}>{a.notFound.heading}</p><a style={NOT_FOUND_LINK_STYLE} href={`/${i}`}>{a.nav.home}</a></main></>;
 }
-const Sn = ".intro-scroll-spacer, .mc-nav__overlay, input, textarea, select, [data-native-touch]";
+const Sn = ".mc-nav__overlay, input, textarea, select, [data-native-touch]";
 function Tn() {
   return useTouchScroll(getScrollRoot, {
     getParams: () => ({
@@ -56,7 +55,7 @@ function LangLayout() {
   const s = i.pathname.replace(/\/+$/, "") || `/${e}`,
     n = s === `/${e}`;
   if (reading) return <AccentProvider><div id={SCROLL_ROOT_ID} className="scroll-root reading-root"><div className="site-chrome"><NavBar isHome={!1} /></div><ReadingMode lang={e} /></div></AccentProvider>;
-  return <PageTransitionProvider><AccentProvider><SiteDitherLayer active={!n} /><Cursor /><div id={SCROLL_ROOT_ID} className="scroll-root"><div className="site-chrome"><NavBar isHome={n} /><ScrollProgressBar /></div><Tn /><Intro active={n} /><React.Suspense fallback={null}><Outlet /></React.Suspense></div></AccentProvider></PageTransitionProvider>;
+  return <PageTransitionProvider><AccentProvider><SiteDitherLayer active={!n} /><Cursor /><div id={SCROLL_ROOT_ID} className="scroll-root"><div className="site-chrome"><NavBar isHome={n} /><ScrollProgressBar /></div><Tn /><React.Suspense fallback={null}><Outlet /></React.Suspense></div></AccentProvider></PageTransitionProvider>;
 }
 const HomePage = React.lazy(() => import("./pages/Home.jsx"));
 // Racine : garde la requete et l'ancre (?lecture=1) en redirigeant vers la langue.

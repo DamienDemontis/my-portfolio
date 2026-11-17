@@ -6,7 +6,7 @@ Ce document garde ce que le registre d'exécution (jetable) contenait et qui doi
 
 ## Bloquants avant mise en ligne
 
-- la texture de Mecha_Full.glb porte le mot "MACACO" (visible sur le bras) — identite dans l'asset 3D, invisible aux scans texte ; a remplacer au plan 2 avant tout deploiement.
+- [LEVE, tache 6 du plan 2] la texture de Mecha_Full.glb portait le mot "MACACO" (visible sur le bras) : l'asset est supprime avec l'intro et le mecha.
 - copie marketing du client encore mot pour mot (titre hero "WE GIVE SHAPE / TO INNOVATION", 6 corps rstage, ligne du loader) — retrouvable par recherche ; remplacee au plan 3.
 - le loader de PageTransition porte le pictogramme fleche de MACACO (SVG inline) et sa copie "ready_for_{awesomeness}", "つくる かえる", "home {loading}" — invisible aux scans texte de T3 ; a remplacer (plan 3) ou retirer.
 - les en-tetes de securite/cache du vercel.json racine (CSP, HSTS, Cache-Control assets) ne sont pas portes dans macaco/vercel.json — la CSP de v5 est taillee pour v5 (Calendly, Supabase...) ; ecrire une CSP propre a v6 (plus stricte : plus d'iubenda ni de GA) avant de basculer la racine Vercel.
