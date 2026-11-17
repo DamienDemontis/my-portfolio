@@ -46,6 +46,15 @@ describe('QuietBoundary', () => {
   })
 })
 
+// Réponse minimale à la requête HEAD de vérification du GLB.
+const reponse = (status, type) => ({
+  ok: status >= 200 && status < 300,
+  status,
+  headers: { get: (nom) => (nom.toLowerCase() === 'content-type' ? type : null) },
+})
+
+// Ordre voulu : le module mocké n'est importé qu'une fois par fichier, donc les cas
+// d'échec (qui ne doivent jamais l'importer) passent avant le cas nominal.
 describe('CharacterLayer', () => {
   beforeEach(() => {
     Object.defineProperty(document, 'readyState', { configurable: true, get: () => 'loading' })
@@ -54,8 +63,43 @@ describe('CharacterLayer', () => {
     delete document.readyState
   })
 
+  test('CharacterLayer reste muet quand le GLB est remplacé par la page HTML', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error')
+    // Repli SPA de Vercel ou de vite preview : 200 avec la page HTML à la place du fichier.
+    const fetchSpy = vi.fn(() => Promise.resolve(reponse(200, 'text/html; charset=utf-8')))
+    vi.stubGlobal('fetch', fetchSpy)
+
+    const { container } = render(<CharacterLayer />)
+    act(() => {
+      window.dispatchEvent(new Event('load'))
+    })
+    await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
+
+    expect(fetchSpy).toHaveBeenCalledWith('/character/damien.glb', { method: 'HEAD' })
+    expect(container.innerHTML).toBe('')
+    expect(canvasModule.imports).toBe(0)
+    expect(error).not.toHaveBeenCalled()
+  })
+
+  test('CharacterLayer reste muet hors ligne', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error')
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))))
+
+    const { container } = render(<CharacterLayer />)
+    act(() => {
+      window.dispatchEvent(new Event('load'))
+    })
+    await waitFor(() => expect(warn).toHaveBeenCalledTimes(1))
+
+    expect(container.innerHTML).toBe('')
+    expect(canvasModule.imports).toBe(0)
+    expect(error).not.toHaveBeenCalled()
+  })
+
   test('CharacterLayer waits for load', async () => {
-    const fetchSpy = vi.fn(() => Promise.reject(new Error('pas de réseau en test')))
+    const fetchSpy = vi.fn(() => Promise.resolve(reponse(200, 'model/gltf-binary')))
     vi.stubGlobal('fetch', fetchSpy)
 
     const { container } = render(<CharacterLayer />)
@@ -66,13 +110,15 @@ describe('CharacterLayer', () => {
     const glb = () => fetchSpy.mock.calls.filter(([url]) => String(url).includes('damien.glb'))
     expect(glb()).toHaveLength(0)
 
-    // Après load et le créneau d'inactivité : la couche apparaît et charge le canvas.
+    // Après load et le créneau d'inactivité : vérification HEAD du GLB, puis la couche
+    // apparaît et charge le canvas.
     act(() => {
       window.dispatchEvent(new Event('load'))
     })
     await waitFor(() => {
       expect(container.querySelector('[data-testid="character-canvas"]')).not.toBeNull()
     })
+    expect(glb()).toEqual([['/character/damien.glb', { method: 'HEAD' }]])
     expect(canvasModule.imports).toBe(1)
     const layer = container.querySelector('.character-layer')
     expect(layer).not.toBeNull()

@@ -13,9 +13,9 @@ import { progressAt, sceneBlend } from '../lib/sceneProgress.js'
 import { getOffsetTop, getScrollRoot, getScrollTop, getViewportHeight, onScroll } from '../lib/scroll.js'
 import { breathing, lookAngles, motionPolicy } from './character/motion.js'
 import { SCENE_POSES, blendPose, bonesByName, poseQuaternions } from './character/poses.js'
+import { CHARACTER_GLB } from './CharacterLayer.jsx'
 import { hexToRgb01, makeDitherMaterial } from './ditherMaterial.js'
 
-const GLB = '/character/damien.glb'
 const HAUTEUR = 1.8
 const DEG = Math.PI / 180
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
@@ -176,7 +176,7 @@ function useDpr() {
 }
 
 function Character({ policy }) {
-  const { scene } = useGLTF(GLB, false, true)
+  const { scene } = useGLTF(CHARACTER_GLB, false, true)
   const rig = React.useMemo(() => prepareRig(scene), [scene])
   const invalidate = useThree((s) => s.invalidate)
   const yawRef = React.useRef(null)
@@ -242,10 +242,14 @@ function Character({ policy }) {
       e.regard.x += (pointeur.current.x - e.regard.x) * k
       e.regard.y += (pointeur.current.y - e.regard.y) * k
       const { yaw, pitch } = lookAngles(e.regard.x, e.regard.y)
+      // De dos (yaw 180°), le +X du personnage est à gauche de l'écran : le yaw du regard
+      // est pondéré par l'orientation pour que la tête suive toujours le pointeur
+      // (1 de face, -1 de dos, 0 de profil, sans saut pendant un mélange).
+      const sens = Math.cos(yawGroup.rotation.y)
       // Le visage regarde +Z : lever la tête est une rotation négative autour de X.
-      tournerDansRepere(rig.bones.Neck, AXE_Y, yaw / 2, yawGroup)
+      tournerDansRepere(rig.bones.Neck, AXE_Y, (yaw * sens) / 2, yawGroup)
       tournerDansRepere(rig.bones.Neck, AXE_X, -pitch / 2, yawGroup)
-      tournerDansRepere(rig.bones.Head, AXE_Y, yaw, yawGroup)
+      tournerDansRepere(rig.bones.Head, AXE_Y, yaw * sens, yawGroup)
       tournerDansRepere(rig.bones.Head, AXE_X, -pitch, yawGroup)
     }
   })
