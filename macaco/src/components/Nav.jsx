@@ -45,7 +45,8 @@ function NavBar({
       lang: i
     } = useParams(),
     {
-      pathname: a
+      pathname: a,
+      search: q
     } = useLocation(),
     {
       t: o
@@ -87,13 +88,14 @@ function NavBar({
     };
   }, [d]);
   const C = () => l(!1),
-    D = b => <AppLink to={`/${f}${m}`} onClick={C} className={`mc-nav__lang mc-nav__lang--${b}`} aria-label={`Switch language to ${f.toUpperCase()}`}>{i.toUpperCase()}</AppLink>;
+    R = new URLSearchParams(q).get("lecture") === "1",
+    D = b => <AppLink to={`/${f}${m}${q}`} onClick={C} className={`mc-nav__lang mc-nav__lang--${b}`} aria-label={`Switch language to ${f.toUpperCase()}`}>{i.toUpperCase()}</AppLink>;
   return <nav className={`mc-nav${s ? " mc-nav--scrolled" : ""}${h || d ? " mc-nav--on-yellow" : ""}${d ? " mc-nav--menu-open" : ""}`} aria-label="Primary"><div className="mc-nav__bar"><AppLink to={`/${i}`} onClick={C} className="mc-nav__logo" aria-label="Damien Demontis — home"><span className="mc-nav__wordmark">{"DEMONTIS"}</span></AppLink><div className="mc-nav__links">{qt.map((b, _) => {
           const L = <><span className="mc-nav__num">{String(_ + 1).padStart(2, "0")}</span><span className="mc-nav__label">{o(b.key)}</span><span className="mc-nav__ul" /></>;
           return b.href ? <a href={b.href} className="mc-nav__link" key={b.key}>{L}</a> : <AppLink to={`/${i}${b.to}`} isActive={A(b.to)} className={({
             isActive: G
           }) => `mc-nav__link${G ? " is-active" : ""}`} key={b.key}>{L}</AppLink>;
-        })}</div><div className="mc-nav__actions">{D("bar")}<button type="button" className={`mc-nav__toggle${d ? " is-open" : ""}`} aria-label={d ? "Close menu" : "Open menu"} aria-expanded={d} aria-controls="mc-nav-panel" onClick={() => l(b => !b)}><span /><span /><span /></button></div></div><div className={`mc-nav__overlay${d ? " is-open" : ""}`} id="mc-nav-panel"><div className="mc-nav__overlay-inner"><section className="mc-nav__group" style={{
+        })}</div><div className="mc-nav__actions">{!R && <AppLink to={`/${i}${m}?lecture=1`} className="mc-nav__lang mc-nav__reading">{o("nav.reading")}</AppLink>}{D("bar")}<button type="button" className={`mc-nav__toggle${d ? " is-open" : ""}`} aria-label={d ? "Close menu" : "Open menu"} aria-expanded={d} aria-controls="mc-nav-panel" onClick={() => l(b => !b)}><span /><span /><span /></button></div></div><div className={`mc-nav__overlay${d ? " is-open" : ""}`} id="mc-nav-panel"><div className="mc-nav__overlay-inner"><section className="mc-nav__group" style={{
           "--i": 0
         }}><h2 className="mc-nav__group-label">{o("nav.menu", "Menu")}<span className="mc-nav__rule" aria-hidden="true" /></h2><div className="mc-nav__overlay-links">{qt.map((b, _) => {
               const L = <><span className="mc-nav__overlay-idx">{String(_ + 1).padStart(2, "0")}</span><span className="mc-nav__overlay-label">{o(b.key)}</span></>;

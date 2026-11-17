@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { Cursor } from "./components/Cursor.jsx";
 import { NavBar } from "./components/Nav.jsx";
+import { ReadingMode } from "./components/ReadingMode.jsx";
 import { PageTransitionProvider } from "./components/PageTransition.jsx";
 import { ScrollProgressBar } from "./components/ScrollProgress.jsx";
 import { SiteDitherLayer } from "./components/SiteDither.jsx";
@@ -43,11 +44,16 @@ function LangLayout() {
       i18n: a
     } = useTranslation(),
     o = isSupportedLanguage(e);
+  const reading = new URLSearchParams(i.search).get("lecture") === "1";
   if (React.useEffect(() => {
+    document.documentElement.classList.toggle("is-reading", reading);
+    return () => document.documentElement.classList.remove("is-reading");
+  }, [reading]), React.useEffect(() => {
     o && (document.documentElement.lang = e, a.language !== e && a.changeLanguage(e));
   }, [o, e, a]), !o) return <NotFound />;
   const s = i.pathname.replace(/\/+$/, "") || `/${e}`,
     n = s === `/${e}`;
+  if (reading) return <PageTransitionProvider><AccentProvider><div id={SCROLL_ROOT_ID} className="scroll-root reading-root"><div className="site-chrome"><NavBar isHome={!1} /></div><ReadingMode lang={e} /></div></AccentProvider></PageTransitionProvider>;
   return <PageTransitionProvider><AccentProvider><SiteDitherLayer active={!n} /><Cursor /><div id={SCROLL_ROOT_ID} className="scroll-root"><div className="site-chrome"><NavBar isHome={n} /><ScrollProgressBar /></div><Tn /><Intro active={n} /><React.Suspense fallback={null}><Outlet /></React.Suspense></div></AccentProvider></PageTransitionProvider>;
 }
 const HomePage = React.lazy(() => import("./pages/Home.jsx"));

@@ -1044,6 +1044,9 @@ body {
 html {
   cursor: none;
 }
+html.is-reading {
+  cursor: auto;
+}
 .mc-cursor {
   position: fixed;
   top: 0;
@@ -1487,4 +1490,32 @@ html {
     transform: none;
     opacity: 1;
   }
+}
+
+/* Mode lecture : document texte, defilement natif, curseur systeme. */
+.reading-root {
+  background: var(--fond);
+  color: var(--os);
+}
+.reading-mode {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 120px 24px 96px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.reading-mode h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.15;
+  margin: 64px 0 16px;
+}
+.reading-mode p {
+  margin: 0 0 16px;
+}
+.reading-mode a {
+  color: inherit;
+  text-underline-offset: 3px;
 }
