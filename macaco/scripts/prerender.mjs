@@ -55,16 +55,18 @@ function noscriptBlock(lang, locale, ko) {
   return `<noscript>\n<main>\n${articles.join('\n')}\n</main>\n</noscript>`
 }
 
-function render(template, lang, locale, ko) {
+// Fonctions de remplacement partout : une chaine de remplacement interprete
+// `$&`, `$1`, `$'`... et corromprait un texte contenant un `$`.
+export function render(template, lang, locale, ko) {
   const m = buildMeta(lang, locale)
   let html = template
     .replace(/<!--prerender:head-->[\s\S]*?<!--\/prerender:head-->\s*/g, '')
     .replace(/<noscript>[\s\S]*?<\/noscript>\s*/g, '')
     .replace(/<title>[\s\S]*?<\/title>\s*/g, '')
-    .replace(/<html\b([^>]*?)\slang="[^"]*"/, '<html$1')
-    .replace(/<html\b/, `<html lang="${lang}"`)
-  html = html.replace('</head>', `  ${headBlock(m)}\n  </head>`)
-  html = html.replace(/<body([^>]*)>/, `<body$1>\n    ${noscriptBlock(lang, locale, ko)}`)
+    .replace(/<html\b([^>]*?)\slang="[^"]*"/, (_, attrs) => `<html${attrs}`)
+    .replace(/<html\b/, () => `<html lang="${lang}"`)
+  html = html.replace('</head>', () => `  ${headBlock(m)}\n  </head>`)
+  html = html.replace(/<body([^>]*)>/, (_, attrs) => `<body${attrs}>\n    ${noscriptBlock(lang, locale, ko)}`)
   return html
 }
 

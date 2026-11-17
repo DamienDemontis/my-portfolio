@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { prerender, writeRootPage } from '../scripts/prerender.mjs'
+import { prerender, render, writeRootPage } from '../scripts/prerender.mjs'
 import { SCENES } from '../src/content/scenes.js'
 import { EMPLOI } from './helpers/forbidden.js'
 
@@ -81,4 +81,18 @@ test('aucune formule de recherche d emploi', async () => {
   const dir = tmp()
   await prerender(dir)
   for (const l of ['fr', 'en', 'ko']) expect(page(dir, l)).not.toMatch(EMPLOI)
+})
+
+test('les motifs $ des textes sont reproduits tels quels', () => {
+  const tricky = "$& $' $` $1 $$"
+  const escaped = tricky.replace('&', '&amp;') // seul le & est echappe en HTML
+  const fr = locale('fr')
+  const scenes = { ...fr.scenes, metier: { ...fr.scenes.metier, body: tricky } }
+  const seo = { title: `T ${tricky}`, description: `D ${tricky}` }
+  const tpl = '<!doctype html><html lang="en"><head><title>x</title></head><body><div id="root"></div></body></html>'
+  const html = render(tpl, 'fr', { ...fr, scenes, seo }, locale('ko'))
+  expect(noscriptOf(html)).toContain(`<p>${escaped}</p>`)
+  expect(html).toContain(`<title>T ${escaped}</title>`)
+  expect(html).toContain(`content="D ${escaped}"`)
+  expect(html).toContain('<body>')
 })
