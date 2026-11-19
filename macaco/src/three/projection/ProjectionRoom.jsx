@@ -24,10 +24,10 @@ import { createBeam, createDust } from './beam.js'
 const PERSONNAGE = '/character/damien.glb'
 const PROJECTEUR = '/props/filmstrip_projector_8mm.glb'
 
-// Intensité du rebond, sans atténuation (decay 0) : sur son visage, à 3,8 m, l'éclairement que
-// donnait une lumière de surface d'intensité 3 grande comme la toile (facteur de forme ≈ 0,136,
-// × π).
-const REBOND = 1.3
+// Intensité du rebond, atténuée avec la distance (decay 2) : sur son visage, à 3,8 m, environ
+// 1,3, l'éclairement que donnait une lumière de surface d'intensité 3 grande comme la toile ;
+// le fond de la salle (le projecteur, à 7 m) n'en reçoit plus qu'un reflet.
+const REBOND = 19
 
 const v3 = (a) => new Vector3().fromArray(a)
 
@@ -273,7 +273,7 @@ export default function ProjectionRoom({ projects, index = LEADER, timeline, pol
   // Le rebond de l'écran : une lumière sans ombre au centre de la toile, très ouverte, tournée
   // vers sa tête, couleur du projet.
   const rebond = React.useMemo(() => {
-    const r = new SpotLight('#ffffff', REBOND, 0, Math.PI / 3, 1, 0)
+    const r = new SpotLight('#ffffff', REBOND, 0, Math.PI / 3, 1, 2)
     r.position.set(CIBLE.x, CIBLE.y, CIBLE.z + 0.05)
     r.target.position.fromArray(ROOM.character.head)
     return r
