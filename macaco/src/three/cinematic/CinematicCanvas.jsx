@@ -123,6 +123,7 @@ export default function CinematicCanvas({
   stage: Stage,
   stageProps,
   depthOfField,
+  shadows = false,
   effects,
   onDrawn,
 }) {
@@ -177,7 +178,7 @@ export default function CinematicCanvas({
   }, [urls])
 
   return (
-    <Canvas frameloop={frameloop} dpr={dpr} gl={GL} camera={CAMERA} resize={RESIZE} style={STYLE}>
+    <Canvas frameloop={frameloop} dpr={dpr} gl={GL} camera={CAMERA} resize={RESIZE} style={STYLE} shadows={shadows}>
       <Rig shots={liste} fixe={fixe} timeline={timeline} dofRef={dofRef} />
       <React.Suspense fallback={null}>
         {Stage ? <Stage {...stageProps} timeline={timelineDecor} policy={policy} /> : null}

@@ -30,6 +30,8 @@
 //                          invalidate()
 //   depthOfField = false   profondeur de champ pilotée par le focus des plans : true ou
 //                          { focusRange, bokehScale }
+//   shadows = false        ombres portées (la carte d'ombre de three) : une lumière qui projette
+//                          une texture (SpotLight.map) en a besoin
 //   effects                effets de post-traitement (Bloom…), rendus dans le même
 //                          EffectComposer que la profondeur de champ
 //   poster                 URL d'image ou élément, affiché tant que la 3D n'a rien dessiné :
@@ -144,6 +146,7 @@ export default function CinematicSection({
   stageProps,
   animated = false,
   depthOfField = false,
+  shadows = false,
   effects,
   poster,
   className,
@@ -252,6 +255,7 @@ export default function CinematicSection({
                   stage={stage}
                   stageProps={stageProps}
                   depthOfField={depthOfField}
+                  shadows={shadows}
                   effects={effects}
                   onDrawn={setDessine}
                 />

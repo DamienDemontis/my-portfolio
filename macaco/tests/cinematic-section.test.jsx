@@ -463,6 +463,20 @@ describe('CinematicSection', () => {
     memeCamera(vu.etat.camera, shotAt(PLANS, 0.9))
   })
 
+  test('ombres : désactivées par défaut, transmises au canvas sur demande', async () => {
+    mise.scroll = scrollPour(0.5)
+    const sans = render(<CinematicSection id="sans-ombre" shots={PLANS} />)
+    charger()
+    await waitFor(() => expect(canvasDe(sans.container)).not.toBeNull())
+    expect(vu.canvas.shadows).toBe(false)
+    sans.unmount()
+
+    const avec = render(<CinematicSection id="ombre" shots={PLANS} shadows />)
+    charger()
+    await waitFor(() => expect(canvasDe(avec.container)).not.toBeNull())
+    expect(vu.canvas.shadows).toBe(true)
+  })
+
   test('profondeur de champ : absente par défaut, pilotée par le focus du plan quand activée', async () => {
     mise.scroll = scrollPour(0.5)
     const sans = render(<CinematicSection id="net" shots={PLANS} />)
