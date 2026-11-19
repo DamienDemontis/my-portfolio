@@ -63,7 +63,7 @@ const MOUVEMENTS = { orbit, dollyZoom }
 function courbe(ease = 'inout') {
   if (typeof ease === 'function') return ease
   const f = EASINGS[ease]
-  if (!f) throw new Error(`plan : easing inconnu « ${ease} »`)
+  if (!f) throw new Error(`easing inconnu « ${ease} »`)
   return f
 }
 
@@ -72,7 +72,7 @@ function pose(plan, u) {
   let base = plan
   if (plan.move) {
     const mouvement = MOUVEMENTS[plan.move.type]
-    if (!mouvement) throw new Error(`plan : mouvement inconnu « ${plan.move.type} »`)
+    if (!mouvement) throw new Error(`mouvement inconnu « ${plan.move.type} »`)
     base = mouvement(plan.move, u)
   }
   return {
@@ -113,6 +113,52 @@ export function shotAt(shots, p) {
     roll: lerp(pa.roll, pb.roll, u),
     focus: lerp(pa.focus, pb.focus, u),
   }
+}
+
+const est3 = (v) => Array.isArray(v) && v.length === 3 && v.every(Number.isFinite)
+
+// Vérifie un plan (hors ancre) en calculant ses poses de début et de fin de segment.
+function verifierPlan(plan, nom) {
+  if (!plan || typeof plan !== 'object') throw new Error(`${nom} : plan manquant`)
+  if (!plan.move) {
+    if (!est3(plan.pos)) throw new Error(`${nom} : pos doit être [x, y, z]`)
+    if (!est3(plan.look)) throw new Error(`${nom} : look doit être [x, y, z]`)
+  }
+  let poses
+  try {
+    courbe(plan.ease)
+    poses = [pose(plan, 0), pose(plan, 1)]
+  } catch (error) {
+    throw new Error(`${nom} : ${error.message}`)
+  }
+  for (const p of poses) {
+    if (!est3(p.pos) || !est3(p.look)) throw new Error(`${nom} : mouvement incomplet, pos ou look non calculable`)
+    for (const k of ['fov', 'roll', 'focus']) {
+      if (!Number.isFinite(p[k])) throw new Error(`${nom} : ${k} doit être un nombre fini`)
+    }
+  }
+}
+
+/**
+ * Vérifie une timeline (et son plan fixe) une fois pour toutes, avec une erreur qui nomme le
+ * plan fautif. À appeler au rendu : une erreur jetée plus tard, dans la boucle d'images, ne
+ * serait attrapée par aucune barrière d'erreur. Une timeline vérifiée ne fait plus jeter
+ * shotAt ni stillShot (sauf un easing fourni en fonction qui jetterait lui-même). Rend `shots`.
+ */
+export function checkShots(shots, still) {
+  if (!Array.isArray(shots) || shots.length === 0) throw new Error('plans : aucun plan')
+  shots.forEach((plan, i) => {
+    const nom = `plan ${i}`
+    if (!(Number.isFinite(plan?.at) && plan.at >= 0 && plan.at <= 1)) throw new Error(`${nom} : at doit être dans [0, 1]`)
+    if (i > 0 && plan.at < shots[i - 1].at) throw new Error(`${nom} : plans à trier par at croissant`)
+    verifierPlan(plan, nom)
+  })
+  if (typeof still === 'number') {
+    if (!Number.isFinite(still)) throw new Error('still : progression non finie')
+  } else if (still != null) {
+    verifierPlan(still, 'still')
+  }
+  return shots
 }
 
 /**

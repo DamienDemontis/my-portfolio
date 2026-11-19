@@ -1,4 +1,5 @@
 import { act, render, waitFor } from '@testing-library/react'
+import React from 'react'
 import { PerspectiveCamera } from 'three'
 import { shotAt, stillShot } from '../src/three/cinematic/shots.js'
 
@@ -175,6 +176,25 @@ function memeCamera(camera, pose) {
   camera.quaternion.toArray().forEach((v, i) => expect(v).toBeCloseTo(attendue.quaternion.toArray()[i], 9))
   expect(camera.fov).toBeCloseTo(pose.fov, 9)
 }
+// Compte les appels aux setters de useState (setters enveloppés, identité stable).
+// Un setState qui ne change rien n'est pas gratuit : React garde la mise à jour en file
+// jusqu'au prochain rendu du composant.
+function compterSetters() {
+  const original = React.useState
+  const appels = { n: 0 }
+  const enveloppes = new WeakMap()
+  vi.spyOn(React, 'useState').mockImplementation((init) => {
+    const [valeur, set] = original(init)
+    if (!enveloppes.has(set)) {
+      enveloppes.set(set, (x) => {
+        appels.n++
+        return set(x)
+      })
+    }
+    return [valeur, enveloppes.get(set)]
+  })
+  return appels
+}
 const instantane = (c) => [...c.position.toArray(), ...c.quaternion.toArray(), c.fov].map((v) => +v.toFixed(9))
 
 // L'ordre compte : fiber n'est importé qu'une fois par fichier, donc les cas où rien ne
@@ -211,6 +231,24 @@ describe('CinematicSection', () => {
     expect(container.querySelector('[data-testid="decor"]')).toBeNull()
     expect(vu.importsFiber).toBe(0)
     expect(vu.preloads).toEqual([])
+  })
+
+  test('loin, le scroll ne touche à aucun état tant que la proximité ne change pas', () => {
+    const appels = compterSetters()
+    const { container } = render(<CinematicSection id="calme" shots={PLANS} />)
+    const montage = appels.n
+    for (let y = 0; y <= 2300; y += 100) defiler(y)
+    expect(appels.n).toBe(montage)
+    // Passage à moins d'un écran : un seul changement d'état, puis plus rien en approchant.
+    defiler(2500)
+    expect(appels.n).toBe(montage + 1)
+    for (let y = 2600; y <= 4800; y += 200) defiler(y)
+    expect(appels.n).toBe(montage + 1)
+    // Retour au loin : un seul changement encore.
+    defiler(0)
+    defiler(500)
+    expect(appels.n).toBe(montage + 2)
+    expect(canvasDe(container)).toBeNull()
   })
 
   test('à moins d un écran mais avant load : rien ; après load : monté, préchargé, rendu à la demande', async () => {
@@ -352,5 +390,82 @@ describe('CinematicSection', () => {
     defiler(scrollPour(1))
     dessiner()
     expect(vu.dof.cocMaterial.focusDistance).toBeCloseTo(shotAt(PLANS, 1).focus, 9)
+  })
+
+  // Une erreur jetée dans useFrame échappe à la barrière et casse la boucle partagée de R3F :
+  // les plans sont vérifiés au rendu, où la barrière les attrape.
+  test.each([
+    ['aucun plan', []],
+    ['easing inconnu', [{ ...PLANS[0], ease: 'bounce' }, PLANS[2]]],
+    ['mouvement inconnu', [PLANS[0], { at: 0.5, move: { type: 'zoomBurst' } }]],
+    ['plan sans pos', [PLANS[0], { at: 1, look: [0, 1, 0], fov: 40 }]],
+  ])('plans invalides (%s) : la barrière les attrape, aucune image ne jette', async (_, plans) => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    mise.scroll = scrollPour(0.6)
+    const { container } = render(<CinematicSection id="invalide" shots={plans} stage={Decor} />)
+    charger()
+    await waitFor(() => expect(warn).toHaveBeenCalled())
+    expect(String(warn.mock.calls[0][0])).toContain('[cinematique]')
+    // Le message de checkShots, qui nomme le plan fautif.
+    expect(String(warn.mock.calls[0][1])).toMatch(/plans? .*:/)
+    expect(canvasDe(container)).toBeNull()
+    expect(container.querySelector('[data-testid="decor"]')).toBeNull()
+    expect(vu.frames.size).toBe(0)
+    expect(() => dessiner()).not.toThrow()
+    // Le texte de la section reste en place.
+    expect(container.querySelector('.cinematic__content')).not.toBeNull()
+  })
+
+  test('still invalide sous mouvement réduit : attrapé par la barrière aussi', async () => {
+    medias({ [REDUIT]: true })
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    mise.scroll = scrollPour(0.2)
+    const { container } = render(<CinematicSection id="still-invalide" shots={PLANS} still={{ pos: [0, 1, 3], fov: 30 }} />)
+    charger()
+    await waitFor(() => expect(warn).toHaveBeenCalled())
+    expect(canvasDe(container)).toBeNull()
+    expect(vu.frames.size).toBe(0)
+  })
+
+  test('sous mouvement réduit, le décor lit une progression figée sur celle du plan fixe', async () => {
+    const basculer = medias({ [REDUIT]: true })
+    mise.scroll = scrollPour(0.1)
+    const { container, rerender } = render(<CinematicSection id="fige" shots={PLANS} stage={Decor} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    for (const p of [0.1, 0.4, 0.9, 1, 0]) {
+      defiler(scrollPour(p))
+      dessiner()
+      expect(vu.decor.timeline.current.p).toBe(0.5)
+    }
+    // still numérique : la progression figée est la sienne.
+    rerender(<CinematicSection id="fige" shots={PLANS} stage={Decor} still={0.8} />)
+    defiler(scrollPour(0.3))
+    expect(vu.decor.timeline.current.p).toBe(0.8)
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(PLANS, 0.8))
+
+    // Préférence levée : le décor suit de nouveau le scroll.
+    act(() => basculer(REDUIT, false))
+    expect(vu.decor.timeline.current.p).toBeCloseTo(0.3, 9)
+    defiler(scrollPour(0.6))
+    expect(vu.decor.timeline.current.p).toBeCloseTo(0.6, 9)
+  })
+
+  test('la politique transmise au décor annonce le frameloop réel du canvas', async () => {
+    const basculer = medias({})
+    mise.scroll = scrollPour(0.3)
+    const { container } = render(<CinematicSection id="politique" shots={PLANS} stage={Decor} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    expect(vu.canvas.frameloop).toBe('demand')
+    expect(vu.decor.policy.frameloop).toBe(vu.canvas.frameloop)
+    // Pointeur fin, mouvement permis : le décor peut animer (idle), à lui de redemander des images.
+    expect(vu.decor.policy.idle).toBe(true)
+    act(() => basculer(REDUIT, true))
+    expect(vu.decor.policy.frameloop).toBe(vu.canvas.frameloop)
+    expect(vu.decor.policy.idle).toBe(false)
   })
 })

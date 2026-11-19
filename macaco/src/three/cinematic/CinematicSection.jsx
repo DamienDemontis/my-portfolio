@@ -12,10 +12,13 @@
 //   shots                  timeline de plans (voir shots.js)
 //   still                  plan fixe sous prefers-reduced-motion (plan, ou progression) ;
 //                          par défaut le plan de p = 0.5
-//   onProgress(p)          appelé quand la progression change
+//   onProgress(p)          appelé quand la progression change (celle du scroll, même sous
+//                          mouvement réduit : le texte en DOM reste l'affaire de l'appelant)
 //   preload                URL des modèles du décor, préchargés au montage du canvas
 //   stage                  composant 3D rendu dans le canvas (idéalement React.lazy), qui
-//                          reçoit { timeline, policy } : timeline.current.p est la progression
+//                          reçoit { timeline, policy } : timeline.current.p est la progression,
+//                          figée sur celle du plan fixe sous mouvement réduit ; policy vient de
+//                          motionPolicy, avec le frameloop réel du canvas ('demand')
 //   depthOfField = false   profondeur de champ pilotée par le focus des plans : true ou
 //                          { focusRange, bokehScale }
 import React from 'react'
@@ -108,6 +111,10 @@ export default function CinematicSection({
   onProgressRef.current = onProgress
   const [pret, setPret] = React.useState(false)
   const [proche, setProche] = React.useState(false)
+  // Copie de `proche` lue au scroll : setProche ne part que sur un vrai changement. Un
+  // setState sans effet n'est pas gratuit, React garde la mise à jour en file jusqu'au
+  // prochain rendu ; sur une section lointaine, elles s'empileraient à chaque scroll.
+  const procheRef = React.useRef(false)
   const reduit = useReducedMotion()
 
   // Rien avant load et le créneau d'inactivité qui suit : le LCP reste le texte.
@@ -142,7 +149,11 @@ export default function CinematicSection({
       }
       // Écart entre l'écran [y, y + vh] et la piste [haut, bas], nul quand ils se recouvrent.
       const ecart = Math.max(haut - (y + vh), y - bas, 0)
-      setProche((avant) => ecart < (avant ? DEMONTAGE : MONTAGE) * vh)
+      const vise = ecart < (procheRef.current ? DEMONTAGE : MONTAGE) * vh
+      if (vise !== procheRef.current) {
+        procheRef.current = vise
+        setProche(vise)
+      }
     }
     mesurer()
     return onScroll(mesurer)

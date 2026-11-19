@@ -1,4 +1,4 @@
-import { EASINGS, dollyZoom, orbit, shotAt, stillShot } from '../src/three/cinematic/shots.js'
+import { EASINGS, checkShots, dollyZoom, orbit, shotAt, stillShot } from '../src/three/cinematic/shots.js'
 
 const DEG = Math.PI / 180
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -157,6 +157,46 @@ describe('mouvements nommés dans la timeline', () => {
       const s = shotAt(plans, p)
       expect(2 * s.focus * Math.tan((s.fov * DEG) / 2)).toBeCloseTo(2, 9)
     }
+  })
+})
+
+// Validation faite une fois, au rendu : une erreur jetée plus tard dans useFrame échapperait
+// à la barrière d'erreur et casserait la boucle de rendu de R3F.
+describe('checkShots', () => {
+  const OK = { at: 0, pos: [0, 1, 5], look: [0, 1, 0], fov: 40 }
+
+  test('timeline valide : rendue telle quelle, mouvements compris', () => {
+    expect(checkShots(PLANS)).toBe(PLANS)
+    const vertigo = { type: 'dollyZoom', subject: [0, 1, 0], dir: [0, 0, 1], fovFrom: 20, fovTo: 60, width: 2 }
+    const orbite = { type: 'orbit', center: [0, 1, 0], radius: 3, from: 0, to: 90, fov: 30 }
+    expect(() =>
+      checkShots([OK, { at: 0.3, move: vertigo, ease: 'linear' }, { at: 0.6, move: orbite, roll: 4, focus: 2 }]),
+    ).not.toThrow()
+    expect(() => checkShots([{ ...OK, ease: (t) => t * t }])).not.toThrow()
+  })
+
+  test.each([
+    ['aucun plan', [], /aucun plan/],
+    ['pas un tableau', undefined, /aucun plan/],
+    ['ancre manquante', [{ ...OK, at: undefined }], /plan 0.*at/],
+    ['ancres dans le désordre', [{ ...OK, at: 0.5 }, { ...OK, at: 0.2 }], /plan 1.*tri/],
+    ['easing inconnu', [{ ...OK, ease: 'bounce' }], /plan 0.*bounce/],
+    ['mouvement inconnu', [OK, { at: 1, move: { type: 'zoomBurst' } }], /plan 1.*zoomBurst/],
+    ['pos manquante', [OK, { at: 1, look: [0, 0, 0], fov: 30 }], /plan 1.*pos/],
+    ['look mal formé', [{ ...OK, look: [0, 1] }], /plan 0.*look/],
+    ['fov non numérique', [{ ...OK, fov: '40' }], /plan 0.*fov/],
+    ['roll non fini', [{ ...OK, roll: Number.NaN }], /plan 0.*roll/],
+    ['orbite incomplète', [{ at: 0, move: { type: 'orbit', radius: 2, from: 0, to: 90, fov: 30 } }], /plan 0/],
+    ['dollyZoom sans direction', [{ at: 0, move: { type: 'dollyZoom', subject: [0, 0, 0], dir: [0, 0, 0], fovFrom: 20, fovTo: 60, width: 1 } }], /plan 0.*dir/],
+  ])('%s : erreur claire', (_, plans, motif) => {
+    expect(() => checkShots(plans)).toThrow(motif)
+  })
+
+  test('still vérifié aussi : nombre fini, ou plan complet', () => {
+    expect(() => checkShots(PLANS, 0.3)).not.toThrow()
+    expect(() => checkShots(PLANS, { pos: [0, 1, 4], look: [0, 1, 0], fov: 30 })).not.toThrow()
+    expect(() => checkShots(PLANS, Number.NaN)).toThrow(/still/)
+    expect(() => checkShots(PLANS, { pos: [0, 1, 4], fov: 30 })).toThrow(/still.*look/)
   })
 })
 
