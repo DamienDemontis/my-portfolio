@@ -305,9 +305,9 @@ test.each([
   expect(container.querySelector('img, a')).toBeNull()
 })
 
-test('après une erreur, on peut relancer : depuis la zone ou depuis la liste', () => {
+test.each(['network', 'unavailable'])('après une erreur « %s », on peut relancer : depuis la zone ou depuis la liste', (code) => {
   const { container } = render(<Music />)
-  poser(erreur('blocked'))
+  poser(erreur(code))
   const zone = container.querySelector('.music__now')
   fireEvent.click(within(zone).getByRole('button', { name: T.play }))
   expect(moteur.play).toHaveBeenLastCalledWith(FEEL)
@@ -316,6 +316,21 @@ test('après une erreur, on peut relancer : depuis la zone ou depuis la liste', 
   expect(moteur.play).toHaveBeenLastCalledWith(FEEL)
   expect(moteur.pause).not.toHaveBeenCalled()
   expect(moteur.resume).not.toHaveBeenCalled()
+})
+
+test('lecture refusée par le navigateur (blocked) : la relance passe par resume(), dans le geste', () => {
+  const { container } = render(<Music />)
+  poser(erreur('blocked'))
+  const zone = container.querySelector('.music__now')
+  fireEvent.click(within(zone).getByRole('button', { name: T.play }))
+  expect(moteur.resume).toHaveBeenCalledTimes(1)
+  fireEvent.click(bouton(container, FEEL))
+  expect(moteur.resume).toHaveBeenCalledTimes(2)
+  expect(moteur.play).not.toHaveBeenCalled()
+  // Un autre morceau de la liste : on le joue.
+  fireEvent.click(bouton(container, TRACKS[0]))
+  expect(moteur.play).toHaveBeenCalledWith(TRACKS[0])
+  expect(moteur.resume).toHaveBeenCalledTimes(2)
 })
 
 test('extrait terminé (repos, morceau gardé) : le bouton le rejoue, la liste aussi', () => {

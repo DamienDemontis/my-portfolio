@@ -64,6 +64,9 @@ function useListening() {
 }
 
 const memeMorceau = (a, b) => Boolean(a && b && a.id === b.id)
+// Lecture refusée par le navigateur : l'extrait est posé, la relance passe par resume(), qui
+// rejoue dans le geste sans nouvelle requête (play() repasserait par le réseau, hors du geste).
+const bloque = () => listening.state === 'error' && listening.error === 'blocked'
 
 // La platine (zone « en écoute ») est-elle à l'écran ? Observée dans la racine de scroll, comme
 // la visibilité de CinematicSection ; à moitié sortie, elle compte comme partie. Sans
@@ -250,16 +253,17 @@ export default function Music() {
     const enCours = memeMorceau(listening.current?.track, track)
     if (enCours && listening.state === 'loading') return
     if (enCours && listening.state === 'playing') listening.pause()
-    else if (enCours && listening.state === 'paused') listening.resume()
+    else if (enCours && (listening.state === 'paused' || bloque())) listening.resume()
     else listening.play(track)
   }, [])
 
-  // Le bouton principal : pause, reprise, ou nouvelle lecture (après une erreur, ou à la fin
-  // de l'extrait). Pendant le chargement, il n'est pas branché.
+  // Le bouton principal : pause, reprise (ou relance après un refus du navigateur), ou nouvelle
+  // lecture (après une autre erreur, ou à la fin de l'extrait). Pendant le chargement, il n'est
+  // pas branché.
   const basculer = React.useCallback(() => {
     const { state: etat, current: courant } = listening
     if (etat === 'playing') listening.pause()
-    else if (etat === 'paused') listening.resume()
+    else if (etat === 'paused' || bloque()) listening.resume()
     else if ((etat === 'error' || etat === 'idle') && courant) listening.play(courant.track)
   }, [])
 
