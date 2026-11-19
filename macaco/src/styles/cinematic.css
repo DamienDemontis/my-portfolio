@@ -56,3 +56,11 @@
   z-index: 1;
   height: 100%;
 }
+
+/* Une affiche donnée en <picture> (une image par cadrage) : son image remplit la scène. */
+.cinematic__poster picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

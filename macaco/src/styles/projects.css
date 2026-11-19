@@ -435,11 +435,3 @@
     translate: none;
   }
 }
-
-/* L'affiche (une <picture>) remplit la scène comme une image. */
-.projects .cinematic__poster img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}

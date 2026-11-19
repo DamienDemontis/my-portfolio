@@ -32,6 +32,14 @@ const ListeningRoom = React.lazy(() => import('../three/music/ListeningRoom.jsx'
 const STAGE_PROPS = { listening }
 const DEPTH_OF_FIELD = { focusRange: 1.4, bokehScale: 3 }
 const PRELOAD = ['/character/damien.glb', '/props/boombox.glb']
+// Affiche pendant le chargement et sans WebGL 2 : la salle vue de haut, au repos, une image par
+// cadrage (seuil des plans, NARROW_ASPECT 1,15 = 23/20).
+const POSTER = (
+  <picture>
+    <source media="(max-aspect-ratio: 23/20)" srcSet="/musique/poster-narrow.webp" />
+    <img src="/musique/poster-wide.webp" alt="" decoding="async" loading="lazy" />
+  </picture>
+)
 const chargerEffets = () => import('../three/music/effects.jsx').then((module) => module.MUSIC_EFFECTS)
 
 const ERREURS = {
@@ -295,6 +303,7 @@ export default function Music() {
         depthOfField={DEPTH_OF_FIELD}
         effects={effects}
         preload={PRELOAD}
+        poster={POSTER}
         onProgress={onProgress}
         className="music"
         aria-labelledby="music-title"

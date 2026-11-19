@@ -92,9 +92,9 @@ void main() {
   // énergie de la bande de cette particule (0 graves, 1 médiums, 2 aigus)
   float e = aBand < 0.5 ? uBass : (aBand < 1.5 ? uMid : uHigh);
   // rotation lente, tourbillon des médiums
-  float a = aAngle + uTime * (0.05 + 0.06 * aSeed) + uMid * 0.6 * sin(uTime * 0.7 + aSeed * 6.2831);
+  float a = aAngle + uTime * (0.05 + 0.06 * aSeed) + uMid * 0.35 * sin(uTime * 0.7 + aSeed * 6.2831);
   // les graves poussent vers l'extérieur, surtout les particules des graves
-  float r = uRadius * (1.0 + aOffset.x) + uBass * (aBand < 0.5 ? 0.55 : 0.25);
+  float r = uRadius * (1.0 + aOffset.x) + uBass * (aBand < 0.5 ? 0.3 : 0.14);
   float y = aOffset.y + 0.06 * sin(a * 3.0 + uTime * 0.6);
   // les aigus font frémir
   float f = floor(uTime * 30.0);
@@ -102,7 +102,7 @@ void main() {
   vec3 p = vec3(cos(a) * r, y, sin(a) * r) + tremble;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + e * 1.4) / -mv.z;
+  gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + e * 0.8) / -mv.z;
   vBand = aBand;
   vGlow = 0.45 + 0.55 * e;
 }

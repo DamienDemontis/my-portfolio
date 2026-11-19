@@ -113,7 +113,12 @@ test('le socle reçoit la piste, les plans, la scène en paresseux, le moteur et
   expect(props.preload).toEqual(['/character/damien.glb', '/props/boombox.glb'])
   expect(props.className).toBe('music')
   expect(props['aria-labelledby']).toBe('music-title')
-  expect(props.poster).toBeUndefined()
+  // l'affiche : une image par cadrage, portrait sous le même seuil que les plans
+  const { container: affiche } = render(props.poster)
+  expect(affiche.querySelector('source').getAttribute('media')).toBe('(max-aspect-ratio: 23/20)')
+  expect(affiche.querySelector('source').getAttribute('srcset')).toBe('/musique/poster-narrow.webp')
+  expect(affiche.querySelector('img').getAttribute('src')).toBe('/musique/poster-wide.webp')
+  expect(affiche.querySelector('img').getAttribute('alt')).toBe('')
   expect(typeof props.onProgress).toBe('function')
 })
 
