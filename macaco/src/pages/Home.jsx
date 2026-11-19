@@ -236,14 +236,19 @@ const Ps = React.forwardRef(function ({
     light: null,
     dark: null
   },
-  // Six plans, un par expertise, chacun avec sa focale (storyboard) ; le personnage regarde la caméra (−X).
+  // Plan d'ouverture (sans étiquette), puis un plan par expertise avec sa focale (storyboard) :
+  // le groupe d'étiquettes g s'affiche quand la caméra se pose sur le plan g + 1. Le personnage regarde la caméra (−X).
   ct = [{
-    pos: [-1.6, 1.08, 0.15],
-    look: [0, 1.03, 0.02],
+    pos: [-4.6, 0.35, 0.6],
+    look: [0, 0.15, 0],
+    fov: 30
+  }, {
+    pos: [-1.6, 1.33, 0.15],
+    look: [0, 1.29, 0.02],
     fov: 12
   }, {
-    pos: [-1.1, 0.15, -0.75],
-    look: [0, -0.07, -0.33],
+    pos: [-1.15, 0.1, -0.85],
+    look: [0, -0.12, -0.45],
     fov: 28
   }, {
     pos: [-0.4, 4.2, 0.05],
@@ -263,12 +268,16 @@ const Ps = React.forwardRef(function ({
     fov: 34
   }],
   Os = [{
-    pos: [-2.2, 1.06, 0.15],
-    look: [0, 1.0, 0.02],
+    pos: [-6.2, 0.35, 0.7],
+    look: [0, 0.1, 0],
+    fov: 38
+  }, {
+    pos: [-2.2, 1.31, 0.15],
+    look: [0, 1.26, 0.02],
     fov: 16
   }, {
-    pos: [-1.6, 0.1, -0.9],
-    look: [0, -0.07, -0.33],
+    pos: [-1.65, 0.05, -1.0],
+    look: [0, -0.12, -0.45],
     fov: 34
   }, {
     pos: [-0.4, 5.2, 0.05],
@@ -301,14 +310,14 @@ const Ps = React.forwardRef(function ({
     side: "left",
     color: "#7FFFFF",
     icon: oe.creativity,
-    pos: [-0.11, 1.04, 0.04]
+    pos: [-0.11, 1.29, 0.04]
   }, {
     key: "h2",
     shot: 1,
     side: "left",
     color: "#7F3AEF",
     icon: oe.craft,
-    pos: [-0.05, -0.07, -0.33]
+    pos: [-0.04, -0.12, -0.45]
   }, {
     key: "h3",
     shot: 2,
@@ -479,7 +488,7 @@ function Rstage() {
         }}>{u && <React.Suspense fallback={null}><Cs shots={o} colors={Is} glitch={Fs} hotspots={ke} markersRef={w} stageRef={E} active={m} dpr={p} maxGhosts={x ? 0 : $s} portraitFit={!N} projectHotspots={!N} /></React.Suspense>}</div>{!1}<h2 id="rstage-title" className="rstage__title craft-glitch-in" style={{
           "--s": 0,
           "--r": 1
-        }}>{s("home.stage.title", "CAPABILITIES")}</h2>{[0, 1, 2].map(g => <div className="rstage__hots" data-i={g} data-live="0" ref={_ => {
+        }}>{s("home.stage.title", "CAPABILITIES")}</h2>{Array.from({ length: ct.length - 1 }, (_, g) => g).map(g => <div className="rstage__hots" data-i={g} data-live="0" style={{ "--p": `var(--p${g}, 0)` }} ref={_ => {
           R.current[g] = _;
         }} key={g}>{ke.map((_, M) => _.shot === g ? <Ps ref={f => {
             w.current[M] = f;

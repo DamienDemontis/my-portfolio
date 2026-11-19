@@ -123,7 +123,7 @@ function N({
         b = M.current++ % f;
       for (let p = 0; p < n.bones.length; p++) n.bones[p].position.copy(m[p].position), n.bones[p].quaternion.copy(m[p].quaternion), n.bones[p].scale.copy(m[p].scale);
       const k = t.jitter;
-      n.obj.position.set(((b + 1) * t.offsetX + (Math.random() * 2 - 1) * k) / i, ((b + 1) * t.offsetY + (Math.random() * 2 - 1) * k) / i, ((b + 1) * t.offsetZ + (Math.random() * 2 - 1) * k) / i);
+      n.obj.position.set(((b + 1) * t.offsetZ + (Math.random() * 2 - 1) * k) / i, ((b + 1) * t.offsetY + (Math.random() * 2 - 1) * k) / i, -((b + 1) * t.offsetX + (Math.random() * 2 - 1) * k) / i);
       const j = n.mat.userData.uniforms;
       j.uPixel.value = s.pixel, j.uGain.value = t.gain, j.uColorLight.value.set(...hexToRgb01(t.light || s.light)), j.uColorDark.value.set(...hexToRgb01(t.dark || s.dark)), j.uOpacity.value = t.opacity, n.obj.visible = !0, n.bornAt = u, n.active = !0;
     }
