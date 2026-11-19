@@ -21,7 +21,7 @@ test.each(LANGS)('chaque projet a title, meta et line en %s', (l) => {
 
 test.each(LANGS)('les clés de boutons et de dialogue existent en %s', (l) => {
   const t = locale(l).home.projects
-  for (const k of ['title', 'kicker', 'play', 'source', 'demo', 'video', 'newTab', 'close', 'gameLabel', 'stack'])
+  for (const k of ['title', 'kicker', 'play', 'playNote', 'source', 'demo', 'video', 'newTab', 'close', 'gameLabel', 'stack'])
     expect(t[k]).toBeTruthy()
 })
 

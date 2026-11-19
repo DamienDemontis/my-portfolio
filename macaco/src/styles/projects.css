@@ -185,6 +185,15 @@
   margin-top: 0.8rem;
 }
 
+/* Sous « Jouer » : ce que le bouton lance (moteur, poids, commandes), en petit. */
+.projects__note {
+  margin: 0.5rem 0 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--os) 72%, transparent);
+}
+
 /* Boutons du site (le coin coupé de .mcf__cta) ; cible tactile de 44 px. */
 .projects__link {
   display: inline-flex;
@@ -228,8 +237,11 @@
 }
 
 /* Dialogue du jeu : dans la couche supérieure (showModal), le jeu en grand. Le display ne se
-   pose qu'ouvert, pour ne pas écraser le display: none du dialogue fermé. */
+   pose qu'ouvert, pour ne pas écraser le display: none du dialogue fermé. Le site masque le
+   curseur (cursor: none sur html) pour son curseur maison, qui passe sous la couche
+   supérieure : le dialogue rend celui du système. */
 .projects__game {
+  cursor: auto;
   width: min(96vw, 1040px);
   height: min(92svh, 720px);
   max-width: none;
@@ -398,6 +410,11 @@
   .projects__links {
     gap: 8px;
     margin-top: 0.5rem;
+  }
+
+  .projects__note {
+    margin-top: 0.35rem;
+    font-size: 10px;
   }
 
   .projects__link {

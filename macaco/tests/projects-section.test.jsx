@@ -302,6 +302,38 @@ test('Échap (événement cancel) ferme le jeu, retire l iframe et rend le focus
   expect(document.querySelectorAll('iframe')).toHaveLength(1)
 })
 
+test('sous « Jouer », une mention du jeu, reliée au bouton', () => {
+  const { container } = render(<Projects />)
+  avancer(PROJECT_ANCHORS[WII])
+  const jouer = screen.getByRole('button', { name: T.play })
+  const id = jouer.getAttribute('aria-describedby')
+  expect(id).toBeTruthy()
+  const note = document.getElementById(id)
+  expect(note.textContent).toBe(T.playNote)
+  expect(cartes(container)[WII].contains(note)).toBe(true)
+  expect(jouer.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  // Une seule mention : celle du seul jeu.
+  expect(container.querySelectorAll('[aria-describedby]')).toHaveLength(1)
+})
+
+test('jeu ouvert : la 3D cesse de tourner en continu, le dialogue garde le toucher natif', () => {
+  const { container } = render(<Projects />)
+  avancer(PROJECT_ANCHORS[WII])
+  const dialogue = container.querySelector('dialog.projects__game')
+  // Le défilement tactile du site (useTouchScroll, App.jsx) ignore ce qui porte cet attribut.
+  expect(dialogue.hasAttribute('data-native-touch')).toBe(true)
+  expect(socle().animated).toBe(true)
+  fireEvent.click(screen.getByRole('button', { name: T.play }))
+  expect(socle().animated).toBe(false)
+  fireEvent.click(within(dialogue).getByRole('button', { name: T.close }))
+  expect(socle().animated).toBe(true)
+})
+
+test('le curseur du système revient dans le dialogue du jeu', () => {
+  const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../src/styles/projects.css'), 'utf8')
+  expect(css).toMatch(/\.projects__game\s*\{[^}]*cursor:\s*auto/)
+})
+
 // Le jeu « chargé » dans l'iframe (jsdom n'y charge rien) : un canvas qui reçoit les touches, et
 // un document qui les capte comme Unity, sans les laisser remonter. Rend de quoi presser une touche.
 function jeuCharge(iframe) {

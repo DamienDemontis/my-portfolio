@@ -30,8 +30,9 @@
 //                          invalidate()
 //   depthOfField = false   profondeur de champ pilotée par le focus des plans : true ou
 //                          { focusRange, bokehScale }
-//   shadows = false        ombres portées (la carte d'ombre de three) : une lumière qui projette
-//                          une texture (SpotLight.map) en a besoin
+//   shadows = false        ombres portées (la carte d'ombre de three), pour les lumières du décor
+//                          à castShadow : dans la salle de projection, l'ombre du personnage
+//                          sur l'écran (la texture d'une SpotLight.map, elle, s'en passe)
 //   effects                effets de post-traitement (Bloom…), rendus dans le même
 //                          EffectComposer que la profondeur de champ
 //   poster                 URL d'image ou élément, affiché tant que la 3D n'a rien dessiné :

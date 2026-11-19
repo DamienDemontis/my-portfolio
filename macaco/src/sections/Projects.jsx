@@ -85,6 +85,8 @@ function Carte({ projet, i, actif, onJouer, onFocusCachee, t }) {
   const libelle = `projets-${id}-pile`
   // Carte cachée : contrôles hors de la tabulation, mais focalisables (lecteur d'écran).
   const tabIndex = actif ? undefined : -1
+  const jouable = links.some((l) => l.kind === 'play')
+  const note = `projets-${id}-jeu`
   return (
     <li
       className="projects__card"
@@ -114,6 +116,7 @@ function Carte({ projet, i, actif, onJouer, onFocusCachee, t }) {
                 className="projects__link projects__link--play"
                 type="button"
                 tabIndex={tabIndex}
+                aria-describedby={note}
                 onClick={(event) => onJouer(event, href)}
                 key={kind}
               >
@@ -124,6 +127,12 @@ function Carte({ projet, i, actif, onJouer, onFocusCachee, t }) {
             ),
           )}
         </div>
+      )}
+      {/* Ce que « Jouer » lance, avant de cliquer : lu aussi avec le bouton (aria-describedby). */}
+      {jouable && (
+        <p className="projects__note" id={note}>
+          {t('home.projects.playNote')}
+        </p>
       )}
     </li>
   )
@@ -237,7 +246,8 @@ export default function Projects() {
       still={PROJECTION_STILL}
       stage={ProjectionRoom}
       stageProps={stageProps}
-      animated
+      // Jeu ouvert : la scène, cachée derrière, ne tourne plus à chaque image (rendu à la demande).
+      animated={jeu === null}
       depthOfField
       shadows
       effects={effects}
@@ -266,9 +276,12 @@ export default function Projects() {
           />
         ))}
       </ol>
+      {/* data-native-touch : le défilement tactile du site (useTouchScroll, App.jsx) laisse le
+          toucher au navigateur ; sans lui, il ferait défiler la page sous le dialogue. */}
       <dialog
         className="projects__game"
         ref={dialogRef}
+        data-native-touch=""
         aria-label={t('home.projects.gameLabel')}
         onCancel={annuler}
         onClose={apresFermeture}
