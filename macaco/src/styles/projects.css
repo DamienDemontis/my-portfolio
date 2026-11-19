@@ -1,0 +1,425 @@
+/* Section Projets : la salle de projection. La 3D occupe tout l'écran (canvas de
+   CinematicSection) ; le texte passe au-dessus, clair sur un dégradé sombre discret, sans boîte
+   pleine. Une seule carte visible à la fois, celle du projet à l'écran.
+
+   Portrait d'abord ; paysage (rapport ≥ 1,15, le seuil des plans larges) plus bas. */
+.projects {
+  /* Fond tant que la 3D n'a rien dessiné, ou sans WebGL 2 : le noir de la salle, un reste
+     de lumière du projecteur vers l'écran. */
+  background:
+    radial-gradient(70% 45% at 50% 30%, color-mix(in srgb, var(--cuivre) 9%, transparent), transparent 72%),
+    var(--fond);
+  color: var(--os);
+  font-family: var(--font-body);
+}
+
+/* En-tête : visible sur l'amorce, effacé à l'œil dès le premier projet (le h2 reste lisible
+   par les lecteurs d'écran : opacité seulement, ni display ni visibility). */
+.projects__head {
+  position: absolute;
+  top: calc(var(--nav-offset) + 2vh);
+  left: 16px;
+  right: 16px;
+  margin: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.4s ease,
+    translate 0.4s ease;
+}
+
+.projects__head[data-visible="false"] {
+  opacity: 0;
+  translate: 0 -0.75rem;
+}
+
+.projects__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  margin: 0 0 0.6rem;
+  font-size: clamp(11px, 0.85vw, 14px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cuivre);
+}
+
+/* Amorce de pellicule : un trait, puis le libellé. */
+.projects__kicker::before {
+  content: "";
+  flex: none;
+  width: 2.6em;
+  height: 1px;
+  background: currentColor;
+}
+
+.projects__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(44px, 14vw, 88px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--os);
+  text-shadow: 0 2px 28px rgb(0 0 0 / 0.55);
+}
+
+/* Toutes les cartes au même endroit ; seule la carte active se montre. */
+.projects__list {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.projects__card {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  isolation: isolate;
+  pointer-events: auto;
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.6);
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 0.75rem;
+  transition:
+    opacity 0.3s ease,
+    translate 0.3s ease,
+    visibility 0s linear 0.3s;
+}
+
+.projects__card[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  transition:
+    opacity 0.3s ease 0.06s,
+    translate 0.3s ease 0.06s,
+    visibility 0s;
+}
+
+/* Le dégradé qui porte le texte : depuis le bas de l'écran, jusqu'aux bords. */
+.projects__card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40% -16px max(-16px, calc(env(safe-area-inset-bottom) * -1));
+  background: linear-gradient(
+    to top,
+    rgb(10 11 12 / 0.92) 0%,
+    rgb(10 11 12 / 0.74) 55%,
+    rgb(10 11 12 / 0) 100%
+  );
+  pointer-events: none;
+}
+
+.projects__count {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  color: var(--cuivre);
+}
+
+/* Un trait à la couleur du projet, éclaircie : les projets sombres restent visibles. */
+.projects__count::after {
+  content: "";
+  width: 2.2em;
+  height: 2px;
+  background: color-mix(in srgb, var(--projet, var(--cuivre)) 62%, var(--os));
+}
+
+.projects__name {
+  margin: 0.35rem 0 0.2rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(22px, 6.4vw, 30px);
+  line-height: 1.04;
+  letter-spacing: 0.005em;
+  color: var(--os);
+}
+
+.projects__meta {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--os) 72%, transparent);
+}
+
+.projects__line {
+  max-width: 62ch;
+  margin: 0.6rem 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.projects__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.projects__stack > li {
+  padding: 3px 7px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: color-mix(in srgb, var(--os) 88%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--os) 26%, transparent);
+  text-shadow: none;
+}
+
+.projects__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.8rem;
+}
+
+/* Boutons du site (le coin coupé de .mcf__cta) ; cible tactile de 44 px. */
+.projects__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--os) 13%, transparent);
+  color: var(--os);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-shadow: none;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, calc(100% - 10px) 100%, 0 100%);
+  transition: background-color 0.2s ease;
+}
+
+.projects__link--play {
+  background: var(--cuivre);
+  color: var(--fond);
+  font-weight: 700;
+}
+
+/* Le coin coupé rognerait un contour extérieur : il se trace à l'intérieur. */
+.projects__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .projects__link:hover {
+    background-color: color-mix(in srgb, var(--os) 24%, transparent);
+  }
+
+  .projects__link--play:hover {
+    background-color: color-mix(in srgb, var(--cuivre) 82%, var(--os));
+  }
+}
+
+/* Dialogue du jeu : dans la couche supérieure (showModal), le jeu en grand. Le display ne se
+   pose qu'ouvert, pour ne pas écraser le display: none du dialogue fermé. */
+.projects__game {
+  width: min(96vw, 1040px);
+  height: min(92svh, 720px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: var(--fond);
+  color: var(--os);
+  font-family: var(--font-body);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--cuivre) 40%, transparent);
+}
+
+.projects__game[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Repli sans showModal (attribut open seul) : fixé au-dessus de la page. */
+.projects__game[open]:not(:modal) {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  margin: auto;
+}
+
+.projects__game::backdrop {
+  background: rgb(5 5 6 / 0.84);
+}
+
+.projects__close {
+  align-self: flex-end;
+  flex: none;
+  margin: 6px;
+}
+
+.projects__frame {
+  flex: 1 1 auto;
+  display: block;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: #000;
+}
+
+/* Jeu ouvert : la page derrière ne défile plus (la carte du jeu reste active, le focus
+   peut y revenir). */
+.scroll-root:has(.projects__game[open]) {
+  overflow-y: hidden;
+}
+
+@media (min-aspect-ratio: 23 / 20) {
+  .projects__head {
+    top: calc(var(--nav-offset) + 4vh);
+    left: 5vw;
+    right: auto;
+    max-width: 70vw;
+  }
+
+  .projects__title {
+    font-size: clamp(64px, 9.5vw, 176px);
+  }
+
+  .projects__card {
+    left: 5vw;
+    right: auto;
+    bottom: 8vh;
+    width: min(34rem, 40vw);
+  }
+
+  /* Halo sombre ancré au coin bas gauche de l'écran, qui s'efface vers la scène. */
+  .projects__card::before {
+    inset: -45% -45% -8vh -5vw;
+    background: radial-gradient(
+      farthest-side at 0% 100%,
+      rgb(10 11 12 / 0.84) 0%,
+      rgb(10 11 12 / 0.6) 48%,
+      rgb(10 11 12 / 0) 100%
+    );
+  }
+
+  .projects__count {
+    font-size: 12px;
+  }
+
+  .projects__name {
+    margin: 0.5rem 0 0.3rem;
+    font-size: clamp(28px, 2.6vw, 46px);
+  }
+
+  .projects__meta {
+    font-size: 12px;
+  }
+
+  .projects__line {
+    margin-top: 0.8rem;
+    font-size: clamp(12px, 0.95vw, 15px);
+    line-height: 1.6;
+  }
+
+  .projects__stack {
+    gap: 6px;
+    margin-top: 0.9rem;
+  }
+
+  .projects__stack > li {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .projects__links {
+    gap: 10px;
+    margin-top: 1.1rem;
+  }
+}
+
+/* Paysage bas (téléphone couché) : carte plus large et plus serrée, pour rester sous la barre
+   de navigation sans défilement interne. */
+@media (min-aspect-ratio: 23 / 20) and (max-height: 600px) {
+  .projects__head {
+    top: calc(var(--nav-offset) + 1vh);
+  }
+
+  .projects__title {
+    font-size: clamp(44px, 14vh, 80px);
+  }
+
+  .projects__card {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: min(38rem, 58vw);
+  }
+
+  .projects__card::before {
+    inset: -40% -45% max(-12px, calc(env(safe-area-inset-bottom) * -1)) -5vw;
+  }
+
+  .projects__count {
+    font-size: 11px;
+  }
+
+  .projects__name {
+    margin: 0.25rem 0 0.1rem;
+    font-size: 22px;
+  }
+
+  .projects__meta {
+    font-size: 10px;
+  }
+
+  .projects__line {
+    margin-top: 0.4rem;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+
+  .projects__stack {
+    gap: 4px;
+    margin-top: 0.45rem;
+  }
+
+  .projects__stack > li {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+
+  .projects__links {
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .projects__link {
+    font-size: 12px;
+  }
+
+  .projects__link {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects__head,
+  .projects__card,
+  .projects__card[data-active="true"],
+  .projects__link {
+    transition: none;
+  }
+
+  .projects__head[data-visible="false"],
+  .projects__card {
+    translate: none;
+  }
+}

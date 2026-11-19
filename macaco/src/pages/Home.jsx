@@ -4,6 +4,7 @@ import { SITE, SOCIAL_LINKS } from "../content/site.js";
 import { isCoarsePointer, useIsCoarsePointer } from "../lib/device.js";
 import { getMaxScroll, getOffsetTop, getScrollContainer, getScrollRoot, getScrollTop, getViewportHeight, onScroll, scrollRootTo } from "../lib/scroll.js";
 import { ci, li, STAGE_HEIGHT_SVH } from "../lib/shared.js";
+import Projects from "../sections/Projects.jsx";
 import { buildSeoData, UseSeo } from "../seo/Seo.jsx";
 import '../styles/home.css';
 import React from "react";
@@ -606,6 +607,6 @@ function HomeContent() {
       lang: s,
       kind: "home"
     });
-  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Mcf /></main>;
+  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Projects /><Mcf /></main>;
 }
 export { HomeContent as default };
