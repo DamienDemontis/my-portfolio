@@ -10,10 +10,13 @@
 // l'en-tête seul.
 //
 // « Jouer » ouvre un <dialog> modal ; l'iframe du jeu n'existe que dialogue ouvert : rien n'est
-// téléchargé avant le clic, et la fermeture arrête le jeu.
+// téléchargé avant le clic, et la fermeture arrête le jeu. La musique de la salle d'écoute, si
+// elle joue, se met en pause à l'ouverture (le jeu a son propre son) ; elle ne reprend pas seule
+// à la fermeture.
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { PROJECTS } from '../content/projects.js'
+import { listening } from '../lib/listening.js'
 import { getOffsetBottom, getOffsetTop, getViewportHeight, scrollRootTo } from '../lib/scroll.js'
 import CinematicSection from '../three/cinematic/CinematicSection.jsx'
 import { useDeferredEffects } from '../three/cinematic/useDeferredEffects.js'
@@ -155,6 +158,8 @@ export default function Projects() {
     if (typeof d.showModal === 'function') {
       if (!d.open) d.showModal()
     } else d.setAttribute('open', '')
+    // Sans effet si la musique ne joue pas.
+    listening.pause()
     setJeu(href)
   }, [])
 

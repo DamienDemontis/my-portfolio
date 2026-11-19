@@ -10,8 +10,9 @@
 // d'état (chargement, lecture, pause, erreur, arrêt), jamais à chaque image. Une région live
 // annonce le chargement, l'erreur, puis le morceau au début de la lecture.
 //
-// La musique continue quand le visiteur quitte la section (son choix) : tant qu'elle joue et que
-// la platine n'est plus à l'écran, un mini-lecteur fixé en bas garde Pause et Arrêter à portée.
+// La musique continue quand le visiteur quitte la section (son choix) : tant qu'un morceau est
+// engagé (chargement, lecture, pause, erreur) et que la platine n'est plus à l'écran, un
+// mini-lecteur fixé en bas garde Pause et Arrêter (ou la relance) à portée.
 // Démontée (mode lecture, autre page), la section arrête le moteur : pas de musique sans lecteur.
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -103,7 +104,9 @@ function Morceau({ track, actif, etat, onChoisir }) {
         onClick={() => onChoisir(track)}
         data-track={track.id}
       >
-        <span className="music__track-title">{track.title}</span>
+        <span className="music__track-title" lang={track.lang}>
+          {track.title}
+        </span>
         <span className="sr-only"> — </span>
         <span className="music__track-artist">{track.artist}</span>
         <span className="sr-only">, </span>
@@ -174,7 +177,9 @@ function EnEcoute({ current, state, onBasculer, onArreter, t }) {
       </div>
       <div className="music__meta">
         <p className="music__label">{t('home.music.nowPlaying')}</p>
-        <p className="music__title-now">{track.title}</p>
+        <p className="music__title-now" lang={track.lang}>
+          {track.title}
+        </p>
         <p className="music__artist-now">{track.artist}</p>
       </div>
       <div className="music__controls">
@@ -194,11 +199,39 @@ function EnEcoute({ current, state, onBasculer, onArreter, t }) {
   )
 }
 
-// Le mini-lecteur : le morceau (tronqué), Pause/Reprendre et Arrêter. Il apparaît sans prendre
-// le focus. Une région nommée, pour qu'un lecteur d'écran le trouve parmi les repères.
-function MiniLecteur({ current, state, deuxPoints, onBasculer, onArreter, t }) {
+// « Titre — Artiste », le titre dans sa langue (lang) s'il en a une autre que la page.
+function TitreArtiste({ track }) {
   return (
-    <div className="music__mini" role="region" aria-label={t('home.music.miniLabel')} data-state={state}>
+    <>
+      <span lang={track.lang}>{track.title}</span>
+      {` — ${track.artist}`}
+    </>
+  )
+}
+
+// Le mini-lecteur : le morceau (tronqué), Pause/Reprendre et Arrêter ; en erreur, le message et
+// la relance (le bouton principal). Il apparaît sans prendre le focus. Une région nommée, pour
+// qu'un lecteur d'écran le trouve parmi les repères ; l'erreur est annoncée par la région live
+// de la section, pas une seconde fois ici.
+//
+// Il disparaît (arrêt, fin de l'extrait, retour de la platine) avec le focus dedans : sans rien
+// faire, le focus tomberait sur la page. onDisparait reçoit le morceau qu'il montrait. Le
+// nettoyage d'un effet de mise en page passe avant que ses nœuds ne quittent le DOM : le focus
+// y est encore, on peut le voir.
+function MiniLecteur({ current, state, error, deuxPoints, onBasculer, onArreter, onDisparait, t }) {
+  const ref = React.useRef(null)
+  const morceau = React.useRef(current.track.id)
+  React.useLayoutEffect(() => {
+    morceau.current = current.track.id
+  })
+  React.useLayoutEffect(() => {
+    const el = ref.current
+    return () => {
+      if (el && el.contains(document.activeElement)) onDisparait(morceau.current)
+    }
+  }, [onDisparait])
+  return (
+    <div className="music__mini" ref={ref} role="region" aria-label={t('home.music.miniLabel')} data-state={state}>
       <span className="music__eq" aria-hidden="true">
         <i />
         <i />
@@ -206,8 +239,10 @@ function MiniLecteur({ current, state, deuxPoints, onBasculer, onArreter, t }) {
       </span>
       <p className="music__mini-now">
         <span className="music__mini-label">{t('home.music.nowPlaying')}</span>
-        {`${deuxPoints}${current.track.title} — ${current.track.artist}`}
+        {deuxPoints}
+        <TitreArtiste track={current.track} />
       </p>
+      {state === 'error' && <p className="music__mini-error">{t(ERREURS[error] ?? ERREURS.network)}</p>}
       <div className="music__controls">
         <BoutonPrincipal state={state} onBasculer={onBasculer} t={t} />
         <button className="music__button" type="button" onClick={onArreter}>
@@ -217,9 +252,6 @@ function MiniLecteur({ current, state, deuxPoints, onBasculer, onArreter, t }) {
     </div>
   )
 }
-
-// États où la musique est engagée : le mini-lecteur peut s'afficher.
-const EN_ECOUTE = new Set(['loading', 'playing', 'paused'])
 
 export default function Music() {
   const { t, i18n } = useTranslation()
@@ -273,9 +305,17 @@ export default function Music() {
     listening.stop()
     if (id) listeRef.current?.querySelector(`[data-track="${id}"]`)?.focus()
   }, [])
-  // Depuis le mini-lecteur, le focus ne va pas à la liste : hors de l'écran, l'y amener ferait
-  // défiler la page jusqu'à la section.
+  // Depuis le mini-lecteur, le moteur s'arrête ; le mini-lecteur disparaît et rend lui-même le
+  // focus (rendreFocus).
   const arreterMini = React.useCallback(() => listening.stop(), [])
+  // Le mini-lecteur disparaît avec le focus dedans : le focus va au morceau qu'il montrait, dans
+  // la liste (au premier morceau s'il n'y est pas), sans faire défiler la page jusqu'à la section.
+  const rendreFocus = React.useCallback((id) => {
+    const liste = listeRef.current
+    if (!liste || !liste.isConnected) return
+    const cible = liste.querySelector(`[data-track="${id}"]`) || liste.querySelector('button')
+    if (cible) cible.focus({ preventScroll: true })
+  }, [])
 
   // Annonce de la région live : visible pour le chargement et l'erreur ; au début de la
   // lecture, pour les lecteurs d'écran seulement (la zone montre déjà le morceau). En pause,
@@ -290,7 +330,8 @@ export default function Music() {
   else if ((state === 'playing' || state === 'paused') && current)
     annonce = (
       <span className="sr-only">
-        {`${t('home.music.nowPlaying')}${deuxPoints}${current.track.title} — ${current.track.artist}`}
+        {`${t('home.music.nowPlaying')}${deuxPoints}`}
+        <TitreArtiste track={current.track} />
       </span>
     )
 
@@ -349,14 +390,17 @@ export default function Music() {
           </ol>
         </div>
       </CinematicSection>
-      {/* Hors de la section épinglée : fixé à l'écran, au-dessus du rideau du pied de page. */}
-      {current && EN_ECOUTE.has(state) && !platineVisible && (
+      {/* Hors de la section épinglée : fixé à l'écran, au-dessus du rideau du pied de page. Il
+          reste en erreur (message et relance) et ne se cache qu'au repos. */}
+      {current && state !== 'idle' && !platineVisible && (
         <MiniLecteur
           current={current}
           state={state}
+          error={error}
           deuxPoints={deuxPoints}
           onBasculer={basculer}
           onArreter={arreterMini}
+          onDisparait={rendreFocus}
           t={t}
         />
       )}

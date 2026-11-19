@@ -36,6 +36,10 @@ vi.mock('../src/lib/afterLoad.js', () => ({
 
 vi.mock('../src/three/projection/effects.jsx', () => ({ PROJECTION_EFFECTS: vu.effets }))
 
+// Le moteur d'écoute (la musique de la section suivante) : un faux, ses commandes espionnées.
+const moteur = vi.hoisted(() => ({ pause: vi.fn(), resume: vi.fn(), play: vi.fn(), stop: vi.fn() }))
+vi.mock('../src/lib/listening.js', () => ({ listening: moteur }))
+
 import Projects from '../src/sections/Projects.jsx'
 
 const T = fr.home.projects
@@ -57,6 +61,7 @@ beforeAll(() => i18next.changeLanguage('fr'))
 beforeEach(() => {
   vu.rendus = []
   vu.apresLoad = []
+  for (const f of Object.values(moteur)) f.mockClear()
   // jsdom n'a ni showModal ni close : comme un navigateur, close() retire `open` et émet « close ».
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '')
@@ -327,6 +332,20 @@ test('jeu ouvert : la 3D cesse de tourner en continu, le dialogue garde le touch
   expect(socle().animated).toBe(false)
   fireEvent.click(within(dialogue).getByRole('button', { name: T.close }))
   expect(socle().animated).toBe(true)
+})
+
+test('ouvrir le jeu met la musique en pause, sans la relancer à la fermeture', () => {
+  const { container } = render(<Projects />)
+  avancer(PROJECT_ANCHORS[WII])
+  const dialogue = container.querySelector('dialog.projects__game')
+  expect(moteur.pause).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: T.play }))
+  // pause() du moteur ne fait rien si la musique ne joue pas
+  expect(moteur.pause).toHaveBeenCalledTimes(1)
+  fireEvent.click(within(dialogue).getByRole('button', { name: T.close }))
+  expect(moteur.resume).not.toHaveBeenCalled()
+  expect(moteur.play).not.toHaveBeenCalled()
+  expect(moteur.stop).not.toHaveBeenCalled()
 })
 
 test('le curseur du système revient dans le dialogue du jeu', () => {

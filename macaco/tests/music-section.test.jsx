@@ -434,6 +434,50 @@ test('sous mouvement réduit, ni transition ni animation', () => {
   expect(bloc).toMatch(/\.music__head/)
 })
 
+test('lisibilité : la mention de l extrait à 12 px, les genres à 10 px au moins', () => {
+  const css = sansCommentaires(lire('../src/styles/music.css'))
+  expect(css).toMatch(/\.music__preview\s*\{[^}]*font-size:\s*12px/)
+  const tailles = [...css.matchAll(/\.music__track-genre\s*\{([^}]*)\}/g)]
+    .map((m) => m[1].match(/font-size:\s*(\d+(?:\.\d+)?)px/))
+    .filter(Boolean)
+    .map((m) => Number(m[1]))
+  expect(tailles.length).toBeGreaterThan(0)
+  for (const taille of tailles) expect(taille).toBeGreaterThanOrEqual(10)
+})
+
+test('coréen : « Reprendre » se dit 이어 듣기', () => {
+  expect(ko.home.music.resume).toBe('이어 듣기')
+})
+
+test('les titres japonais portent lang="ja" : liste, zone « en écoute », mini-lecteur et annonce', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  const japonais = TRACKS.filter((t) => t.lang === 'ja')
+  expect(japonais.map((t) => t.id)).toEqual(['usseewa', 'naihishinsho'])
+  for (const track of TRACKS) {
+    const titre = bouton(container, track).querySelector('.music__track-title')
+    if (track.lang) expect(titre.getAttribute('lang')).toBe('ja')
+    else expect(titre.hasAttribute('lang')).toBe(false)
+  }
+  const usseewa = japonais[0]
+  poser(lecture(usseewa))
+  const titreNow = container.querySelector('.music__title-now')
+  expect(titreNow.getAttribute('lang')).toBe('ja')
+  expect(titreNow.textContent).toBe(usseewa.title)
+  // l'annonce de la région live : le titre seul porte la langue
+  const annonceJa = region(container).querySelector('[lang="ja"]')
+  expect(annonceJa.textContent).toBe(usseewa.title)
+  expect(region(container).textContent).toBe(annonce(usseewa))
+  voirPlatine(0)
+  const m = mini()
+  expect(m.querySelector('[lang="ja"]').textContent).toBe(usseewa.title)
+  expect(m.querySelector('.music__mini-now').textContent).toBe(annonce(usseewa))
+  // un titre sans langue propre n'en porte pas
+  poser(lecture(FEEL))
+  expect(container.querySelector('.music__title-now').hasAttribute('lang')).toBe(false)
+  expect(mini().querySelector('[lang]')).toBeNull()
+})
+
 test('cibles tactiles de 44 px au moins pour les morceaux et les boutons', () => {
   const css = sansCommentaires(lire('../src/styles/music.css'))
   expect(css).toMatch(/\.music__track\s*\{[^}]*min-height:\s*44px/)
@@ -517,11 +561,9 @@ test('mini-lecteur : la platine quitte l écran pendant la lecture, il apparaît
     expect(b.getAttribute('type')).toBe('button')
     expect(b.hasAttribute('tabindex')).toBe(false)
   }
-  // Arrêter depuis le mini-lecteur ne fait pas défiler la page vers la liste (focus inchangé).
-  expect(document.activeElement).not.toBe(screen.getAllByRole('button').find((b) => b.dataset.track === FEEL.id))
 })
 
-test('mini-lecteur : caché au repos (arrêt ou fin de l extrait) et en erreur ; visible au chargement', () => {
+test('mini-lecteur : caché au repos (arrêt ou fin de l extrait) ; visible au chargement, en lecture, en pause et en erreur', () => {
   installerIO()
   render(<Music />)
   voirPlatine(0)
@@ -533,11 +575,103 @@ test('mini-lecteur : caché au repos (arrêt ou fin de l extrait) et en erreur ;
   poser({ ...lecture(), state: 'idle' })
   expect(mini()).toBeNull()
   poser(erreur('network'))
-  expect(mini()).toBeNull()
+  expect(mini()).toBeTruthy()
   poser(pause())
   expect(mini()).toBeTruthy()
   poser(repos)
   expect(mini()).toBeNull()
+})
+
+test.each([
+  ['unavailable', T.errorUnavailable],
+  ['network', T.errorNetwork],
+  ['blocked', T.errorBlocked],
+])('mini-lecteur en erreur « %s » : le message, et la relance par le bouton principal', (code, message) => {
+  installerIO()
+  render(<Music />)
+  poser(lecture())
+  voirPlatine(0)
+  poser(erreur(code))
+  const m = mini()
+  expect(m.dataset.state).toBe('error')
+  const texte = within(m).getByText(message)
+  expect(texte.closest('.sr-only')).toBeNull()
+  // L'annonce reste à la région live de la section : pas une deuxième région live.
+  expect(m.querySelector('[aria-live]')).toBeNull()
+  fireEvent.click(within(m).getByRole('button', { name: T.play }))
+  if (code === 'blocked') {
+    expect(moteur.resume).toHaveBeenCalledTimes(1)
+    expect(moteur.play).not.toHaveBeenCalled()
+  } else {
+    expect(moteur.play).toHaveBeenCalledWith(FEEL)
+    expect(moteur.resume).not.toHaveBeenCalled()
+  }
+})
+
+test('mini-lecteur : Arrêter depuis lui rend le focus au morceau dans la liste, sans faire défiler', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  poser(lecture())
+  voirPlatine(0)
+  const arreter = within(mini()).getByRole('button', { name: T.stop })
+  arreter.focus()
+  const focus = vi.spyOn(HTMLElement.prototype, 'focus')
+  try {
+    fireEvent.click(arreter)
+    expect(moteur.stop).toHaveBeenCalledTimes(1)
+    poser(repos)
+    expect(mini()).toBeNull()
+    expect(document.activeElement).toBe(bouton(container, FEEL))
+    expect(focus).toHaveBeenCalledTimes(1)
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true })
+  } finally {
+    focus.mockRestore()
+  }
+})
+
+test('mini-lecteur : la platine revient avec le focus dedans, il va au morceau courant sans faire défiler', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  poser(lecture())
+  voirPlatine(0)
+  within(mini()).getByRole('button', { name: T.pause }).focus()
+  const focus = vi.spyOn(HTMLElement.prototype, 'focus')
+  try {
+    voirPlatine(1)
+    expect(mini()).toBeNull()
+    expect(document.activeElement).toBe(bouton(container, FEEL))
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true })
+  } finally {
+    focus.mockRestore()
+  }
+})
+
+test('mini-lecteur : sans le focus dedans, sa disparition ne déplace pas le focus', () => {
+  installerIO()
+  render(<Music />)
+  poser(lecture())
+  voirPlatine(0)
+  const avant = document.activeElement
+  const focus = vi.spyOn(HTMLElement.prototype, 'focus')
+  try {
+    voirPlatine(1)
+    expect(mini()).toBeNull()
+    expect(document.activeElement).toBe(avant)
+    expect(focus).not.toHaveBeenCalled()
+  } finally {
+    focus.mockRestore()
+  }
+})
+
+test('mini-lecteur : morceau absent de la liste, le focus va au premier morceau', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  const ailleurs = { id: 'hors-liste', title: 'Ailleurs', artist: 'Personne', genre: 'Test' }
+  poser(lecture(ailleurs))
+  voirPlatine(0)
+  within(mini()).getByRole('button', { name: T.stop }).focus()
+  poser(repos)
+  expect(document.activeElement).toBe(boutonsListe(container)[0])
 })
 
 test('mini-lecteur : la platine revient à l écran, il s efface', () => {

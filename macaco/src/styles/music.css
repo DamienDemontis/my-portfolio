@@ -306,11 +306,12 @@
   animation-delay: 0.4s;
 }
 
+/* La mention de l'extrait (Deezer) : une mention légale, lisible (12 px). */
 .music__preview {
   grid-area: preview;
   overflow: hidden;
   margin: 0;
-  font-size: 10px;
+  font-size: 12px;
   line-height: var(--music-mention);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -477,7 +478,7 @@
 .music__track-genre {
   grid-area: genre;
   overflow: hidden;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -570,7 +571,8 @@
   animation: music-attente 1s steps(2, jump-none) infinite;
 }
 
-.music__track[data-state="error"] .music__eq i {
+.music__track[data-state="error"] .music__eq i,
+.music__mini[data-state="error"] .music__eq i {
   background: var(--rouille);
   box-shadow: none;
 }
@@ -686,6 +688,23 @@
 
 .music__mini .music__button--main {
   min-width: 7.5rem;
+}
+
+/* En erreur : le message sous le morceau, rouille comme dans la platine ; la relance est le
+   bouton principal. */
+.music__mini[data-state="error"] {
+  grid-template-areas:
+    "eq now"
+    "msg msg"
+    "controls controls";
+}
+
+.music__mini-error {
+  grid-area: msg;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--rouille) 28%, var(--os));
 }
 
 @keyframes music-mini-entree {

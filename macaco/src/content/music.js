@@ -1,15 +1,17 @@
 // La playlist de la salle d'ecoute : titres et artistes seulement (reprise de
 // celle du v5). Aucun fichier audio, aucune parole : les extraits de 30 s
 // viennent de Deezer, par la fonction api/preview.js, a la demande du visiteur.
-// `deezer` est l'identifiant du morceau chez Deezer.
+// `deezer` est l'identifiant du morceau chez Deezer. `lang` : la langue du titre
+// quand ce n'est pas celle de la page (japonais : lu avec la bonne voix, les bons
+// glyphes).
 export const TRACKS = [
   { id: 'champagne-coast', title: 'Champagne Coast', artist: 'Blood Orange', genre: 'Indie R&B', deezer: '13191382' },
   { id: 'in-my-zone', title: 'In My Zone', artist: 'bbno$ & VALORANT', genre: 'Hip House', deezer: '3460527221' },
   { id: 'touch-off', title: 'Touch Off', artist: 'UVERworld', genre: 'J-Rock', deezer: '1024962302' },
   { id: 'feel-good-inc', title: 'Feel Good Inc', artist: 'Gorillaz', genre: 'Alternative', deezer: '3129407' },
-  { id: 'usseewa', title: 'うっせぇわ (Usseewa)', artist: 'Ado', genre: 'J-Pop', deezer: '1110641342' },
+  { id: 'usseewa', title: 'うっせぇわ (Usseewa)', artist: 'Ado', genre: 'J-Pop', deezer: '1110641342', lang: 'ja' },
   { id: 'dancing-with-myself', title: 'Dancing with Myself', artist: 'Billy Idol', genre: 'New Wave', deezer: '1798939627' },
-  { id: 'naihishinsho', title: '内秘心書 (Naihishinsho)', artist: 'ONE OK ROCK', genre: 'J-Rock', deezer: '3620229312' },
+  { id: 'naihishinsho', title: '内秘心書 (Naihishinsho)', artist: 'ONE OK ROCK', genre: 'J-Rock', deezer: '3620229312', lang: 'ja' },
   { id: 'une-vie-a-taimer', title: "Une vie à t'aimer", artist: 'Lorien Testard', genre: 'Game OST', deezer: '3315246861' },
   { id: 'malas-decisiones', title: 'Malas Decisiones', artist: 'Kenia Os', genre: 'Latin Pop', deezer: '1932461477' },
   { id: 'echec-et-mat', title: 'Échec et mat', artist: 'Miki', genre: 'Electronic Pop', deezer: '3532320061' },
