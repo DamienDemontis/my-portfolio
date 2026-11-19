@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "character": "node scripts/character/build-cli.mjs",
-    "props": "node scripts/props/build-cli.mjs"
+    "props": "node scripts/props/build-cli.mjs",
+    "projects": "node scripts/projects/build.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

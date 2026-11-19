@@ -1,0 +1,30 @@
+{
+  "leonart": {
+    "src": "/projects/leonart.webp",
+    "width": 1024,
+    "height": 576,
+    "bytes": 8860,
+    "color": "#eb6d61"
+  },
+  "wiitanks": {
+    "src": "/projects/wiitanks.webp",
+    "width": 1024,
+    "height": 576,
+    "bytes": 38382,
+    "color": "#e8d8a8"
+  },
+  "presence": {
+    "src": "/projects/presence.webp",
+    "width": 1024,
+    "height": 576,
+    "bytes": 87090,
+    "color": "#0a3a4f"
+  },
+  "msc": {
+    "src": "/projects/msc.webp",
+    "width": 1024,
+    "height": 576,
+    "bytes": 29196,
+    "color": "#3d23b7"
+  }
+}

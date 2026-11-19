@@ -44,6 +44,50 @@
         "title": "DELIVERY",
         "body": "We take projects from concept to production. We bring creative direction, design, development and integration together, working with project partners to put the experience in front of its audience."
       }
+    },
+    "projects": {
+      "title": "프로젝트",
+      "kicker": "상영실",
+      "play": "플레이",
+      "source": "소스 코드",
+      "demo": "사이트 보기",
+      "video": "영상",
+      "newTab": "(새 탭)",
+      "close": "닫기",
+      "gameLabel": "브라우저에서 즐기는 Wii Tanks Remastered",
+      "stack": "기술",
+      "items": {
+        "esante": {
+          "title": "의료 협업 플랫폼",
+          "meta": "PandaLab · 2025년부터",
+          "line": "의료 전문가들이 실시간으로 소통하고, 의뢰를 보내고, 처방에 서명하는 플랫폼입니다. 메시지 포맷과 가이드 투어, E2E 테스트 플랫폼을 설계했습니다."
+        },
+        "jobneko": {
+          "title": "JobNeko",
+          "meta": "창업자 · 2024",
+          "line": "LLM으로 구인 공고를 읽어 내는 오픈소스 셀프 호스팅 플랫폼입니다. 어떤 사이트에서든 공고를 추출하고, 크롬 확장 프로그램과 연봉 분석, RAG 기반 추천을 제공합니다."
+        },
+        "leonart": {
+          "title": "Leon'Art",
+          "meta": "테크 리드 겸 프로젝트 매니저 · 2023–2025",
+          "line": "일곱 명이 함께 만든 웹·모바일 아트 마켓플레이스로, Stripe 결제와 웹훅을 붙였습니다. EPITECH 낭시 Moonshot 행사에서 심사위원 특별상을 받았습니다."
+        },
+        "wiitanks": {
+          "title": "Wii Tanks Remastered",
+          "meta": "Unity · 팀 프로젝트",
+          "line": "Wii Play의 탱크 게임을 물리 엔진과 AI 적까지 새로 다듬어 리메이크했습니다. 여기 브라우저에서 바로 플레이할 수 있습니다."
+        },
+        "presence": {
+          "title": "얼굴 인식 출석 시스템",
+          "meta": "EPITECH",
+          "line": "PyQt6 인터페이스와 PyTorch, OpenCV 기반 파이썬 인식 엔진으로 만든 출석 앱입니다. 기기 안에서도, Firestore를 쓰는 클라우드에서도 돌아갑니다."
+        },
+        "msc": {
+          "title": "MSC Découverte",
+          "meta": "EPITECH",
+          "line": "EPITECH 학생들이 MSc 전공을 고를 수 있도록 분야별 자료를 모아 둔 사이트입니다."
+        }
+      }
     }
   },
   "footer": {

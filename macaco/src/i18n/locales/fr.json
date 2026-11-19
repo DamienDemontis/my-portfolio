@@ -44,6 +44,50 @@
         "title": "LIVRAISON",
         "body": "Nous menons les projets du concept à la production. Direction créative, design, développement et intégration travaillent ensemble, avec les partenaires du projet, pour mettre l’expérience devant son public."
       }
+    },
+    "projects": {
+      "title": "Projets",
+      "kicker": "Salle de projection",
+      "play": "Jouer",
+      "source": "Code source",
+      "demo": "Voir le site",
+      "video": "Vidéo",
+      "newTab": "(nouvel onglet)",
+      "close": "Fermer",
+      "gameLabel": "Wii Tanks Remastered dans le navigateur",
+      "stack": "Technologies",
+      "items": {
+        "esante": {
+          "title": "Coordination e-santé",
+          "meta": "PandaLab · depuis 2025",
+          "line": "Une plateforme où les professionnels de santé échangent en temps réel, adressent des demandes et signent des prescriptions. J'y ai conçu le format des messages, les visites guidées et la plateforme de tests end-to-end."
+        },
+        "jobneko": {
+          "title": "JobNeko",
+          "meta": "Fondateur · 2024",
+          "line": "Une plateforme open source et auto-hébergeable qui lit les offres d'emploi avec des LLM : extraction depuis n'importe quel site, extension Chrome, analyse des salaires, recommandations par RAG."
+        },
+        "leonart": {
+          "title": "Leon'Art",
+          "meta": "Lead technique et chef de projet · 2023–2025",
+          "line": "Une marketplace d'art web et mobile construite à sept, avec paiements Stripe et webhooks. Prix Coup de cœur du jury au Moonshot d'EPITECH Nancy."
+        },
+        "wiitanks": {
+          "title": "Wii Tanks Remastered",
+          "meta": "Unity · en équipe",
+          "line": "Un remake du jeu de tanks de Wii Play, avec une physique revue et des adversaires pilotés par IA. Il se joue ici, dans le navigateur."
+        },
+        "presence": {
+          "title": "Présence par reconnaissance faciale",
+          "meta": "EPITECH",
+          "line": "Une application de présence : interface PyQt6, moteur de reconnaissance en Python avec PyTorch et OpenCV, en local ou dans le cloud avec Firestore."
+        },
+        "msc": {
+          "title": "MSC Découverte",
+          "meta": "EPITECH",
+          "line": "Un site qui aide les étudiants d'EPITECH à choisir leur spécialité de MSc, avec une sélection de ressources par domaine."
+        }
+      }
     }
   },
   "footer": {

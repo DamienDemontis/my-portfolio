@@ -44,6 +44,50 @@
         "title": "DELIVERY",
         "body": "We take projects from concept to production. We bring creative direction, design, development and integration together, working with project partners to put the experience in front of its audience."
       }
+    },
+    "projects": {
+      "title": "Projects",
+      "kicker": "Screening room",
+      "play": "Play",
+      "source": "Source code",
+      "demo": "Visit the site",
+      "video": "Video",
+      "newTab": "(opens in a new tab)",
+      "close": "Close",
+      "gameLabel": "Wii Tanks Remastered in the browser",
+      "stack": "Stack",
+      "items": {
+        "esante": {
+          "title": "Healthcare coordination",
+          "meta": "PandaLab · since 2025",
+          "line": "A platform where healthcare professionals message each other in real time, send care requests and sign prescriptions. I designed its message format, its guided tours and its end-to-end testing platform."
+        },
+        "jobneko": {
+          "title": "JobNeko",
+          "meta": "Founder · 2024",
+          "line": "An open-source, self-hostable platform that reads job postings with LLMs: extraction from any website, a Chrome extension, salary analysis and RAG-based recommendations."
+        },
+        "leonart": {
+          "title": "Leon'Art",
+          "meta": "Technical lead & project manager · 2023–2025",
+          "line": "A web and mobile art marketplace built by a team of seven, with Stripe payments and webhooks. Winner of the jury's Coup de cœur award at EPITECH Nancy's Moonshot."
+        },
+        "wiitanks": {
+          "title": "Wii Tanks Remastered",
+          "meta": "Unity · team project",
+          "line": "A remake of the Wii Play tank game with reworked physics and AI-driven opponents. You can play it right here in the browser."
+        },
+        "presence": {
+          "title": "Facial-recognition attendance",
+          "meta": "EPITECH",
+          "line": "An attendance app with a PyQt6 interface and a Python recognition engine built on PyTorch and OpenCV, running on-device or in the cloud with Firestore."
+        },
+        "msc": {
+          "title": "MSC Découverte",
+          "meta": "EPITECH",
+          "line": "A site that helps EPITECH students choose their MSc specialty, with curated resources for each field."
+        }
+      }
     }
   },
   "footer": {

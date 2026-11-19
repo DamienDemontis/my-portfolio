@@ -47,8 +47,8 @@ test('ko.json : le coreen non relu est marque [KO]', async () => {
   const cles = []
   const walk = (o, p) => { for (const [k, v] of Object.entries(o)) typeof v === 'string' ? (/[가-힣]/.test(v) && cles.push(p + k)) : walk(v, p + k + '.') }
   walk(ko, '')
-  // seule la scene coreenne (titres de reference) peut contenir du hangul.
-  expect(cles.filter(k => !k.startsWith('scenes.coree'))).toEqual([])
+  // seuls la scene coreenne (titres de reference) et home.projects (coreen fourni et relu) peuvent contenir du hangul.
+  expect(cles.filter(k => !k.startsWith('scenes.coree') && !k.startsWith('home.projects.'))).toEqual([])
   expect(texte).not.toMatch(/\{포트폴리오\}/)
 })
 
