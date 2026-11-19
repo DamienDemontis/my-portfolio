@@ -4,6 +4,7 @@ import { SITE, SOCIAL_LINKS } from "../content/site.js";
 import { isCoarsePointer, useIsCoarsePointer } from "../lib/device.js";
 import { getMaxScroll, getOffsetTop, getScrollContainer, getScrollRoot, getScrollTop, getViewportHeight, onScroll, scrollRootTo } from "../lib/scroll.js";
 import { ci, li, STAGE_HEIGHT_SVH } from "../lib/shared.js";
+import Music from "../sections/Music.jsx";
 import Projects from "../sections/Projects.jsx";
 import { buildSeoData, UseSeo } from "../seo/Seo.jsx";
 import '../styles/home.css';
@@ -599,8 +600,8 @@ function Mcf() {
 }
 // Réserve sous le rideau du pied de page : le rideau remonte sur la fin de la section qui le
 // précède (sa piste a une marge négative de STAGE_HEIGHT_SVH). Tant que les sections qui suivront
-// les projets (musique, Corée…) ne sont pas là, cette réserve lui laisse une zone noire, et le
-// contrechamp de la salle de projection reste visible. À retirer avec la section suivante.
+// la musique (Corée…) ne sont pas là, cette réserve lui laisse une zone noire, et la fin de la
+// salle d'écoute reste visible. À retirer avec la section suivante.
 function SousLeRideau() {
   return <div className="home-reserve" aria-hidden="true" style={{ height: `${STAGE_HEIGHT_SVH}svh`, background: "#040404" }} />;
 }
@@ -614,6 +615,6 @@ function HomeContent() {
       lang: s,
       kind: "home"
     });
-  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Projects /><SousLeRideau /><Mcf /></main>;
+  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Projects /><Music /><SousLeRideau /><Mcf /></main>;
 }
 export { HomeContent as default };

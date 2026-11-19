@@ -105,7 +105,8 @@
       "errorUnavailable": "Cet extrait n'est pas accessible pour le moment.",
       "errorNetwork": "L'extrait n'a pas pu être chargé.",
       "errorBlocked": "Le navigateur a bloqué la lecture : cliquez à nouveau.",
-      "newTab": "(nouvel onglet)"
+      "newTab": "(nouvel onglet)",
+      "hint": "Choisissez un morceau : l'extrait ne se charge qu'à ce moment-là."
     }
   },
   "footer": {

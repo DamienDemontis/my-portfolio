@@ -1,0 +1,795 @@
+/* Section Musique : la salle d'écoute. La 3D occupe tout l'écran (canvas de CinematicSection),
+   lui au centre de l'image ; le lecteur passe au-dessus, texte clair sur un dégradé sombre
+   discret, sans boîte pleine. Une liste de pistes comme au dos d'une cassette : numéros cuivre,
+   titres en chasse fixe ; la piste en cours s'allume comme un néon.
+
+   Portrait d'abord ; paysage (rapport ≥ 1,15, le seuil des plans larges) plus bas. */
+.music {
+  /* Taille du titre : la hauteur de l'en-tête en dépend, et le panneau se range dessous. */
+  --music-titre: clamp(44px, 14vw, 88px);
+  /* La platine : côté de la pochette, hauteur de la mention et du lien, écart des rangs. */
+  --music-pochette: 56px;
+  --music-mention: 15px;
+  --music-ligne: 32px;
+  --music-rang: 8px;
+  /* Fond tant que la 3D n'a rien dessiné, ou sans WebGL 2 : la salle noire, la lueur des
+     néons cuivre derrière lui, un reste de rouille au sol. */
+  background:
+    radial-gradient(52% 38% at 50% 58%, color-mix(in srgb, var(--cuivre) 13%, transparent), transparent 72%),
+    radial-gradient(110% 42% at 50% 100%, color-mix(in srgb, var(--rouille) 12%, transparent), transparent 70%),
+    var(--fond);
+  color: var(--os);
+  font-family: var(--font-body);
+}
+
+/* En-tête : visible sur l'ouverture, effacé à l'œil ensuite (le h2 reste lisible par les
+   lecteurs d'écran : opacité seulement, ni display ni visibility). */
+.music__head {
+  position: absolute;
+  top: calc(var(--nav-offset) + 2vh);
+  left: 16px;
+  right: 16px;
+  margin: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.4s ease,
+    translate 0.4s ease;
+}
+
+.music__head[data-visible="false"] {
+  opacity: 0;
+  translate: 0 -0.75rem;
+}
+
+.music__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  margin: 0 0 0.6rem;
+  font-size: clamp(11px, 0.85vw, 14px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cuivre);
+}
+
+/* Un égaliseur figé : quatre barres de hauteurs inégales. */
+.music__kicker::before {
+  content: "";
+  flex: none;
+  width: 1.5em;
+  height: 0.95em;
+  background:
+    linear-gradient(currentColor, currentColor) 0 100% / 2px 45% no-repeat,
+    linear-gradient(currentColor, currentColor) 33.3% 100% / 2px 100% no-repeat,
+    linear-gradient(currentColor, currentColor) 66.6% 100% / 2px 70% no-repeat,
+    linear-gradient(currentColor, currentColor) 100% 100% / 2px 30% no-repeat;
+}
+
+.music__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--music-titre);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--os);
+  text-shadow: 0 2px 28px rgb(0 0 0 / 0.55);
+}
+
+/* Le lecteur : en bas, pleine largeur, au plus 42 % de la hauteur ; la zone « en écoute »,
+   puis la liste en pastilles qui défile à l'horizontale. */
+.music__panel {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-height: 42svh;
+  isolation: isolate;
+  pointer-events: none;
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.6);
+}
+
+.music__panel > * {
+  pointer-events: auto;
+}
+
+/* Le dégradé qui porte le texte : depuis le bas de l'écran, jusqu'aux bords. */
+.music__panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30% -16px max(-16px, calc(env(safe-area-inset-bottom) * -1));
+  background: linear-gradient(
+    to top,
+    rgb(10 11 12 / 0.94) 0%,
+    rgb(10 11 12 / 0.8) 58%,
+    rgb(10 11 12 / 0) 100%
+  );
+  pointer-events: none;
+}
+
+.music__now {
+  flex: none;
+}
+
+/* La platine : une grille aux rangs fixes dès qu'un morceau est choisi (pochette, commandes,
+   mention, lien). La pochette et le lien arrivent dans des places gardées : les boutons ne
+   bougent pas sous le doigt. Vide, elle ne garde que l'invite (en paysage, sur toute sa
+   hauteur : voir plus bas). */
+.music__deck {
+  display: grid;
+  grid-template-columns: var(--music-pochette) minmax(0, 1fr);
+  grid-template-rows: var(--music-pochette) 44px var(--music-mention) var(--music-ligne);
+  grid-template-areas:
+    "cover meta"
+    "controls controls"
+    "preview preview"
+    "link link";
+  column-gap: 12px;
+  row-gap: var(--music-rang);
+  align-items: center;
+}
+
+.music__deck[data-state="empty"] {
+  grid-template-rows: auto;
+}
+
+.music__hint {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  align-self: end;
+  max-width: 36ch;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--os) 80%, transparent);
+}
+
+/* Pochette au coin coupé, comme les boutons. */
+.music__cover {
+  grid-area: cover;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #111214;
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 82% 100%, 0 100%);
+}
+
+.music__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Avant la pochette : un disque, ses sillons, son étiquette cuivre ; il tourne pendant le
+   chargement. */
+.music__disc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  scale: 0.86;
+  background:
+    radial-gradient(circle, #0a0b0c 0 5%, var(--cuivre) 6% 22%, transparent 23%),
+    conic-gradient(from 20deg, transparent 0 30deg, rgb(230 225 216 / 0.14) 55deg, transparent 80deg 210deg, rgb(230 225 216 / 0.08) 235deg, transparent 260deg),
+    repeating-radial-gradient(circle, #1b1c1f 0 1px, #0e0f11 1px 3px);
+}
+
+.music__deck[data-state="loading"] .music__disc {
+  animation: music-tourne 1.8s linear infinite;
+}
+
+.music__meta {
+  grid-area: meta;
+  min-width: 0;
+}
+
+.music__label {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cuivre);
+}
+
+/* Le voyant : allumé en lecture, il bat ; éteint sinon, rouille en erreur. */
+.music__label::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--os) 30%, transparent);
+}
+
+.music__deck[data-state="playing"] .music__label::before {
+  background: var(--cuivre);
+  box-shadow: 0 0 8px var(--cuivre);
+  animation: music-voyant 0.533s ease-in-out infinite;
+}
+
+.music__deck[data-state="error"] .music__label::before {
+  background: var(--rouille);
+}
+
+.music__title-now {
+  margin: 0.3rem 0 0.15rem;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--os);
+}
+
+.music__artist-now {
+  margin: 0;
+  overflow: hidden;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--os) 72%, transparent);
+}
+
+.music__controls {
+  grid-area: controls;
+  display: flex;
+  gap: 8px;
+}
+
+/* Boutons du site (le coin coupé de .projects__link) ; cible tactile de 44 px. */
+.music__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--os) 13%, transparent);
+  color: var(--os);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-shadow: none;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, calc(100% - 10px) 100%, 0 100%);
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.music__button--main {
+  min-width: 8.5rem;
+  background: var(--cuivre);
+  color: var(--fond);
+  font-weight: 700;
+}
+
+/* Pendant le chargement : visible et focalisable, mais au repos. */
+.music__button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.music__preview {
+  grid-area: preview;
+  overflow: hidden;
+  margin: 0;
+  font-size: 10px;
+  line-height: var(--music-mention);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--os) 64%, transparent);
+}
+
+.music__deezer {
+  grid-area: link;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--music-ligne);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--os);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--cuivre) 80%, transparent);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.music__deezer::after {
+  content: "\2197";
+  content: "\2197" / "";
+  margin-left: 0.4em;
+  color: var(--cuivre);
+  text-decoration: none;
+}
+
+/* La région live, sa ligne toujours réservée (elle ne déplace rien en apparaissant) : vide au
+   repos ; le chargement et l'erreur s'y lisent à l'œil, l'annonce de lecture seulement à
+   l'oreille (classe sr-only). */
+.music__status {
+  min-height: calc(1.45em + 0.6rem);
+  margin: 0;
+  padding-top: 0.6rem;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.music__status-text {
+  display: block;
+  color: color-mix(in srgb, var(--os) 80%, transparent);
+}
+
+.music__status-text--error {
+  display: flex;
+  gap: 0.6em;
+  color: color-mix(in srgb, var(--rouille) 28%, var(--os));
+}
+
+/* Repère d'erreur : un carré rouille. */
+.music__status-text--error::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-top: 0.45em;
+  background: color-mix(in srgb, var(--rouille) 70%, var(--cuivre));
+}
+
+.music__list-title {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin: 0.9rem 0 0.45rem;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cuivre);
+}
+
+.music__list-title::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--cuivre) 55%, transparent), transparent);
+}
+
+/* La liste : en pastilles, défilement horizontal à la main (data-native-touch). Le bord
+   droit s'efface : il en reste à voir ; la marge laisse la dernière pastille sortir du fondu. */
+.music__list {
+  flex: none;
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0 24px 6px 0;
+  mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+  list-style: none;
+  counter-reset: piste;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--cuivre) 70%, transparent) transparent;
+}
+
+.music__item {
+  flex: none;
+  counter-increment: piste;
+  scroll-snap-align: start;
+}
+
+/* Un morceau : numéro à gauche ; titre, puis artiste et genre ; l'égaliseur s'il joue. */
+.music__track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.1em minmax(0, max-content) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "num title title eq"
+    "num artist genre eq";
+  column-gap: 0;
+  align-items: baseline;
+  width: 12.5rem;
+  min-height: 44px;
+  padding: 7px 10px 7px 8px;
+  border: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--os) 7%, transparent);
+  color: var(--os);
+  font: inherit;
+  text-align: left;
+  text-shadow: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Le numéro, décoratif : la liste ordonnée porte déjà la position (texte de remplacement
+   vide pour les lecteurs d'écran qui lisent le contenu généré). */
+.music__track::before {
+  content: counter(piste, decimal-leading-zero);
+  content: counter(piste, decimal-leading-zero) / "";
+  grid-area: num;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--cuivre) 75%, var(--os));
+}
+
+.music__track-title {
+  grid-area: title;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.35;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.music__track-artist {
+  grid-area: artist;
+  overflow: hidden;
+  margin-top: 2px;
+  font-size: 10px;
+  line-height: 1.35;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--os) 70%, transparent);
+}
+
+.music__track-genre {
+  grid-area: genre;
+  overflow: hidden;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--os) 60%, transparent);
+}
+
+.music__track-genre::before {
+  content: "\00B7";
+  content: "\00B7" / "";
+  margin: 0 0.5em;
+}
+
+/* La piste en cours : un trait cuivre allumé à gauche, un fond chaud. */
+.music__track[aria-current="true"] {
+  background: color-mix(in srgb, var(--cuivre) 17%, transparent);
+  box-shadow:
+    inset 2px 0 0 var(--cuivre),
+    inset 10px 0 18px -10px var(--cuivre);
+}
+
+.music__track[aria-current="true"]::before {
+  color: var(--cuivre);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--cuivre) 70%, transparent);
+}
+
+.music__track[data-state="error"] {
+  box-shadow: inset 2px 0 0 var(--rouille);
+}
+
+/* Le coin coupé ou la liste rogneraient un contour extérieur : il se trace à l'intérieur. */
+.music__track:focus-visible,
+.music__button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -5px;
+}
+
+.music__deezer:focus-visible {
+  outline: 2px solid var(--cuivre);
+  outline-offset: 2px;
+}
+
+/* L'égaliseur de la piste en cours : trois barres qui dansent pendant la lecture. */
+.music__eq {
+  grid-area: eq;
+  align-self: center;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 8px;
+}
+
+.music__eq i {
+  width: 2px;
+  height: 100%;
+  background: var(--cuivre);
+  box-shadow: 0 0 6px var(--cuivre);
+  transform-origin: 50% 100%;
+  transform: scaleY(0.35);
+}
+
+.music__eq i:nth-child(2) {
+  transform: scaleY(0.7);
+}
+
+.music__eq i:nth-child(3) {
+  transform: scaleY(0.5);
+}
+
+.music__track[data-state="playing"] .music__eq i {
+  animation: music-eq 0.53s ease-in-out infinite alternate;
+}
+
+.music__track[data-state="playing"] .music__eq i:nth-child(2) {
+  animation-duration: 0.41s;
+  animation-delay: -0.2s;
+}
+
+.music__track[data-state="playing"] .music__eq i:nth-child(3) {
+  animation-duration: 0.67s;
+  animation-delay: -0.4s;
+}
+
+.music__track[data-state="loading"] .music__eq {
+  animation: music-attente 1s steps(2, jump-none) infinite;
+}
+
+.music__track[data-state="error"] .music__eq i {
+  background: var(--rouille);
+  box-shadow: none;
+}
+
+@keyframes music-eq {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes music-attente {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+/* Le voyant bat au tempo du clip où il bat la mesure (112,5 bpm : une pulsation par temps). */
+@keyframes music-voyant {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes music-tourne {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .music__track:hover {
+    background-color: color-mix(in srgb, var(--os) 14%, transparent);
+  }
+
+  .music__track[aria-current="true"]:hover {
+    background-color: color-mix(in srgb, var(--cuivre) 24%, transparent);
+  }
+
+  .music__button:hover {
+    background-color: color-mix(in srgb, var(--os) 24%, transparent);
+  }
+
+  .music__button--main:hover {
+    background-color: color-mix(in srgb, var(--cuivre) 82%, var(--os));
+  }
+
+  .music__button[aria-disabled="true"]:hover {
+    background-color: var(--cuivre);
+  }
+
+  .music__deezer:hover {
+    color: var(--cuivre);
+  }
+}
+
+/* Lien Deezer : cible tactile de 44 px au doigt. */
+@media (pointer: coarse) {
+  .music {
+    --music-ligne: 44px;
+  }
+}
+
+/* Portrait court (petits téléphones) : la platine se resserre pour tenir sous 42 % de l'écran. */
+@media (max-aspect-ratio: 23 / 20) and (max-height: 720px) {
+  .music {
+    --music-pochette: 44px;
+    --music-rang: 6px;
+  }
+
+  .music__title-now {
+    margin-top: 0.15rem;
+    font-size: 17px;
+  }
+
+  .music__status {
+    min-height: calc(1.45em + 0.35rem);
+    padding-top: 0.35rem;
+  }
+
+  .music__list-title {
+    margin: 0.5rem 0 0.3rem;
+  }
+}
+
+/* Paysage : en-tête en haut à gauche, lecteur à gauche sous l'en-tête, ancré en bas ; la
+   liste défile à la verticale, au plus 56 % de la hauteur, et se resserre si la place manque.
+   Il reste au centre de l'image. */
+@media (min-aspect-ratio: 23 / 20) {
+  .music {
+    --music-titre: clamp(56px, 7vw, 128px);
+    --music-pochette: 64px;
+    --music-rang: 10px;
+  }
+
+  .music__head {
+    top: calc(var(--nav-offset) + 4vh);
+    left: 5vw;
+    right: auto;
+    max-width: 60vw;
+  }
+
+  /* Le panneau commence sous l'en-tête (surtitre + titre) et finit en bas : il ne le
+     chevauche jamais, même avant que l'en-tête ne s'efface. */
+  .music__panel {
+    top: calc(var(--nav-offset) + 4vh + 2.4rem + var(--music-titre) * 0.9 + 3vh);
+    bottom: 7vh;
+    left: 5vw;
+    right: auto;
+    width: min(24rem, 30vw);
+    max-height: none;
+    justify-content: flex-end;
+  }
+
+  /* Halo sombre ancré au coin bas gauche de l'écran, qui s'efface vers la scène. */
+  .music__panel::before {
+    inset: -10% -55% -7vh -5vw;
+    background: radial-gradient(
+      farthest-side at 0% 100%,
+      rgb(10 11 12 / 0.86) 0%,
+      rgb(10 11 12 / 0.62) 50%,
+      rgb(10 11 12 / 0) 100%
+    );
+  }
+
+  /* La platine garde sa hauteur, vide ou non : la liste en dessous ne bouge jamais (un clic
+     sur un morceau ne déplace pas celui d'à côté sous le pointeur). L'invite se pose en bas. */
+  .music__deck[data-state="empty"] {
+    grid-template-rows: var(--music-pochette) 44px var(--music-mention) var(--music-ligne);
+  }
+
+  .music__hint {
+    font-size: 12px;
+  }
+
+  .music__title-now {
+    font-size: clamp(20px, 1.7vw, 28px);
+  }
+
+  .music__artist-now {
+    font-size: 12px;
+  }
+
+  .music__list-title {
+    margin: 1.2rem 0 0.5rem;
+  }
+
+  .music__list {
+    flex: 0 1 auto;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 0;
+    max-height: 56vh;
+    padding: 0 4px 28px 0;
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: none;
+  }
+
+  .music__track {
+    width: 100%;
+    padding: 6px 10px 6px 8px;
+    background: transparent;
+  }
+
+  .music__track-title {
+    font-size: clamp(12px, 0.9vw, 14px);
+  }
+
+  .music__track-artist {
+    font-size: 11px;
+  }
+}
+
+/* Paysage bas (téléphone couché) : la hauteur manque pour empiler l'en-tête et le lecteur ;
+   l'en-tête passe en haut à droite, le lecteur monte jusque sous la navigation. */
+@media (min-aspect-ratio: 23 / 20) and (max-height: 600px) {
+  .music {
+    --music-titre: clamp(40px, 12vh, 72px);
+    --music-pochette: 44px;
+    --music-rang: 6px;
+  }
+
+  .music__head {
+    top: calc(var(--nav-offset) + 1vh);
+    left: auto;
+    right: 5vw;
+    text-align: right;
+  }
+
+  .music__kicker {
+    justify-content: flex-end;
+  }
+
+  .music__panel {
+    top: calc(var(--nav-offset) + 1vh);
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: min(24rem, 40vw);
+  }
+
+  .music__panel::before {
+    inset: -10% -55% max(-12px, calc(env(safe-area-inset-bottom) * -1)) -5vw;
+  }
+
+  .music__title-now {
+    margin-top: 0.15rem;
+    font-size: 16px;
+  }
+
+  .music__list-title {
+    margin: 0.6rem 0 0.3rem;
+  }
+
+  .music__status {
+    min-height: calc(1.45em + 0.35rem);
+    padding-top: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music__head,
+  .music__track,
+  .music__button,
+  .music__deezer {
+    transition: none;
+  }
+
+  .music__head[data-visible="false"] {
+    translate: none;
+  }
+
+  /* Mêmes sélecteurs que les animations, placés après : ils l'emportent. */
+  .music__deck[data-state="loading"] .music__disc,
+  .music__deck[data-state="playing"] .music__label::before,
+  .music__track[data-state="loading"] .music__eq,
+  .music__track[data-state="playing"] .music__eq i {
+    animation: none;
+  }
+}

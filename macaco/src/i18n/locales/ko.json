@@ -105,7 +105,8 @@
       "errorUnavailable": "지금은 이 미리듣기를 들을 수 없습니다.",
       "errorNetwork": "미리듣기를 불러오지 못했습니다.",
       "errorBlocked": "브라우저가 재생을 막았습니다. 다시 클릭해 주세요.",
-      "newTab": "(새 탭)"
+      "newTab": "(새 탭)",
+      "hint": "곡을 고르면 그때 미리듣기를 불러옵니다."
     }
   },
   "footer": {
