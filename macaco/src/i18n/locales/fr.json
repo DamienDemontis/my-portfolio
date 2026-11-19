@@ -89,6 +89,23 @@
           "line": "Un site qui aide les étudiants d'EPITECH à choisir leur spécialité de MSc, avec une sélection de ressources par domaine."
         }
       }
+    },
+    "music": {
+      "title": "Musique",
+      "kicker": "Salle d'écoute",
+      "listTitle": "Ma playlist",
+      "play": "Écouter",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "stop": "Arrêter",
+      "loading": "Chargement de l'extrait…",
+      "nowPlaying": "En écoute",
+      "preview": "Extrait de 30 s · Deezer",
+      "openDeezer": "Écouter le morceau sur Deezer",
+      "errorUnavailable": "Cet extrait n'est pas accessible pour le moment.",
+      "errorNetwork": "L'extrait n'a pas pu être chargé.",
+      "errorBlocked": "Le navigateur a bloqué la lecture : cliquez à nouveau.",
+      "newTab": "(nouvel onglet)"
     }
   },
   "footer": {

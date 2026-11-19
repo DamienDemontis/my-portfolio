@@ -89,6 +89,23 @@
           "line": "A site that helps EPITECH students choose their MSc specialty, with curated resources for each field."
         }
       }
+    },
+    "music": {
+      "title": "Music",
+      "kicker": "Listening room",
+      "listTitle": "My playlist",
+      "play": "Listen",
+      "pause": "Pause",
+      "resume": "Resume",
+      "stop": "Stop",
+      "loading": "Loading the preview…",
+      "nowPlaying": "Now playing",
+      "preview": "30-second preview · Deezer",
+      "openDeezer": "Listen to the full track on Deezer",
+      "errorUnavailable": "This preview can't be played right now.",
+      "errorNetwork": "The preview couldn't be loaded.",
+      "errorBlocked": "The browser blocked playback: click again.",
+      "newTab": "(opens in a new tab)"
     }
   },
   "footer": {
