@@ -64,7 +64,9 @@
   text-shadow: 0 2px 28px rgb(0 0 0 / 0.55);
 }
 
-/* Toutes les cartes au même endroit ; seule la carte active se montre. */
+/* Toutes les cartes au même endroit ; seule la carte active se montre. Les autres restent
+   lisibles par les lecteurs d'écran (opacité seulement, ni display ni visibility, comme
+   l'en-tête) et, empilées sous l'active, ne captent pas les clics. */
 .projects__list {
   position: absolute;
   inset: 0;
@@ -80,25 +82,22 @@
   right: 16px;
   bottom: max(16px, env(safe-area-inset-bottom));
   isolation: isolate;
-  pointer-events: auto;
+  pointer-events: none;
   text-shadow: 0 1px 14px rgb(0 0 0 / 0.6);
   opacity: 0;
-  visibility: hidden;
   translate: 0 0.75rem;
   transition:
     opacity 0.3s ease,
-    translate 0.3s ease,
-    visibility 0s linear 0.3s;
+    translate 0.3s ease;
 }
 
 .projects__card[data-active="true"] {
+  pointer-events: auto;
   opacity: 1;
-  visibility: visible;
   translate: 0 0;
   transition:
     opacity 0.3s ease 0.06s,
-    translate 0.3s ease 0.06s,
-    visibility 0s;
+    translate 0.3s ease 0.06s;
 }
 
 /* Le dégradé qui porte le texte : depuis le bas de l'écran, jusqu'aux bords. */

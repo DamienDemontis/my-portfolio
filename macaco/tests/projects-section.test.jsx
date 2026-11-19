@@ -45,8 +45,12 @@ const WII = PROJECTS.findIndex((p) => p.id === 'wiitanks')
 const socle = () => vu.rendus[vu.rendus.length - 1]
 const avancer = (p) => act(() => socle().onProgress(p))
 const cartes = (container) => [...container.querySelectorAll('ol > li')]
-const cachee = (li) => li.hasAttribute('inert') && li.getAttribute('aria-hidden') === 'true'
-const active = (li) => !li.hasAttribute('inert') && !li.hasAttribute('aria-hidden')
+const controles = (li) => [...li.querySelectorAll('a, button')]
+// Toutes les cartes restent dans l'arbre d'accessibilité (ni inert ni aria-hidden) ; une carte
+// cachée l'est à l'œil, et ses contrôles sont hors de la tabulation.
+const exposee = (li) => !li.hasAttribute('inert') && !li.hasAttribute('aria-hidden')
+const cachee = (li) => exposee(li) && li.dataset.active === 'false' && controles(li).every((c) => c.tabIndex === -1)
+const active = (li) => exposee(li) && li.dataset.active === 'true' && controles(li).every((c) => !c.hasAttribute('tabindex'))
 
 beforeAll(() => i18next.changeLanguage('fr'))
 
@@ -116,6 +120,97 @@ test('p = 0 : l en-tête est visible, aucune carte n est active', () => {
   expect(li.every(cachee)).toBe(true)
 })
 
+test('p = 0 : la liste annonce six projets, leurs titres et leurs liens aux lecteurs d écran', () => {
+  const { container } = render(<Projects />)
+  avancer(0)
+  // Rôles calculés comme un lecteur d'écran : un nœud aria-hidden (ou sous un tel nœud) en sort.
+  const liste = container.querySelector('ol')
+  const items = within(liste)
+    .getAllByRole('listitem')
+    .filter((el) => el.parentElement === liste)
+  expect(items).toHaveLength(N)
+  expect(screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual(
+    PROJECTS.map((p) => T.items[p.id].title),
+  )
+  const externes = PROJECTS.flatMap((p) => p.links.filter((l) => l.kind !== 'play'))
+  const liens = screen.getAllByRole('link')
+  expect(liens.map((a) => a.getAttribute('href'))).toEqual(externes.map((l) => l.href))
+  const jouer = screen.getByRole('button', { name: T.play })
+  // Aucune carte n'est active : tous leurs contrôles sont hors de la tabulation.
+  for (const c of [...liens, jouer]) expect(c.tabIndex).toBe(-1)
+})
+
+test('les cartes cachées sont effacées à l œil seulement et ne captent pas les clics', () => {
+  const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../src/styles/projects.css'), 'utf8').replace(
+    /\/\*[\s\S]*?\*\//g,
+    '',
+  )
+  const regles = [...css.matchAll(/\.projects__card(\[data-active="true"\])?\s*\{([^}]*)\}/g)]
+  const cachee = regles.find((r) => !r[1])?.[2]
+  const montree = regles.find((r) => r[1])?.[2]
+  expect(cachee).toMatch(/opacity:\s*0;/)
+  expect(cachee).toMatch(/pointer-events:\s*none/)
+  expect(montree).toMatch(/opacity:\s*1/)
+  expect(montree).toMatch(/pointer-events:\s*auto/)
+  expect(css).not.toMatch(/visibility/)
+})
+
+// La racine de scroll du site (#scroll-root) autour du rendu, et une géométrie : la piste
+// commence à 2000 px et finit à 10000 px, l'écran fait 800 px. La progression d'une position y
+// est donc (y − 2000) / (10000 − 2000 − 800), comme la mesure de CinematicSection.
+function salle() {
+  const racine = document.createElement('div')
+  racine.id = 'scroll-root'
+  document.body.appendChild(racine)
+  Object.defineProperty(racine, 'clientHeight', { configurable: true, value: 800 })
+  racine.getBoundingClientRect = () => ({ top: 0, bottom: 800 })
+  racine.scrollTo = vi.fn()
+  const rendu = render(<Projects />, { container: racine.appendChild(document.createElement('div')) })
+  rendu.container.querySelector('section#projets').getBoundingClientRect = () => ({ top: 2000, bottom: 10000 })
+  return { racine, ...rendu }
+}
+const COURSE = 10000 - 2000 - 800
+
+test('focus sur un lien de la quatrième carte cachée : la piste défile jusqu à son palier', () => {
+  const { racine, container, unmount } = salle()
+  try {
+    avancer(0)
+    const lien = cartes(container)[3].querySelector('a')
+    expect(lien.tabIndex).toBe(-1)
+    act(() => lien.focus())
+    expect(racine.scrollTo).toHaveBeenCalledTimes(1)
+    const { top, behavior } = racine.scrollTo.mock.calls[0][0]
+    expect(top).toBeCloseTo(2000 + PROJECT_ANCHORS[3] * COURSE, 6)
+    expect(behavior).toBe('smooth')
+    // Le scroll arrive au palier : la carte se montre, le lien garde le focus et rentre dans la tabulation.
+    avancer((top - 2000) / COURSE)
+    expect(active(cartes(container)[3])).toBe(true)
+    expect(document.activeElement).toBe(lien)
+    // Focus dans la carte active : aucun nouveau défilement.
+    act(() => cartes(container)[3].querySelector('button').focus())
+    expect(racine.scrollTo).toHaveBeenCalledTimes(1)
+  } finally {
+    unmount()
+    racine.remove()
+  }
+})
+
+test('sous mouvement réduit, le saut au palier se fait sans animation', () => {
+  vi.stubGlobal('matchMedia', (q) => ({ matches: q === '(prefers-reduced-motion: reduce)', media: q }))
+  const { racine, container, unmount } = salle()
+  try {
+    avancer(PROJECT_ANCHORS[0])
+    act(() => cartes(container)[5].querySelector('a').focus())
+    expect(racine.scrollTo).toHaveBeenCalledTimes(1)
+    const { top, behavior } = racine.scrollTo.mock.calls[0][0]
+    expect(top).toBeCloseTo(2000 + PROJECT_ANCHORS[5] * COURSE, 6)
+    expect(behavior).toBe('auto')
+  } finally {
+    unmount()
+    racine.remove()
+  }
+})
+
 test('au palier du troisième projet, sa carte seule est visible, avec son compteur', () => {
   const { container } = render(<Projects />)
   avancer(PROJECT_ANCHORS[2])
@@ -171,8 +266,9 @@ test('Jouer : aucune iframe avant, une à l ouverture, aucune après Fermer ; le
   expect(container.querySelectorAll('dialog')).toHaveLength(1)
   expect(document.querySelector('iframe')).toBeNull()
 
-  // Seul le bouton de la carte active est exposé.
+  // Un seul bouton « Jouer », sur la carte active : dans la tabulation.
   const jouer = screen.getByRole('button', { name: T.play })
+  expect(jouer.hasAttribute('tabindex')).toBe(false)
   expect(jouer.getAttribute('type')).toBe('button')
   fireEvent.click(jouer)
   expect(dialogue.hasAttribute('open')).toBe(true)

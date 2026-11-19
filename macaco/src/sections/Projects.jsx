@@ -1,9 +1,13 @@
 // Section Projets : la salle de projection. Une piste épinglée (CinematicSection) dont la 3D
 // projette un projet par palier ; le texte, en DOM, montre la carte du projet à l'écran.
 //
-// Toutes les cartes restent dans le DOM (texte indexé, page complète sans WebGL 2) ; seule
-// celle du palier courant est visible, les autres sont inert et aria-hidden. Avant le premier
-// projet (l'amorce, LEADER), aucune carte : l'en-tête seul.
+// Toutes les cartes restent dans le DOM et dans l'arbre d'accessibilité (texte indexé, page
+// complète sans WebGL 2, six projets annoncés) ; seule celle du palier courant se voit. Les
+// autres sont effacées à l'œil (opacité), leurs liens hors de la tabulation (tabIndex -1) : Tab
+// n'atteint que la carte visible. Un lecteur d'écran peut quand même y amener le focus (liste
+// des liens, par exemple) : la piste défile alors jusqu'au palier de la carte, et ce qui est lu
+// est aussi ce qui est montré. Avant le premier projet (l'amorce, LEADER), aucune carte :
+// l'en-tête seul.
 //
 // « Jouer » ouvre un <dialog> modal ; l'iframe du jeu n'existe que dialogue ouvert : rien n'est
 // téléchargé avant le clic, et la fermeture arrête le jeu.
@@ -11,10 +15,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { PROJECTS } from '../content/projects.js'
 import { afterLoad } from '../lib/afterLoad.js'
+import { getOffsetBottom, getOffsetTop, getViewportHeight, scrollRootTo } from '../lib/scroll.js'
 import CinematicSection from '../three/cinematic/CinematicSection.jsx'
 import { PROJECTION_SHOTS, PROJECTION_STILL } from '../three/projection/layout.js'
-import { LEADER, projectAt } from '../three/projection/steps.js'
+import { LEADER, PROJECT_ANCHORS, projectAt } from '../three/projection/steps.js'
 import '../styles/projects.css'
+
+const ID = 'projets'
+const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
 
 // Identités stables (voir l'en-tête de CinematicSection) : définies une fois, au module.
 const ProjectionRoom = React.lazy(() => import('../three/projection/ProjectionRoom.jsx'))
@@ -30,6 +38,16 @@ const POSTER = (
 
 const TOTAL = String(PROJECTS.length).padStart(2, '0')
 const compteur = (i) => `${String(i + 1).padStart(2, '0')} / ${TOTAL}`
+
+// Fait défiler la racine de scroll jusqu'au palier du projet i : l'inverse de la mesure de
+// CinematicSection (p = 0 quand le haut de la piste touche le haut de l'écran, 1 quand son bas
+// touche le bas). Sous mouvement réduit, un saut sans animation.
+function allerAuPalier(piste, i) {
+  const haut = getOffsetTop(piste)
+  const course = Math.max(1, getOffsetBottom(piste) - haut - getViewportHeight())
+  const reduit = typeof window.matchMedia === 'function' && window.matchMedia(REDUCED_MOTION).matches
+  scrollRootTo({ top: haut + PROJECT_ANCHORS[i] * course, behavior: reduit ? 'auto' : 'smooth' })
+}
 
 // Effets de post-traitement, importés après load : @react-three/postprocessing reste hors du
 // premier chargement. undefined jusque-là, puis le tableau du module (une seule nouvelle identité).
@@ -52,26 +70,26 @@ function useEffetsDiffere() {
   return effets
 }
 
-function Lien({ kind, href, t }) {
+function Lien({ kind, href, tabIndex, t }) {
   return (
-    <a className="projects__link" href={href} target="_blank" rel="noopener noreferrer">
+    <a className="projects__link" href={href} target="_blank" rel="noopener noreferrer" tabIndex={tabIndex}>
       {t(`home.projects.${kind}`)}
       <span className="sr-only"> {t('home.projects.newTab')}</span>
     </a>
   )
 }
 
-function Carte({ projet, i, actif, onJouer, t }) {
+function Carte({ projet, i, actif, onJouer, onFocusCachee, t }) {
   const { id, media, stack, links } = projet
   const cle = `home.projects.items.${id}`
   const libelle = `projets-${id}-pile`
-  // React 18 ne connaît pas `inert` : une chaîne vide pose l'attribut, undefined le retire.
+  // Carte cachée : contrôles hors de la tabulation, mais focalisables (lecteur d'écran).
+  const tabIndex = actif ? undefined : -1
   return (
     <li
       className="projects__card"
       data-active={actif ? 'true' : 'false'}
-      inert={actif ? undefined : ''}
-      aria-hidden={actif ? undefined : 'true'}
+      onFocus={actif ? undefined : (event) => onFocusCachee(event, i)}
       style={{ '--projet': media.color }}
     >
       <p className="projects__count" aria-hidden="true">
@@ -95,13 +113,14 @@ function Carte({ projet, i, actif, onJouer, t }) {
               <button
                 className="projects__link projects__link--play"
                 type="button"
+                tabIndex={tabIndex}
                 onClick={(event) => onJouer(event, href)}
                 key={kind}
               >
                 {t('home.projects.play')}
               </button>
             ) : (
-              <Lien kind={kind} href={href} t={t} key={kind} />
+              <Lien kind={kind} href={href} tabIndex={tabIndex} t={t} key={kind} />
             ),
           )}
         </div>
@@ -123,6 +142,12 @@ export default function Projects() {
   }, [])
   const stageProps = React.useMemo(() => ({ projects: PROJECTS, index }), [index])
   const effects = useEffetsDiffere()
+
+  // Focus arrivé dans une carte cachée : la piste va à son palier, la carte s'y montrera.
+  const montrer = React.useCallback((event, i) => {
+    const piste = event.currentTarget.closest(`#${ID}`)
+    if (piste) allerAuPalier(piste, i)
+  }, [])
 
   const dialogRef = React.useRef(null)
   // Le bouton qui a ouvert le jeu : le focus y revient à la fermeture.
@@ -169,7 +194,7 @@ export default function Projects() {
 
   return (
     <CinematicSection
-      id="projets"
+      id={ID}
       track="1000svh"
       shots={PROJECTION_SHOTS}
       still={PROJECTION_STILL}
@@ -193,7 +218,15 @@ export default function Projects() {
       </header>
       <ol className="projects__list">
         {PROJECTS.map((projet, i) => (
-          <Carte projet={projet} i={i} actif={i === index} onJouer={jouer} t={t} key={projet.id} />
+          <Carte
+            projet={projet}
+            i={i}
+            actif={i === index}
+            onJouer={jouer}
+            onFocusCachee={montrer}
+            t={t}
+            key={projet.id}
+          />
         ))}
       </ol>
       <dialog
