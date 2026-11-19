@@ -673,7 +673,10 @@
     align-items: flex-start;
     gap: clamp(10px, 2.5vw, 18px);
   }
-  .rhot:nth-child(2) {
+  /* Une étiquette par groupe : les groupes impairs passent à droite, pour alterner. */
+  .rstage__hots[data-i="1"] .rhot,
+  .rstage__hots[data-i="3"] .rhot,
+  .rstage__hots[data-i="5"] .rhot {
     align-items: flex-end;
     text-align: right;
   }

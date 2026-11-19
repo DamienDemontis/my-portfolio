@@ -324,7 +324,8 @@ const Ps = React.forwardRef(function ({
     side: "right",
     color: "#A9FF00",
     icon: oe.strategy,
-    pos: [-0.05, -1.15, 0.12]
+    // Plan zénithal : les pieds sont sous la tête à l'image ; l'étiquette se pose au sol, à côté de lui (+Z, à droite de l'image).
+    pos: [0, -1.15, 0.85]
   }, {
     key: "h4",
     shot: 3,
