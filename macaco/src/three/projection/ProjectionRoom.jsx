@@ -12,16 +12,13 @@
 import React from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, useTexture } from '@react-three/drei'
-import { AnimationMixer, Box3, Color, Group, Quaternion, SpotLight, Vector3 } from 'three'
-import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { readySkinned } from '../character/clips.js'
-import { poseDeLiaison, sectionClipsFor } from '../character/sectionClips.js'
+import { Color, Group, Quaternion, SpotLight, Vector3 } from 'three'
+import { useStageRig } from '../character/useStageRig.js'
 import { LEADER, leaderAt, stageStep } from './steps.js'
 import { ROOM } from './layout.js'
 import { createFilm, filmTextures, screenColor, setFilmStep } from './filmMaterial.js'
 import { createBeam, createDust } from './beam.js'
 
-const PERSONNAGE = '/character/damien.glb'
 const PROJECTEUR = '/props/filmstrip_projector_8mm.glb'
 
 // Intensité du rebond, atténuée avec la distance (decay 2) : sur son visage, à 3,8 m, environ
@@ -56,45 +53,21 @@ function couleurLumiere(hex) {
 }
 
 function Personnage({ policy }) {
-  const { scene, parser } = useGLTF(PERSONNAGE, false, true)
-  // Le rig : un clone remis en pose de liaison. La scène partagée (cache de useGLTF) garde la
-  // pose que l'intro lui a laissée, que clone() copie ; or la boîte d'un maillage skinné suit
-  // la pose, et avec elle la taille et les pieds.
-  const rig = React.useMemo(() => {
-    const r = readySkinned(poseDeLiaison(clone(scene), scene, parser))
-    r.traverse((o) => {
-      if (o.isMesh) {
-        o.castShadow = true
-        o.frustumCulled = false
-      }
-    })
-    return r
-  }, [scene, parser])
-  const fit = React.useMemo(() => {
-    const b = new Box3().setFromObject(rig)
-    const taille = new Vector3()
-    const centre = new Vector3()
-    b.getSize(taille)
-    b.getCenter(centre)
-    const k = ROOM.character.height / (taille.y || 1)
-    return { k, pos: [-centre.x * k, -b.min.y * k, -centre.z * k] }
-  }, [rig])
-  const mixer = React.useMemo(() => new AnimationMixer(rig), [rig])
+  // Le rig partagé des sections : clone en pose de liaison, à sa taille, pieds au sol ; il porte
+  // son ombre sur l'écran.
+  const { rig, k, offset, mixer, clip } = useStageRig({ height: ROOM.character.height, castShadow: true })
   React.useEffect(() => {
-    // Cuit une fois par scène, sur une copie en pose de liaison (sectionClipsFor) ; les pistes
-    // visent les os par leur nom, ceux du rig.
-    const watch = sectionClipsFor(scene, parser).find((c) => c.name === 'watch')
-    const action = mixer.clipAction(watch)
+    const action = mixer.clipAction(clip('watch'))
     action.play()
     mixer.update(0)
-    return () => mixer.stopAllAction()
-  }, [mixer, scene, parser])
+    return () => action.stop()
+  }, [mixer, clip])
   useFrame((_, dt) => {
     if (policy.animate) mixer.update(dt)
   })
   return (
     <group position={ROOM.character.position} rotation={[0, ROOM.character.rotationY, 0]}>
-      <group scale={fit.k} position={fit.pos}>
+      <group scale={k} position={offset}>
         <primitive object={rig} />
       </group>
     </group>
