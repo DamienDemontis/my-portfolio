@@ -6,45 +6,61 @@
 // les aigus le font frémir ; chaque coup de grosse caisse lance une onde au sol. Quand la musique
 // joue, il bat la mesure.
 //
-// Props : listening (le moteur d'écoute : tick() et bands, src/lib/listening.js), plus
-// { timeline, policy } de CinematicSection.
+// La couleur de l'anneau et du liseré du casque glisse du cuivre vers la teinte de la pochette
+// du morceau en cours (coverColor.js), et y revient sans pochette ou à l'arrêt.
+//
+// Props : listening (le moteur d'écoute : tick(), bands, state, current, subscribe ;
+// src/lib/listening.js), plus { timeline, policy } de CinematicSection.
+//
+// Ordre des images (priorités de useFrame, toutes avant le rendu) : -2, le moteur lit les
+// bandes de l'image (tick) et l'anneau prend ses uniformes ; -1, le mélangeur du personnage et
+// les ondes, qui lisent ces bandes ; 0, la caméra et le réflecteur du sol, qui voit l'état à jour.
 import React from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { MeshReflectorMaterial, useGLTF } from '@react-three/drei'
-import { AdditiveBlending, Color, DoubleSide, MeshBasicMaterial, RingGeometry, SpotLight, TorusGeometry, Mesh, Vector3 } from 'three'
+import { AdditiveBlending, Color, DoubleSide, Mesh, MeshBasicMaterial, RingGeometry, SpotLight, SRGBColorSpace, TorusGeometry } from 'three'
+import { hexToRgb01, useIsCoarsePointer } from '../../lib/device.js'
 import { useStageRig } from '../character/useStageRig.js'
 import { ROOM } from './layout.js'
-import { RIPPLES, createRing, ringBands, rippleLook, stepRipples } from './ring.js'
-import { createHeadphones } from './headphones.js'
+import { RING_COLORS, RIPPLES, createRing, ringBands, rippleLook, stepRipples } from './ring.js'
+import { NEON, NEON_INTENSITY, createHeadphones, fitHeadphones } from './headphones.js'
+import { glideStep, readCoverColor, tintToward } from './coverColor.js'
+import { createTempoState, suivreTempo } from './tempo.js'
 
 const BOOMBOX = '/props/boombox.glb'
 const CUIVRE = new Color('#ff8a4c')
 const DEG = Math.PI / 180
+// Flou du réflecteur, en constante de module : drei mémorise ses cibles de rendu sur l'identité
+// de ce tableau (sans les libérer) ; un tableau écrit en ligne les recréerait à chaque rendu.
+const BLUR = [320, 90]
+
+// Les cuivres de base (sRGB 0..1) que la pochette vient teinter.
+const BASE_A = hexToRgb01(RING_COLORS[0])
+const BASE_B = hexToRgb01(RING_COLORS[1])
+const BASE_NEON = hexToRgb01(NEON)
+
+/** Couleurs cibles (espace de travail de three) pour une pochette [r, g, b] 0..1, ou le cuivre (null). */
+function viser(cible, pochette) {
+  cible.a.setRGB(...tintToward(BASE_A, pochette), SRGBColorSpace)
+  cible.b.setRGB(...tintToward(BASE_B, pochette), SRGBColorSpace)
+  cible.neon.setRGB(...tintToward(BASE_NEON, pochette), SRGBColorSpace).multiplyScalar(NEON_INTENSITY)
+}
 
 // Le personnage, son casque attaché à l'os de la tête, et le mélange des deux clips : `listen`
-// sans musique, `listen_beat` quand elle joue (fondu d'une demi-seconde).
-function Auditeur({ listening, policy }) {
+// sans musique, `listen_beat` quand elle joue (fondu d'une demi-seconde), calé sur le tempo
+// des coups de grosse caisse (tempo.js).
+function Auditeur({ listening, policy, casque }) {
   const { rig, k, offset, mixer, clip } = useStageRig({ height: ROOM.character.height })
 
-  // Le casque : créé une fois, posé en pose de liaison (avant la première mise à jour du
-  // mélangeur, faite dans un effet ordinaire, après celui-ci) entre les oreilles, en mètres du
-  // monde, puis rattaché à l'os de la tête, qui l'emporte ensuite dans ses mouvements.
-  const casque = React.useMemo(() => createHeadphones(), [])
+  // Le casque : posé en pose de liaison (avant la première mise à jour du mélangeur, faite dans
+  // un effet ordinaire, après celui-ci) entre les oreilles, puis rattaché à l'os de la tête,
+  // qui l'emporte ensuite dans ses mouvements. Sa place n'est calculée qu'une fois par rig.
   React.useLayoutEffect(() => {
-    const tete = rig.getObjectByName('mixamorigHead')
-    if (!tete) return undefined
-    rig.updateWorldMatrix(true, true)
-    const centre = tete.getWorldPosition(new Vector3())
-    casque.group.position.copy(centre).add(new Vector3(0, 0.088, 0.006))
-    casque.group.quaternion.identity()
-    casque.group.scale.setScalar(1)
-    casque.group.updateMatrixWorld(true)
-    tete.attach(casque.group)
+    if (!fitHeadphones(casque.group, rig)) return undefined
     return () => {
       casque.group.removeFromParent()
     }
   }, [rig, casque])
-  React.useEffect(() => () => casque.dispose(), [casque])
 
   const actions = React.useMemo(() => {
     const calme = mixer.clipAction(clip('listen'))
@@ -60,14 +76,23 @@ function Auditeur({ listening, policy }) {
     return () => mixer.stopAllAction()
   }, [actions, mixer])
 
+  // Le suivi du tempo : son état, son résultat réutilisé, et sa propre horloge (le temps réel
+  // des images animées, entre deux coups).
+  const tempo = React.useMemo(() => ({ etat: createTempoState(), sortie: {}, horloge: 0 }), [])
+
   useFrame((_, dt) => {
     if (!policy.animate) return
-    const cible = listening.bands.playing ? 1 : 0
+    const bandes = listening.bands
+    const cible = bandes.playing ? 1 : 0
     poids.current += (cible - poids.current) * Math.min(1, dt * 2)
     actions.mesure.setEffectiveWeight(poids.current)
     actions.calme.setEffectiveWeight(1 - poids.current)
+    tempo.horloge += Math.max(0, dt)
+    const r = suivreTempo(tempo.etat, bandes.playing && bandes.kick, tempo.horloge, actions.mesure.time, tempo.sortie)
+    actions.mesure.setEffectiveTimeScale(r.timeScale)
+    if (r.recaler !== null) actions.mesure.time = r.recaler
     mixer.update(dt)
-  })
+  }, -1)
 
   return (
     <group position={ROOM.character.position} rotation={[0, ROOM.character.rotationY, 0]}>
@@ -126,19 +151,21 @@ function Ondes({ listening, policy }) {
     [geo, mats],
   )
   const refs = React.useRef([])
-  const ages = React.useRef(Array(RIPPLES).fill(Infinity))
+  // Âges des ondes et aspect d'une onde : mis à jour sur place à chaque image.
+  const ondes = React.useMemo(() => ({ ages: Array(RIPPLES).fill(Infinity), aspect: { scale: 1, opacity: 0 } }), [])
   useFrame((_, dt) => {
     if (!policy.animate) return
-    ages.current = stepRipples(ages.current, listening.bands.playing && listening.bands.kick, Math.min(dt, 0.1))
-    ages.current.forEach((age, i) => {
-      const { scale, opacity } = rippleLook(age)
+    const { ages, aspect } = ondes
+    stepRipples(ages, listening.bands.playing && listening.bands.kick, Math.min(dt, 0.1))
+    for (let i = 0; i < ages.length; i++) {
       const m = refs.current[i]
-      if (!m) return
-      m.scale.setScalar(ROOM.ring.radius * scale)
-      mats[i].opacity = opacity
-      m.visible = opacity > 0.001
-    })
-  })
+      if (!m) continue
+      rippleLook(ages[i], aspect)
+      m.scale.setScalar(ROOM.ring.radius * aspect.scale)
+      mats[i].opacity = aspect.opacity
+      m.visible = aspect.opacity > 0.001
+    }
+  }, -1)
   return (
     <group position={[0, 0.012, 0]} rotation={[-Math.PI / 2, 0, 0]}>
       {mats.map((m, i) => (
@@ -149,9 +176,10 @@ function Ondes({ listening, policy }) {
 }
 
 export default function ListeningRoom({ listening, timeline, policy }) {
-  const dpr = useThree((s) => s.viewport.dpr)
-  const taille = useThree((s) => s.size)
-  const mobile = Math.min(taille.width, taille.height) < 700
+  // Un booléen, pas la taille du canvas : un redimensionnement (la barre d'adresse d'un
+  // téléphone) ne re-rend pas la scène. La densité de pixels est lue à chaque image.
+  const mobile = useIsCoarsePointer()
+  const invalidate = useThree((s) => s.invalidate)
 
   const anneau = React.useMemo(() => createRing({ radius: ROOM.ring.radius, count: mobile ? 650 : 900 }), [mobile])
   React.useEffect(
@@ -186,21 +214,69 @@ export default function ListeningRoom({ listening, timeline, policy }) {
   }, [])
   React.useEffect(() => () => douche.dispose(), [douche])
 
+  // Le casque, créé ici : son liseré prend la teinte de la pochette avec l'anneau.
+  const casque = React.useMemo(() => createHeadphones(), [])
+  React.useEffect(() => () => casque.dispose(), [casque])
+
+  // La teinte de la pochette : les couleurs cibles (cuivre au départ), changées quand le morceau
+  // change ; l'anneau et le liseré y glissent à chaque image. Seuls un morceau en lecture ou en
+  // pause teintent la salle : sans pochette, en chargement, en erreur ou à l'arrêt, le cuivre.
+  const teinte = React.useMemo(() => {
+    const cible = { a: new Color(), b: new Color(), neon: new Color() }
+    viser(cible, null)
+    return cible
+  }, [])
+  React.useEffect(() => {
+    let actif = true
+    let pochette
+    const suivre = () => {
+      const { state, current } = listening
+      const url = (state === 'playing' || state === 'paused') && current ? current.cover || null : null
+      if (url === pochette) return
+      pochette = url
+      if (!url) {
+        viser(teinte, null)
+        invalidate()
+        return
+      }
+      readCoverColor(url).then((couleur) => {
+        if (!actif || pochette !== url) return
+        viser(teinte, couleur)
+        invalidate()
+      })
+    }
+    suivre()
+    // un moteur sans abonnement (ni pochettes) laisse la salle en cuivre
+    const desabonner = typeof listening.subscribe === 'function' ? listening.subscribe(suivre) : null
+    return () => {
+      actif = false
+      if (desabonner) desabonner()
+    }
+  }, [listening, teinte, invalidate])
+
   const temps = React.useRef(0)
-  useFrame((_, dt) => {
-    if (policy.animate) temps.current += Math.min(dt, 0.1)
+  const bandes = React.useMemo(() => ({ bass: 0, mid: 0, high: 0 }), [])
+  useFrame((state, dt) => {
+    const pas = Math.min(dt, 0.1)
+    if (policy.animate) temps.current += pas
     listening.tick()
-    const b = ringBands(listening.bands, temps.current, policy.animate)
+    const b = ringBands(listening.bands, temps.current, policy.animate, bandes)
     const u = anneau.material.uniforms
     u.uTime.value = temps.current
     u.uBass.value = b.bass
     u.uMid.value = b.mid
     u.uHigh.value = b.high
-    u.uSize.value = 16 * dpr
+    u.uSize.value = 16 * state.viewport.dpr
     const gonfle = 1 + b.bass * 0.35
     coeur.scale.set(gonfle, gonfle, 1)
     coeur.material.opacity = 0.35 + b.bass * 0.65
-  })
+    // Fondu d'une seconde environ ; d'un coup sous mouvement réduit ou rendu à la demande
+    // (pas d'image suivante garantie pour finir le fondu).
+    const part = glideStep(pas, policy.animate && policy.frameloop === 'always')
+    u.uColorA.value.lerp(teinte.a, part)
+    u.uColorB.value.lerp(teinte.b, part)
+    casque.neonMaterial.color.lerp(teinte.neon, part)
+  }, -2)
 
   return (
     <>
@@ -213,7 +289,7 @@ export default function ListeningRoom({ listening, timeline, policy }) {
         <planeGeometry args={[30, 30]} />
         <MeshReflectorMaterial
           resolution={mobile ? 256 : 512}
-          blur={[320, 90]}
+          blur={BLUR}
           mixBlur={1}
           mixStrength={2.4}
           mirror={0.55}
@@ -227,7 +303,7 @@ export default function ListeningRoom({ listening, timeline, policy }) {
       </mesh>
       <Neons />
       <Boombox />
-      <Auditeur listening={listening} policy={policy} />
+      <Auditeur listening={listening} policy={policy} casque={casque} />
       <primitive object={anneau} position={ROOM.ring.center} />
       <primitive object={coeur} position={ROOM.ring.center} />
       {/* une lueur basse sur la boombox, qui la sort du noir */}

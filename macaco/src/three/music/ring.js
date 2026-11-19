@@ -4,19 +4,33 @@
 // lissées ; sans musique, l'anneau respire doucement.
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Points, ShaderMaterial } from 'three'
 
+// Ces fonctions servent à chaque image : elles écrivent dans l'objet ou le tableau fourni (et le
+// renvoient) plutôt que d'en allouer un nouveau. Sans objet fourni, elles en créent un.
+
 /** Respiration de l'anneau au repos (sans musique) : un souffle lent, à peine visible. */
-export function idleBands(t) {
-  return { bass: 0.06 + 0.04 * Math.sin(t * 0.9), mid: 0.05 + 0.03 * Math.sin(t * 0.55 + 1), high: 0.03 }
+export function idleBands(t, out = {}) {
+  out.bass = 0.06 + 0.04 * Math.sin(t * 0.9)
+  out.mid = 0.05 + 0.03 * Math.sin(t * 0.55 + 1)
+  out.high = 0.03
+  return out
 }
 
 /**
  * Bandes à appliquer à l'anneau : celles de la musique quand elle joue, la respiration sinon ;
  * tout à zéro quand la scène ne doit pas bouger (mouvement réduit).
  */
-export function ringBands(bands, t, animate) {
-  if (!animate) return { bass: 0, mid: 0, high: 0 }
-  if (bands && bands.playing) return { bass: bands.bass, mid: bands.mid, high: bands.high }
-  return idleBands(t)
+export function ringBands(bands, t, animate, out = {}) {
+  if (!animate) {
+    out.bass = out.mid = out.high = 0
+    return out
+  }
+  if (bands && bands.playing) {
+    out.bass = bands.bass
+    out.mid = bands.mid
+    out.high = bands.high
+    return out
+  }
+  return idleBands(t, out)
 }
 
 /** Nombre d'ondes au sol en même temps, et leur durée de vie (secondes). */
@@ -26,23 +40,38 @@ export const RIPPLE_LIFE = 1.4
 /**
  * Fait vivre les ondes au sol : chaque coup de grosse caisse en lance une (la plus vieille est
  * recyclée), chacune grandit et s'éteint en RIPPLE_LIFE secondes. `ages` : âges en secondes,
- * Infinity pour une onde éteinte. Renvoie un nouveau tableau.
+ * Infinity pour une onde éteinte. Met `ages` à jour sur place et le renvoie.
  */
 export function stepRipples(ages, kick, dt) {
-  const suivant = ages.map((a) => (Number.isFinite(a) ? a + dt : a)).map((a) => (a >= RIPPLE_LIFE ? Infinity : a))
-  if (kick) {
-    let i = suivant.findIndex((a) => !Number.isFinite(a))
-    if (i < 0) i = suivant.reduce((m, a, k) => (a > suivant[m] ? k : m), 0)
-    suivant[i] = 0
+  // la place de la prochaine onde : une onde éteinte, sinon la plus vieille
+  let libre = -1
+  let vieille = -1
+  for (let i = 0; i < ages.length; i++) {
+    let a = ages[i]
+    if (Number.isFinite(a)) {
+      a += dt
+      if (a >= RIPPLE_LIFE) a = Infinity
+      ages[i] = a
+    }
+    if (!Number.isFinite(a)) {
+      if (libre < 0) libre = i
+    } else if (vieille < 0 || a > ages[vieille]) vieille = i
   }
-  return suivant
+  if (kick) ages[libre >= 0 ? libre : vieille] = 0
+  return ages
 }
 
-/** Échelle et opacité d'une onde selon son âge. */
-export function rippleLook(age) {
-  if (!Number.isFinite(age)) return { scale: 1, opacity: 0 }
+/** Échelle et opacité d'une onde selon son âge, écrites dans `out`. */
+export function rippleLook(age, out = {}) {
+  if (!Number.isFinite(age)) {
+    out.scale = 1
+    out.opacity = 0
+    return out
+  }
   const u = Math.min(1, age / RIPPLE_LIFE)
-  return { scale: 1 + u * 2.4, opacity: (1 - u) * (1 - u) * 0.9 }
+  out.scale = 1 + u * 2.4
+  out.opacity = (1 - u) * (1 - u) * 0.9
+  return out
 }
 
 const VERTEX = /* glsl */ `
@@ -102,11 +131,14 @@ function aleatoire(graine) {
   }
 }
 
+/** Couleurs des trois bandes (graves, médiums, aigus), en sRGB : des cuivres de plus en plus pâles. */
+export const RING_COLORS = ['#ff9a5a', '#ffd2a1', '#fff4e6']
+
 /**
  * L'anneau (Points additifs) : `count` particules réparties en trois bandes (35 % graves,
  * 35 % médiums, 30 % aigus, comme le v5), autour de l'axe y, dans le repère local.
  */
-export function createRing({ count = 900, radius = 1.35, colors = ['#ff9a5a', '#ffd2a1', '#fff4e6'] } = {}) {
+export function createRing({ count = 900, radius = 1.35, colors = RING_COLORS } = {}) {
   const rand = aleatoire(5112026)
   const angles = new Float32Array(count)
   const bandes = new Float32Array(count)

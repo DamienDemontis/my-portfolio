@@ -42,6 +42,30 @@ test('a kick launches a ripple that grows and fades out', () => {
   expect(rippleLook(Infinity).opacity).toBe(0)
 })
 
+// Appelées à chaque image : elles écrivent dans ce qu'on leur donne, sans rien allouer.
+test('the per-frame helpers write in place', () => {
+  const sortie = { bass: 9, mid: 9, high: 9 }
+  expect(ringBands(MUSIQUE, 3, true, sortie)).toBe(sortie)
+  expect(sortie).toEqual({ bass: 0.8, mid: 0.4, high: 0.2 })
+  expect(ringBands(SILENCE, 0.5, true, sortie)).toBe(sortie)
+  expect(sortie).toEqual(idleBands(0.5))
+  expect(ringBands(MUSIQUE, 3, false, sortie)).toBe(sortie)
+  expect(sortie).toEqual({ bass: 0, mid: 0, high: 0 })
+  const repos = {}
+  expect(idleBands(1, repos)).toBe(repos)
+
+  const ages = Array(RIPPLES).fill(Infinity)
+  expect(stepRipples(ages, true, 0.016)).toBe(ages)
+  expect(ages.filter(Number.isFinite)).toEqual([0])
+  stepRipples(ages, false, 0.5)
+  expect(ages.filter(Number.isFinite)).toEqual([0.5])
+
+  const look = { scale: 0, opacity: 0 }
+  expect(rippleLook(RIPPLE_LIFE / 2, look)).toBe(look)
+  expect(look).toEqual(rippleLook(RIPPLE_LIFE / 2))
+  expect(rippleLook(Infinity, look)).toEqual({ scale: 1, opacity: 0 })
+})
+
 test('more kicks than ripples recycle the oldest', () => {
   let ages = Array(RIPPLES).fill(Infinity)
   for (let i = 0; i < RIPPLES; i++) ages = stepRipples(ages, true, 0.1)
