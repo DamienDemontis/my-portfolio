@@ -41,23 +41,31 @@ describe('breathing', () => {
 
 describe('motionPolicy', () => {
   it('par défaut', () => {
-    expect(motionPolicy({})).toEqual({ idle: true, lookAt: true, blend: 'smooth', frameloop: 'always' });
-    expect(motionPolicy()).toEqual({ idle: true, lookAt: true, blend: 'smooth', frameloop: 'always' });
+    expect(motionPolicy({})).toEqual({ idle: true, lookAt: true, blend: 'smooth', frameloop: 'always', animate: true });
+    expect(motionPolicy()).toEqual({ idle: true, lookAt: true, blend: 'smooth', frameloop: 'always', animate: true });
   });
   it('reducedMotion', () => {
-    expect(motionPolicy({ reducedMotion: true })).toEqual({ idle: false, lookAt: false, blend: 'snap', frameloop: 'demand' });
+    expect(motionPolicy({ reducedMotion: true })).toEqual({ idle: false, lookAt: false, blend: 'snap', frameloop: 'demand', animate: false });
   });
   // Ruling R10 : écran tactile = moins d'effets et de batterie, ni respiration ni rendu continu.
   it('coarsePointer', () => {
-    expect(motionPolicy({ coarsePointer: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
-    expect(motionPolicy({ coarsePointer: true, frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
+    expect(motionPolicy({ coarsePointer: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand', animate: true });
+    expect(motionPolicy({ coarsePointer: true, frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand', animate: true });
   });
   it('frozen', () => {
-    expect(motionPolicy({ frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' });
+    expect(motionPolicy({ frozen: true })).toEqual({ idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand', animate: true });
   });
   it('reducedMotion gagne sur tout', () => {
     expect(motionPolicy({ reducedMotion: true, coarsePointer: true, frozen: true })).toEqual({
-      idle: false, lookAt: false, blend: 'snap', frameloop: 'demand',
+      idle: false, lookAt: false, blend: 'snap', frameloop: 'demand', animate: false,
     });
+  });
+  // « Le personnage respire » (idle) n'est pas « la scène peut s'animer » (animate) : un écran
+  // tactile coupe la respiration du personnage, pas les décors animés des sections.
+  it('animate : faux seulement sous mouvement réduit', () => {
+    const cas = [{}, { coarsePointer: true }, { frozen: true }, { coarsePointer: true, frozen: true }];
+    for (const options of cas) expect(motionPolicy(options).animate).toBe(true);
+    for (const options of cas) expect(motionPolicy({ ...options, reducedMotion: true }).animate).toBe(false);
+    expect(motionPolicy({ coarsePointer: true }).idle).toBe(false);
   });
 });

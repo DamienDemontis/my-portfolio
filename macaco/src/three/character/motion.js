@@ -22,12 +22,14 @@ export function breathing(seconds) {
 // Politique de mouvement ; les clés absentes comptent pour false.
 // reducedMotion l'emporte sur tout. Écran tactile (pas de curseur à suivre, batterie)
 // ou personnage figé : ni respiration ni regard, rendu à la demande.
+// `idle` dit si le personnage respire ; `animate` si une scène peut s'animer (décor, effets),
+// faux seulement sous mouvement réduit : un écran tactile ne fige pas les sections.
 export function motionPolicy({ reducedMotion = false, coarsePointer = false, frozen = false } = {}) {
   if (reducedMotion) {
-    return { idle: false, lookAt: false, blend: 'snap', frameloop: 'demand' };
+    return { idle: false, lookAt: false, blend: 'snap', frameloop: 'demand', animate: false };
   }
   if (frozen || coarsePointer) {
-    return { idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand' };
+    return { idle: false, lookAt: false, blend: 'smooth', frameloop: 'demand', animate: true };
   }
-  return { idle: true, lookAt: true, blend: 'smooth', frameloop: 'always' };
+  return { idle: true, lookAt: true, blend: 'smooth', frameloop: 'always', animate: true };
 }
