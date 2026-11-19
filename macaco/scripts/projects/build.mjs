@@ -8,7 +8,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url))
 const sources = join(root, '../public/projects')
 const out = join(root, 'public/projects')
 
-export const SOURCES = [
+const SOURCES = [
   { id: 'leonart', file: 'leonart.png' },
   { id: 'wiitanks', file: 'tank_game.png' },
   { id: 'presence', file: 'facial_recognition.png' },
