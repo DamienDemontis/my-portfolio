@@ -6,8 +6,9 @@
 // les aigus le font frémir ; chaque coup de grosse caisse lance une onde au sol. Quand la musique
 // joue, il bat la mesure.
 //
-// La couleur de l'anneau et du liseré du casque glisse du cuivre vers la teinte de la pochette
-// du morceau en cours (coverColor.js), et y revient sans pochette ou à l'arrêt.
+// La couleur de l'anneau (particules et fil de lumière) et du liseré du casque glisse du cuivre
+// vers la teinte de la pochette du morceau en cours (coverColor.js), et y revient sans pochette
+// ou à l'arrêt.
 //
 // Props : listening (le moteur d'écoute : tick(), bands, state, current, subscribe ;
 // src/lib/listening.js), plus { timeline, policy } de CinematicSection.
@@ -28,7 +29,8 @@ import { glideStep, readCoverColor, tintToward } from './coverColor.js'
 import { createTempoState, suivreTempo } from './tempo.js'
 
 const BOOMBOX = '/props/boombox.glb'
-const CUIVRE = new Color('#ff8a4c')
+const CUIVRE_HEX = '#ff8a4c'
+const CUIVRE = new Color(CUIVRE_HEX)
 const DEG = Math.PI / 180
 // Flou du réflecteur, en constante de module : drei mémorise ses cibles de rendu sur l'identité
 // de ce tableau (sans les libérer) ; un tableau écrit en ligne les recréerait à chaque rendu.
@@ -38,12 +40,16 @@ const BLUR = [320, 90]
 const BASE_A = hexToRgb01(RING_COLORS[0])
 const BASE_B = hexToRgb01(RING_COLORS[1])
 const BASE_NEON = hexToRgb01(NEON)
+// Le fil de lumière au cœur de l'anneau : le cuivre de la salle, doublé pour le bloom.
+const BASE_COEUR = hexToRgb01(CUIVRE_HEX)
+const COEUR_INTENSITY = 2
 
 /** Couleurs cibles (espace de travail de three) pour une pochette [r, g, b] 0..1, ou le cuivre (null). */
 function viser(cible, pochette) {
   cible.a.setRGB(...tintToward(BASE_A, pochette), SRGBColorSpace)
   cible.b.setRGB(...tintToward(BASE_B, pochette), SRGBColorSpace)
   cible.neon.setRGB(...tintToward(BASE_NEON, pochette), SRGBColorSpace).multiplyScalar(NEON_INTENSITY)
+  cible.coeur.setRGB(...tintToward(BASE_COEUR, pochette), SRGBColorSpace).multiplyScalar(COEUR_INTENSITY)
 }
 
 // Le personnage, son casque attaché à l'os de la tête, et le mélange des deux clips : `listen`
@@ -89,8 +95,8 @@ function Auditeur({ listening, policy, casque }) {
     actions.calme.setEffectiveWeight(1 - poids.current)
     tempo.horloge += Math.max(0, dt)
     const r = suivreTempo(tempo.etat, bandes.playing && bandes.kick, tempo.horloge, actions.mesure.time, tempo.sortie)
-    actions.mesure.setEffectiveTimeScale(r.timeScale)
-    if (r.recaler !== null) actions.mesure.time = r.recaler
+    // le tempo des coups, plus la remise en phase en cours (jamais négatif au total)
+    actions.mesure.setEffectiveTimeScale(r.timeScale + r.rephase)
     mixer.update(dt)
   }, -1)
 
@@ -190,9 +196,9 @@ export default function ListeningRoom({ listening, timeline, policy }) {
     [anneau],
   )
   // Le cœur de l'anneau : un fil de lumière cuivre, qui gonfle et s'allume sur les graves ; il
-  // donne sa forme à la poussière de particules.
+  // donne sa forme à la poussière de particules. Il prend la teinte de la pochette avec l'anneau.
   const coeur = React.useMemo(() => {
-    const m = new MeshBasicMaterial({ color: CUIVRE.clone().multiplyScalar(2), transparent: true, opacity: 0.55, blending: AdditiveBlending, depthWrite: false, toneMapped: false })
+    const m = new MeshBasicMaterial({ color: CUIVRE.clone().multiplyScalar(COEUR_INTENSITY), transparent: true, opacity: 0.55, blending: AdditiveBlending, depthWrite: false, toneMapped: false })
     const mesh = new Mesh(new TorusGeometry(ROOM.ring.radius, 0.0045, 6, 160), m)
     mesh.rotation.x = Math.PI / 2
     return mesh
@@ -219,10 +225,11 @@ export default function ListeningRoom({ listening, timeline, policy }) {
   React.useEffect(() => () => casque.dispose(), [casque])
 
   // La teinte de la pochette : les couleurs cibles (cuivre au départ), changées quand le morceau
-  // change ; l'anneau et le liseré y glissent à chaque image. Seuls un morceau en lecture ou en
-  // pause teintent la salle : sans pochette, en chargement, en erreur ou à l'arrêt, le cuivre.
+  // change ; l'anneau, son fil de lumière et le liseré y glissent ensemble à chaque image. Seuls
+  // un morceau en lecture ou en pause teintent la salle : sans pochette, en chargement, en
+  // erreur ou à l'arrêt, le cuivre.
   const teinte = React.useMemo(() => {
-    const cible = { a: new Color(), b: new Color(), neon: new Color() }
+    const cible = { a: new Color(), b: new Color(), neon: new Color(), coeur: new Color() }
     viser(cible, null)
     return cible
   }, [])
@@ -275,6 +282,7 @@ export default function ListeningRoom({ listening, timeline, policy }) {
     const part = glideStep(pas, policy.animate && policy.frameloop === 'always')
     u.uColorA.value.lerp(teinte.a, part)
     u.uColorB.value.lerp(teinte.b, part)
+    coeur.material.color.lerp(teinte.coeur, part)
     casque.neonMaterial.color.lerp(teinte.neon, part)
   }, -2)
 
