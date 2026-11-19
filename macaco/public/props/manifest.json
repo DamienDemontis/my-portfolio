@@ -1,0 +1,173 @@
+[
+  {
+    "id": "filmstrip_projector_8mm",
+    "section": "projets",
+    "file": "/props/filmstrip_projector_8mm.glb",
+    "bytes": 598296,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/filmstrip_projector_8mm",
+    "license": "CC0"
+  },
+  {
+    "id": "boombox",
+    "section": "musique",
+    "file": "/props/boombox.glb",
+    "bytes": 493696,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/boombox",
+    "license": "CC0"
+  },
+  {
+    "id": "modular_urban_apartments_facade",
+    "section": "coree",
+    "file": "/props/modular_urban_apartments_facade.glb",
+    "bytes": 595224,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/modular_urban_apartments_facade",
+    "license": "CC0"
+  },
+  {
+    "id": "rollershutter_door",
+    "section": "coree",
+    "file": "/props/rollershutter_door.glb",
+    "bytes": 32552,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/rollershutter_door",
+    "license": "CC0"
+  },
+  {
+    "id": "exterior_aircon_unit",
+    "section": "coree",
+    "file": "/props/exterior_aircon_unit.glb",
+    "bytes": 131188,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/exterior_aircon_unit",
+    "license": "CC0"
+  },
+  {
+    "id": "modular_electricity_poles",
+    "section": "coree",
+    "file": "/props/modular_electricity_poles.glb",
+    "bytes": 406168,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/modular_electricity_poles",
+    "license": "CC0"
+  },
+  {
+    "id": "street_lamp_01",
+    "section": "coree",
+    "file": "/props/street_lamp_01.glb",
+    "bytes": 68584,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/street_lamp_01",
+    "license": "CC0"
+  },
+  {
+    "id": "covered_car",
+    "section": "coree",
+    "file": "/props/covered_car.glb",
+    "bytes": 91612,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/covered_car",
+    "license": "CC0"
+  },
+  {
+    "id": "water_manhole_cover",
+    "section": "coree",
+    "file": "/props/water_manhole_cover.glb",
+    "bytes": 69120,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/water_manhole_cover",
+    "license": "CC0"
+  },
+  {
+    "id": "root_cluster_01",
+    "section": "vivant",
+    "file": "/props/root_cluster_01.glb",
+    "bytes": 234848,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/root_cluster_01",
+    "license": "CC0"
+  },
+  {
+    "id": "tree_stump_01",
+    "section": "vivant",
+    "file": "/props/tree_stump_01.glb",
+    "bytes": 290144,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/tree_stump_01",
+    "license": "CC0"
+  },
+  {
+    "id": "rock_moss_set_01",
+    "section": "vivant",
+    "file": "/props/rock_moss_set_01.glb",
+    "bytes": 174612,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/rock_moss_set_01",
+    "license": "CC0"
+  },
+  {
+    "id": "flower_gazania",
+    "section": "vivant",
+    "file": "/props/flower_gazania.glb",
+    "bytes": 309156,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/flower_gazania",
+    "license": "CC0"
+  },
+  {
+    "id": "dandelion_01",
+    "section": "vivant",
+    "file": "/props/dandelion_01.glb",
+    "bytes": 204636,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/dandelion_01",
+    "license": "CC0"
+  },
+  {
+    "id": "dead_tree_trunk",
+    "section": "vivant",
+    "file": "/props/dead_tree_trunk.glb",
+    "bytes": 200384,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/dead_tree_trunk",
+    "license": "CC0"
+  },
+  {
+    "id": "standing_chalkboard_01",
+    "section": "transmission",
+    "file": "/props/standing_chalkboard_01.glb",
+    "bytes": 254004,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/standing_chalkboard_01",
+    "license": "CC0"
+  },
+  {
+    "id": "SchoolDesk_01",
+    "section": "transmission",
+    "file": "/props/SchoolDesk_01.glb",
+    "bytes": 133728,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/SchoolDesk_01",
+    "license": "CC0"
+  },
+  {
+    "id": "SchoolChair_01",
+    "section": "transmission",
+    "file": "/props/SchoolChair_01.glb",
+    "bytes": 212620,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/SchoolChair_01",
+    "license": "CC0"
+  },
+  {
+    "id": "large_iron_gate",
+    "section": "sortie",
+    "file": "/props/large_iron_gate.glb",
+    "bytes": 565960,
+    "source": "Poly Haven",
+    "url": "https://polyhaven.com/a/large_iron_gate",
+    "license": "CC0"
+  }
+]

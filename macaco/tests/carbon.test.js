@@ -66,7 +66,7 @@ test('le document HTML compte dans les deux chiffres', () => {
 test('une revalidation 304 ou un cache memoire ne cachent pas le poids', () => {
   stubPerf({
     resource: [
-      { name: '/intro/Mecha_Full.glb', transferSize: 300, encodedBodySize: 2_667_520 },
+      { name: '/intro/gros-modele.glb', transferSize: 300, encodedBodySize: 2_667_520 },
       { name: '/a.js', transferSize: 0, encodedBodySize: 100_000 },
     ],
   })

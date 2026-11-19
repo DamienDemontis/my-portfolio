@@ -2,8 +2,8 @@
 import { statSync } from 'node:fs';
 import { Accessor, NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, KHRMaterialsVolume } from '@gltf-transform/extensions';
-import { prune, dedup, meshopt, textureCompress } from '@gltf-transform/functions';
-import { MeshoptEncoder, MeshoptDecoder } from 'meshoptimizer';
+import { prune, dedup, meshopt, textureCompress, weld, simplify } from '@gltf-transform/functions';
+import { MeshoptEncoder, MeshoptDecoder, MeshoptSimplifier } from 'meshoptimizer';
 import sharp from 'sharp';
 import { stripArmInfluence } from './weights.mjs';
 
@@ -30,12 +30,38 @@ function exigerFlottants(prim, semantic, node) {
   }
 }
 
-export async function buildCharacter({ input, output, radiusFactor = 0.18, textureSize = 1024 }) {
+// NodeIO prêt pour lire et écrire du meshopt (partagé avec le pipeline des décors).
+export async function createIO() {
   await MeshoptEncoder.ready;
   await MeshoptDecoder.ready;
-  const io = new NodeIO()
+  return new NodeIO()
     .registerExtensions(ALL_EXTENSIONS)
     .registerDependencies({ 'meshopt.encoder': MeshoptEncoder, 'meshopt.decoder': MeshoptDecoder });
+}
+
+// Optimisation commune : textures WebP bornées, maillage éventuellement réduit, meshopt.
+// simplifyRatio (0..1, absent = pas de réduction) garde la silhouette (erreur tolérée simplifyError, 1 % de l’emprise par défaut).
+export async function optimizeGlb({ document, textureSize = 1024, simplifyRatio, simplifyError = 0.01, meshoptLevel = 'medium' }) {
+  const steps = [textureCompress({ encoder: sharp, targetFormat: 'webp', resize: [textureSize, textureSize] })];
+  if (simplifyRatio !== undefined && simplifyRatio < 1) {
+    await MeshoptSimplifier.ready;
+    // Permissive : le maillage peut se réduire à travers les coutures d'UV et de normales ;
+    // Prune : les petits morceaux isolés qui ne comptent plus pour la silhouette disparaissent.
+    const simplifier = {
+      ready: MeshoptSimplifier.ready,
+      supported: MeshoptSimplifier.supported,
+      simplify: (idx, pos, stride, target, err, flags) =>
+        MeshoptSimplifier.simplify(idx, pos, stride, target, err, [...flags, 'Permissive', 'Prune']),
+      simplifyPoints: (...a) => MeshoptSimplifier.simplifyPoints(...a),
+    };
+    steps.push(weld(), simplify({ simplifier, ratio: simplifyRatio, error: simplifyError }));
+  }
+  steps.push(prune(), dedup(), meshopt({ encoder: MeshoptEncoder, level: meshoptLevel }));
+  await document.transform(...steps);
+}
+
+export async function buildCharacter({ input, output, radiusFactor = 0.18, textureSize = 1024 }) {
+  const io = await createIO();
   const doc = await io.read(input);
   const root = doc.getRoot();
 
@@ -78,12 +104,7 @@ export async function buildCharacter({ input, output, radiusFactor = 0.18, textu
     if (ext.extensionName === KHRMaterialsVolume.EXTENSION_NAME) ext.dispose();
   }
 
-  await doc.transform(
-    textureCompress({ encoder: sharp, targetFormat: 'webp', resize: [textureSize, textureSize] }),
-    prune(),
-    dedup(),
-    meshopt({ encoder: MeshoptEncoder, level: 'medium' }),
-  );
+  await optimizeGlb({ document: doc, textureSize });
   await io.write(output, doc);
 
   let triangles = 0;
