@@ -259,13 +259,23 @@ const CAMERA_SHOTS = [{
     }
   }
 }, {
-  pos: [-4, 0, -1],
-  look: [0.03, -0.45, -0.33],
-  fov: 37,
+  // contre-plongée : la caméra attend au ras du sol pendant qu'il tombe dans le cadre
+  pos: [-4.2, -0.95, -1.2],
+  look: [0, -0.05, -0.33],
+  fov: 40,
   at: 9900,
   transition: "lerp",
   dur: 1e3,
   anim: "descent"
+}, {
+  // grue après la réception : des bottes au visage, la ville derrière lui
+  pos: [-3.3, 0.7, -0.95],
+  look: [0, 0.78, -0.25],
+  fov: 34,
+  at: 11400,
+  transition: "lerp",
+  dur: 1800,
+  anim: ""
 }, {
   pos: [-1.5, -7.7, -0.5],
   look: [40.8, -7.7, 4.6],
@@ -304,9 +314,13 @@ const CAMERA_SHOTS_NARROW = [{
   look: [8, -24, 1],
   fov: 34
 }, {
-  pos: [-3.8, 0, -1],
-  look: [0.03, -0.45, -0.33],
-  fov: 37
+  pos: [-4, -0.95, -1.15],
+  look: [0, -0.05, -0.33],
+  fov: 44
+}, {
+  pos: [-3.4, 0.55, -1],
+  look: [0, 0.7, -0.25],
+  fov: 42
 }, {
   pos: [-1.5, -7.7, -0.5],
   look: [40.8, -7.7, 4.6],
