@@ -14,9 +14,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { PROJECTS } from '../content/projects.js'
-import { afterLoad } from '../lib/afterLoad.js'
 import { getOffsetBottom, getOffsetTop, getViewportHeight, scrollRootTo } from '../lib/scroll.js'
 import CinematicSection from '../three/cinematic/CinematicSection.jsx'
+import { useDeferredEffects } from '../three/cinematic/useDeferredEffects.js'
 import { PROJECTION_SHOTS, PROJECTION_STILL } from '../three/projection/layout.js'
 import { LEADER, PROJECT_ANCHORS, projectAt } from '../three/projection/steps.js'
 import '../styles/projects.css'
@@ -49,26 +49,9 @@ function allerAuPalier(piste, i) {
   scrollRootTo({ top: haut + PROJECT_ANCHORS[i] * course, behavior: reduit ? 'auto' : 'smooth' })
 }
 
-// Effets de post-traitement, importés après load : @react-three/postprocessing reste hors du
-// premier chargement. undefined jusque-là, puis le tableau du module (une seule nouvelle identité).
-function useEffetsDiffere() {
-  const [effets, setEffets] = React.useState(undefined)
-  React.useEffect(() => {
-    let vivant = true
-    const annuler = afterLoad(() => {
-      import('../three/projection/effects.jsx')
-        .then((module) => {
-          if (vivant) setEffets(module.PROJECTION_EFFECTS)
-        })
-        .catch((error) => console.warn('[projets] effets non chargés :', error))
-    })
-    return () => {
-      vivant = false
-      annuler()
-    }
-  }, [])
-  return effets
-}
+// Effets de post-traitement, importés après load (useDeferredEffects) : au module, pour une
+// identité stable.
+const chargerEffets = () => import('../three/projection/effects.jsx').then((module) => module.PROJECTION_EFFECTS)
 
 function Lien({ kind, href, tabIndex, t }) {
   return (
@@ -150,7 +133,7 @@ export default function Projects() {
     setIndex(suivant)
   }, [])
   const stageProps = React.useMemo(() => ({ projects: PROJECTS, index }), [index])
-  const effects = useEffetsDiffere()
+  const effects = useDeferredEffects(chargerEffets)
 
   // Focus arrivé dans une carte cachée : la piste va à son palier, la carte s'y montrera.
   const montrer = React.useCallback((event, i) => {
