@@ -21,6 +21,22 @@ export const SECTION_CLIPS = {
     { t: 2.9, pose: [...MAINS_POCHES, ...APPUI, ["Spine2", "x", -0.5], ["Head", "x", 4], ["Head", "y", -2], ["Head", "z", 2]], hips: 0.002 },
     { t: 4, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 3]], hips: 0 },
   ] },
+  // Musique, sans son : il écoute, la tête un peu penchée, un balancement lent.
+  listen: { duration: 3.2, keys: [
+    { t: 0, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 8], ["Head", "z", -3]], hips: 0 },
+    { t: 1.6, pose: [...MAINS_POCHES, ...APPUI, ["Spine2", "z", 1.5], ["Head", "x", 10], ["Head", "z", 2]], hips: 0.003 },
+    { t: 3.2, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 8], ["Head", "z", -3]], hips: 0 },
+  ] },
+  // Musique, en écoute : la tête bat la mesure, les épaules suivent. Deux temps en 32 images
+  // (112,5 bpm), une durée multiple de l'image pour une boucle exacte. La scène le mêle à
+  // `listen` selon la lecture.
+  listen_beat: { duration: 32 / 30, keys: [
+    { t: 0, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 2], ["Neck", "x", 1]], hips: 0.004 },
+    { t: 8 / 30, pose: [...MAINS_POCHES, ...APPUI, ["Spine2", "x", 2], ["Neck", "x", 5], ["Head", "x", 14], ["LeftShoulder", "z", 3], ["RightShoulder", "z", -3]], hips: -0.004, ease: "in" },
+    { t: 16 / 30, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 2], ["Neck", "x", 1]], hips: 0.004, ease: "out" },
+    { t: 24 / 30, pose: [...MAINS_POCHES, ...APPUI, ["Spine2", "x", 2], ["Neck", "x", 5], ["Head", "x", 13], ["Head", "z", 3], ["LeftShoulder", "z", 3], ["RightShoulder", "z", -3]], hips: -0.004, ease: "in" },
+    { t: 32 / 30, pose: [...MAINS_POCHES, ...APPUI, ["Head", "x", 2], ["Neck", "x", 1]], hips: 0.004, ease: "out" },
+  ] },
 };
 
 const CACHE = new WeakMap();

@@ -99,3 +99,16 @@ test('leaves the shared scene in its live pose and caches per scene', () => {
   expect(bones.Hips.position.equals(hanches)).toBe(true)
   expect(sectionClipsFor(root, parser)).toBe(a)
 })
+
+test.each(['listen', 'listen_beat'])('%s: baked at 30 fps, finite, looping seamlessly', (nom) => {
+  const { root, parser } = rig()
+  const clip = sectionClipsFor(root, parser).find((c) => c.name === nom)
+  expect(clip.duration).toBe(SECTION_CLIPS[nom].duration)
+  const frames = Math.round(clip.duration * 30) + 1
+  for (const track of clip.tracks) {
+    expect(track.times.length).toBe(frames)
+    expect(track.values.every(Number.isFinite)).toBe(true)
+    const k = track.getValueSize()
+    Array.from(track.values.slice(0, k)).forEach((v, i) => expect(v).toBeCloseTo(track.values[track.values.length - k + i], 6))
+  }
+})
