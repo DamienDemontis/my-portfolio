@@ -3,29 +3,31 @@
 // Le projecteur éclaire pour de vrai : une SpotLight à ombres dont la texture (map) est la
 // pellicule (filmMaterial.js), composée à chaque image. L'image du projet tombe sur l'écran, sur
 // son manteau quand il est dans le faisceau, et son ombre mord le bas de l'image. L'écran renvoie
-// la couleur du projet sur son visage (RectAreaLight), visible au contrechamp. Un cône additif et
-// de la poussière dessinent le faisceau ; les bobines tournent.
+// la couleur du projet sur son visage (une SpotLight très ouverte posée sur la toile), visible au
+// contrechamp. Un cône additif et de la poussière dessinent le faisceau ; les bobines tournent.
 //
 // Props : projects (PROJECTS), index (projet courant, utilisé sous mouvement réduit), plus
-// { timeline, policy } de CinematicSection. Le projet à l'écran vient de projectAt(p) : le même
-// calcul que le texte en DOM.
+// { timeline, policy } de CinematicSection. Le projet à l'écran vient de stageStep : projectAt(p),
+// le même calcul que le texte en DOM, ou la carte affichée sous mouvement réduit.
 import React from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, useTexture } from '@react-three/drei'
-import { AnimationMixer, Box3, Color, Group, Quaternion, RectAreaLight, SpotLight, SRGBColorSpace, Vector3 } from 'three'
-import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
+import { AnimationMixer, Box3, Color, Group, Matrix4, Quaternion, SpotLight, Vector3 } from 'three'
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { readySkinned } from '../character/clips.js'
 import { sectionClipsFor } from '../character/sectionClips.js'
-import { LEADER, leaderAt, projectAt } from './steps.js'
+import { LEADER, leaderAt, stageStep } from './steps.js'
 import { ROOM } from './layout.js'
-import { createFilm, screenColor, setFilmStep, titleCard } from './filmMaterial.js'
+import { createFilm, filmTextures, screenColor, setFilmStep } from './filmMaterial.js'
 import { createBeam, createDust } from './beam.js'
 
 const PERSONNAGE = '/character/damien.glb'
 const PROJECTEUR = '/props/filmstrip_projector_8mm.glb'
 
-RectAreaLightUniformsLib.init()
+// Intensité du rebond, sans atténuation (decay 0) : sur son visage, à 3,8 m, l'éclairement que
+// donnait une lumière de surface d'intensité 3 grande comme la toile (facteur de forme ≈ 0,136,
+// × π).
+const REBOND = 1.3
 
 const v3 = (a) => new Vector3().fromArray(a)
 
@@ -53,11 +55,35 @@ function couleurLumiere(hex) {
   return c.setHSL(hsl.h, Math.min(0.85, hsl.s * 1.1), Math.max(0.55, hsl.l))
 }
 
+// Remet un rig cloné dans la pose de liaison du glTF : chaque os reprend la transformation de
+// son nœud. La scène partagée (cache de useGLTF) garde la pose que l'intro lui a laissée, que
+// clone() copie ; or la boîte d'un maillage skinné suit la pose, et avec elle la taille et les
+// pieds. Pas de Skeleton.pose() : il donne à l'os racine (les hanches) sa matrice de liaison
+// comme s'il n'avait pas de parent, alors que l'armature, au-dessus, est tournée.
+function poseDeLiaison(rig, source, parser) {
+  const noeuds = new Map()
+  source.traverse((o) => {
+    const n = o.isBone ? parser.associations.get(o)?.nodes : undefined
+    if (n !== undefined) noeuds.set(o.name, parser.json.nodes[n])
+  })
+  rig.traverse((o) => {
+    const n = o.isBone ? noeuds.get(o.name) : undefined
+    if (!n) return
+    if (n.matrix) new Matrix4().fromArray(n.matrix).decompose(o.position, o.quaternion, o.scale)
+    else {
+      o.position.fromArray(n.translation ?? [0, 0, 0])
+      o.quaternion.fromArray(n.rotation ?? [0, 0, 0, 1])
+      o.scale.fromArray(n.scale ?? [1, 1, 1])
+    }
+  })
+  return rig
+}
+
 function Personnage({ policy }) {
-  const { scene } = useGLTF(PERSONNAGE)
+  const { scene, parser } = useGLTF(PERSONNAGE, false, true)
   const rig = React.useMemo(() => {
     sectionClipsFor(scene) // clips construits sur la scène d'origine, en pose de liaison
-    const r = readySkinned(clone(scene))
+    const r = readySkinned(poseDeLiaison(clone(scene), scene, parser))
     r.traverse((o) => {
       if (o.isMesh) {
         o.castShadow = true
@@ -65,7 +91,7 @@ function Personnage({ policy }) {
       }
     })
     return r
-  }, [scene])
+  }, [scene, parser])
   const fit = React.useMemo(() => {
     const b = new Box3().setFromObject(rig)
     const taille = new Vector3()
@@ -97,7 +123,7 @@ function Personnage({ policy }) {
 
 // Le projecteur et ses bobines : chaque bobine tourne autour de son axe le plus fin.
 function Projecteur({ policy }) {
-  const { scene } = useGLTF(PROJECTEUR)
+  const { scene } = useGLTF(PROJECTEUR, false, true)
   const { modele, bobines } = React.useMemo(() => {
     const m = scene.clone(true)
     const liste = []
@@ -118,6 +144,8 @@ function Projecteur({ policy }) {
     })
     return { modele: m, bobines: liste }
   }, [scene])
+  // les géométries des bobines sont des copies (recentrées) : à libérer
+  React.useEffect(() => () => bobines.forEach((b) => b.objet.geometry.dispose()), [bobines])
   const angle = React.useRef(0)
   const q = React.useMemo(() => new Quaternion(), [])
   useFrame((_, dt) => {
@@ -212,22 +240,13 @@ function Salle() {
 
 export default function ProjectionRoom({ projects, index = LEADER, timeline, policy }) {
   const gl = useThree((s) => s.gl)
+  const invalidate = useThree((s) => s.invalidate)
   const viewportDpr = useThree((s) => s.viewport.dpr)
 
   // Les images des projets (WebP) et les intertitres dessinés, dans l'ordre des projets.
   const urls = React.useMemo(() => projects.filter((p) => p.media.kind === 'image').map((p) => p.media.src), [projects])
   const images = useTexture(urls)
-  const textures = React.useMemo(() => {
-    let i = 0
-    return projects.map((p) => {
-      if (p.media.kind === 'image') {
-        const t = images[i++]
-        t.colorSpace = SRGBColorSpace
-        return t
-      }
-      return titleCard(p.media, p.id === 'jobneko' ? 'JobNeko' : '')
-    })
-  }, [projects, images])
+  const textures = React.useMemo(() => filmTextures(projects, images), [projects, images])
   const couleurs = React.useMemo(() => projects.map((p) => couleurLumiere(p.media.color)), [projects])
   React.useEffect(() => () => textures.forEach((t) => t.isCanvasTexture && t.dispose()), [textures])
 
@@ -249,12 +268,14 @@ export default function ProjectionRoom({ projects, index = LEADER, timeline, pol
     s.shadow.camera.far = PORTEE + 1
     return s
   }, [film])
+  React.useEffect(() => () => lampe.dispose(), [lampe]) // sa carte d'ombre
 
-  // Le rebond de l'écran : une lumière de surface tournée vers lui, couleur du projet.
+  // Le rebond de l'écran : une lumière sans ombre au centre de la toile, très ouverte, tournée
+  // vers sa tête, couleur du projet.
   const rebond = React.useMemo(() => {
-    const r = new RectAreaLight('#ffffff', 3, ROOM.screen.width, ROOM.screen.height)
+    const r = new SpotLight('#ffffff', REBOND, 0, Math.PI / 3, 1, 0)
     r.position.set(CIBLE.x, CIBLE.y, CIBLE.z + 0.05)
-    r.lookAt(...ROOM.character.head)
+    r.target.position.fromArray(ROOM.character.head)
     return r
   }, [])
 
@@ -278,13 +299,19 @@ export default function ProjectionRoom({ projects, index = LEADER, timeline, pol
     [cone, poussiere],
   )
 
+  // Mouvement réduit : la boucle est à la demande et la progression figée, rien ne redessine
+  // quand la carte affichée change. Une image à chaque changement de projet.
+  React.useEffect(() => {
+    if (!policy.animate) invalidate()
+  }, [index, policy.animate, invalidate])
+
   const temps = React.useRef(0)
   const couleur = React.useMemo(() => new Color(), [])
   useFrame((_, dt) => {
     if (policy.animate) temps.current += Math.min(dt, 0.1)
     const p = timeline.current.p
     // Mouvement réduit : le projet de la carte affichée, en coupe franche.
-    const etape = policy.animate ? projectAt(p) : { from: index, to: index, burn: 0 }
+    const etape = stageStep(p, policy.animate, index)
     setFilmStep(film.uniforms, etape, textures)
     film.uniforms.uTime.value = temps.current
     film.uniforms.uLeader.value = leaderAt(p)
@@ -309,6 +336,7 @@ export default function ProjectionRoom({ projects, index = LEADER, timeline, pol
       <pointLight color="#ffb46a" intensity={0.07} distance={1.0} decay={2} position={[ROOM.projector.position[0] + 0.25, ROOM.projector.position[1] + 0.12, ROOM.projector.position[2] - 0.05]} />
       <primitive object={lampe.target} />
       <primitive object={rebond} />
+      <primitive object={rebond.target} />
       <primitive object={faisceau} />
       <Salle />
       <Fauteuils />

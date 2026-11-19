@@ -62,8 +62,9 @@ vec3 amorce(vec2 f) {
   float tour = fract(uLeader * 3.0);
   float angle = atan(c.x, c.y) / 6.28318 + 0.5;
   col *= mix(1.0, 0.6, step(angle, tour) * step(r, 0.62));
-  col *= 1.0 - 0.75 * (smoothstep(0.007, 0.0, abs(r - 0.36)) + smoothstep(0.007, 0.0, abs(r - 0.43)));
-  col *= 1.0 - 0.6 * (smoothstep(0.004, 0.0, abs(c.x)) + smoothstep(0.004, 0.0, abs(c.y)));
+  // smoothstep exige edge0 < edge1 : un front descendant s'écrit 1 - smoothstep(lo, hi, x).
+  col *= 1.0 - 0.75 * ((1.0 - smoothstep(0.0, 0.007, abs(r - 0.36))) + (1.0 - smoothstep(0.0, 0.007, abs(r - 0.43))));
+  col *= 1.0 - 0.6 * ((1.0 - smoothstep(0.0, 0.004, abs(c.x))) + (1.0 - smoothstep(0.0, 0.004, abs(c.y))));
   float chiffre = clamp(floor(uLeader * 3.0), 0.0, 2.0); // 0 → « 3 », 1 → « 2 », 2 → « 1 »
   vec2 g = c / vec2(0.36, 0.5) + 0.5;
   if (g.x > 0.0 && g.x < 1.0 && g.y > 0.0 && g.y < 1.0) {
@@ -87,23 +88,34 @@ void main() {
   vec2 demi = vec2(0.5 * RATIO, 0.5);
   float rayon = 0.05;
   float d = length(max(q - (demi - rayon), 0.0)) - rayon;
-  float fenetre = smoothstep(0.006, -0.006, d);
+  float fenetre = 1.0 - smoothstep(-0.006, 0.006, d);
   if (fenetre <= 0.0) { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); return; }
 
-  vec3 a = image(uFrom, uFromLeader, f);
-  vec3 b = image(uTo, uToLeader, f);
+  // Hors brûlure (presque toujours), une seule image : ni bruit ni second échantillon. uBurn est
+  // un uniforme, tous les pixels prennent la même branche. Aux bornes, la brûlure donne déjà
+  // exactement l'une ou l'autre image (le bruit reste dans [-0,04 ; 0,98]).
+  vec3 col;
+  if (uBurn < 0.001) {
+    col = image(uFrom, uFromLeader, f);
+  } else if (uBurn > 0.999) {
+    col = image(uTo, uToLeader, f);
+  } else {
+    vec3 a = image(uFrom, uFromLeader, f);
+    vec3 b = image(uTo, uToLeader, f);
 
-  // Brûlure : un foyer qui s'ouvre dans un bruit, un liseré incandescent, la pellicule roussie
-  // autour ; un éclair blanc au plus fort.
-  float n = fbm(f * vec2(5.3, 3.0) + 3.7) * 0.8 + 0.2 * (1.0 - 1.4 * length(f - vec2(0.62, 0.44)));
-  float seuil = uBurn * 1.3 - 0.15;
-  float brule = smoothstep(seuil + 0.015, seuil - 0.015, n);
-  float actif = step(0.001, uBurn) * step(uBurn, 0.999);
-  float lisere = smoothstep(0.07, 0.0, abs(n - seuil)) * actif;
-  float roussi = smoothstep(seuil + 0.18, seuil, n) * (1.0 - brule) * actif;
-  vec3 col = mix(a * (1.0 - 0.8 * roussi), b, brule);
-  col += lisere * vec3(1.6, 0.7, 0.22) + lisere * lisere * vec3(0.8, 0.7, 0.5);
-  col += vec3(1.0, 0.95, 0.85) * 0.22 * exp(-pow((uBurn - 0.5) / 0.07, 2.0)) * actif;
+    // Brûlure : un foyer qui s'ouvre dans un bruit, un liseré incandescent, la pellicule
+    // roussie autour ; un éclair blanc au plus fort.
+    float n = fbm(f * vec2(5.3, 3.0) + 3.7) * 0.8 + 0.2 * (1.0 - 1.4 * length(f - vec2(0.62, 0.44)));
+    float seuil = uBurn * 1.3 - 0.15;
+    float brule = 1.0 - smoothstep(seuil - 0.015, seuil + 0.015, n);
+    float lisere = 1.0 - smoothstep(0.0, 0.07, abs(n - seuil));
+    float roussi = (1.0 - smoothstep(seuil, seuil + 0.18, n)) * (1.0 - brule);
+    col = mix(a * (1.0 - 0.8 * roussi), b, brule);
+    col += lisere * vec3(1.6, 0.7, 0.22) + lisere * lisere * vec3(0.8, 0.7, 0.5);
+    // pas de pow() : une base négative y est indéfinie (NaN sur certains pilotes)
+    float z = (uBurn - 0.5) / 0.07;
+    col += vec3(1.0, 0.95, 0.85) * 0.22 * exp(-z * z);
+  }
 
   // Grain, battement de la lampe, vignetage de l'objectif.
   col += (hash(f * 913.0 + t24) - 0.5) * 0.06;
@@ -183,6 +195,17 @@ export function createFilm(frame) {
   }
 }
 
+// Rectangle aux coins arrondis, tracé à la main : ctx.roundRect manque avant Safari 16 et
+// Firefox 112.
+function rectangleArrondi(ctx, x, y, l, h, r) {
+  ctx.moveTo(x + r, y)
+  ctx.arcTo(x + l, y, x + l, y + h, r)
+  ctx.arcTo(x + l, y + h, x, y + h, r)
+  ctx.arcTo(x, y + h, x, y, r)
+  ctx.arcTo(x, y, x + l, y, r)
+  ctx.closePath()
+}
+
 /**
  * Intertitre dessiné pour un projet sans capture (`media.kind === 'title'`) : fond sombre teinté
  * de la couleur du projet, et son glyphe — un tracé d'électrocardiogramme et une bulle de
@@ -214,7 +237,7 @@ export function titleCard(media, name) {
     // une bulle de message, en haut à droite
     ctx.lineWidth = 7
     ctx.beginPath()
-    ctx.roundRect(760, 96, 170, 108, 26)
+    rectangleArrondi(ctx, 760, 96, 170, 108, 26)
     ctx.moveTo(800, 204)
     ctx.lineTo(786, 244)
     ctx.lineTo(834, 204)
@@ -250,6 +273,23 @@ export function titleCard(media, name) {
   const tex = new CanvasTexture(canvas)
   tex.colorSpace = SRGBColorSpace
   return tex
+}
+
+/**
+ * Une texture de pellicule par projet, dans l'ordre des projets : les images chargées (`images`,
+ * dans l'ordre des projets à image), passées en sRGB, et un intertitre dessiné par `makeTitle`
+ * pour chaque projet sans capture, nommé par `media.label` (vide sans nom à écrire).
+ */
+export function filmTextures(projects, images, makeTitle = titleCard) {
+  let i = 0
+  return projects.map((p) => {
+    if (p.media.kind === 'image') {
+      const t = images[i++]
+      t.colorSpace = SRGBColorSpace
+      return t
+    }
+    return makeTitle(p.media, p.media.label ?? '')
+  })
 }
 
 /**

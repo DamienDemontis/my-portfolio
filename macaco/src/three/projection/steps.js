@@ -44,6 +44,15 @@ export function projectAt(p) {
   return { index, from: index, to: index, burn: 0 }
 }
 
+/**
+ * Étape que la scène projette. Animée, celle de la progression p (projectAt), comme le texte ;
+ * sous mouvement réduit (progression figée), le projet de la carte affichée, `index`, en coupe
+ * franche : sans brûlure.
+ */
+export function stageStep(p, animate, index) {
+  return animate ? projectAt(p) : { index, from: index, to: index, burn: 0 }
+}
+
 // L'amorce compte 3, 2, 1 pendant que l'écran entre dans le champ (plan de la poussière, puis
 // par-dessus son épaule), jusqu'à la brûlure qui découvre le premier projet.
 const AMORCE_DEBUT = 0.08

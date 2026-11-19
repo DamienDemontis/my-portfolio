@@ -1,7 +1,8 @@
 // La pellicule suit la progression : images mêlées, amorce, brûlure, couleur renvoyée par l'écran.
-import { Color } from 'three'
-import { screenColor, setFilmStep } from '../src/three/projection/filmMaterial.js'
-import { LEADER, PROJECT_ANCHORS, leaderAt, projectAt } from '../src/three/projection/steps.js'
+import { Color, SRGBColorSpace } from 'three'
+import { filmTextures, screenColor, setFilmStep } from '../src/three/projection/filmMaterial.js'
+import { LEADER, PROJECT_ANCHORS, leaderAt, projectAt, stageStep } from '../src/three/projection/steps.js'
+import { PROJECTS } from '../src/content/projects.js'
 
 const uniformes = () => ({
   uFrom: { value: 'x' },
@@ -55,6 +56,60 @@ test('the screen throws the colour of what it shows, blended through the burn', 
   expect(c.g).toBeCloseTo(0.5, 6)
   const sortie = new Color()
   expect(screenColor({ from: LEADER, to: 0, burn: 1 }, COULEURS, AMORCE, sortie)).toBe(sortie)
+})
+
+test('animated, the stage shows the scroll; under reduced motion, the card on show, unburnt', () => {
+  const milieu = (PROJECT_ANCHORS[1] + PROJECT_ANCHORS[2]) / 2
+  expect(stageStep(milieu, true, 4)).toEqual(projectAt(milieu))
+  expect(stageStep(milieu, false, 4)).toEqual({ index: 4, from: 4, to: 4, burn: 0 })
+  expect(stageStep(milieu, false, LEADER)).toEqual({ index: LEADER, from: LEADER, to: LEADER, burn: 0 })
+  // la pellicule, la couleur renvoyée et la teinte du faisceau suivent alors la carte
+  const u = uniformes()
+  setFilmStep(u, stageStep(milieu, false, 4), TEXTURES)
+  expect(u.uFrom.value).toBe('t4')
+  expect(u.uTo.value).toBe('t4')
+  expect(u.uBurn.value).toBe(0)
+  expect(screenColor(stageStep(milieu, false, 4), COULEURS, AMORCE).equals(COULEURS[4])).toBe(true)
+})
+
+test('one film texture per project: the images in order, a drawn title card for each title', () => {
+  const projets = [
+    { id: 'a', media: { kind: 'title', glyph: 'ecg', color: '#111111' } },
+    { id: 'b', media: { kind: 'image', src: '/b.webp', color: '#222222' } },
+    { id: 'c', media: { kind: 'title', glyph: 'cat', color: '#333333', label: 'Chat' } },
+    { id: 'd', media: { kind: 'image', src: '/d.webp', color: '#444444' } },
+  ]
+  const images = [{ nom: 'b' }, { nom: 'd' }]
+  const appels = []
+  const fabrique = (media, nom) => {
+    appels.push([media, nom])
+    return { carte: media.glyph }
+  }
+  const t = filmTextures(projets, images, fabrique)
+  expect(t).toHaveLength(4)
+  expect(t[1]).toBe(images[0])
+  expect(t[3]).toBe(images[1])
+  expect(images.map((i) => i.colorSpace)).toEqual([SRGBColorSpace, SRGBColorSpace])
+  expect(t[0]).toEqual({ carte: 'ecg' })
+  expect(t[2]).toEqual({ carte: 'cat' })
+  expect(appels).toEqual([
+    [projets[0].media, ''],
+    [projets[2].media, 'Chat'],
+  ])
+})
+
+test('the title cards of the real projects take their name from the data', () => {
+  const noms = []
+  const images = PROJECTS.filter((p) => p.media.kind === 'image').map(() => ({}))
+  const t = filmTextures(PROJECTS, images, (media, nom) => {
+    noms.push([media.glyph, nom])
+    return {}
+  })
+  expect(t).toHaveLength(PROJECTS.length)
+  expect(noms).toEqual([
+    ['ecg', ''],
+    ['cat', 'JobNeko'],
+  ])
 })
 
 test('the leader counts down before the first project, then stays done', () => {

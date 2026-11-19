@@ -1,5 +1,7 @@
 // Projets de la salle de projection. Les textes vivent dans i18n (home.projects.items.<id>.*) ;
-// la couleur des projets à image vient du manifeste généré par `npm run projects`.
+// la couleur des projets à image vient du manifeste généré par `npm run projects`. Les projets
+// sans capture (`title`) ont un intertitre dessiné : son glyphe, sa couleur et, s'il y en a un,
+// le nom propre écrit dessous (`label`, sans traduction).
 import projectMedia from './projectMedia.json'
 
 const image = (id) => ({ kind: 'image', src: projectMedia[id].src, color: projectMedia[id].color })
@@ -13,7 +15,7 @@ export const PROJECTS = [
   },
   {
     id: 'jobneko',
-    media: { kind: 'title', glyph: 'cat', color: '#f2b33d' },
+    media: { kind: 'title', glyph: 'cat', color: '#f2b33d', label: 'JobNeko' },
     stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'OpenAI API'],
     links: [],
   },
