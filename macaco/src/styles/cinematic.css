@@ -1,0 +1,26 @@
+/* Section cinématique : la piste (hauteur en ligne, prop `track`) fait défiler un enfant
+   collant d'un écran ; le canvas remplit le fond, le texte passe au-dessus. */
+.cinematic {
+  position: relative;
+}
+
+.cinematic__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.cinematic__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cinematic__content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
