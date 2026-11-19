@@ -266,7 +266,7 @@ export default function ListeningRoom({ listening, timeline, policy }) {
   useFrame((state, dt) => {
     const pas = Math.min(dt, 0.1)
     if (policy.animate) temps.current += pas
-    listening.tick()
+    listening.tick(pas)
     const b = ringBands(listening.bands, temps.current, policy.animate, bandes)
     const u = anneau.material.uniforms
     u.uTime.value = temps.current

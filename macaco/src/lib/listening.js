@@ -1,7 +1,7 @@
 // Moteur d'ecoute : un seul <audio>, un seul AudioContext, un analyseur dont la
 // scene 3D lit les bandes a chaque image (tick). L'interface DOM s'abonne aux
 // changements d'etat (pas aux images). Une seule musique sur la page.
-import { BANDS, bandEnergy, smoothBands, detectKick, createKickState } from '../three/music/audioBands.js'
+import { BANDS, REFERENCE_DT, bandEnergy, smoothBands, detectKick, createKickState } from '../three/music/audioBands.js'
 
 export const FETCH_TIMEOUT_MS = 8000
 // Une fois l'extrait pose, delai maximal avant que la lecture ne demarre (evenement playing).
@@ -260,8 +260,10 @@ export function createListening({ resolve = fetchPreview } = {}) {
       return () => abonnes.delete(fn)
     },
 
-    // Appele par la scene a chaque image ; sans effet hors lecture.
-    tick() {
+    // Appele par la scene a chaque image, avec la duree de l'image (secondes) : lissage et
+    // temps mort des coups suivent le temps ecoule, quelle que soit la cadence. Sans effet
+    // hors lecture.
+    tick(dt = REFERENCE_DT) {
       const jouer = state === 'playing'
       bands.playing = jouer
       if (!jouer || !analyser) {
@@ -276,8 +278,8 @@ export function createListening({ resolve = fetchPreview } = {}) {
         mid: bandEnergy(data, ...BANDS.mid),
         high: bandEnergy(data, ...BANDS.high),
       }
-      lisses = smoothBands(lisses, brut)
-      const k = detectKick(kickState, lisses.bass)
+      lisses = smoothBands(lisses, brut, dt)
+      const k = detectKick(kickState, lisses.bass, dt)
       kickState = k.state
       bands.bass = lisses.bass
       bands.mid = lisses.mid

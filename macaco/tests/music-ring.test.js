@@ -1,6 +1,6 @@
 // L'anneau de la salle d'écoute : il suit la musique quand elle joue, respire sans elle, se fige
 // sous mouvement réduit ; les ondes au sol naissent sur les coups et s'éteignent.
-import { RIPPLES, RIPPLE_LIFE, idleBands, ringBands, rippleLook, stepRipples } from '../src/three/music/ring.js'
+import { RIPPLES, RIPPLE_LIFE, createRing, idleBands, ringBands, rippleLook, stepRipples } from '../src/three/music/ring.js'
 
 const MUSIQUE = { bass: 0.8, mid: 0.4, high: 0.2, kick: true, playing: true }
 const SILENCE = { bass: 0, mid: 0, high: 0, kick: false, playing: false }
@@ -64,6 +64,17 @@ test('the per-frame helpers write in place', () => {
   expect(rippleLook(RIPPLE_LIFE / 2, look)).toBe(look)
   expect(look).toEqual(rippleLook(RIPPLE_LIFE / 2))
   expect(rippleLook(Infinity, look)).toEqual({ scale: 1, opacity: 0 })
+})
+
+// Fin du dolly zoom : la caméra entre dans l'anneau, -mv.z tend vers 0 et une particule
+// couvrirait l'écran. La taille est bornée à 3 × uSize (uSize = 16 px × dpr : 48 px × dpr).
+test('the particle size is capped at 48 px x dpr when the camera enters the ring', () => {
+  const ring = createRing({ count: 8 })
+  const vertex = ring.material.vertexShader
+  expect(vertex).toMatch(/gl_PointSize\s*=\s*min\([\s\S]*?,\s*uSize \* 3\.0\);/)
+  expect(vertex.match(/gl_PointSize\s*=/g)).toHaveLength(1)
+  ring.geometry.dispose()
+  ring.material.dispose()
 })
 
 test('more kicks than ripples recycle the oldest', () => {

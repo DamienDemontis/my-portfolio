@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createListening, fetchPreview } from '../src/lib/listening.js'
 
 const TRACK = { id: 'feel-good-inc', title: 'Feel Good Inc', artist: 'Gorillaz', genre: 'Alternative', deezer: '3129407' }
@@ -156,6 +159,31 @@ test('tick : bandes lues sur l analyseur, nulles hors lecture', async () => {
   l.pause()
   l.tick()
   expect(l.bands.playing).toBe(false)
+})
+
+test('tick(dt) : le lissage et le temps mort suivent le temps écoulé, pas le nombre d images', async () => {
+  const l = createListening({ resolve: async () => RES })
+  await l.play(TRACK)
+  // une image à 144 i/s : l'attaque des graves fait 1 - 0,5^(60/144) du chemin, pas la moitié
+  l.tick(1 / 144)
+  expect(l.bands.bass).toBeCloseTo(1 - 0.5 ** (60 / 144), 5)
+  expect(l.bands.kick).toBe(true)
+  l.tick(1 / 144)
+  expect(l.bands.kick).toBe(false) // temps mort
+  // même temps écoulé à 144 i/s qu'en une image à 60 i/s : même niveau
+  const a = createListening({ resolve: async () => RES })
+  await a.play(TRACK)
+  a.tick(1 / 60)
+  const b = createListening({ resolve: async () => RES })
+  await b.play(TRACK)
+  for (let i = 0; i < 12; i++) b.tick(1 / 720)
+  expect(b.bands.bass).toBeCloseTo(a.bands.bass, 6)
+})
+
+test('la scène passe le temps de l image au moteur', () => {
+  // Chemin construit à la main : Vite réécrit new URL(…, import.meta.url) en adresse servie.
+  const src = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../src/three/music/ListeningRoom.jsx'), 'utf8')
+  expect(src).toMatch(/listening\.tick\(pas\)/)
 })
 
 test('sans AudioContext : lecture sans bandes', async () => {

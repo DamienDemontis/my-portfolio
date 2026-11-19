@@ -102,7 +102,9 @@ void main() {
   vec3 p = vec3(cos(a) * r, y, sin(a) * r) + tremble;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + e * 0.8) / -mv.z;
+  // bornée : à la fin du dolly zoom, la caméra entre dans l'anneau (-mv.z tend vers 0) ; au plus
+  // 3 × uSize, soit 48 px × dpr (uSize vaut 16 px × dpr, ListeningRoom)
+  gl_PointSize = min(uSize * (0.55 + aSeed * 0.9) * (1.0 + e * 0.8) / -mv.z, uSize * 3.0);
   vBand = aBand;
   vGlow = 0.45 + 0.55 * e;
 }
