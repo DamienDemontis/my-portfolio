@@ -236,39 +236,56 @@ const Ps = React.forwardRef(function ({
     light: null,
     dark: null
   },
+  // Six plans, un par expertise, chacun avec sa focale (storyboard) ; le personnage regarde la caméra (−X).
   ct = [{
-    pos: [-4.2, 0.85, 0.1],
-    look: [3.9, -0.85, 0],
-    fov: 31.5
-  }, {
-    pos: [-0.95, 0.3, 0.1],
-    look: [4, 0.25, -4],
-    fov: 24
-  }, {
-    pos: [-1.95, 0.9, 0.55],
-    look: [4, -1.45, 0.15],
+    pos: [-1.6, 1.08, 0.15],
+    look: [0, 1.03, 0.02],
     fov: 12
   }, {
-    pos: [-1.45, 0.4, 0.4],
-    look: [4, 0.6, 0.05],
-    fov: 21
+    pos: [-1.1, 0.15, -0.75],
+    look: [0, -0.07, -0.33],
+    fov: 28
+  }, {
+    pos: [-0.4, 4.2, 0.05],
+    look: [0, -1, 0],
+    fov: 40
+  }, {
+    pos: [0.1, 1.05, 2.4],
+    look: [0, 1, 0],
+    fov: 24
+  }, {
+    pos: [-1.6, -1.1, -1],
+    look: [0, 0.4, 0.2],
+    fov: 50
+  }, {
+    pos: [-5.5, 0.6, 1.2],
+    look: [0, 0.1, 0],
+    fov: 34
   }],
   Os = [{
-    pos: [-9.03, 3.15, 0.2],
-    look: [1.17, -0.4, 0],
-    fov: 15
+    pos: [-2.2, 1.06, 0.15],
+    look: [0, 1.0, 0.02],
+    fov: 16
   }, {
-    pos: [-0.75, 0.4, 0.65],
-    look: [1.2, -0.05, -4],
-    fov: 24
+    pos: [-1.6, 0.1, -0.9],
+    look: [0, -0.07, -0.33],
+    fov: 34
   }, {
-    pos: [-2, 0.85, 2.4],
-    look: [1.3, -0.45, -0.25],
-    fov: 12
+    pos: [-0.4, 5.2, 0.05],
+    look: [0, -1, 0],
+    fov: 48
   }, {
-    pos: [-0.75, 0.65, 0.72],
-    look: [1.2, 0.32, 0.05],
-    fov: 21
+    pos: [0.1, 1.0, 3.2],
+    look: [0, 0.95, 0],
+    fov: 30
+  }, {
+    pos: [-2.2, -1.1, -1.2],
+    look: [0, 0.3, 0.2],
+    fov: 60
+  }, {
+    pos: [-7.5, 0.6, 1.4],
+    look: [0, 0.1, 0],
+    fov: 40
   }],
   oe = {
     creativity: "/home/creativity-icon.svg",
@@ -284,42 +301,42 @@ const Ps = React.forwardRef(function ({
     side: "left",
     color: "#7FFFFF",
     icon: oe.creativity,
-    pos: [0.6, 0.3, -1.2]
+    pos: [-0.11, 1.04, 0.04]
   }, {
     key: "h2",
-    shot: 0,
+    shot: 1,
     side: "left",
     color: "#7F3AEF",
     icon: oe.craft,
-    pos: [0.19, 0.1, -1.1]
+    pos: [-0.05, -0.07, -0.33]
   }, {
     key: "h3",
-    shot: 1,
+    shot: 2,
     side: "right",
     color: "#A9FF00",
     icon: oe.strategy,
-    pos: [1.45, -0.6, 0.55]
+    pos: [-0.05, -1.15, 0.12]
   }, {
     key: "h4",
-    shot: 1,
+    shot: 3,
     side: "right",
     color: "#5372FF",
     icon: oe.technology,
-    pos: [-0.2, 0.25, 0.45]
+    pos: [0, 1.15, 0]
   }, {
     key: "h5",
-    shot: 2,
+    shot: 4,
     side: "right",
     color: "#7F3AEF",
     icon: oe.innovation,
-    pos: [1, 0.5, 0.55]
+    pos: [-0.12, 0.6, 0]
   }, {
     key: "h6",
-    shot: 2,
+    shot: 5,
     side: "left",
     color: "#7FFFFF",
     icon: oe.delivery,
-    pos: [-0.5, 0.5, 0.28]
+    pos: [0, 0.73, 0.27]
   }],
   it = 60,
   lt = 130,

@@ -67,7 +67,7 @@ function K({
     if (o) return o.reset().setLoop(LoopRepeat, 1 / 0).play(), v.current = o, () => {
       o.stop(), v.current = null;
     };
-  }, [M]), <group ref={a} scale={u}><Center precise={!1}><primitive object={r} />{s > 0 && <N source={r} fitScale={u} glitch={i} colors={e} stageRef={t} maxGhosts={s} />}</Center></group>;
+  }, [M]), <group ref={a} scale={u} rotation={[0, -Math.PI / 2, 0]}><Center precise={!1}><primitive object={r} />{s > 0 && <N source={r} fitScale={u} glitch={i} colors={e} stageRef={t} maxGhosts={s} />}</Center></group>;
 }
 function N({
   source: e,
