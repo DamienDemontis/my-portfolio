@@ -5,7 +5,7 @@ import { Bloom, Noise, Vignette } from '@react-three/postprocessing'
 
 // Constante de module : une identité stable, sans quoi le composer reconstruirait ses passes.
 export const PROJECTION_EFFECTS = [
-  <Bloom key="bloom" intensity={0.9} luminanceThreshold={0.62} luminanceSmoothing={0.2} mipmapBlur />,
+  <Bloom key="bloom" intensity={0.7} luminanceThreshold={0.72} luminanceSmoothing={0.2} mipmapBlur />,
   <Noise key="grain" premultiply opacity={0.32} />,
   <Vignette key="vignette" offset={0.28} darkness={0.72} />,
 ]

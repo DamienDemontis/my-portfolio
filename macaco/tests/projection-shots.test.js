@@ -21,6 +21,8 @@ function camera(pose, aspect) {
   return c
 }
 
+const ndc = (cam, point) => new Vector3().fromArray(point).project(cam)
+
 const dansLeCadre = (cam, point, marge = 0.9) => {
   const v = new Vector3().fromArray(point).project(cam)
   return Math.abs(v.x) <= marge && Math.abs(v.y) <= marge && v.z > -1 && v.z < 1
@@ -53,3 +55,27 @@ for (const [cadrage, aspect] of Object.entries(ECRANS)) {
     expect(dansLeCadre(contre, ROOM.character.head, 0.6)).toBe(true)
   })
 }
+
+// La carte du projet occupe le tiers gauche en paysage et le bas de l'écran en portrait :
+// l'écran de la salle doit rester hors de cette zone à chaque palier.
+test('wide: the screen sits right of the project card', () => {
+  for (const a of PROJECT_ANCHORS) {
+    const v = ndc(camera(shotAt(PROJECTION_SHOTS.wide, a), ECRANS.wide), ROOM.screen.center)
+    expect(v.x, `palier ${a}`).toBeGreaterThan(-0.1)
+  }
+})
+
+test('narrow: the screen sits above the project card', () => {
+  for (const a of PROJECT_ANCHORS) {
+    const v = ndc(camera(shotAt(PROJECTION_SHOTS.narrow, a), ECRANS.narrow), ROOM.screen.center)
+    expect(v.y, `palier ${a}`).toBeGreaterThan(0.2)
+  }
+})
+
+test('narrow: in the reverse shot his face sits above the project card', () => {
+  for (const p of [REVERSE_AT, 1]) {
+    const cam = camera(shotAt(PROJECTION_SHOTS.narrow, p), ECRANS.narrow)
+    expect(dansLeCadre(cam, ROOM.character.head)).toBe(true)
+    expect(ndc(cam, ROOM.character.head).y).toBeGreaterThan(0.2)
+  }
+})

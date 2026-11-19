@@ -43,3 +43,13 @@ export function projectAt(p) {
   }
   return { index, from: index, to: index, burn: 0 }
 }
+
+// L'amorce compte 3, 2, 1 pendant que l'écran entre dans le champ (plan de la poussière, puis
+// par-dessus son épaule), jusqu'à la brûlure qui découvre le premier projet.
+const AMORCE_DEBUT = 0.08
+
+/** Avancement du compte à rebours de l'amorce, dans [0, 1[ (0 avant, presque 1 à la brûlure). */
+export function leaderAt(p) {
+  const x = typeof p === 'number' && !Number.isNaN(p) ? p : 0
+  return Math.min(0.999, Math.max(0, (x - AMORCE_DEBUT) / (FRONTIERES[0] - AMORCE_DEBUT)))
+}
