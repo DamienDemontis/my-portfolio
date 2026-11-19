@@ -27,7 +27,6 @@ test('detectKick : un coup, puis temps mort de 12 images', () => {
   r = detectKick(s, 0.4); s = r.state // saut 0.3, niveau >= 0.25
   expect(r.kick).toBe(true)
   let kicks = 0
-  
   for (let i = 0; i < 11; i++) { r = detectKick(s, i % 2 ? 0.3 : 0.6); s = r.state; if (r.kick) kicks++ }
   expect(kicks).toBe(0) // temps mort : 11 images, aucun coup malgre la hausse
   r = detectKick(s, 0.95); s = r.state // 12e image apres le coup

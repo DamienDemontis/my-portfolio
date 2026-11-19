@@ -166,9 +166,77 @@ test('fetchPreview : appelle /api/preview?id= et renvoie les champs', async () =
   const f = vi.fn(async () => ({ ok: true, status: 200, json: async () => RES }))
   vi.stubGlobal('fetch', f)
   expect(await fetchPreview(TRACK)).toEqual(RES)
-  expect(f).toHaveBeenCalledWith('/api/preview?id=3129407')
+  expect(f).toHaveBeenCalledWith('/api/preview?id=3129407', { signal: expect.any(AbortSignal) })
   vi.stubGlobal('fetch', async () => ({ ok: false, status: 502, json: async () => ({ error: 'unavailable' }) }))
   await expect(fetchPreview(TRACK)).rejects.toMatchObject({ code: 'unavailable' })
   vi.stubGlobal('fetch', async () => { throw new TypeError('x') })
   await expect(fetchPreview(TRACK)).rejects.toMatchObject({ code: 'network' })
+})
+
+test('fetchPreview : serveur muet -> network apres 8 s', async () => {
+  vi.useFakeTimers()
+  try {
+    vi.stubGlobal('fetch', (url, { signal }) => new Promise((_, rej) => signal.addEventListener('abort', () => rej(new Error('abort')))))
+    const verdict = expect(fetchPreview(TRACK)).rejects.toMatchObject({ code: 'network' })
+    await vi.advanceTimersByTimeAsync(8000)
+    await verdict
+  } finally { vi.useRealTimers() }
+})
+
+test('resume() du contexte appele dans le geste, avant la fin de resolve', async () => {
+  vi.stubGlobal('AudioContext', class extends FakeContext { constructor() { super(); this.state = 'suspended' } })
+  let fin
+  const l = createListening({ resolve: () => new Promise(r => { fin = () => r(RES) }) })
+  const p = l.play(TRACK)
+  expect(contexts[0].resume).toHaveBeenCalledTimes(1) // synchrone, resolve toujours en attente
+  expect(l.state).toBe('loading')
+  fin()
+  await p
+  expect(l.state).toBe('playing')
+})
+
+test('resume() qui reste en suspens ne bloque pas la lecture', async () => {
+  vi.stubGlobal('AudioContext', class extends FakeContext {
+    constructor() { super(); this.state = 'suspended'; this.resume = vi.fn(() => new Promise(() => {})) }
+  })
+  const l = createListening({ resolve: async () => RES })
+  await l.play(TRACK)
+  expect(l.state).toBe('playing')
+})
+
+test('current vaut le nouveau morceau des le debut, meme en erreur', async () => {
+  let echec
+  const l = createListening({ resolve: t => t === TRACK ? Promise.resolve(RES) : new Promise((_, rej) => { echec = rej }) })
+  await l.play(TRACK)
+  const p = l.play(TRACK2)
+  expect(l.current).toEqual({ track: TRACK2, link: null, cover: null })
+  echec(new TypeError('x'))
+  await p
+  expect(l.state).toBe('error')
+  expect(l.current.track).toBe(TRACK2)
+})
+
+test('erreur de l element : code 4 -> unavailable, autre -> network, source abandonnee ignoree', async () => {
+  const l = createListening({ resolve: async () => RES })
+  await l.play(TRACK)
+  audios[0].error = { code: 4 }
+  audios[0].emit('error')
+  expect(l.error).toBe('unavailable')
+  await l.play(TRACK)
+  audios[0].error = { code: 2 }
+  audios[0].emit('error')
+  expect(l.error).toBe('network')
+  l.stop()
+  audios[0].emit('error') // source abandonnee : sans effet
+  expect(l.state).toBe('idle')
+})
+
+test('createMediaElementSource qui echoue : le contexte cree est ferme', async () => {
+  vi.stubGlobal('AudioContext', class extends FakeContext {
+    constructor() { super(); this.close = vi.fn(); this.createMediaElementSource = () => { throw new Error('boom') } }
+  })
+  const l = createListening({ resolve: async () => RES })
+  await l.play(TRACK)
+  expect(contexts[0].close).toHaveBeenCalled()
+  expect(l.state).toBe('playing')
 })

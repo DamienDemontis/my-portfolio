@@ -17,7 +17,7 @@ test('succes : reponse reduite a trois champs et en-tete de cache', async () => 
     artist: { name: 'x' }, album: { cover_medium: 'https://cdn/c.jpg', cover_big: 'z' }, secret: 1,
   }))
   const r = await previewFor('3129407', fetchImpl)
-  expect(fetchImpl).toHaveBeenCalledWith('https://api.deezer.com/track/3129407')
+  expect(fetchImpl).toHaveBeenCalledWith('https://api.deezer.com/track/3129407', { signal: expect.any(AbortSignal) })
   expect(r.status).toBe(200)
   expect(r.body).toEqual({ preview: 'https://cdn/p.mp3', link: 'https://www.deezer.com/track/3129407', cover: 'https://cdn/c.jpg' })
   expect(r.headers['Cache-Control']).toBe('public, max-age=300')
@@ -50,4 +50,20 @@ test('le gestionnaire ecrit statut, en-tetes et corps JSON', async () => {
   const res2 = { setHeader: () => {}, end: vi.fn() }
   await handler({ url: '/api/preview' }, res2)
   expect(res2.statusCode).toBe(400)
+})
+
+test('Deezer muet : 502 apres 5 s (signal abandonne)', async () => {
+  vi.useFakeTimers()
+  try {
+    const muet = (url, { signal }) => new Promise((_, rej) => signal.addEventListener('abort', () => rej(new Error('abort'))))
+    const p = previewFor('3129407', muet)
+    let fini = false
+    p.then(() => { fini = true })
+    await vi.advanceTimersByTimeAsync(4999)
+    expect(fini).toBe(false)
+    await vi.advanceTimersByTimeAsync(1)
+    const r = await p
+    expect(r.status).toBe(502)
+    expect(r.body).toEqual({ error: 'unavailable' })
+  } finally { vi.useRealTimers() }
 })

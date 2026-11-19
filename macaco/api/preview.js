@@ -5,6 +5,7 @@
 import { TRACKS } from '../src/content/music.js'
 
 const JSON_UTF8 = 'application/json; charset=utf-8'
+export const DEEZER_TIMEOUT_MS = 5000
 const IDS = new Set(TRACKS.map(t => t.deezer))
 
 const reponse = (status, body, cache) => ({
@@ -17,14 +18,19 @@ const erreur = (status, code) => reponse(status, { error: code }, 'no-store')
 export async function previewFor(id, fetchImpl = fetch) {
   // Liste blanche : un id doit etre numerique ET present dans la playlist.
   if (typeof id !== 'string' || !/^\d+$/.test(id) || !IDS.has(id)) return erreur(400, 'unknown')
+  // Si Deezer ne repond pas, on abandonne : le visiteur ne reste pas en attente.
+  const ctl = new AbortController()
+  const minuteur = setTimeout(() => ctl.abort(), DEEZER_TIMEOUT_MS)
   try {
-    const r = await fetchImpl(`https://api.deezer.com/track/${id}`)
+    const r = await fetchImpl(`https://api.deezer.com/track/${id}`, { signal: ctl.signal })
     if (!r.ok || r.status !== 200) return erreur(502, 'unavailable')
     const d = await r.json()
     if (!d || d.error || !d.preview) return erreur(502, 'unavailable')
     return reponse(200, { preview: d.preview, link: d.link, cover: d.album?.cover_medium }, 'public, max-age=300')
   } catch {
     return erreur(502, 'unavailable')
+  } finally {
+    clearTimeout(minuteur)
   }
 }
 

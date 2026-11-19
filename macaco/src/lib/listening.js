@@ -3,21 +3,30 @@
 // changements d'etat (pas aux images). Une seule musique sur la page.
 import { BANDS, bandEnergy, smoothBands, detectKick, createKickState } from '../three/music/audioBands.js'
 
+export const FETCH_TIMEOUT_MS = 8000
+
 const erreurCode = (code) => Object.assign(new Error(code), { code })
 
 // Demande a la fonction /api/preview l'extrait d'un morceau.
 export async function fetchPreview(track) {
-  let r
+  // Delai maximal : si le serveur ne repond pas, on sort de `loading`.
+  const ctl = new AbortController()
+  const minuteur = setTimeout(() => ctl.abort(), FETCH_TIMEOUT_MS)
   try {
-    r = await fetch(`/api/preview?id=${track.deezer}`)
-  } catch {
-    throw erreurCode('network')
-  }
-  if (!r.ok) throw erreurCode('unavailable')
-  try {
-    return await r.json()
-  } catch {
-    throw erreurCode('network')
+    let r
+    try {
+      r = await fetch(`/api/preview?id=${track.deezer}`, { signal: ctl.signal })
+    } catch {
+      throw erreurCode('network')
+    }
+    if (!r.ok) throw erreurCode('unavailable')
+    try {
+      return await r.json()
+    } catch {
+      throw erreurCode('network')
+    }
+  } finally {
+    clearTimeout(minuteur)
   }
 }
 
@@ -30,6 +39,7 @@ export function createListening({ resolve = fetchPreview } = {}) {
   let error = null
   let current = null
   let seq = 0
+  let srcSeq = -1 // numero du play qui a pose la source de l'element
   let lisses = { bass: 0, mid: 0, high: 0 }
   let kickState = createKickState()
   const bands = { bass: 0, mid: 0, high: 0, kick: false, playing: false }
@@ -50,7 +60,12 @@ export function createListening({ resolve = fetchPreview } = {}) {
     audio.crossOrigin = 'anonymous'
     audio.preload = 'none'
     audio.addEventListener('ended', () => set('idle'))
-    audio.addEventListener('error', () => { if (audio.src) set('error', 'network') })
+    audio.addEventListener('error', () => {
+      // Ignore l'erreur d'une source abandonnee (autre play, stop).
+      if (srcSeq !== seq) return
+      // Code 4 (MEDIA_ERR_SRC_NOT_SUPPORTED) : URL signee expiree ou extrait retire.
+      set('error', audio.error && audio.error.code === 4 ? 'unavailable' : 'network')
+    })
     const Ctx = globalThis.AudioContext || globalThis.webkitAudioContext
     if (!Ctx) return
     try {
@@ -62,13 +77,22 @@ export function createListening({ resolve = fetchPreview } = {}) {
       analyser.connect(ctx.destination)
       data = new Uint8Array(analyser.frequencyBinCount)
     } catch {
+      try { ctx && ctx.close && ctx.close() } catch { /* deja ferme */ }
       ctx = analyser = data = null
+    }
+  }
+
+  // A appeler dans le geste du visiteur (iOS Safari refuse hors de la pile du clic).
+  const reveiller = () => {
+    if (ctx && ctx.state === 'suspended') {
+      try { Promise.resolve(ctx.resume()).catch(() => {}) } catch { /* ignore */ }
     }
   }
 
   const lecture = async (mon) => {
     try {
-      if (ctx && ctx.state === 'suspended') await ctx.resume()
+      // Sans attendre : un resume() en suspens ne doit pas bloquer la lecture.
+      reveiller()
       await audio.play()
       if (mon === seq) set('playing')
     } catch (e) {
@@ -86,9 +110,11 @@ export function createListening({ resolve = fetchPreview } = {}) {
     async play(track) {
       const mon = ++seq
       preparer()
+      reveiller() // synchrone, avant tout await : dans la pile du clic
       audio.pause()
       lisses = { bass: 0, mid: 0, high: 0 }
       kickState = createKickState()
+      current = { track, link: null, cover: null } // jamais le morceau precedent pendant loading ou error
       set('loading')
       let r
       try {
@@ -99,6 +125,7 @@ export function createListening({ resolve = fetchPreview } = {}) {
       }
       if (mon !== seq) return
       current = { track, link: r.link, cover: r.cover }
+      srcSeq = mon
       audio.src = r.preview
       await lecture(mon)
     },
