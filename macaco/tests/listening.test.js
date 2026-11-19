@@ -240,3 +240,16 @@ test('createMediaElementSource qui echoue : le contexte cree est ferme', async (
   expect(contexts[0].close).toHaveBeenCalled()
   expect(l.state).toBe('playing')
 })
+
+test('play(B) pendant le chargement de A : abonnes prevenus, etat toujours loading', async () => {
+  const fins = {}
+  const l = createListening({ resolve: t => new Promise(r => { fins[t.id] = () => r(RES) }) })
+  const vus = []
+  l.subscribe(() => vus.push({ state: l.state, track: l.current && l.current.track }))
+  const a = l.play(TRACK)
+  const b = l.play(TRACK2)
+  expect(vus.at(-1)).toEqual({ state: 'loading', track: TRACK2 })
+  fins[TRACK.id](); fins[TRACK2.id]()
+  await Promise.all([a, b])
+  expect(l.state).toBe('playing')
+})

@@ -45,10 +45,14 @@ export function createListening({ resolve = fetchPreview } = {}) {
   const bands = { bass: 0, mid: 0, high: 0, kick: false, playing: false }
   const abonnes = new Set()
 
+  // Previent l'interface quand l'etat, l'erreur ou le morceau courant change
+  // (pas a chaque image).
+  let vu = null
   const set = (s, e = null) => {
-    if (s === state && e === error) return
+    if (s === state && e === error && current === vu) return
     state = s
     error = e
+    vu = current
     abonnes.forEach(fn => fn())
   }
 
