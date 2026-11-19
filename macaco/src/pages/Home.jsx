@@ -597,6 +597,13 @@ function Mcf() {
           "--r": 0.32
         }}><dt className="mcf__label">{s("footer.social", "Social")}</dt><dd className="mcf__values"><span className="mcf__rule" aria-hidden="true" /><div className="mcf__row">{Ks.map(p => <a className="mcf__link" href={p.href} key={p.key}>{p.label}</a>)}</div></dd></dl></div><Strip /></div></footer>;
 }
+// Réserve sous le rideau du pied de page : le rideau remonte sur la fin de la section qui le
+// précède (sa piste a une marge négative de STAGE_HEIGHT_SVH). Tant que les sections qui suivront
+// les projets (musique, Corée…) ne sont pas là, cette réserve lui laisse une zone noire, et le
+// contrechamp de la salle de projection reste visible. À retirer avec la section suivante.
+function SousLeRideau() {
+  return <div className="home-reserve" aria-hidden="true" style={{ height: `${STAGE_HEIGHT_SVH}svh`, background: "#040404" }} />;
+}
 function HomeContent() {
   const {
       lang: s
@@ -607,6 +614,6 @@ function HomeContent() {
       lang: s,
       kind: "home"
     });
-  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Projects /><Mcf /></main>;
+  return <main className="home-content"><UseSeo lang={s} kind="home" /><h1 className="sr-only">{c}</h1><Craft /><Rstage /><Projects /><SousLeRideau /><Mcf /></main>;
 }
 export { HomeContent as default };

@@ -84,7 +84,12 @@ test('le socle reçoit la piste, les plans, la scène en paresseux et le titre',
   expect(props.preload).toEqual(['/character/damien.glb', '/props/filmstrip_projector_8mm.glb'])
   expect(props.className).toBe('projects')
   expect(props['aria-labelledby']).toBe('projects-title')
-  expect(props.poster).toBeUndefined()
+  // l'affiche : une image par cadrage, portrait sous le même seuil que les plans
+  const { container: affiche } = render(props.poster)
+  expect(affiche.querySelector('source').getAttribute('media')).toBe('(max-aspect-ratio: 23/20)')
+  expect(affiche.querySelector('source').getAttribute('srcset')).toBe('/projects/poster-narrow.webp')
+  expect(affiche.querySelector('img').getAttribute('src')).toBe('/projects/poster-wide.webp')
+  expect(affiche.querySelector('img').getAttribute('alt')).toBe('')
 })
 
 test('les effets arrivent après load, et une seule fois', async () => {

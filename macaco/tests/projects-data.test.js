@@ -62,3 +62,16 @@ test('play n existe que pour wiitanks, les autres liens sont en https', () => {
   }
   expect(PROJECTS.filter((p) => p.links.some((l) => l.kind === 'play')).map((p) => p.id)).toEqual(['wiitanks'])
 })
+
+test('les affiches de la section existent et restent légères', () => {
+  for (const f of ['/projects/poster-wide.webp', '/projects/poster-narrow.webp']) {
+    expect(existsSync(pub(f)), f).toBe(true)
+    expect(statSync(pub(f)).size).toBeLessThanOrEqual(60000)
+  }
+})
+
+test('la section tient son budget : décor et images ≤ 1,5 Mo', () => {
+  const fichiers = ['/props/filmstrip_projector_8mm.glb', '/projects/poster-wide.webp', '/projects/poster-narrow.webp', ...Object.values(media).map((m) => m.src)]
+  const total = fichiers.reduce((s, f) => s + statSync(pub(f)).size, 0)
+  expect(total).toBeLessThanOrEqual(1_500_000)
+})

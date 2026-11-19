@@ -252,7 +252,7 @@ export default function ProjectionRoom({ projects, index = LEADER, timeline, pol
 
   // Le rebond de l'écran : une lumière de surface tournée vers lui, couleur du projet.
   const rebond = React.useMemo(() => {
-    const r = new RectAreaLight('#ffffff', 2.2, ROOM.screen.width, ROOM.screen.height)
+    const r = new RectAreaLight('#ffffff', 3, ROOM.screen.width, ROOM.screen.height)
     r.position.set(CIBLE.x, CIBLE.y, CIBLE.z + 0.05)
     r.lookAt(...ROOM.character.head)
     return r

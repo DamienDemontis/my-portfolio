@@ -19,6 +19,14 @@ import '../styles/projects.css'
 // Identités stables (voir l'en-tête de CinematicSection) : définies une fois, au module.
 const ProjectionRoom = React.lazy(() => import('../three/projection/ProjectionRoom.jsx'))
 const PRELOAD = ['/character/damien.glb', '/props/filmstrip_projector_8mm.glb']
+// Affiche pendant le chargement et sans WebGL 2 : le premier plan de la scène (la bobine), une
+// image par cadrage, au même seuil que les plans (NARROW_ASPECT, 1,15 = 23/20).
+const POSTER = (
+  <picture>
+    <source media="(max-aspect-ratio: 23/20)" srcSet="/projects/poster-narrow.webp" />
+    <img src="/projects/poster-wide.webp" alt="" decoding="async" loading="lazy" />
+  </picture>
+)
 
 const TOTAL = String(PROJECTS.length).padStart(2, '0')
 const compteur = (i) => `${String(i + 1).padStart(2, '0')} / ${TOTAL}`
@@ -172,6 +180,7 @@ export default function Projects() {
       shadows
       effects={effects}
       preload={PRELOAD}
+      poster={POSTER}
       onProgress={onProgress}
       className="projects"
       aria-labelledby="projects-title"

@@ -44,7 +44,7 @@ const WIDE = [
   { at: 0.16, pos: [0.98, 1.76, 0.8], look: [0.12, 1.62, -4.2], fov: 30, focus: 5.0 },
   // Le geste de la section : le travelling, un palier par projet, en contre-plongée sous le
   // faisceau.
-  ...travelling([A0, A1, A2, A3, A4, A5], { x0: 1.75, x1: 1.5, y: 1.22, z0: 2.25, z1: -1.55, fov: 36, vise: [-0.5, -0.55], recul: 3.4 }),
+  ...travelling([A0, A1, A2, A3, A4, A5], { x0: 1.75, x1: 1.8, y: 1.22, z0: 2.25, z1: -0.75, fov: 36, vise: [-0.5, -0.75], recul: 3.4 }),
   // Contrechamp depuis l'écran : son visage dans la couleur du projet, le faisceau derrière lui.
   { at: 0.92, pos: [0.3, 1.6, -3.4], look: ROOM.character.head, fov: 17, focus: 3.0 },
   { at: 1, pos: [0.32, 1.62, -3.15], look: ROOM.character.head, fov: 13, focus: 2.75 },
