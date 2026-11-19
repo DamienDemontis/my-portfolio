@@ -12,10 +12,10 @@
 import React from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, useTexture } from '@react-three/drei'
-import { AnimationMixer, Box3, Color, Group, Matrix4, Quaternion, SpotLight, Vector3 } from 'three'
+import { AnimationMixer, Box3, Color, Group, Quaternion, SpotLight, Vector3 } from 'three'
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { readySkinned } from '../character/clips.js'
-import { sectionClipsFor } from '../character/sectionClips.js'
+import { poseDeLiaison, sectionClipsFor } from '../character/sectionClips.js'
 import { LEADER, leaderAt, stageStep } from './steps.js'
 import { ROOM } from './layout.js'
 import { createFilm, filmTextures, screenColor, setFilmStep } from './filmMaterial.js'
@@ -55,34 +55,12 @@ function couleurLumiere(hex) {
   return c.setHSL(hsl.h, Math.min(0.85, hsl.s * 1.1), Math.max(0.55, hsl.l))
 }
 
-// Remet un rig cloné dans la pose de liaison du glTF : chaque os reprend la transformation de
-// son nœud. La scène partagée (cache de useGLTF) garde la pose que l'intro lui a laissée, que
-// clone() copie ; or la boîte d'un maillage skinné suit la pose, et avec elle la taille et les
-// pieds. Pas de Skeleton.pose() : il donne à l'os racine (les hanches) sa matrice de liaison
-// comme s'il n'avait pas de parent, alors que l'armature, au-dessus, est tournée.
-function poseDeLiaison(rig, source, parser) {
-  const noeuds = new Map()
-  source.traverse((o) => {
-    const n = o.isBone ? parser.associations.get(o)?.nodes : undefined
-    if (n !== undefined) noeuds.set(o.name, parser.json.nodes[n])
-  })
-  rig.traverse((o) => {
-    const n = o.isBone ? noeuds.get(o.name) : undefined
-    if (!n) return
-    if (n.matrix) new Matrix4().fromArray(n.matrix).decompose(o.position, o.quaternion, o.scale)
-    else {
-      o.position.fromArray(n.translation ?? [0, 0, 0])
-      o.quaternion.fromArray(n.rotation ?? [0, 0, 0, 1])
-      o.scale.fromArray(n.scale ?? [1, 1, 1])
-    }
-  })
-  return rig
-}
-
 function Personnage({ policy }) {
   const { scene, parser } = useGLTF(PERSONNAGE, false, true)
+  // Le rig : un clone remis en pose de liaison. La scène partagée (cache de useGLTF) garde la
+  // pose que l'intro lui a laissée, que clone() copie ; or la boîte d'un maillage skinné suit
+  // la pose, et avec elle la taille et les pieds.
   const rig = React.useMemo(() => {
-    sectionClipsFor(scene) // clips construits sur la scène d'origine, en pose de liaison
     const r = readySkinned(poseDeLiaison(clone(scene), scene, parser))
     r.traverse((o) => {
       if (o.isMesh) {
@@ -103,12 +81,14 @@ function Personnage({ policy }) {
   }, [rig])
   const mixer = React.useMemo(() => new AnimationMixer(rig), [rig])
   React.useEffect(() => {
-    const watch = sectionClipsFor(scene).find((c) => c.name === 'watch')
+    // Cuit une fois par scène, sur une copie en pose de liaison (sectionClipsFor) ; les pistes
+    // visent les os par leur nom, ceux du rig.
+    const watch = sectionClipsFor(scene, parser).find((c) => c.name === 'watch')
     const action = mixer.clipAction(watch)
     action.play()
     mixer.update(0)
     return () => mixer.stopAllAction()
-  }, [mixer, scene])
+  }, [mixer, scene, parser])
   useFrame((_, dt) => {
     if (policy.animate) mixer.update(dt)
   })
