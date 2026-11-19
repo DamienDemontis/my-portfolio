@@ -2,6 +2,9 @@
   "buildCommand": "npm test && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "regions": [
+    "cdg1"
+  ],
   "redirects": [
     {
       "source": "/",

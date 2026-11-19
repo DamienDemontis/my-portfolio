@@ -8,12 +8,27 @@ const JSON_UTF8 = 'application/json; charset=utf-8'
 export const DEEZER_TIMEOUT_MS = 5000
 const IDS = new Set(TRACKS.map(t => t.deezer))
 
+// Succes : 5 min dans le navigateur et sur le CDN de Vercel (l'URL signee dure ~12 min).
+const CACHE_SUCCES = 'public, max-age=300, s-maxage=300'
+
 const reponse = (status, body, cache) => ({
   status,
   headers: { 'Content-Type': JSON_UTF8, 'Cache-Control': cache },
   body,
 })
 const erreur = (status, code) => reponse(status, { error: code }, 'no-store')
+
+// Une adresse renvoyee par Deezer n'est relayee que si elle pointe vers son CDN, en https
+// (un hote qui finit par .dzcdn.net) : jamais un autre site dans la page du visiteur.
+function surCdnDeezer(adresse) {
+  if (typeof adresse !== 'string') return false
+  try {
+    const u = new URL(adresse)
+    return u.protocol === 'https:' && u.hostname.endsWith('.dzcdn.net')
+  } catch {
+    return false
+  }
+}
 
 export async function previewFor(id, fetchImpl = fetch) {
   // Liste blanche : un id doit etre numerique ET present dans la playlist.
@@ -26,7 +41,11 @@ export async function previewFor(id, fetchImpl = fetch) {
     if (!r.ok || r.status !== 200) return erreur(502, 'unavailable')
     const d = await r.json()
     if (!d || d.error || !d.preview) return erreur(502, 'unavailable')
-    return reponse(200, { preview: d.preview, link: d.link, cover: d.album?.cover_medium }, 'public, max-age=300')
+    // Sans pochette, le lecteur garde son disque ; une pochette hors du CDN est refusee.
+    const cover = d.album?.cover_medium ?? null
+    if (!surCdnDeezer(d.preview) || (cover !== null && !surCdnDeezer(cover))) return erreur(502, 'unavailable')
+    // Le lien est construit depuis l'id (deja verifie), jamais repris de la reponse.
+    return reponse(200, { preview: d.preview, link: `https://www.deezer.com/track/${id}`, cover }, CACHE_SUCCES)
   } catch {
     return erreur(502, 'unavailable')
   } finally {
