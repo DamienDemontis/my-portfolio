@@ -249,6 +249,7 @@
 
 /* Boutons du site (le coin coupé de .projects__link) ; cible tactile de 44 px. */
 .music__button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -281,6 +282,28 @@
 .music__button[aria-disabled="true"] {
   opacity: 0.5;
   cursor: default;
+}
+
+/* Pendant le chargement, le bouton principal montre trois points qui battent ; son nom (pour
+   les lecteurs d'écran) est le texte du chargement. */
+.music__loader {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.music__loader i {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  animation: music-attente 0.6s ease-in-out infinite alternate;
+}
+
+.music__loader i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.music__loader i:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 .music__preview {
@@ -525,21 +548,25 @@
   transform: scaleY(0.5);
 }
 
-.music__track[data-state="playing"] .music__eq i {
+.music__track[data-state="playing"] .music__eq i,
+.music__mini[data-state="playing"] .music__eq i {
   animation: music-eq 0.53s ease-in-out infinite alternate;
 }
 
-.music__track[data-state="playing"] .music__eq i:nth-child(2) {
+.music__track[data-state="playing"] .music__eq i:nth-child(2),
+.music__mini[data-state="playing"] .music__eq i:nth-child(2) {
   animation-duration: 0.41s;
   animation-delay: -0.2s;
 }
 
-.music__track[data-state="playing"] .music__eq i:nth-child(3) {
+.music__track[data-state="playing"] .music__eq i:nth-child(3),
+.music__mini[data-state="playing"] .music__eq i:nth-child(3) {
   animation-duration: 0.67s;
   animation-delay: -0.4s;
 }
 
-.music__track[data-state="loading"] .music__eq {
+.music__track[data-state="loading"] .music__eq,
+.music__mini[data-state="loading"] .music__eq {
   animation: music-attente 1s steps(2, jump-none) infinite;
 }
 
@@ -606,6 +633,74 @@
 
   .music__deezer:hover {
     color: var(--cuivre);
+  }
+}
+
+/* Le mini-lecteur : quand la platine quitte l'écran pendant l'écoute, le morceau, Pause et
+   Arrêter restent à portée. Fixé en bas : pleine largeur au téléphone, en bas à droite au-delà.
+   Rendu hors de la section épinglée, dans .home-content : z-index 3, au-dessus du rideau du
+   pied de page (.mcf, 2) ; sous la navigation (.site-chrome, 9000, hors de .home-content) et
+   sous le dialogue du jeu (couche supérieure, showModal). */
+.music__mini {
+  position: fixed;
+  z-index: 3;
+  left: 16px;
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "eq now"
+    "controls controls";
+  gap: 8px 10px;
+  align-items: center;
+  padding: 10px 12px 12px;
+  background: rgb(10 11 12 / 0.94);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cuivre) 40%, transparent);
+  color: var(--os);
+  font-family: var(--font-body);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  animation: music-mini-entree 0.3s ease-out;
+}
+
+.music__mini .music__eq {
+  margin-left: 0;
+}
+
+.music__mini-now {
+  grid-area: now;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.music__mini-label {
+  color: var(--cuivre);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.music__mini .music__button--main {
+  min-width: 7.5rem;
+}
+
+@keyframes music-mini-entree {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@media (min-width: 700px) {
+  .music__mini {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: min(24rem, calc(100vw - 48px));
   }
 }
 
@@ -785,11 +880,19 @@
     translate: none;
   }
 
+  /* Le mini-lecteur apparaît sans glisser. */
+  .music__mini {
+    animation: none;
+  }
+
   /* Mêmes sélecteurs que les animations, placés après : ils l'emportent. */
   .music__deck[data-state="loading"] .music__disc,
   .music__deck[data-state="playing"] .music__label::before,
   .music__track[data-state="loading"] .music__eq,
-  .music__track[data-state="playing"] .music__eq i {
+  .music__mini[data-state="loading"] .music__eq,
+  .music__track[data-state="playing"] .music__eq i,
+  .music__mini[data-state="playing"] .music__eq i,
+  .music__loader i {
     animation: none;
   }
 }

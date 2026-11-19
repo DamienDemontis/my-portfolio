@@ -425,3 +425,169 @@ test('la page d accueil place la musique après les projets, la réserve sous le
   expect(home).toMatch(/import Music from "\.\.\/sections\/Music\.jsx"/)
   expect(home).toMatch(/<Projects \/><Music \/><SousLeRideau \/><Mcf \/>/)
 })
+
+// ——— Ronde de corrections 1 : le mini-lecteur, l'arrêt au démontage, le bouton en chargement ———
+
+// IntersectionObserver factice : garde le rappel, les options et les cibles ; voirPlatine(r)
+// simule le ratio d'intersection de la platine (la zone « en écoute » de la section).
+const io = { instances: [] }
+function installerIO() {
+  io.instances = []
+  vi.stubGlobal(
+    'IntersectionObserver',
+    class {
+      constructor(rappel, options) {
+        this.rappel = rappel
+        this.options = options
+        this.cibles = []
+        io.instances.push(this)
+      }
+      observe(el) {
+        this.cibles.push(el)
+      }
+      unobserve() {}
+      disconnect() {
+        this.cibles = []
+      }
+    },
+  )
+}
+const voirPlatine = (ratio) =>
+  act(() => {
+    for (const o of io.instances)
+      for (const target of o.cibles) o.rappel([{ target, isIntersecting: ratio > 0, intersectionRatio: ratio }], o)
+  })
+const mini = () => screen.queryByRole('region', { name: T.miniLabel })
+
+test('mini-lecteur : caché tant que la platine est à l écran, même en lecture', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  // L'observateur suit la platine de la section, dans la racine de scroll.
+  expect(io.instances).toHaveLength(1)
+  expect(io.instances[0].cibles).toEqual([container.querySelector('.music__now')])
+  poser(lecture())
+  voirPlatine(1)
+  expect(mini()).toBeNull()
+  expect(screen.getAllByRole('button', { name: T.stop })).toHaveLength(1)
+})
+
+test('mini-lecteur : la platine quitte l écran pendant la lecture, il apparaît avec le morceau et ses commandes', () => {
+  installerIO()
+  render(<Music />)
+  poser(lecture())
+  voirPlatine(1)
+  const avant = document.activeElement
+  voirPlatine(0)
+  const m = mini()
+  expect(m).toBeTruthy()
+  expect(m.getAttribute('role')).toBe('region')
+  // Il ne prend pas le focus en apparaissant.
+  expect(document.activeElement).toBe(avant)
+  expect(m.querySelector('.music__mini-now').textContent).toBe(annonce(FEEL))
+  const pauseMini = within(m).getByRole('button', { name: T.pause })
+  fireEvent.click(pauseMini)
+  expect(moteur.pause).toHaveBeenCalledTimes(1)
+  poser(pause())
+  fireEvent.click(within(mini()).getByRole('button', { name: T.resume }))
+  expect(moteur.resume).toHaveBeenCalledTimes(1)
+  poser(lecture())
+  fireEvent.click(within(mini()).getByRole('button', { name: T.stop }))
+  expect(moteur.stop).toHaveBeenCalledTimes(1)
+  for (const b of within(mini()).getAllByRole('button')) {
+    expect(b.getAttribute('type')).toBe('button')
+    expect(b.hasAttribute('tabindex')).toBe(false)
+  }
+  // Arrêter depuis le mini-lecteur ne fait pas défiler la page vers la liste (focus inchangé).
+  expect(document.activeElement).not.toBe(screen.getAllByRole('button').find((b) => b.dataset.track === FEEL.id))
+})
+
+test('mini-lecteur : caché au repos (arrêt ou fin de l extrait) et en erreur ; visible au chargement', () => {
+  installerIO()
+  render(<Music />)
+  voirPlatine(0)
+  expect(mini()).toBeNull()
+  poser(chargement())
+  expect(mini()).toBeTruthy()
+  poser(lecture())
+  expect(mini()).toBeTruthy()
+  poser({ ...lecture(), state: 'idle' })
+  expect(mini()).toBeNull()
+  poser(erreur('network'))
+  expect(mini()).toBeNull()
+  poser(pause())
+  expect(mini()).toBeTruthy()
+  poser(repos)
+  expect(mini()).toBeNull()
+})
+
+test('mini-lecteur : la platine revient à l écran, il s efface', () => {
+  installerIO()
+  render(<Music />)
+  poser(lecture())
+  voirPlatine(0)
+  expect(mini()).toBeTruthy()
+  voirPlatine(0.2)
+  expect(mini()).toBeTruthy()
+  voirPlatine(1)
+  expect(mini()).toBeNull()
+})
+
+test('sans IntersectionObserver, la platine est tenue pour visible : pas de mini-lecteur', () => {
+  vi.stubGlobal('IntersectionObserver', undefined)
+  render(<Music />)
+  poser(lecture())
+  expect(mini()).toBeNull()
+})
+
+test('le mini-lecteur a son libellé dans les trois langues', () => {
+  expect(fr.home.music.miniLabel).toBe('Lecteur de musique')
+  expect(en.home.music.miniLabel).toBe('Music player')
+  expect(ko.home.music.miniLabel).toBe('음악 플레이어')
+})
+
+test('mini-lecteur : fixé, au-dessus du rideau du pied de page, sans animation sous mouvement réduit', () => {
+  const css = sansCommentaires(lire('../src/styles/music.css'))
+  const regle = css.match(/\.music__mini\s*\{([^}]*)\}/)[1]
+  expect(regle).toMatch(/position:\s*fixed/)
+  const z = Number(regle.match(/z-index:\s*(\d+)/)[1])
+  const rideau = sansCommentaires(lire('../src/styles/home.css')).match(/\.mcf\s*\{([^}]*)\}/)[1]
+  expect(z).toBeGreaterThan(Number(rideau.match(/z-index:\s*(\d+)/)[1]))
+  // Sous la navigation (.site-chrome, z-index 9000).
+  expect(z).toBeLessThan(9000)
+  const bloc = css.slice(css.indexOf('@media (prefers-reduced-motion: reduce)'))
+  expect(bloc).toMatch(/\.music__mini[^{]*\{[^}]*animation:\s*none/)
+})
+
+test('la musique s arrête quand la section est démontée', () => {
+  const { unmount } = render(<Music />)
+  poser(lecture())
+  expect(moteur.stop).not.toHaveBeenCalled()
+  unmount()
+  expect(moteur.stop).toHaveBeenCalledTimes(1)
+})
+
+test('pendant le chargement, le bouton principal se nomme par le texte du chargement', () => {
+  installerIO()
+  const { container } = render(<Music />)
+  poser(chargement())
+  const zone = container.querySelector('.music__now')
+  const principal = within(zone).getByRole('button', { name: T.loading })
+  expect(principal.getAttribute('aria-disabled')).toBe('true')
+  expect(within(zone).queryByRole('button', { name: T.pause })).toBeNull()
+  voirPlatine(0)
+  expect(within(mini()).getByRole('button', { name: T.loading }).getAttribute('aria-disabled')).toBe('true')
+  fireEvent.click(principal)
+  fireEvent.click(within(mini()).getByRole('button', { name: T.loading }))
+  expect(moteur.play).not.toHaveBeenCalled()
+  expect(moteur.pause).not.toHaveBeenCalled()
+})
+
+test('un clic sur le morceau en cours de chargement est ignoré (pas de nouvelle requête)', () => {
+  const { container } = render(<Music />)
+  poser(chargement())
+  fireEvent.click(bouton(container, FEEL))
+  expect(moteur.play).not.toHaveBeenCalled()
+  // Un autre morceau pendant le chargement : il le remplace.
+  fireEvent.click(bouton(container, TRACKS[0]))
+  expect(moteur.play).toHaveBeenCalledWith(TRACKS[0])
+})

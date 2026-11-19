@@ -106,7 +106,8 @@
       "errorNetwork": "The preview couldn't be loaded.",
       "errorBlocked": "The browser blocked playback: click again.",
       "newTab": "(opens in a new tab)",
-      "hint": "Pick a track: the preview only loads when you do."
+      "hint": "Pick a track: the preview only loads when you do.",
+      "miniLabel": "Music player"
     }
   },
   "footer": {
