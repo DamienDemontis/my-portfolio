@@ -166,12 +166,30 @@ export default function Projects() {
     setJeu(href)
   }, [])
 
+  // Échap dans le jeu : une fois le focus dans l'iframe, les touches vont à son document (Unity
+  // les capte) et le dialogue n'émet pas « cancel ». Le jeu est de même origine : à chaque
+  // chargement de l'iframe, un écouteur keydown en capture sur sa fenêtre ferme le dialogue par
+  // le chemin commun ; il est retiré à la fermeture. { fenetre, ecouteur }, null sans jeu.
+  const echapRef = React.useRef(null)
+  const retirerEchap = React.useCallback(() => {
+    const echap = echapRef.current
+    echapRef.current = null
+    if (!echap) return
+    try {
+      echap.fenetre.removeEventListener('keydown', echap.ecouteur, true)
+    } catch {
+      // fenêtre déjà détruite avec son iframe : rien à retirer
+    }
+  }, [])
+  React.useEffect(() => retirerEchap, [retirerEchap])
+
   // Point unique de sortie : l'événement « close » natif (bouton, Échap), ou l'appel direct
   // quand le dialogue n'a pas de close(). L'iframe est retirée, le focus rendu au bouton.
   const apresFermeture = React.useCallback(() => {
+    retirerEchap()
     setJeu(null)
     retourRef.current?.focus()
-  }, [])
+  }, [retirerEchap])
 
   const fermer = React.useCallback(() => {
     const d = dialogRef.current
@@ -190,6 +208,25 @@ export default function Projects() {
       fermer()
     },
     [fermer],
+  )
+
+  // Iframe chargée (sa fenêtre change à chaque chargement) : l'Échap du jeu, voir echapRef.
+  const brancherEchap = React.useCallback(
+    (event) => {
+      retirerEchap()
+      const fenetre = event.currentTarget.contentWindow
+      if (!fenetre) return
+      const ecouteur = (e) => {
+        if (e.key === 'Escape') fermer()
+      }
+      try {
+        fenetre.addEventListener('keydown', ecouteur, true)
+        echapRef.current = { fenetre, ecouteur }
+      } catch {
+        // page d'une autre origine : Échap reste au jeu, le bouton Fermer demeure
+      }
+    },
+    [fermer, retirerEchap],
   )
 
   return (
@@ -245,6 +282,7 @@ export default function Projects() {
             src={jeu}
             title={t('home.projects.gameLabel')}
             allow="fullscreen; autoplay; gamepad"
+            onLoad={brancherEchap}
           />
         )}
       </dialog>

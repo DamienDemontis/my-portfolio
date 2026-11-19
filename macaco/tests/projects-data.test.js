@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import vm from 'node:vm'
 import { PROJECTS } from '../src/content/projects.js'
 import media from '../src/content/projectMedia.json'
 
@@ -61,6 +62,37 @@ test('play n existe que pour wiitanks, les autres liens sont en https', () => {
     }
   }
   expect(PROJECTS.filter((p) => p.links.some((l) => l.kind === 'play')).map((p) => p.id)).toEqual(['wiitanks'])
+})
+
+// Le script de la page du jeu (gabarit Unity), lancé dans un bac à sable : des éléments factices
+// qui relèvent leur classe et leur style, une fenêtre intégrée (top ≠ self) ou non.
+function pageDuJeu({ integre, userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }) {
+  const html = readFileSync(pub('/games/wii-tanks/index.html'), 'utf8')
+  const script = html.match(/<script>([\s\S]*?)<\/script>/)[1]
+  const element = (className = '') => ({ className, style: {}, appendChild() {} })
+  const elements = { '#unity-container': element('unity-desktop') }
+  const document = {
+    querySelector: (s) => (elements[s] ??= element()),
+    createElement: () => element(),
+    getElementsByTagName: () => [element()],
+    body: element(),
+  }
+  const window = {}
+  window.self = window
+  window.top = integre ? {} : window
+  vm.runInNewContext(script, { window, document, navigator: { userAgent }, setTimeout, alert() {} })
+  return { conteneur: elements['#unity-container'], canvas: elements['#unity-canvas'] }
+}
+
+test('la page du jeu, intégrée dans une iframe, remplit son cadre (gabarit mobile de Unity)', () => {
+  const integree = pageDuJeu({ integre: true })
+  expect(integree.conteneur.className).toBe('unity-mobile')
+  expect(integree.canvas.className).toBe('unity-mobile')
+  expect(integree.canvas.style.width).toBeUndefined()
+  // Ouverte directement sur un ordinateur : le gabarit bureau, inchangé.
+  const directe = pageDuJeu({ integre: false })
+  expect(directe.conteneur.className).toBe('unity-desktop')
+  expect([directe.canvas.style.width, directe.canvas.style.height]).toEqual(['960px', '600px'])
 })
 
 test('les affiches de la section existent et restent légères', () => {

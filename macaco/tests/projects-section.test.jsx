@@ -302,6 +302,46 @@ test('Échap (événement cancel) ferme le jeu, retire l iframe et rend le focus
   expect(document.querySelectorAll('iframe')).toHaveLength(1)
 })
 
+// Le jeu « chargé » dans l'iframe (jsdom n'y charge rien) : un canvas qui reçoit les touches, et
+// un document qui les capte comme Unity, sans les laisser remonter. Rend de quoi presser une touche.
+function jeuCharge(iframe) {
+  const fenetre = iframe.contentWindow
+  const doc = fenetre.document
+  const canvas = doc.appendChild(doc.createElement('html')).appendChild(doc.createElement('canvas'))
+  doc.addEventListener('keydown', (e) => e.stopPropagation(), true)
+  fireEvent.load(iframe)
+  return (key) => act(() => canvas.dispatchEvent(new fenetre.KeyboardEvent('keydown', { key, bubbles: true })))
+}
+
+test('Échap dans le jeu (fenêtre de l iframe) ferme le dialogue, retire l iframe et rend le focus', () => {
+  const { container } = render(<Projects />)
+  avancer(PROJECT_ANCHORS[WII])
+  const dialogue = container.querySelector('dialog.projects__game')
+  const jouer = screen.getByRole('button', { name: T.play })
+  fireEvent.click(jouer)
+  const iframe = document.querySelector('iframe')
+  const fenetre = iframe.contentWindow
+  expect(fenetre).toBeTruthy()
+  const touche = jeuCharge(iframe)
+
+  touche('ArrowUp')
+  expect(dialogue.hasAttribute('open')).toBe(true)
+
+  const retirer = vi.spyOn(fenetre, 'removeEventListener')
+  touche('Escape')
+  expect(dialogue.hasAttribute('open')).toBe(false)
+  expect(document.querySelector('iframe')).toBeNull()
+  expect(document.activeElement).toBe(jouer)
+  // L'écouteur posé sur la fenêtre du jeu est retiré à la fermeture.
+  expect(retirer).toHaveBeenCalledWith('keydown', expect.any(Function), true)
+
+  // Rouvert, le jeu suivant a de nouveau son Échap.
+  fireEvent.click(jouer)
+  jeuCharge(document.querySelector('iframe'))('Escape')
+  expect(dialogue.hasAttribute('open')).toBe(false)
+  expect(document.querySelector('iframe')).toBeNull()
+})
+
 test('sans showModal, le dialogue s ouvre quand même (attribut open)', () => {
   delete HTMLDialogElement.prototype.showModal
   delete HTMLDialogElement.prototype.close
