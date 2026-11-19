@@ -1,16 +1,32 @@
-import { EASINGS, checkShots, dollyZoom, orbit, shotAt, stillShot } from '../src/three/cinematic/shots.js'
+import {
+  EASINGS,
+  NARROW_ASPECT,
+  checkShots,
+  dollyZoom,
+  framing,
+  orbit,
+  pickFraming,
+  segmentAt,
+  shotAt,
+  stillShot,
+} from '../src/three/cinematic/shots.js'
 
 const DEG = Math.PI / 180
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])
+const unitaire = (v) => v.map((x) => x / Math.hypot(...v))
 
-// Compare deux poses composante par composante (tolérance des flottants).
+// Compare deux poses composante par composante (tolérance des flottants). `up` vaut
+// [0, 1, 0] quand le plan attendu n'en donne pas, et se compare normalisé.
 function memePose(recu, attendu, digits = 9) {
-  expect(Object.keys(recu).sort()).toEqual(['focus', 'fov', 'look', 'pos', 'roll'])
+  expect(Object.keys(recu).sort()).toEqual(['focus', 'fov', 'look', 'pos', 'roll', 'up'])
   for (const k of ['pos', 'look']) {
     expect(recu[k]).toHaveLength(3)
     recu[k].forEach((v, i) => expect(v).toBeCloseTo(attendu[k][i], digits))
   }
   for (const k of ['fov', 'roll', 'focus']) expect(recu[k]).toBeCloseTo(attendu[k], digits)
+  const up = unitaire(attendu.up ?? [0, 1, 0])
+  expect(recu.up).toHaveLength(3)
+  recu.up.forEach((v, i) => expect(v).toBeCloseTo(up[i], digits))
 }
 
 const A = { at: 0.2, pos: [0, 1, 5], look: [0, 1, 0], fov: 40, roll: 0, focus: 5 }
@@ -100,6 +116,12 @@ describe('shotAt', () => {
   test('progression invalide : traitée comme 0', () => {
     memePose(shotAt(PLANS, Number.NaN), A)
     memePose(shotAt(PLANS, undefined), A)
+  })
+
+  // Une progression infinie dit « au-delà de la fin » ou « avant le début », pas « invalide ».
+  test('p = +Infinity : le dernier plan ; p = −Infinity : le premier', () => {
+    memePose(shotAt(PLANS, Number.POSITIVE_INFINITY), poseC)
+    memePose(shotAt(PLANS, Number.NEGATIVE_INFINITY), A)
   })
 
   test('erreurs claires : aucun plan, mouvement inconnu', () => {
@@ -197,6 +219,156 @@ describe('checkShots', () => {
     expect(() => checkShots(PLANS, { pos: [0, 1, 4], look: [0, 1, 0], fov: 30 })).not.toThrow()
     expect(() => checkShots(PLANS, Number.NaN)).toThrow(/still/)
     expect(() => checkShots(PLANS, { pos: [0, 1, 4], fov: 30 })).toThrow(/still.*look/)
+  })
+})
+
+// Un plan zénithal vise le long de l'axe vertical : avec le haut par défaut [0, 1, 0], lookAt
+// n'a plus de repère et l'image tourne au moindre écart. Un `up` par plan fixe l'orientation.
+describe('vecteur up', () => {
+  const HAUT = { at: 0, pos: [0, 6, 0.4], look: [0, 0, 0], fov: 40 }
+  const ZENITH = { at: 0.5, pos: [0, 6, 0], look: [0, 0, 0], fov: 30, up: [1, 0, 0] }
+  const TOURNE = { at: 1, pos: [0, 5, 0], look: [0, 0, 0], fov: 30, up: [0, 0, 3] }
+
+  test('par défaut [0, 1, 0] ; donné, il est normalisé', () => {
+    expect(shotAt([HAUT], 0).up).toEqual([0, 1, 0])
+    expect(shotAt([TOURNE], 0).up).toEqual([0, 0, 1])
+    memePose(stillShot([HAUT], { pos: [0, 6, 0], look: [0, 0, 0], fov: 30, up: [0, 0, -2] }), {
+      pos: [0, 6, 0],
+      look: [0, 0, 0],
+      fov: 30,
+      roll: 0,
+      focus: 6,
+      up: [0, 0, -1],
+    })
+  })
+
+  test('interpolé entre deux plans, et toujours unitaire', () => {
+    const plans = [ZENITH, TOURNE]
+    // Milieu du segment 0.5 → 1, easing 'inout' : u = 0.5.
+    shotAt(plans, 0.75).up.forEach((v, i) => expect(v).toBeCloseTo(unitaire([0.5, 0, 0.5])[i], 9))
+    for (let p = 0.5; p <= 1; p += 0.05) expect(Math.hypot(...shotAt(plans, p).up)).toBeCloseTo(1, 12)
+    // Le segment qui part d'un plan sans up part de [0, 1, 0].
+    shotAt([HAUT, ZENITH], 0.25).up.forEach((v, i) => expect(v).toBeCloseTo(unitaire([0.5, 0.5, 0])[i], 9))
+  })
+
+  test('un mouvement nommé garde le up de son plan', () => {
+    const orbite = { type: 'orbit', center: [0, 0, 0], radius: 2, height: 5, from: 0, to: 90, fov: 30 }
+    const s = shotAt([{ at: 0, move: orbite, up: [0, 0, -1] }], 0.4)
+    expect(s.up).toEqual([0, 0, -1])
+  })
+
+  test.each([
+    ['up mal formé', [{ ...HAUT, up: [0, 1] }], /plan 0.*up/],
+    ['up nul', [{ ...HAUT, up: [0, 0, 0] }], /plan 0.*up/],
+    ['visée verticale sans up', [{ at: 0, pos: [0, 6, 0], look: [0, 0, 0], fov: 30 }], /plan 0.*up/],
+    ['up le long de la visée', [{ ...HAUT, pos: [0, 0, 5], up: [0, 0, 1] }], /plan 0.*up/],
+    ['up opposé à celui du plan précédent', [ZENITH, { ...ZENITH, at: 1, up: [-1, 0, 0] }], /plan 1.*up/],
+    ['pos et look confondus', [{ ...HAUT, pos: [0, 0, 0] }], /plan 0.*pos.*look/],
+  ])('%s : erreur claire', (_, plans, motif) => {
+    expect(() => checkShots(plans)).toThrow(motif)
+  })
+
+  test('un plan zénithal avec up est valide', () => {
+    expect(() => checkShots([HAUT, ZENITH, TOURNE])).not.toThrow()
+    expect(() => checkShots([HAUT], { pos: [0, 6, 0], look: [0, 0, 0], fov: 30 })).toThrow(/still.*up/)
+  })
+})
+
+// Le texte en DOM suit les étapes de la timeline : une étape = un plan = un projet.
+describe('segmentAt', () => {
+  test('avant le premier plan : étape 0, à son début', () => {
+    expect(segmentAt(PLANS, 0)).toEqual({ index: 0, t: 0 })
+    expect(segmentAt(PLANS, 0.1)).toEqual({ index: 0, t: 0 })
+    expect(segmentAt(PLANS, -2)).toEqual({ index: 0, t: 0 })
+  })
+
+  test('sur une ancre : l étape de ce plan, à son début', () => {
+    expect(segmentAt(PLANS, 0.2)).toEqual({ index: 0, t: 0 })
+    expect(segmentAt(PLANS, 0.6)).toEqual({ index: 1, t: 0 })
+    expect(segmentAt(PLANS, 0.9)).toEqual({ index: 2, t: 0 })
+  })
+
+  test('dans un segment : avancement linéaire, sans easing', () => {
+    const s = segmentAt(PLANS, 0.3)
+    expect(s.index).toBe(0)
+    expect(s.t).toBeCloseTo(0.25, 12)
+    expect(segmentAt(PLANS, 0.7).t).toBeCloseTo(1 / 3, 12)
+    // Le dernier segment court jusqu'à p = 1.
+    expect(segmentAt(PLANS, 0.95).t).toBeCloseTo(0.5, 9)
+    expect(segmentAt(PLANS, 1)).toEqual({ index: 2, t: 1 })
+  })
+
+  test('progression infinie ou invalide : comme shotAt', () => {
+    expect(segmentAt(PLANS, Number.POSITIVE_INFINITY)).toEqual({ index: 2, t: 1 })
+    expect(segmentAt(PLANS, Number.NEGATIVE_INFINITY)).toEqual({ index: 0, t: 0 })
+    expect(segmentAt(PLANS, Number.NaN)).toEqual({ index: 0, t: 0 })
+  })
+
+  test('synchronisé avec la caméra : la pose est celle du segment annoncé', () => {
+    for (let k = 0; k <= 40; k++) {
+      const p = k / 40
+      const { index, t } = segmentAt(PLANS, p)
+      const a = PLANS[index]
+      const b = PLANS[index + 1]
+      const u = p < PLANS[0].at ? 0 : b ? EASINGS.inout(t) : 0
+      const fov = b ? a.fov + (b.fov - a.fov) * u : a.fov
+      expect(shotAt(PLANS, p).fov).toBeCloseTo(fov, 9)
+    }
+  })
+
+  test('cadrages { wide, narrow } : les ancres partagées donnent les mêmes étapes', () => {
+    const etroit = PLANS.map((plan) => ({ ...plan, fov: plan.fov + 10 }))
+    for (const p of [0, 0.3, 0.6, 0.75, 1]) expect(segmentAt({ wide: PLANS, narrow: etroit }, p)).toEqual(segmentAt(PLANS, p))
+  })
+
+  test('aucun plan : erreur claire', () => {
+    expect(() => segmentAt([], 0.5)).toThrow(/plan/)
+  })
+})
+
+// Le fov de three est vertical : en portrait, le champ horizontal fond. Une timeline peut
+// donner un cadrage large et un cadrage étroit, choisis selon le rapport largeur / hauteur.
+describe('cadrage par aspect', () => {
+  const ETROIT = PLANS.map((plan) => ({ ...plan, pos: plan.pos.map((v) => v * 1.6), fov: plan.fov + 12 }))
+  const PAIRE = { wide: PLANS, narrow: ETROIT }
+
+  test('seuil : celui du recadrage portrait de la scène des expertises (1,15)', () => {
+    expect(NARROW_ASPECT).toBe(1.15)
+    expect(framing(1440 / 900)).toBe('wide')
+    expect(framing(1.15)).toBe('wide')
+    expect(framing(1.149)).toBe('narrow')
+    expect(framing(390 / 844)).toBe('narrow')
+  })
+
+  test('pickFraming : la variante du cadrage, ou la valeur telle quelle', () => {
+    expect(pickFraming(PAIRE, 'wide')).toBe(PLANS)
+    expect(pickFraming(PAIRE, 'narrow')).toBe(ETROIT)
+    expect(pickFraming(PLANS, 'narrow')).toBe(PLANS)
+    expect(pickFraming(0.4, 'narrow')).toBe(0.4)
+    expect(pickFraming(undefined, 'wide')).toBeUndefined()
+    const still = { pos: [0, 1, 4], look: [0, 1, 0], fov: 30 }
+    expect(pickFraming(still, 'narrow')).toBe(still)
+    expect(pickFraming({ wide: 0.2, narrow: still }, 'narrow')).toBe(still)
+  })
+
+  test('checkShots vérifie les deux listes et rend la paire', () => {
+    expect(checkShots(PAIRE)).toBe(PAIRE)
+    expect(() => checkShots(PAIRE, { wide: 0.3, narrow: { pos: [0, 1, 4], look: [0, 1, 0], fov: 30 } })).not.toThrow()
+  })
+
+  test.each([
+    ['liste étroite manquante', { wide: PLANS }, /narrow.*aucun plan/],
+    ['plan étroit invalide', { wide: PLANS, narrow: [ETROIT[0], { ...ETROIT[1], fov: '20' }, ETROIT[2]] }, /narrow.*plan 1.*fov/],
+    ['plan large invalide', { wide: [{ ...PLANS[0], ease: 'bounce' }, PLANS[1], PLANS[2]], narrow: ETROIT }, /wide.*plan 0.*bounce/],
+    ['nombre de plans différent', { wide: PLANS, narrow: ETROIT.slice(0, 2) }, /narrow.*ancres/],
+    ['ancre différente', { wide: PLANS, narrow: [ETROIT[0], { ...ETROIT[1], at: 0.65 }, ETROIT[2]] }, /narrow.*plan 1.*ancre/],
+  ])('%s : erreur claire', (_, paire, motif) => {
+    expect(() => checkShots(paire)).toThrow(motif)
+  })
+
+  test('still par cadrage, vérifié aussi', () => {
+    expect(() => checkShots(PAIRE, { wide: 0.2, narrow: Number.NaN })).toThrow(/still\.narrow/)
+    expect(() => checkShots(PLANS, { wide: { pos: [0, 1, 4], fov: 30 }, narrow: 0.5 })).toThrow(/still\.wide.*look/)
   })
 })
 
