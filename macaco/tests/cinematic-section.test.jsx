@@ -15,6 +15,7 @@ const vu = vi.hoisted(() => ({
   preloads: [],
   dof: null,
   decor: null,
+  enfantsComposer: new Set(),
 }))
 
 vi.mock('@react-three/fiber', async () => {
@@ -30,11 +31,12 @@ vi.mock('@react-three/fiber', async () => {
         children,
       )
     },
-    // Comme R3F : le dernier callback rendu est celui qui s'exécute.
+    // Comme R3F : le dernier callback rendu est celui qui s'exécute, abonné dans un effet de
+    // mise en page (avant les effets ordinaires).
     useFrame: (callback) => {
       const ref = React.useRef(callback)
       ref.current = callback
-      React.useEffect(() => {
+      React.useLayoutEffect(() => {
         const frame = () => ref.current(vu.etat, 1 / 60)
         vu.frames.add(frame)
         return () => vu.frames.delete(frame)
@@ -48,15 +50,20 @@ vi.mock('@react-three/drei', () => ({
   useGLTF: Object.assign(() => ({}), { preload: (url) => vu.preloads.push(url) }),
 }))
 
+// Le faux EffectComposer rend un élément qui contient ses effets et relève l'identité de ses
+// enfants : le vrai reconstruit ses passes (et recompile ses shaders) quand elle change.
 vi.mock('@react-three/postprocessing', async () => {
   const React = await import('react')
   return {
-    EffectComposer: ({ children }) => React.createElement(React.Fragment, null, children),
+    EffectComposer: ({ children }) => {
+      vu.enfantsComposer.add(children)
+      return React.createElement('i', { 'data-testid': 'composer' }, children)
+    },
     DepthOfField: React.forwardRef(function DepthOfField(props, ref) {
       const effet = React.useMemo(() => ({ props, cocMaterial: { focusDistance: 0 } }), [])
       vu.dof = effet
       React.useImperativeHandle(ref, () => effet, [effet])
-      return null
+      return React.createElement('i', { 'data-testid': 'dof' })
     }),
   }
 })
@@ -76,6 +83,49 @@ const PRELOAD = ['/props/boombox.glb', '/props/dandelion_01.glb']
 function Decor(props) {
   vu.decor = props
   return <i data-testid="decor" />
+}
+
+// Effet de test pour le slot `effects` (un Bloom, par exemple).
+function Eclat() {
+  return <i data-testid="eclat" />
+}
+
+// Variante étroite des plans : plus loin, plus large.
+const ETROIT = PLANS.map((plan) => ({ ...plan, pos: plan.pos.map((v) => v * 1.5), fov: plan.fov + 15 }))
+
+// Taille de la fenêtre (le cadrage se choisit sur son rapport), annoncée par un resize.
+function ecran(largeur, hauteur) {
+  vi.stubGlobal('innerWidth', largeur)
+  vi.stubGlobal('innerHeight', hauteur)
+  window.dispatchEvent(new Event('resize'))
+}
+
+// IntersectionObserver piloté : chaque instance relève sa racine, sa marge et ses cibles ;
+// voir(v) appelle les rappels comme le navigateur. jsdom n'en a pas : sans lui, la section
+// se tient pour visible.
+function observateurs() {
+  const instances = []
+  class FauxIO {
+    constructor(rappel, options) {
+      Object.assign(this, { rappel, options, cibles: [], coupe: false })
+      instances.push(this)
+    }
+    observe(el) {
+      this.cibles.push(el)
+    }
+    unobserve() {}
+    disconnect() {
+      this.coupe = true
+    }
+  }
+  vi.stubGlobal('IntersectionObserver', FauxIO)
+  const voir = (visible) =>
+    act(() => {
+      for (const io of instances) {
+        if (!io.coupe) io.rappel(io.cibles.map((target) => ({ target, isIntersecting: visible })))
+      }
+    })
+  return { instances, voir }
 }
 
 // Mise en page factice : racine de scroll de 800 px, section de 2 400 px qui commence à 4 000 px.
@@ -115,7 +165,16 @@ beforeEach(() => {
   vu.preloads = []
   vu.dof = null
   vu.decor = null
-  vu.etat = { camera: new PerspectiveCamera(50, 1.6, 0.1, 100), invalidate: vi.fn(), size: { width: 1280, height: 800 } }
+  vu.enfantsComposer = new Set()
+  vu.etat = {
+    camera: new PerspectiveCamera(50, 1.6, 0.1, 100),
+    invalidate: vi.fn(),
+    // advance() de R3F dessine une image quelle que soit la boucle.
+    advance: vi.fn(() => {
+      for (const frame of vu.frames) frame()
+    }),
+    size: { width: 1280, height: 800 },
+  }
   vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function rect() {
     const section = this.classList?.contains('cinematic')
     const top = section ? mise.top - mise.scroll : 0
@@ -166,6 +225,7 @@ const importsFaits = () =>
 function cameraPour(pose) {
   const c = new PerspectiveCamera()
   c.position.set(...pose.pos)
+  c.up.set(...(pose.up ?? [0, 1, 0]))
   c.lookAt(...pose.look)
   c.rotateZ((pose.roll * Math.PI) / 180)
   return c
@@ -219,6 +279,37 @@ describe('CinematicSection', () => {
   test('piste par défaut : 300svh', () => {
     const { container } = render(<CinematicSection id="musique" shots={PLANS} />)
     expect(container.querySelector('section').style.height).toBe('300svh')
+  })
+
+  test('attributs de section transmis : classe, aria-labelledby, data-*, style (hauteur de piste gardée)', () => {
+    const { container } = render(
+      <CinematicSection
+        id="attributs"
+        track="250svh"
+        shots={PLANS}
+        className="projets sombre"
+        aria-labelledby="projets-titre"
+        data-teinte="cuivre"
+        style={{ color: 'red', height: '10px' }}
+      >
+        <h2 id="projets-titre">Projets</h2>
+      </CinematicSection>,
+    )
+    const section = container.querySelector('section#attributs')
+    expect(section.className).toBe('cinematic projets sombre')
+    expect(section.getAttribute('aria-labelledby')).toBe('projets-titre')
+    expect(section.dataset.teinte).toBe('cuivre')
+    expect(section.style.color).toBe('red')
+    expect(section.style.height).toBe('250svh')
+  })
+
+  test('poster : un élément est rendu tel quel, dans le calque masqué ; sans poster, aucun calque', () => {
+    const { container } = render(<CinematicSection id="affiche-el" shots={PLANS} poster={<svg data-testid="affiche-svg" />} />)
+    const affiche = container.querySelector('.cinematic__canvas .cinematic__poster')
+    expect(affiche.querySelector('[data-testid="affiche-svg"]')).not.toBeNull()
+    expect(affiche.dataset.visible).toBe('true')
+    const sans = render(<CinematicSection id="sans-affiche" shots={PLANS} />)
+    expect(sans.container.querySelector('.cinematic__poster')).toBeNull()
   })
 
   test('une section jamais atteinte ne télécharge rien', async () => {
@@ -399,6 +490,7 @@ describe('CinematicSection', () => {
     ['easing inconnu', [{ ...PLANS[0], ease: 'bounce' }, PLANS[2]]],
     ['mouvement inconnu', [PLANS[0], { at: 0.5, move: { type: 'zoomBurst' } }]],
     ['plan sans pos', [PLANS[0], { at: 1, look: [0, 1, 0], fov: 40 }]],
+    ['liste étroite invalide', { wide: PLANS, narrow: [ETROIT[0], { ...ETROIT[1], fov: 'x' }, ETROIT[2]] }],
   ])('plans invalides (%s) : la barrière les attrape, aucune image ne jette', async (_, plans) => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     vi.spyOn(console, 'error').mockImplementation(() => {})
@@ -467,5 +559,295 @@ describe('CinematicSection', () => {
     act(() => basculer(REDUIT, true))
     expect(vu.decor.policy.frameloop).toBe(vu.canvas.frameloop)
     expect(vu.decor.policy.idle).toBe(false)
+  })
+
+  // I1 : le fov est vertical, le champ horizontal fond en portrait.
+  test('cadrage par aspect : la liste large ou étroite selon le rapport de la fenêtre, suivi en direct', async () => {
+    ecran(1440, 900)
+    mise.scroll = scrollPour(0.25)
+    const { container } = render(<CinematicSection id="cadre" shots={{ wide: PLANS, narrow: ETROIT }} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(PLANS, 0.25))
+
+    act(() => ecran(390, 844))
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(ETROIT, 0.25))
+    defiler(scrollPour(0.7))
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(ETROIT, 0.7))
+
+    act(() => ecran(1280, 800))
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(PLANS, 0.7))
+  })
+
+  test('cadrage par aspect sous mouvement réduit : le plan fixe de la variante, et la progression figée qui va avec', async () => {
+    medias({ [REDUIT]: true })
+    ecran(390, 844)
+    mise.scroll = scrollPour(0.1)
+    const still = { wide: 0.2, narrow: 0.8 }
+    const { container } = render(<CinematicSection id="cadre-fixe" shots={{ wide: PLANS, narrow: ETROIT }} still={still} stage={Decor} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    memeCamera(vu.etat.camera, stillShot(ETROIT, 0.8))
+    expect(vu.decor.timeline.current.p).toBe(0.8)
+    act(() => ecran(1440, 900))
+    dessiner()
+    memeCamera(vu.etat.camera, stillShot(PLANS, 0.2))
+    expect(vu.decor.timeline.current.p).toBe(0.2)
+  })
+
+  // I2 : une scène animée a besoin d'images en continu, mais seulement à l'écran.
+  test('rendu continu : always visible, animé et sans mouvement réduit ; never hors écran ; demand sinon', async () => {
+    const { instances, voir } = observateurs()
+    mise.scroll = scrollPour(0.3)
+    const { container, rerender, unmount } = render(<CinematicSection id="anime" shots={PLANS} stage={Decor} animated />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    // Un seul observateur, sur l'enfant collant, dans la racine de scroll.
+    expect(instances).toHaveLength(1)
+    expect(instances[0].cibles).toEqual([container.querySelector('.cinematic__pin')])
+    expect(instances[0].options.root).toBe(racine)
+    // Avant le premier rappel : hors écran, la boucle est arrêtée…
+    expect(vu.canvas.frameloop).toBe('never')
+    expect(vu.decor.policy.frameloop).toBe('never')
+    expect(vu.decor.timeline.current.visible).toBe(false)
+    // … après une seule image d'amorce (delta nul), qui a placé la caméra.
+    expect(vu.etat.advance).toHaveBeenCalledTimes(1)
+    expect(vu.etat.advance).toHaveBeenCalledWith(0, true)
+    memeCamera(vu.etat.camera, shotAt(PLANS, 0.3))
+
+    voir(true)
+    expect(vu.canvas.frameloop).toBe('always')
+    expect(vu.decor.policy.frameloop).toBe('always')
+    expect(vu.decor.timeline.current.visible).toBe(true)
+
+    voir(false)
+    expect(vu.canvas.frameloop).toBe('never')
+    expect(vu.decor.policy.frameloop).toBe('never')
+    expect(vu.decor.timeline.current.visible).toBe(false)
+    // L'amorce ne sert qu'au montage.
+    expect(vu.etat.advance).toHaveBeenCalledTimes(1)
+
+    // Scène sans animation : à la demande, même à l'écran.
+    rerender(<CinematicSection id="anime" shots={PLANS} stage={Decor} />)
+    voir(true)
+    expect(vu.canvas.frameloop).toBe('demand')
+    expect(vu.decor.policy.frameloop).toBe('demand')
+
+    unmount()
+    expect(instances[0].coupe).toBe(true)
+  })
+
+  test('rendu continu : jamais sous mouvement réduit ; un écran tactile ne fige pas une scène animée', async () => {
+    const basculer = medias({ '(pointer: coarse)': true })
+    const { voir } = observateurs()
+    mise.scroll = scrollPour(0.3)
+    const { container } = render(<CinematicSection id="tactile" shots={PLANS} stage={Decor} animated />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    voir(true)
+    expect(vu.canvas.frameloop).toBe('always')
+    // Le personnage ne respire pas sur écran tactile, mais la scène s'anime.
+    expect(vu.decor.policy).toEqual(expect.objectContaining({ idle: false, animate: true, frameloop: 'always' }))
+
+    act(() => basculer(REDUIT, true))
+    expect(vu.canvas.frameloop).toBe('demand')
+    expect(vu.decor.policy).toEqual(expect.objectContaining({ animate: false, frameloop: 'demand' }))
+    // Sous mouvement réduit, le décor lit aussi la visibilité.
+    expect(vu.decor.timeline.current.visible).toBe(true)
+    voir(false)
+    expect(vu.decor.timeline.current.visible).toBe(false)
+    expect(vu.canvas.frameloop).toBe('never')
+  })
+
+  // I3 : un seul EffectComposer par section, la DOF toujours pilotée par la timeline.
+  test('effets : rendus dans le même composer que la profondeur de champ, qui suit toujours le focus', async () => {
+    const { voir } = observateurs()
+    mise.scroll = scrollPour(0.5)
+    const { container } = render(<CinematicSection id="eclat" shots={PLANS} depthOfField effects={<Eclat />} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    voir(true)
+    dessiner()
+    const composers = container.querySelectorAll('[data-testid="composer"]')
+    expect(composers).toHaveLength(1)
+    expect(composers[0].querySelector('[data-testid="dof"]')).not.toBeNull()
+    expect(composers[0].querySelector('[data-testid="eclat"]')).not.toBeNull()
+    expect(vu.dof.cocMaterial.focusDistance).toBeCloseTo(3, 9)
+    defiler(scrollPour(1))
+    dessiner()
+    expect(vu.dof.cocMaterial.focusDistance).toBeCloseTo(shotAt(PLANS, 1).focus, 9)
+    // La visibilité qui change re-rend le canvas, sans toucher aux enfants du composer :
+    // le vrai reconstruirait ses passes et recompilerait ses shaders.
+    const avant = vu.enfantsComposer.size
+    voir(false)
+    voir(true)
+    expect(vu.enfantsComposer.size).toBe(avant)
+  })
+
+  test('effets sans profondeur de champ : un composer, sans DOF', async () => {
+    mise.scroll = scrollPour(0.5)
+    const { container } = render(<CinematicSection id="eclat-seul" shots={PLANS} effects={<Eclat />} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    const composers = container.querySelectorAll('[data-testid="composer"]')
+    expect(composers).toHaveLength(1)
+    expect(composers[0].querySelector('[data-testid="eclat"]')).not.toBeNull()
+    expect(container.querySelector('[data-testid="dof"]')).toBeNull()
+  })
+
+  // 5 : le haut de l'image est posé avant lookAt.
+  test('up du plan appliqué à la caméra avant lookAt : un plan zénithal ne vrille pas', async () => {
+    const zenith = [
+      { at: 0, pos: [0, 6, 0], look: [0, 0, 0], fov: 40, up: [1, 0, 0] },
+      { at: 1, pos: [0, 5, 0], look: [0, 0, 0], fov: 30, up: [0, 0, 1] },
+    ]
+    mise.scroll = scrollPour(0.5)
+    const { container } = render(<CinematicSection id="zenith" shots={zenith} />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    const pose = shotAt(zenith, 0.5)
+    memeCamera(vu.etat.camera, pose)
+    vu.etat.camera.up.toArray().forEach((v, i) => expect(v).toBeCloseTo(pose.up[i], 9))
+    defiler(scrollPour(0))
+    dessiner()
+    memeCamera(vu.etat.camera, shotAt(zenith, 0))
+  })
+
+  // 7 : props du décor, sans remontage quand le parent re-rend.
+  test('stageProps transmis au décor ; la scène n est pas remontée quand le parent re-rend', async () => {
+    let montages = 0
+    function DecorCompte(props) {
+      vu.decor = props
+      React.useEffect(() => {
+        montages++
+      }, [])
+      return <i data-testid="decor" />
+    }
+    // Plans, préchargements et props du décor recréés à chaque rendu, comme chez un appelant pressé.
+    function Parent({ teinte }) {
+      return (
+        <CinematicSection
+          id="parent"
+          shots={PLANS.map((plan) => ({ ...plan }))}
+          preload={[...PRELOAD]}
+          stage={DecorCompte}
+          stageProps={{ teinte, timeline: 'ignorée', policy: 'ignorée' }}
+        />
+      )
+    }
+    mise.scroll = scrollPour(0.4)
+    const { container, rerender } = render(<Parent teinte="cuivre" />)
+    charger()
+    await waitFor(() => expect(container.querySelector('[data-testid="decor"]')).not.toBeNull())
+    expect(vu.decor.teinte).toBe('cuivre')
+    rerender(<Parent teinte="rouille" />)
+    rerender(<Parent teinte="mousse" />)
+    expect(vu.decor.teinte).toBe('mousse')
+    expect(montages).toBe(1)
+    // timeline et policy restent celles de la section.
+    expect(vu.decor.timeline.current.p).toBeCloseTo(0.4, 9)
+    expect(vu.decor.policy).toEqual(expect.objectContaining({ frameloop: vu.canvas.frameloop }))
+  })
+
+  test('scène chargée après le montage : une image est redemandée pour la montrer', async () => {
+    let resoudre
+    let charge = false
+    const promesse = new Promise((r) => {
+      resoudre = r
+    })
+    function DecorLent() {
+      if (!charge) throw promesse
+      return <i data-testid="decor" />
+    }
+    mise.scroll = scrollPour(0.4)
+    const { container } = render(<CinematicSection id="lent" shots={PLANS} stage={DecorLent} poster="/lent.webp" />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    expect(container.querySelector('[data-testid="decor"]')).toBeNull()
+    // Scène pas encore là : l'affiche reste, même après une image.
+    expect(container.querySelector('.cinematic__poster').dataset.visible).toBe('true')
+    const avant = vu.etat.invalidate.mock.calls.length
+    await act(async () => {
+      charge = true
+      resoudre()
+      await promesse
+    })
+    expect(container.querySelector('[data-testid="decor"]')).not.toBeNull()
+    expect(vu.etat.invalidate.mock.calls.length).toBeGreaterThan(avant)
+    dessiner()
+    expect(container.querySelector('.cinematic__poster').dataset.visible).toBe('false')
+  })
+
+  // 8 : une image à la place de la 3D, tant qu'elle n'a rien dessiné.
+  test('poster : affiché pendant le chargement, retiré après la première image, remis au démontage', async () => {
+    mise.scroll = 2500
+    const { container } = render(<CinematicSection id="affiche" shots={PLANS} stage={Decor} poster="/posters/projets.webp" />)
+    const affiche = () => container.querySelector('.cinematic__poster')
+    // À l'écran (pas d'IntersectionObserver ici) : pas d'image d'amorce, la boucle s'en charge.
+    expect(vu.etat.advance).not.toHaveBeenCalled()
+    expect(affiche().querySelector('img').getAttribute('src')).toBe('/posters/projets.webp')
+    expect(affiche().querySelector('img').getAttribute('alt')).toBe('')
+    expect(affiche().dataset.visible).toBe('true')
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    // Monté, mais aucune image dessinée : l'affiche reste.
+    expect(affiche().dataset.visible).toBe('true')
+    dessiner()
+    expect(affiche().dataset.visible).toBe('false')
+    // Démonté au loin : l'affiche revient pour le prochain passage.
+    defiler(0)
+    expect(canvasDe(container)).toBeNull()
+    expect(affiche().dataset.visible).toBe('true')
+    defiler(2500)
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    expect(affiche().dataset.visible).toBe('true')
+    dessiner()
+    expect(affiche().dataset.visible).toBe('false')
+  })
+
+  test('poster : remis quand la barrière désactive le canvas', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    let casse = false
+    function DecorFragile() {
+      if (casse) throw new Error('décor cassé')
+      return <i data-testid="decor" />
+    }
+    mise.scroll = scrollPour(0.2)
+    const { container, rerender } = render(<CinematicSection id="fragile" shots={PLANS} stage={DecorFragile} poster="/a.webp" />)
+    charger()
+    await waitFor(() => expect(canvasDe(container)).not.toBeNull())
+    dessiner()
+    expect(container.querySelector('.cinematic__poster').dataset.visible).toBe('false')
+    casse = true
+    rerender(<CinematicSection id="fragile" shots={PLANS} stage={DecorFragile} poster="/a.webp" stageProps={{ k: 1 }} />)
+    await waitFor(() => expect(canvasDe(container)).toBeNull())
+    expect(container.querySelector('.cinematic__poster').dataset.visible).toBe('true')
+  })
+
+  // En dernier : un module neuf, pour une sonde WebGL 2 qui n'a pas encore répondu.
+  test('poster : reste en place sans WebGL 2', async () => {
+    vi.resetModules()
+    const { default: SectionNeuve } = await import('../src/three/cinematic/CinematicSection.jsx')
+    HTMLCanvasElement.prototype.getContext.mockImplementation(() => null)
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    mise.scroll = scrollPour(0.3)
+    const { container } = render(<SectionNeuve id="sans-webgl" shots={PLANS} poster="/posters/repli.webp" />)
+    charger()
+    await waitFor(() => expect(warn).toHaveBeenCalled())
+    expect(String(warn.mock.calls[0][0])).toContain('WebGL 2')
+    await importsFaits()
+    expect(canvasDe(container)).toBeNull()
+    const affiche = container.querySelector('.cinematic__poster')
+    expect(affiche.dataset.visible).toBe('true')
+    expect(affiche.querySelector('img').getAttribute('src')).toBe('/posters/repli.webp')
   })
 })

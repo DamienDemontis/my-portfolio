@@ -9,21 +9,48 @@
 //
 // Props :
 //   id, track = '300svh'  identifiant et hauteur de la piste (unité CSS)
-//   shots                  timeline de plans (voir shots.js)
-//   still                  plan fixe sous prefers-reduced-motion (plan, ou progression) ;
-//                          par défaut le plan de p = 0.5
+//   shots                  timeline de plans (voir shots.js), ou { wide, narrow } : un cadrage
+//                          par rapport d'image (étroit sous NARROW_ASPECT, 1,15), mêmes ancres
+//   still                  plan fixe sous prefers-reduced-motion (plan, ou progression, ou
+//                          { wide, narrow } de l'un ou l'autre) ; par défaut le plan de p = 0.5
 //   onProgress(p)          appelé quand la progression change (celle du scroll, même sous
-//                          mouvement réduit : le texte en DOM reste l'affaire de l'appelant)
+//                          mouvement réduit : le texte en DOM reste l'affaire de l'appelant,
+//                          qui peut le caler sur segmentAt(shots, p))
 //   preload                URL des modèles du décor, préchargés au montage du canvas
 //   stage                  composant 3D rendu dans le canvas (idéalement React.lazy), qui
-//                          reçoit { timeline, policy } : timeline.current.p est la progression,
-//                          figée sur celle du plan fixe sous mouvement réduit ; policy vient de
-//                          motionPolicy, avec le frameloop réel du canvas ('demand')
+//                          reçoit stageProps, plus { timeline, policy } qu'ils ne peuvent pas
+//                          remplacer. timeline.current : p, la progression (figée sur celle du
+//                          plan fixe sous mouvement réduit), et visible, la section à l'écran ou
+//                          presque. policy vient de motionPolicy (animate : la scène peut
+//                          s'animer), avec le frameloop réel du canvas
+//   stageProps             props du décor
+//   animated = false       scène animée : rendu continu ('always') quand la section est à
+//                          l'écran et le mouvement permis ; sinon rendu à la demande, et rien
+//                          hors écran ('never'). Animer dans useFrame avec le delta, sans
+//                          invalidate()
 //   depthOfField = false   profondeur de champ pilotée par le focus des plans : true ou
 //                          { focusRange, bokehScale }
+//   effects                effets de post-traitement (Bloom…), rendus dans le même
+//                          EffectComposer que la profondeur de champ
+//   poster                 URL d'image ou élément, affiché tant que la 3D n'a rien dessiné :
+//                          chargement, absence de WebGL 2, canvas en échec
+//   className, aria-*, …   transmis à la <section> (la classe s'ajoute à « cinematic », la
+//                          hauteur de piste l'emporte sur style.height)
+//
+// Identités stables : `stage` est un composant défini une fois (au niveau du module, ou
+// React.lazy) ; un composant recréé à chaque rendu remonterait la scène et rechargerait tout.
+// `shots`, `still` et `effects` aussi (constantes de module ou useMemo) : de nouveaux plans sont
+// revérifiés, de nouveaux effets reconstruisent les passes et recompilent leurs shaders.
 import React from 'react'
 import { afterLoad } from '../../lib/afterLoad.js'
-import { getOffsetBottom, getOffsetTop, getScrollTop, getViewportHeight, onScroll } from '../../lib/scroll.js'
+import {
+  getOffsetBottom,
+  getOffsetTop,
+  getScrollContainer,
+  getScrollTop,
+  getViewportHeight,
+  onScroll,
+} from '../../lib/scroll.js'
 import '../../styles/cinematic.css'
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
@@ -31,6 +58,9 @@ const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
 // le contexte WebGL à chaque aller-retour autour de la limite.
 const MONTAGE = 1
 const DEMONTAGE = 1.5
+// « Visible » un peu avant l'écran (même marge que la scène des expertises) : la première
+// image est prête quand la section entre.
+const MARGE_VISIBLE = '30% 0px'
 
 const avertir = (message, ...detail) => console.warn(`[cinematique] ${message}`, ...detail)
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v)
@@ -93,6 +123,15 @@ function useReducedMotion() {
   return reduit
 }
 
+// Affiche à la place de la 3D : une image (URL) ou un élément fourni.
+function Affiche({ poster, visible }) {
+  return (
+    <div className="cinematic__poster" data-visible={visible ? 'true' : 'false'}>
+      {typeof poster === 'string' ? <img src={poster} alt="" decoding="async" loading="lazy" /> : poster}
+    </div>
+  )
+}
+
 export default function CinematicSection({
   id,
   track = '300svh',
@@ -102,15 +141,28 @@ export default function CinematicSection({
   onProgress,
   preload,
   stage,
+  stageProps,
+  animated = false,
   depthOfField = false,
+  effects,
+  poster,
+  className,
+  style,
+  ...attributs
 }) {
   const ref = React.useRef(null)
-  // Partagé avec le canvas : la progression, et son invalidate() quand il est monté.
-  const timeline = React.useRef({ p: 0, invalidate: null })
+  const pinRef = React.useRef(null)
+  // Sans IntersectionObserver, la section se tient pour visible (rendu à la demande).
+  const sansObservateur = typeof IntersectionObserver === 'undefined'
+  // Partagé avec le canvas : la progression, la visibilité, et invalidate() quand il est monté.
+  const timeline = React.useRef({ p: 0, visible: sansObservateur, invalidate: null })
   const onProgressRef = React.useRef(onProgress)
   onProgressRef.current = onProgress
   const [pret, setPret] = React.useState(false)
   const [proche, setProche] = React.useState(false)
+  const [visible, setVisible] = React.useState(sansObservateur)
+  // Le canvas a dessiné une image, scène chargée : l'affiche peut partir.
+  const [dessine, setDessine] = React.useState(false)
   // Copie de `proche` lue au scroll : setProche ne part que sur un vrai changement. Un
   // setState sans effet n'est pas gratuit, React garde la mise à jour en file jusqu'au
   // prochain rendu ; sur une section lointaine, elles s'empileraient à chaque scroll.
@@ -159,9 +211,32 @@ export default function CinematicSection({
     return onScroll(mesurer)
   }, [])
 
+  // Visibilité de l'enfant collant : elle choisit la boucle de rendu du canvas, et la scène
+  // la lit dans timeline.current.visible.
+  React.useEffect(() => {
+    const pin = pinRef.current
+    if (!pin || typeof IntersectionObserver === 'undefined') return undefined
+    const observateur = new IntersectionObserver(
+      (entrees) => {
+        const v = entrees[entrees.length - 1].isIntersecting
+        timeline.current.visible = v
+        setVisible(v)
+      },
+      { root: getScrollContainer(), rootMargin: MARGE_VISIBLE },
+    )
+    observateur.observe(pin)
+    return () => observateur.disconnect()
+  }, [])
+
   return (
-    <section ref={ref} id={id} className="cinematic" style={{ height: track }}>
-      <div className="cinematic__pin">
+    <section
+      {...attributs}
+      ref={ref}
+      id={id}
+      className={className ? `cinematic ${className}` : 'cinematic'}
+      style={{ ...style, height: track }}
+    >
+      <div className="cinematic__pin" ref={pinRef}>
         <div className="cinematic__canvas" aria-hidden="true">
           <Barriere>
             {pret && proche && (
@@ -170,14 +245,20 @@ export default function CinematicSection({
                   shots={shots}
                   still={still}
                   reduced={reduit}
+                  visible={visible}
+                  animated={animated}
                   timeline={timeline}
                   preload={preload}
                   stage={stage}
+                  stageProps={stageProps}
                   depthOfField={depthOfField}
+                  effects={effects}
+                  onDrawn={setDessine}
                 />
               </React.Suspense>
             )}
           </Barriere>
+          {poster != null && <Affiche poster={poster} visible={!dessine} />}
         </div>
         <div className="cinematic__content">{children}</div>
       </div>
